@@ -86,7 +86,7 @@ export const ui = {
     'inicio.destacados': 'Proyectos destacados',
     'inicio.verTodos': 'Ver todos',
     'inicio.destacadosPendiente':
-      '[PENDIENTE: los proyectos destacados aparecen al integrar los casos — FASE 4]',
+      '[PENDIENTE: los proyectos destacados aparecen al integrar los casos de este idioma — FASE 6]',
     'inicio.queHago': 'Qué hago',
     'inicio.queHago.1.titulo': 'Diseño de interacción y UX/UI',
     'inicio.queHago.1.texto':
@@ -131,7 +131,7 @@ export const ui = {
     'proyectos.rol': 'Rol',
     'proyectos.herramientas': 'Herramientas',
     'proyectos.vacio': 'No hay proyectos en esta categoría.',
-    'proyectos.pendiente': '[PENDIENTE: los casos de estudio se integran en FASE 4]',
+    'proyectos.pendiente': '[PENDIENTE: los casos de estudio de este idioma se integran en FASE 6]',
     'proyectos.imagenPendiente': '[PENDIENTE: imagen del proyecto]',
     'proyectos.conteoUno': 'proyecto visible',
     'proyectos.conteoVarios': 'proyectos visibles',
@@ -231,7 +231,7 @@ export const ui = {
     'inicio.destacados': 'Featured projects',
     'inicio.verTodos': 'View all',
     'inicio.destacadosPendiente':
-      '[PENDING: featured projects appear once the case studies are integrated — PHASE 4]',
+      '[PENDING: featured projects appear once the English case studies are integrated — PHASE 6]',
     'inicio.queHago': 'What I do',
     'inicio.queHago.1.titulo': 'Interaction design and UX/UI',
     'inicio.queHago.1.texto': 'Clear interfaces, tested with real users and ready to build.',
@@ -274,7 +274,7 @@ export const ui = {
     'proyectos.rol': 'Role',
     'proyectos.herramientas': 'Tools',
     'proyectos.vacio': 'No projects in this category.',
-    'proyectos.pendiente': '[PENDING: case studies are integrated in PHASE 4]',
+    'proyectos.pendiente': '[PENDING: the English case studies are integrated in PHASE 6]',
     'proyectos.imagenPendiente': '[PENDING: project image]',
     'proyectos.conteoUno': 'project shown',
     'proyectos.conteoVarios': 'projects shown',

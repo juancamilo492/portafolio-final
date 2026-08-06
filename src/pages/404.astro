@@ -12,8 +12,8 @@ import { DEFAULT_LOCALE } from '../i18n/ui';
 const locale = DEFAULT_LOCALE;
 const t = useTranslations(locale);
 
-// Sin proyectos (hasta FASE 4) la franja de sugerencias simplemente no aparece:
-// una 404 no es el lugar para un marcador de trabajo pendiente.
+// Si el idioma no tiene proyectos, la franja de sugerencias simplemente no
+// aparece: una 404 no es el lugar para un marcador de trabajo pendiente.
 const sugerencias = await proyectosDestacados(locale, 3);
 ---
 

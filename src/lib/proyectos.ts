@@ -15,9 +15,8 @@ export function slugDeEntrada(entrada: Proyecto): string {
 }
 
 /**
- * La colección se lee una sola vez por build. Además de ahorrar trabajo,
- * evita que el aviso de "colección vacía" se repita en cada página mientras
- * los casos no estén integrados (FASE 4).
+ * La colección se lee una sola vez por build: todas las páginas comparten la
+ * misma promesa en lugar de recorrer los .md una vez por ruta.
  */
 let coleccion: Promise<Proyecto[]> | undefined;
 

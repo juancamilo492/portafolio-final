@@ -20,7 +20,8 @@ export const getStaticPaths = pathsDeLocalesActivos;
 const locale = Astro.params.lang as Locale;
 const t = useTranslations(locale);
 
-// Vacío hasta FASE 4: la sección lo resuelve con un marcador, no con relleno.
+// Vacío mientras el idioma no tenga casos: la sección lo resuelve con un
+// marcador, no con relleno.
 const destacados = await proyectosDestacados(locale, 3);
 
 const perfilLinkedin = SITIO.linkedin.replace(/^https?:\/\/(www\.)?/, '');
@@ -116,7 +117,7 @@ const proceso = [
           tamano={26}
           class="absolute -top-3.5 -left-1.5 z-[3] text-acento dark:text-menta"
         />
-        {/* [PENDIENTE: retrato del hero — se integra con astro:assets en FASE 4] */}
+        {/* [PENDIENTE: retrato del hero — se integra con astro:assets cuando exista la foto] */}
         <PozoImagen
           texto={t('inicio.retratoPendiente')}
           class="retrato-bn relative z-[2] aspect-[4/4.6] overflow-hidden rounded-[22px]"

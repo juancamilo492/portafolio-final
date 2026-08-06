@@ -42,8 +42,8 @@ const proyectos = defineCollection({
       herramientas: z.array(z.string()).nonempty(),
       destacado: z.boolean().default(false),
       resumen: z.string(),
-      // Opcional mientras las imágenes se optimizan en FASE 4.
-      // Ruta relativa al .md, procesada por astro:assets.
+      // Ruta relativa al .md, procesada por astro:assets. Opcional: un caso
+      // sin portada cae en el marco `PozoImagen` en vez de romper el build.
       imagen_portada: image().optional(),
       // Ordena destacados en el inicio y la navegación anterior/siguiente.
       orden: z.number().int().positive(),
