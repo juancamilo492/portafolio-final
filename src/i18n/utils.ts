@@ -60,18 +60,38 @@ export interface Alternativa {
   locale: Locale;
   nombre: string;
   href: string;
+  /**
+   * `true` cuando el href es esta misma página en ese idioma. `false` cuando
+   * la página no existe allí y el href cae al índice de la sección.
+   */
+  exacta: boolean;
 }
 
 /**
- * La misma página en cada idioma activo. Alimenta el selector de idioma y,
- * en FASE 5, las etiquetas hreflang.
+ * La misma página en cada idioma activo, para el selector de idioma y las
+ * etiquetas hreflang.
+ *
+ * `disponibles` son los idiomas en los que la página realmente se genera; para
+ * un caso de estudio se calcula con `localesDeProyecto` (src/lib/proyectos.ts),
+ * porque un caso puede existir en español y todavía no en inglés. Al idioma que
+ * falta no se le ofrece la ruta del caso — no está en dist y daría 404 —, sino
+ * el índice de la sección, que sí existe. Solo las entradas `exacta` merecen
+ * un hreflang: las demás no son traducciones de esta página.
  */
-export function alternativasDeIdioma(clave?: ClaveRuta, slug?: string): Alternativa[] {
-  return LOCALES_ACTIVOS.map((locale) => ({
-    locale,
-    nombre: NOMBRE_LOCALE[locale],
-    href: rutaDe(locale, clave, slug),
-  }));
+export function alternativasDeIdioma(
+  clave?: ClaveRuta,
+  slug?: string,
+  disponibles: readonly Locale[] = LOCALES_ACTIVOS,
+): Alternativa[] {
+  return LOCALES_ACTIVOS.map((locale) => {
+    const exacta = disponibles.includes(locale);
+    return {
+      locale,
+      nombre: NOMBRE_LOCALE[locale],
+      href: exacta ? rutaDe(locale, clave, slug) : rutaDe(locale, clave),
+      exacta,
+    };
+  });
 }
 
 /** Rutas de páginas sin sub-segmento (portada): solo los locales activos. */

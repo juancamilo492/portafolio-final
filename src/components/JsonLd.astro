@@ -1,0 +1,24 @@
+---
+/**
+ * Bloque `application/ld+json` con los nodos que le pase la página.
+ * Un solo `@graph` por página: los buscadores lo prefieren a varios bloques
+ * sueltos, y los nodos pueden referenciarse entre sí por `@id`.
+ */
+import type { NodoJsonLd } from '../lib/jsonld';
+
+interface Props {
+  nodos: NodoJsonLd[];
+}
+
+const { nodos } = Astro.props;
+
+const grafo = { '@context': 'https://schema.org', '@graph': nodos };
+
+/*
+ * `<` escapado: un título de caso que lo contenga no puede cerrar el <script>
+ * ni abrir otra etiqueta. Es JSON válido igual, `<` es la misma letra.
+ */
+const json = JSON.stringify(grafo).replace(/</g, '\\u003c');
+---
+
+{nodos.length > 0 && <script type="application/ld+json" is:inline set:html={json} />}

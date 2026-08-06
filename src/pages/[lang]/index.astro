@@ -11,7 +11,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import retrato from '../../assets/retratos/hero-juan-camilo.webp';
 import { pathsDeLocalesActivos, rutaDe, useTranslations } from '../../i18n/utils';
+import { jsonLdInicio } from '../../lib/jsonld';
+import { rutaOg } from '../../lib/og';
 import { proyectosDestacados } from '../../lib/proyectos';
+import { siteDe } from '../../lib/seo';
 import { SITIO } from '../../config/sitio';
 import type { NombreIcono } from '../../components/Icono.astro';
 import type { Locale } from '../../i18n/ui';
@@ -45,6 +48,8 @@ const proceso = [
   activa="inicio"
   titulo={t('meta.inicio.titulo')}
   descripcion={t('meta.inicio.descripcion')}
+  imagenOg={rutaOg(locale, 'inicio')}
+  jsonLd={jsonLdInicio(siteDe(Astro.site), locale)}
 >
   {/* --- Hero --- */}
   <section

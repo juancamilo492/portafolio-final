@@ -6,11 +6,16 @@ import { DEFAULT_LOCALE, LOCALES_ACTIVOS, type Locale } from '../i18n/ui';
 
 export const SITIO = {
   autor: 'Juan Camilo Bolaños',
-  ubicacion: 'Medellín, Colombia',
+  // Separadas porque el nodo PostalAddress del JSON-LD las pide por campo.
+  ciudad: 'Medellín',
+  pais: 'Colombia',
   correo: 'juancamilob492@gmail.com',
   whatsapp: '573003974565',
   linkedin: 'https://www.linkedin.com/in/juan-camilo-bolanos-garcia',
 } as const;
+
+/** «Medellín, Colombia», para textos corridos. */
+export const UBICACION = `${SITIO.ciudad}, ${SITIO.pais}`;
 
 export const ENLACE_WHATSAPP = `https://wa.me/${SITIO.whatsapp}`;
 export const ENLACE_CORREO = `mailto:${SITIO.correo}`;

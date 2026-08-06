@@ -6,7 +6,10 @@ import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { pathsDeSeccion, useTranslations } from '../../../i18n/utils';
 import { etiquetaCategoria, slugCategoria } from '../../../lib/categorias';
+import { jsonLdProyectos } from '../../../lib/jsonld';
+import { rutaOg } from '../../../lib/og';
 import { proyectosPorLocale } from '../../../lib/proyectos';
+import { siteDe } from '../../../lib/seo';
 import { CATEGORIAS } from '../../../content.config';
 import type { Locale } from '../../../i18n/ui';
 
@@ -33,6 +36,8 @@ const chips = [
   activa="proyectos"
   titulo={t('meta.proyectos.titulo')}
   descripcion={t('meta.proyectos.descripcion')}
+  imagenOg={rutaOg(locale, 'proyectos')}
+  jsonLd={jsonLdProyectos(siteDe(Astro.site), locale, proyectos)}
 >
   <Contenedor class="pt-14 md:pt-[72px]">
     <h1 class="text-[38px] tracking-[-.025em] sm:text-[46px] lg:text-[54px]">

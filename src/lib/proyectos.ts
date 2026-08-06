@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { esLocale } from '../i18n/utils';
-import { DEFAULT_LOCALE, type Locale } from '../i18n/ui';
+import { DEFAULT_LOCALE, LOCALES_ACTIVOS, type Locale } from '../i18n/ui';
 
 export type Proyecto = CollectionEntry<'proyectos'>;
 
@@ -23,6 +23,19 @@ let coleccion: Promise<Proyecto[]> | undefined;
 function todosLosProyectos(): Promise<Proyecto[]> {
   coleccion ??= getCollection('proyectos');
   return coleccion;
+}
+
+/**
+ * Idiomas activos en los que existe el caso con ese slug, es decir aquellos
+ * cuya ruta el build llega a generar. Un caso sin traducir no puede aparecer
+ * en el hreflang ni como enlace directo del selector: sería un 404.
+ */
+export async function localesDeProyecto(slug: string): Promise<Locale[]> {
+  const todos = await todosLosProyectos();
+  const existentes = new Set(
+    todos.filter((entrada) => entrada.data.slug === slug).map(localeDeEntrada),
+  );
+  return LOCALES_ACTIVOS.filter((locale) => existentes.has(locale));
 }
 
 /** Todos los proyectos de un idioma, ordenados por `orden` ascendente. */

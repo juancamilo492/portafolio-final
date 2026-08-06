@@ -9,13 +9,17 @@ import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { rutaDe, segmento, useTranslations } from '../../../i18n/utils';
 import { etiquetaCategoria } from '../../../lib/categorias';
+import { jsonLdCaso } from '../../../lib/jsonld';
+import { rutaOg } from '../../../lib/og';
 import {
   localeDeEntrada,
+  localesDeProyecto,
   proyectosPorLocale,
   proyectosRelacionados,
   vecinosDeProyecto,
   type Proyecto,
 } from '../../../lib/proyectos';
+import { siteDe } from '../../../lib/seo';
 import { LOCALES_ACTIVOS } from '../../../i18n/ui';
 
 interface Props {
@@ -54,6 +58,15 @@ const contexto = [
   { etiqueta: t('proyectos.rol'), valor: datos.rol },
   { etiqueta: t('proyectos.herramientas'), valor: datos.herramientas.join(', ') },
 ];
+
+/*
+ * Los idiomas en los que este caso existe como archivo, que son los únicos
+ * cuya ruta genera el build. Sin esto el hreflang y el selector ofrecerían
+ * /en/projects/<slug>/ para casos que todavía solo están en español.
+ */
+const localesDisponibles = await localesDeProyecto(datos.slug);
+const site = siteDe(Astro.site);
+const imagenOg = rutaOg(locale, 'caso', datos.slug);
 ---
 
 <BaseLayout
@@ -62,6 +75,10 @@ const contexto = [
   slug={datos.slug}
   titulo={datos.titulo}
   descripcion={datos.resumen}
+  tipo="article"
+  imagenOg={imagenOg}
+  jsonLd={jsonLdCaso(site, locale, proyecto, imagenOg)}
+  localesDisponibles={localesDisponibles}
 >
   {/* --- Encabezado del caso --- */}
   <Contenedor class="pt-12 md:pt-14">

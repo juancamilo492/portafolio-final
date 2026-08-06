@@ -3,8 +3,19 @@ import '../styles/global.css';
 import BotonesFlotantes from '../components/BotonesFlotantes.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { alternativasDeIdioma, useTranslations } from '../i18n/utils';
-import { DEFAULT_LOCALE, HREFLANG, type ClaveRuta, type Locale } from '../i18n/ui';
+import {
+  DEFAULT_LOCALE,
+  HREFLANG,
+  OG_LOCALE,
+  type ClaveRuta,
+  type Locale,
+} from '../i18n/ui';
+import { SITIO } from '../config/sitio';
+import type { NodoJsonLd } from '../lib/jsonld';
+import { ALTO_OG, ANCHO_OG, rutaOg } from '../lib/og';
+import { absoluta, siteDe } from '../lib/seo';
 
 interface Props {
   titulo: string;
@@ -14,14 +25,52 @@ interface Props {
   activa?: 'inicio' | ClaveRuta;
   /** Slug del caso de estudio, si la página es uno. */
   slug?: string;
+  /** `og:type`. Un caso de estudio es `article`; todo lo demás, `website`. */
+  tipo?: 'website' | 'article';
+  /** Ruta de la tarjeta Open Graph 1200×630. Por defecto, la del inicio. */
+  imagenOg?: string;
+  /** Nodos JSON-LD que arma la página con las fábricas de src/lib/jsonld.ts. */
+  jsonLd?: NodoJsonLd[];
+  /**
+   * Idiomas en los que esta página existe de verdad. Por defecto, todos los
+   * activos; un caso sin traducir pasa aquí solo los suyos.
+   */
+  localesDisponibles?: readonly Locale[];
+  /** La 404 no se indexa ni declara hreflang: no es una página del sitio. */
+  noindex?: boolean;
 }
 
-const { titulo, descripcion, locale = DEFAULT_LOCALE, activa, slug } = Astro.props;
+const {
+  titulo,
+  descripcion,
+  locale = DEFAULT_LOCALE,
+  activa,
+  slug,
+  tipo = 'website',
+  imagenOg,
+  jsonLd = [],
+  localesDisponibles,
+  noindex = false,
+} = Astro.props;
+
 const t = useTranslations(locale);
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const site = siteDe(Astro.site);
+const canonical = new URL(Astro.url.pathname, site);
 
 const claveRuta: ClaveRuta | undefined = activa === 'inicio' ? undefined : activa;
-const alternativas = alternativasDeIdioma(claveRuta, slug);
+const alternativas = alternativasDeIdioma(claveRuta, slug, localesDisponibles);
+
+/*
+ * Solo las alternativas exactas son traducciones de ESTA página; las demás son
+ * un respaldo del selector hacia el índice de la sección, y anunciarlas como
+ * hreflang le diría al buscador que dos páginas distintas son equivalentes.
+ * x-default apunta al español, que es donde vive el contenido original.
+ */
+const traducciones = noindex ? [] : alternativas.filter((alt) => alt.exacta);
+const porDefecto = alternativas.find((alt) => alt.locale === DEFAULT_LOCALE);
+
+const tarjeta = absoluta(site, imagenOg ?? rutaOg(locale, 'inicio'));
+const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
 ---
 
 <!doctype html>
@@ -31,8 +80,46 @@ const alternativas = alternativasDeIdioma(claveRuta, slug);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
-    <link rel="canonical" href={canonical.href} />
+    {/* La 404 no es una página: no tiene URL propia que declarar como canónica. */}
+    {!noindex && <link rel="canonical" href={canonical.href} />}
     <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    {/* Cada versión de esta página que de verdad existe en dist. */}
+    {
+      traducciones.map((alt) => (
+        <link rel="alternate" hreflang={HREFLANG[alt.locale]} href={absoluta(site, alt.href)} />
+      ))
+    }
+    {
+      !noindex && porDefecto && (
+        <link rel="alternate" hreflang="x-default" href={absoluta(site, porDefecto.href)} />
+      )
+    }
+
+    {/* --- Open Graph --- */}
+    <meta property="og:type" content={tipo} />
+    <meta property="og:site_name" content={SITIO.autor} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:locale" content={OG_LOCALE[locale]} />
+    {
+      traducciones
+        .filter((alt) => alt.locale !== locale)
+        .map((alt) => <meta property="og:locale:alternate" content={OG_LOCALE[alt.locale]} />)
+    }
+    <meta property="og:image" content={tarjeta} />
+    <meta property="og:image:width" content={String(ANCHO_OG)} />
+    <meta property="og:image:height" content={String(ALTO_OG)} />
+    <meta property="og:image:alt" content={tarjetaAlt} />
+
+    {/* --- Twitter Card. Sin `twitter:site`: no hay cuenta que declarar. --- */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={titulo} />
+    <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={tarjeta} />
+    <meta name="twitter:image:alt" content={tarjetaAlt} />
 
     {/*
       Tema sin parpadeo: se ejecuta antes de pintar, así que el fondo correcto
@@ -49,7 +136,8 @@ const alternativas = alternativasDeIdioma(claveRuta, slug);
       })();
     </script>
 
-    {/* FASE 5: Open Graph, Twitter Card, hreflang y JSON-LD. */}
+    <JsonLd nodos={jsonLd} />
+
     {/* FASE 7: aquí va el script del widget de accesibilidad UserWay. */}
   </head>
 

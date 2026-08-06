@@ -8,6 +8,9 @@ import { Image } from 'astro:assets';
 import retrato from '../../assets/retratos/sobre-mi-juan-camilo.webp';
 import { pathsDePagina, useTranslations } from '../../i18n/utils';
 import { etiquetaCategoria } from '../../lib/categorias';
+import { jsonLdSobreMi } from '../../lib/jsonld';
+import { rutaOg } from '../../lib/og';
+import { siteDe } from '../../lib/seo';
 import type { Locale } from '../../i18n/ui';
 
 // Solo genera Sobre mí: /es/sobre-mi/, /en/about/
@@ -75,6 +78,8 @@ const idiomas = [
   activa="sobreMi"
   titulo={t('meta.sobreMi.titulo')}
   descripcion={t('meta.sobreMi.descripcion')}
+  imagenOg={rutaOg(locale, 'sobreMi')}
+  jsonLd={jsonLdSobreMi(siteDe(Astro.site), locale)}
 >
   {/* --- Presentación --- */}
   <section class="ondas [--ondas-radio:48px] [--ondas-x:92%] [--ondas-y:8%] overflow-hidden">

@@ -32,6 +32,18 @@ export const HREFLANG: Record<Locale, string> = {
 };
 
 /**
+ * `og:locale` pide idioma_TERRITORIO. Se usan los territorios de la lista
+ * estándar de Facebook, no `es_CO`: el sitio es de Medellín pero su español
+ * no es regional y `es_CO` no está en esa lista.
+ */
+export const OG_LOCALE: Record<Locale, string> = {
+  es: 'es_ES',
+  en: 'en_US',
+  fr: 'fr_FR',
+  de: 'de_DE',
+};
+
+/**
  * Segmentos de URL traducidos. Cada página se genera con el segmento de su
  * idioma: /es/proyectos/, /en/projects/, /es/sobre-mi/, /en/about/.
  * Cambiar un valor aquí cambia la URL en todo el sitio.
@@ -69,6 +81,8 @@ export const ui = {
     'meta.404.titulo': 'Página no encontrada',
     'meta.404.descripcion':
       'La página que buscabas no existe o cambió de lugar. Vuelve al inicio o mira los proyectos.',
+    // {titulo} se reemplaza con el título de la página al armar el alt de la imagen OG.
+    'meta.ogAlt': 'Tarjeta de «{titulo}» en el portafolio de Juan Camilo Bolaños',
 
     // --- Inicio ---
     'inicio.badge': 'Disponible para proyectos',
@@ -215,6 +229,7 @@ export const ui = {
     'meta.404.titulo': 'Page not found',
     'meta.404.descripcion':
       'The page you were looking for does not exist or has moved. Go back home or browse the projects.',
+    'meta.ogAlt': 'Card for “{titulo}” on Juan Camilo Bolaños’ portfolio',
 
     // --- Home ---
     'inicio.badge': 'Available for projects',
