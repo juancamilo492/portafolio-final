@@ -72,10 +72,10 @@ destacado (boolean), resumen, imagen_portada (opcional, `image()`), orden
 (number, obligatorio), cita y cita_autor (opcionales). Estructura:
 `src/content/proyectos/{es,en,fr,de}/<slug>.md`.
 
-Los casos en español están escritos en `contenido/` y NO deben reescribirse.
-Son 5 de los 6 previstos; falta `abuelos-nietos`, que Juan Camilo agregará
-después. Al integrarlos (FASE 4) hay que tocar solo el frontmatter:
-añadir `orden` y remapear `categoria` a la lista canónica.
+Los casos en español están escritos en `contenido/` y NO deben reescribirse;
+esa carpeta queda como fuente original. Los 5 ya están integrados en la
+colección (FASE 4) con el cuerpo intacto. Falta `abuelos-nietos`, que Juan
+Camilo agregará después.
 
 Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
 salen en la portada):
@@ -149,8 +149,8 @@ LinkedIn /in/juan-camilo-bolanos-garcia
 
 ## Estado actual
 
-FASES 1, 2 y 3 están completas y commiteadas. `astro check` pasa con
-0 errores, 0 warnings y 0 hints; el build genera 7 páginas.
+FASES 1, 2, 3 y 4 están completas y commiteadas. `astro check` pasa con
+0 errores, 0 warnings y 0 hints; el build genera 12 páginas.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -173,7 +173,9 @@ Ya existe:
   `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
 - i18n con rutas traducidas y todas las cadenas de FASE 3 en es/en.
-  Colección `proyectos` vacía a la espera de FASE 4.
+- Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
+  categorías canónicas y portada. Los `.md` originales siguen en
+  `contenido/` como fuente; el cuerpo de las copias es idéntico byte a byte.
 
 Decisiones de FASE 3 que no hay que revertir:
 - La itálica del H1 del hero usa `--color-acento-hover` (3.01:1, válido
@@ -186,49 +188,55 @@ Decisiones de FASE 3 que no hay que revertir:
   era una prop del prototipo y aquí existe el toggle real.
 - El índice del caso se oculta bajo 1024px, opción que el handoff permite.
 
+Decisiones de FASE 4 que no hay que revertir:
+- Los 5 `.md` se copiaron con un script: solo cambió el frontmatter
+  (`categoria` canónica, `orden`, `imagen_portada`). El cuerpo se verificó
+  idéntico al de `contenido/`.
+- Las portadas son placeholders generados (1600×1000 PNG, estética Esmeralda,
+  con el texto «[PENDIENTE: imagen de portada]» dentro de la propia imagen)
+  en `src/assets/proyectos/<slug>-portada.png`. Se reemplazan archivo por
+  archivo conservando el nombre: el frontmatter no se toca. Están en el
+  repo para ejercitar el pipeline de astro:assets, no como arte definitivo.
+- `industrial` sigue sin `cita`: el propio caso marca
+  «[PENDIENTE: testimonio — pedir permiso para citar]» y la frase del
+  handoff es de la administradora del bar. No se publica sin ese permiso.
+- Los avisos `[PENDIENTE]` de destacados y de la grilla ahora hablan de
+  FASE 6: en español ya no se ven, y en inglés lo que falta es la
+  traducción de los casos, no la integración.
+
 Pendientes conocidos, además de las fases:
-- Retratos de Juan Camilo (hero y sobre-mi) e imágenes de los 6 casos.
+- Retratos de Juan Camilo (hero y sobre-mi): siguen en `PozoImagen`, sin
+  placeholder generado, porque una foto no se puede fingir.
+- Reemplazar las 6 portadas placeholder por las imágenes reales (≥1200px de
+  ancho) y añadir la del caso `abuelos-nietos` cuando exista.
+- Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - PDFs del CV en `public/cv/` (rutas ya declaradas en `src/config/sitio.ts`).
 - El caso `abuelos-nietos`.
 - Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
   hechos verificables de los casos y marca el resto como `[PENDIENTE]`).
 - No hay `public/favicon.ico`; el dev server lo avisa en cada carga.
-- El build avisa que la colección `proyectos` está vacía; desaparece en
-  FASE 4.
 
-## Qué le falta a FASE 4 (checklist)
+## Cómo se agrega un caso nuevo (queda de FASE 4)
 
-Las páginas ya están construidas: FASE 4 solo mueve contenido, no rediseña.
-Todo lo que dependa de la colección hoy muestra un `[PENDIENTE: ...]`
-visible y debe quedar resuelto al terminar.
-
-1. Copiar los 5 `.md` de `contenido/` a `src/content/proyectos/es/`,
-   nombrando cada archivo con su `slug`. No reescribir el cuerpo: los `##`
+1. Escribir el `.md` en `contenido/` y copiarlo a
+   `src/content/proyectos/es/<slug>.md`. El cuerpo no se reescribe: los `##`
    alimentan el índice lateral del caso.
-2. En el frontmatter, y solo ahí:
-   - añadir `orden` según la lista de la sección Contenido;
-   - remapear `categoria` a la lista canónica (tabla de abajo);
-   - **borrar `imagen_portada: "[pendiente]"`**: el campo es `image()` y
-     ese string rompe la validación de Zod. Se vuelve a añadir cuando la
-     imagen exista.
-3. Mapeo acordado de categorías (regla en `src/content.config.ts`):
+2. Frontmatter obligatorio: `orden` según la lista de la sección Contenido y
+   `categoria` dentro de la lista canónica (cualquier otro valor rompe el
+   build a propósito). Mapeo ya aplicado a los 5 casos:
    - i-homotic → `Investigación`, `Diseño de servicio`, `UX/UI`
    - industrial → `Producto digital`, `UX/UI`
    - vr-capacitacion-alico → `Inmersivo`, `Investigación`
    - empaques-ia-alico → `IA y automatización`, `UX/UI`
    - siguiendo-la-huella-azul → `Inmersivo`, `Investigación`, `UX/UI`
-4. Imágenes en `src/assets/proyectos/`, referenciadas desde el `.md` como
-   `../../../assets/proyectos/<archivo>`. Las plantillas piden hasta
-   1200px de ancho (portada del caso) y 800px (tarjetas), así que el
-   original debe medir 1200px o más.
-5. La cita de `industrial` está en el handoff ("Nos está coincidiendo muy
-   bien con los datos facturados y con el inventario." — Administradora del
-   bar). Confirmarla con Juan Camilo antes de ponerla en `cita` /
-   `cita_autor`; no inventar citas para los demás casos.
-6. Verificar después: la portada muestra i-homotic, industrial y
-   vr-capacitacion-alico; la grilla genera un chip por cada categoría en
-   uso; el anterior/siguiente sigue el `orden`; los relacionados comparten
-   categoría.
+3. Imagen en `src/assets/proyectos/`, referenciada como
+   `../../../assets/proyectos/<archivo>`. Las plantillas piden hasta 1200px
+   de ancho (portada del caso) y 800px (tarjetas): el original debe medir
+   1200px o más. `imagen_portada` puede omitirse; sin ella el caso cae en el
+   marco `PozoImagen`.
+4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
+   grilla genera un chip por categoría en uso, el anterior/siguiente sigue
+   el `orden` y los relacionados comparten categoría.
 
 ## Fases y prompt de arranque de cada una
 
