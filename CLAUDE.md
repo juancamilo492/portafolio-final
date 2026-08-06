@@ -131,6 +131,14 @@ LinkedIn /in/juan-camilo-bolanos-garcia
 - HTML semántico: un h1 por página, jerarquía de headings correcta, alt en
   todas las imágenes.
 
+**El sitemap no empareja idiomas.** `@astrojs/sitemap` tiene una opción
+`i18n` que añade `xhtml:link` entre versiones, pero asume que la URL solo
+cambia en el prefijo de locale. Aquí los segmentos también están traducidos
+(`/es/proyectos/` ↔ `/en/projects/`), así que ese emparejado declararía
+equivalencias falsas. El sitemap lista las URLs y punto; las relaciones entre
+idiomas viven en el `hreflang` del HTML, que además sabe qué páginas existen
+de verdad en cada idioma. No activar esa opción.
+
 ## Accesibilidad y calidad
 
 - Skip link, navegación completa por teclado, focus visible, aria en
@@ -149,8 +157,9 @@ LinkedIn /in/juan-camilo-bolanos-garcia
 
 ## Estado actual
 
-FASES 1, 2, 3 y 4 están completas y commiteadas. `astro check` pasa con
-0 errores, 0 warnings y 0 hints; el build genera 12 páginas.
+FASES 1, 2, 3, 4 y 5 están completas y commiteadas. `astro check` pasa con
+0 errores, 0 warnings y 0 hints; el build genera 12 páginas, 11 tarjetas
+Open Graph, el sitemap, `robots.txt` y `llms.txt`.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -182,6 +191,11 @@ Ya existe:
   industrial son logos, así que sirven para los cuatro idiomas.
 - Los dos retratos (`src/assets/retratos/`) y el CV en español
   (`public/cv/juan-camilo-bolanos-es.pdf`).
+- Toda la capa de SEO/GEO: `BaseLayout` con Open Graph, Twitter Card,
+  hreflang y JSON-LD; `src/lib/seo.ts` (`siteDe`, `absoluta`);
+  `src/lib/jsonld.ts` + `JsonLd.astro`; `src/lib/og.ts` con la plantilla de
+  las tarjetas; el endpoint `src/pages/og/[...ruta].png.ts`;
+  `src/pages/robots.txt.ts` y `src/pages/llms.txt.ts`; sitemap en la config.
 
 Decisiones de FASE 3 que no hay que revertir:
 - La itálica del H1 del hero usa `--color-acento-hover` (3.01:1, válido
@@ -218,6 +232,43 @@ Decisiones de FASE 4 que no hay que revertir:
   FASE 6: en español ya no se ven, y en inglés lo que falta es la
   traducción de los casos, no la integración.
 
+Decisiones de FASE 5 que no hay que revertir:
+- `alternativasDeIdioma(clave, slug, disponibles)` recibe los idiomas en los
+  que la página existe. Para un caso se calculan con `localesDeProyecto()`
+  (`src/lib/proyectos.ts`), que mira qué `.md` hay en la colección. Cada
+  alternativa lleva `exacta`: las exactas son las únicas que salen como
+  `hreflang` y como `og:locale:alternate`; a las demás el selector de idioma
+  las manda al índice de la sección, que sí existe. Antes ofrecía
+  `/en/projects/<slug>/` para casos que solo están en español: un 404.
+- Un solo `<script type="application/ld+json">` por página, con `@graph`, y
+  los nodos referenciados (Person, WebSite) van dentro del grafo en vez de
+  quedar como `@id` colgando de otra página. `JsonLd.astro` escapa `<`.
+- El JSON-LD no inventa nada: no hay `aggregateRating`, ni `datePublished`
+  falso, ni `knowsLanguage`. `año` es texto libre para admitir rangos, así
+  que se publica como `dateCreated` solo si es un año suelto y como
+  `temporalCoverage` si no.
+- Las tarjetas OG se generan con satori + sharp en el build. satori no lee
+  woff2 y `@fontsource-variable` solo publica ese formato, así que
+  `src/assets/og/` guarda tres TTF estáticos (Fraunces SemiBold, Inter
+  Regular e Inter SemiBold, bajados de Google Fonts con licencia OFL). Se
+  leen del disco con `process.cwd()` durante el build y **no entran a
+  `dist/`**: nadie los importa desde el navegador.
+- `rutaOg()` (`src/lib/og.ts`) es la única fuente de las URLs de las
+  tarjetas: la usan el endpoint que las genera y el `og:image` que las
+  anuncia, así que no pueden desalinearse. El cuerpo del título se elige por
+  largo (`tamanoTitulo`), calibrado con el peor caso de la colección,
+  `siguiendo-la-huella-azul`, que cae en tres renglones a 44 px.
+- `robots.txt` y `llms.txt` son endpoints, no archivos de `public/`: así el
+  dominio sale de `Astro.site`. robots está abierto a todo, incluidos los
+  rastreadores de IA — que encuentren el portafolio es el objetivo.
+- `llms.txt` se arma desde la colección y el diccionario de i18n. Un caso
+  nuevo aparece allí con solo existir el `.md`; nunca hay que editarlo a mano.
+- La 404 pasa `noindex`: sin `canonical` (su URL, `/404/`, no existe), sin
+  hreflang y con `robots: noindex, follow`.
+- `SITIO.ubicacion` se partió en `ciudad` y `pais` porque el nodo
+  `PostalAddress` los pide por separado; `UBICACION` los vuelve a juntar para
+  los textos corridos.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -231,6 +282,14 @@ Pendientes conocidos, además de las fases:
 - Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
   hechos verificables de los casos y marca el resto como `[PENDIENTE]`).
 - No hay `public/favicon.ico`; el dev server lo avisa en cada carga.
+- Los `<title>` de la grilla y de Sobre mí son «Proyectos» y «Sobre mí» a
+  secas, únicos dentro del sitio pero genéricos en un resultado de búsqueda.
+  Añadirles el nombre como sufijo es candidato de FASE 7, junto con el resto
+  de la auditoría.
+- Cuando FASE 6 traduzca los casos, el `hreflang` y el selector de idioma se
+  abren solos: `localesDeProyecto()` los detecta al aparecer el `.md`. Lo que
+  sí hay que conectar a mano es la portada traducida
+  (`<slug>-portada-en.png`), que hoy nadie importa.
 
 ## Cómo se agrega un caso nuevo (queda de FASE 4)
 
@@ -257,6 +316,11 @@ Pendientes conocidos, además de las fases:
 4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
    grilla genera un chip por categoría en uso, el anterior/siguiente sigue
    el `orden` y los relacionados comparten categoría.
+5. Lo de FASE 5 se resuelve solo: la tarjeta Open Graph
+   (`/og/<locale>/proyecto/<slug>.png`), el JSON-LD del caso, la línea de
+   `llms.txt`, la entrada del sitemap y el `hreflang` salen del frontmatter.
+   Nada que tocar, salvo revisar que el título no desborde la tarjeta si pasa
+   de ~130 letras.
 
 ## Fases y prompt de arranque de cada una
 
