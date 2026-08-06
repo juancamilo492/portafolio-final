@@ -163,8 +163,8 @@ export const ui = {
       'Soy Juan Camilo Bolaños, diseñador de interacción y creador de sistemas de IA en Medellín. Mi trabajo junta dos cosas que suelen ir por separado: interfaces que la gente entiende a la primera y automatizaciones que sostienen la operación detrás de ellas.',
     'sobreMi.parrafo2':
       'Los proyectos de este portafolio salieron de contextos reales: un bar de Medellín, el área de innovación de una empresa de empaques flexibles, una empresa de domótica que dependía del voz a voz y una propuesta de espacio interactivo para el Parque de la Conservación.',
-    'sobreMi.parrafoPendiente':
-      '[PENDIENTE: ampliar la historia con Juan Camilo — trayectoria, motivación y forma de trabajar en primera persona]',
+    'sobreMi.parrafo3':
+      'Llegué al diseño interactivo por el pénsum: me atrajo lo multifacético de la carrera, la cantidad de disciplinas distintas que alcanzaba a tocar. Esa mezcla terminó siendo mi forma de trabajar. Para mí un sistema no está listo solo porque se vea bien y sea claro de usar: tiene que funcionar de verdad para poder presentarse como un MVP. No vengo de la programación — uso esas herramientas para que las interfaces que diseño existan y operen, no para quedarme en el prototipo. Y cuando algo no funciona, lo digo: en estos casos hay evaluaciones de 2.4 sobre 5 y pruebas donde la mitad de los participantes no logró la tarea.',
     'sobreMi.retratoAlt': 'Retrato de Juan Camilo Bolaños de medio cuerpo',
     'sobreMi.habilidades': 'Habilidades',
     'sobreMi.habilidades.diseno': 'Diseño',
@@ -307,8 +307,8 @@ export const ui = {
       'I am Juan Camilo Bolaños, an interaction designer and AI systems builder based in Medellín. My work brings together two things that usually stay apart: interfaces people understand right away, and the automation that keeps the operation behind them running.',
     'sobreMi.parrafo2':
       'The projects in this portfolio come from real settings: a bar in Medellín, the innovation team of a flexible packaging company, a home automation company that depended on word of mouth, and a proposal for an interactive space at the Parque de la Conservación.',
-    'sobreMi.parrafoPendiente':
-      '[PENDING: expand this story with Juan Camilo — background, motivation and way of working, in first person]',
+    'sobreMi.parrafo3':
+      'I came to interactive design through the curriculum: what drew me in was how multifaceted the degree was, the number of different disciplines it managed to cover. That mix ended up becoming how I work. To me a system isn’t ready just because it looks good and is clear to use: it has to actually work to be presentable as an MVP. I don’t come from programming — I use those tools so the interfaces I design exist and run, instead of staying a prototype. And when something doesn’t work, I say so: these case studies include evaluations of 2.4 out of 5 and tests where half the participants failed the task.',
     'sobreMi.retratoAlt': 'Waist-up portrait of Juan Camilo Bolaños',
     'sobreMi.habilidades': 'Skills',
     'sobreMi.habilidades.diseno': 'Design',
@@ -457,8 +457,8 @@ export const ui = {
       'Je suis Juan Camilo Bolaños, designer d’interaction et créateur de systèmes d’IA à Medellín. Mon travail réunit deux choses qui vont rarement ensemble : des interfaces que l’on comprend du premier coup et des automatisations qui font tourner l’activité derrière elles.',
     'sobreMi.parrafo2':
       'Les projets de ce portfolio viennent de contextes réels : un bar de Medellín, l’équipe d’innovation d’une entreprise d’emballages souples, une entreprise de domotique qui ne vivait que du bouche-à-oreille et une proposition d’espace interactif pour le Parque de la Conservación.',
-    'sobreMi.parrafoPendiente':
-      '[EN ATTENTE : développer le récit avec Juan Camilo — parcours, motivation et façon de travailler, à la première personne]',
+    'sobreMi.parrafo3':
+      'Je suis venu au design interactif par le programme : ce qui m’a attiré, c’est le côté multifacette de la formation, le nombre de disciplines différentes qu’elle arrivait à couvrir. Ce mélange a fini par devenir ma façon de travailler. Pour moi, un système n’est pas prêt simplement parce qu’il est beau et clair à utiliser : il doit fonctionner pour de vrai afin de pouvoir être présenté comme un MVP. Je ne viens pas de la programmation — j’utilise ces outils pour que les interfaces que je conçois existent et tournent, au lieu de rester à l’état de prototype. Et quand quelque chose ne marche pas, je le dis : ces études de cas contiennent des évaluations à 2,4 sur 5 et des tests où la moitié des participants n’a pas réussi la tâche.',
     'sobreMi.retratoAlt': 'Portrait de Juan Camilo Bolaños à mi-corps',
     'sobreMi.habilidades': 'Compétences',
     'sobreMi.habilidades.diseno': 'Design',

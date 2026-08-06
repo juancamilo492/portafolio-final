@@ -168,6 +168,12 @@ FASES 1, 2, 3, 4, 5, 6 y 6-bis están completas y commiteadas. `astro check`
 pasa con 0 errores, 0 warnings y 0 hints; el build genera 25 páginas, 24
 tarjetas Open Graph, el sitemap, `robots.txt` y `llms.txt`. Queda FASE 7.
 
+En el sitio publicado quedan **6 marcadores `[PENDIENTE]` visibles**: los dos
+del caso `industrial` (métricas y testimonio, ambos esperando permiso del bar)
+por cada uno de los tres idiomas. Son los únicos. Decidir qué hacer con ellos
+antes de publicar es tarea de contenido, no de FASE 7: o llega el permiso, o
+esas dos líneas se reescriben sin cifras ni cita.
+
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
 - Tokens Esmeralda completos, fuentes Fraunces/Inter autoalojadas.
@@ -182,6 +188,18 @@ Ya existe:
   a propósito: reutiliza el script del selector de idioma (clic fuera,
   Escape, flechas) en vez de duplicarlo.
 - Clase `.prosa` en `global.css` para el Markdown de los casos.
+- `/sobre-mi` tiene su tercer párrafo en primera persona (`sobreMi.parrafo3`,
+  antes `sobreMi.parrafoPendiente`), escrito con Juan Camilo en los tres
+  idiomas: por qué eligió Diseño Interactivo (el pénsum multifacético), por qué
+  junta interfaz y automatización (un sistema tiene que funcionar para
+  presentarse como MVP) y el cierre sobre reportar lo que sale mal. Las dos
+  cifras que cita — 2.4/5 y la mitad de los participantes — salen de
+  `i-homotic` y de `siguiendo-la-huella-azul`: si esos casos cambian, la frase
+  hay que revisarla. Se dejó fuera «no me considero programador», que era la
+  frase literal de Juan Camilo: encima de una lista de habilidades con React,
+  Next.js y Supabase, y de un sistema suyo en producción, se leía como
+  contradicción. Quedó «no vengo de la programación», que dice lo mismo sin
+  restarle lo hecho.
 - Las 5 vistas construidas con contenido real en español: inicio, grilla
   con filtro client-side (`?categoria=`, `aria-pressed`, conteo en
   `aria-live`), plantilla de caso, sobre-mi y 404.
@@ -363,16 +381,15 @@ Pendientes conocidos, además de las fases:
   segunda entrada `MenuCV` vuelve solo a ser desplegable).
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
-- Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
-  hechos verificables de los casos y marca el resto como `[PENDIENTE]`).
-- No hay `public/favicon.ico`; el dev server lo avisa en cada carga.
+- No hay `public/favicon.ico` ni ninguna etiqueta de icono en el HTML; el dev
+  server lo avisa en cada carga.
 - Los `<title>` de la grilla y de Sobre mí son «Proyectos» y «Sobre mí» a
   secas, únicos dentro del sitio pero genéricos en un resultado de búsqueda.
   Añadirles el nombre como sufijo es candidato de FASE 7, junto con el resto
   de la auditoría.
-- `llms.txt` sigue listando solo las URLs en español: se arma con el locale
-  por defecto y es un único archivo en la raíz. Si conviene que también anuncie
-  las versiones inglesa y francesa, es decisión de FASE 7.
+- `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
+  así que al activar el francés apareció sola su sección. Un idioma nuevo entra
+  igual, sin tocar nada.
 - La 404 existe en un solo idioma (el español, por `DEFAULT_LOCALE`). Es una
   página sin ruta por locale, así que un visitante francés que se pierda la ve
   en español. Decidir en FASE 7 si vale la pena.
@@ -459,11 +476,41 @@ Pendientes conocidos, además de las fases:
   con texto (i-homotic e industrial son logos y sirven igual). Una sesión por
   idioma: traducir cinco casos largos dos veces en una sola conversación
   degrada el resultado.
-- FASE 7 — QA y despliegue: "Lee CLAUDE.md. Audita Lighthouse y
-  accesibilidad hasta cumplir las metas, corrige, y configura el despliegue
-  en Cloudflare Pages con el dominio." Lo que ya está resuelto: el host
-  elegido y `public/_redirects`. Lo que queda: conectar el repo de GitHub al
-  proyecto de Pages (comando `npm run build`, salida `dist`), apuntar
-  `juancamilo492.online` con su DNS, activar el widget UserWay, decidir si
-  hacen falta cabeceras de caché en `public/_headers`, y comprobar que la
-  vista previa del dominio pelado ya sale con imagen al compartirlo.
+- FASE 7 — QA y despliegue. Prompt de arranque: "Lee CLAUDE.md. Ejecuta
+  FASE 7: audita y corrige hasta cumplir las metas de Lighthouse y
+  accesibilidad, y deja el sitio listo para publicar en Cloudflare Pages."
+  Lo que ya está resuelto: el host elegido, `public/_redirects` y toda la
+  capa de SEO/GEO. Lo que queda, en dos bloques:
+
+  **Se puede hacer en esta sesión, en código:**
+  1. Favicon. No existe `public/favicon.ico` ni ninguna etiqueta de icono en
+     el `<head>`. Hace falta el juego completo (ico, PNG 180 para Apple,
+     SVG si se puede) derivado de la marca JC, más el `<link>` en
+     `BaseLayout`.
+  2. `<title>` de la grilla y de Sobre mí: hoy son «Proyectos» y «Sobre mí»
+     a secas. Añadirles el nombre como sufijo, sin tocar los de los casos,
+     que ya son descriptivos.
+  3. Lighthouse ≥95 en Performance, Accessibility, Best Practices y SEO. Son
+     4 plantillas × 3 idiomas; basta auditar una de cada plantilla y
+     comprobar que el arreglo aplica a las demás.
+  4. Accesibilidad a mano, más allá de Lighthouse: recorrido completo por
+     teclado (menú hamburguesa, selector de idioma, `MenuCV`, chips de
+     filtro), focus visible, y que el `aria-live` del conteo de la grilla
+     anuncie bien al filtrar.
+  5. Decidir si `public/_headers` hace falta. El `Cache-Control` del
+     endpoint OG no llega a producción en un build estático (ver decisiones
+     de FASE 5): si se quieren cabeceras de caché de verdad, van ahí.
+  6. Revisar la preview responsive a 360, 768 y 1280 px en los tres idiomas
+     — el francés y el inglés alargan varios titulares.
+
+  **Necesita a Juan Camilo o a terceros, no lo resuelve el código:**
+  - El permiso del bar Industrial: los 6 `[PENDIENTE]` que siguen visibles.
+  - El widget UserWay: hay que crear la cuenta y pegar el script en el hueco
+    de `BaseLayout` (ver la línea marcada «FASE 7»).
+  - Conectar el repo de GitHub al proyecto de Pages (comando `npm run
+    build`, salida `dist`) y apuntar `juancamilo492.online` con su DNS.
+  - Comprobar, ya publicado, que compartir el dominio pelado en WhatsApp y
+    LinkedIn muestra la vista previa con imagen.
+  - Los CV en inglés y francés, las portadas de Alico con el logo cortado y
+    el caso `abuelos-nietos` no bloquean el lanzamiento, pero conviene
+    resolverlos antes de difundir el enlace.
