@@ -1,7 +1,11 @@
-﻿---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+import AvisoPendiente from '../../../components/AvisoPendiente.astro';
+import BloqueCTA from '../../../components/BloqueCTA.astro';
 import Contenedor from '../../../components/Contenedor.astro';
-import { pathsDeSeccion, rutaDe, useTranslations } from '../../../i18n/utils';
+import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { pathsDeSeccion, useTranslations } from '../../../i18n/utils';
+import { etiquetaCategoria, slugCategoria } from '../../../lib/categorias';
 import { proyectosPorLocale } from '../../../lib/proyectos';
 import { CATEGORIAS } from '../../../content.config';
 import type { Locale } from '../../../i18n/ui';
@@ -12,41 +16,147 @@ export const getStaticPaths = () => pathsDeSeccion('proyectos');
 const locale = Astro.params.lang as Locale;
 const t = useTranslations(locale);
 const proyectos = await proyectosPorLocale(locale);
+
+// Solo se ofrecen los filtros que devuelven algo: nada de chips vacíos.
+const enUso = CATEGORIAS.filter((cat) =>
+  proyectos.some((proyecto) => proyecto.data.categoria.includes(cat)),
+);
+
+const chips = [
+  { slug: 'todos', etiqueta: t('proyectos.filtroTodos') },
+  ...enUso.map((cat) => ({ slug: slugCategoria(cat), etiqueta: etiquetaCategoria(locale, cat) })),
+];
 ---
 
 <BaseLayout
   locale={locale}
   activa="proyectos"
   titulo={t('meta.proyectos.titulo')}
-  descripcion="[PENDIENTE: meta description de la grilla de proyectos]"
+  descripcion={t('meta.proyectos.descripcion')}
 >
-  <Contenedor class="py-20">
-    <h1 class="text-4xl tracking-[-.02em] md:text-5xl">{t('meta.proyectos.titulo')}</h1>
-
-    {/* FASE 3: chips de filtro con filtrado client-side. */}
-    <p class="mt-6 text-sm text-texto-suave dark:text-noche-cuerpo">
-      {t('proyectos.filtrarPor')}: {CATEGORIAS.join(' · ')}
+  <Contenedor class="pt-14 md:pt-[72px]">
+    <h1 class="text-[38px] tracking-[-.025em] sm:text-[46px] lg:text-[54px]">
+      {t('meta.proyectos.titulo')}
+    </h1>
+    <p
+      class="mt-[18px] max-w-[520px] text-[17px] leading-relaxed font-light text-texto-cuerpo dark:text-noche-cuerpo"
+    >
+      {t('proyectos.bajada')}
     </p>
 
     {
       proyectos.length === 0 ? (
-        <p class="mt-6 font-light text-texto-cuerpo dark:text-noche-cuerpo">
-          [PENDIENTE: los casos de estudio se integran en FASE 4]
-        </p>
+        <AvisoPendiente texto={t('proyectos.pendiente')} class="mt-10" />
       ) : (
-        <ul class="mt-8 flex flex-col gap-3">
-          {proyectos.map((proyecto) => (
-            <li>
-              <a
-                href={rutaDe(locale, 'proyectos', proyecto.data.slug)}
-                class="text-profundo transition-colors hover:text-acento-texto dark:text-noche-texto dark:hover:text-menta"
+        <div
+          data-filtros
+          data-conteo-uno={t('proyectos.conteoUno')}
+          data-conteo-varios={t('proyectos.conteoVarios')}
+        >
+          {/* Los chips se desplazan en horizontal en móvil, como pide el handoff. */}
+          <div
+            role="group"
+            aria-label={t('proyectos.filtrarPor')}
+            class="-mx-5 mt-9 flex gap-2.5 overflow-x-auto px-5 pb-2 md:-mx-10 md:flex-wrap md:px-10 md:pb-0"
+          >
+            {chips.map((chip, indice) => (
+              <button
+                type="button"
+                data-chip={chip.slug}
+                aria-pressed={indice === 0 ? 'true' : 'false'}
+                class="shrink-0 rounded-full border border-borde-medio px-[18px] py-2.5 text-[13.5px] font-medium text-bosque transition-colors hover:border-acento aria-pressed:border-profundo aria-pressed:bg-profundo aria-pressed:text-fondo dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:aria-pressed:border-menta dark:aria-pressed:bg-menta dark:aria-pressed:text-sobre-acento"
               >
-                {proyecto.data.titulo}
-              </a>
-            </li>
-          ))}
-        </ul>
+                {chip.etiqueta}
+              </button>
+            ))}
+          </div>
+
+          <ul data-lista class="mt-10 grid gap-[26px] sm:grid-cols-2 lg:grid-cols-3">
+            {/*
+              El <li> no lleva utilidad de display: así el atributo `hidden`
+              del filtro basta para ocultarlo (la regla de Preflight tiene
+              especificidad cero y cualquier clase la ganaría).
+            */}
+            {proyectos.map((proyecto) => (
+              <li data-categorias={proyecto.data.categoria.map(slugCategoria).join(' ')}>
+                <TarjetaProyecto proyecto={proyecto} locale={locale} variante="grilla" />
+              </li>
+            ))}
+          </ul>
+
+          <p
+            data-vacio
+            hidden
+            class="mt-10 text-center text-sm text-texto-suave dark:text-noche-cuerpo"
+          >
+            {t('proyectos.vacio')}
+          </p>
+
+          <p data-conteo aria-live="polite" class="sr-only" />
+        </div>
       )
     }
   </Contenedor>
+
+  <Contenedor class="pt-[72px] md:pt-[92px]">
+    <BloqueCTA locale={locale} variante="compacto" id="contacto" />
+  </Contenedor>
 </BaseLayout>
+
+<script>
+  /**
+   * Filtro de la grilla: puro DOM, sin framework.
+   * La categoría activa se refleja en `?categoria=` para que el enlace se
+   * pueda compartir y el botón atrás del navegador funcione.
+   */
+  const raiz = document.querySelector<HTMLElement>('[data-filtros]');
+
+  if (raiz) {
+    const chips = [...raiz.querySelectorAll<HTMLButtonElement>('[data-chip]')];
+    const tarjetas = [...raiz.querySelectorAll<HTMLLIElement>('[data-lista] > li')];
+    const vacio = raiz.querySelector<HTMLElement>('[data-vacio]');
+    const conteo = raiz.querySelector<HTMLElement>('[data-conteo]');
+    const unoTexto = raiz.dataset.conteoUno ?? '';
+    const variosTexto = raiz.dataset.conteoVarios ?? '';
+
+    const aplicar = (filtro: string) => {
+      let visibles = 0;
+
+      for (const tarjeta of tarjetas) {
+        const categorias = (tarjeta.dataset.categorias ?? '').split(' ');
+        const coincide = filtro === 'todos' || categorias.includes(filtro);
+        tarjeta.hidden = !coincide;
+        if (coincide) visibles += 1;
+      }
+
+      for (const chip of chips) {
+        chip.setAttribute('aria-pressed', String(chip.dataset.chip === filtro));
+      }
+
+      if (vacio) vacio.hidden = visibles > 0;
+      if (conteo) conteo.textContent = `${visibles} ${visibles === 1 ? unoTexto : variosTexto}`;
+    };
+
+    const filtroValido = (valor: string | null) =>
+      valor && chips.some((chip) => chip.dataset.chip === valor) ? valor : 'todos';
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        const filtro = chip.dataset.chip ?? 'todos';
+        aplicar(filtro);
+
+        const url = new URL(window.location.href);
+        if (filtro === 'todos') url.searchParams.delete('categoria');
+        else url.searchParams.set('categoria', filtro);
+        history.pushState({ categoria: filtro }, '', url);
+      });
+    }
+
+    // Estado inicial y navegación con los botones atrás/adelante.
+    const desdeUrl = () =>
+      aplicar(filtroValido(new URL(window.location.href).searchParams.get('categoria')));
+
+    desdeUrl();
+    window.addEventListener('popstate', desdeUrl);
+  }
+</script>

@@ -14,9 +14,21 @@ export function slugDeEntrada(entrada: Proyecto): string {
   return entrada.data.slug;
 }
 
+/**
+ * La colección se lee una sola vez por build. Además de ahorrar trabajo,
+ * evita que el aviso de "colección vacía" se repita en cada página mientras
+ * los casos no estén integrados (FASE 4).
+ */
+let coleccion: Promise<Proyecto[]> | undefined;
+
+function todosLosProyectos(): Promise<Proyecto[]> {
+  coleccion ??= getCollection('proyectos');
+  return coleccion;
+}
+
 /** Todos los proyectos de un idioma, ordenados por `orden` ascendente. */
 export async function proyectosPorLocale(locale: Locale): Promise<Proyecto[]> {
-  const todos = await getCollection('proyectos');
+  const todos = await todosLosProyectos();
   return todos
     .filter((entrada) => localeDeEntrada(entrada) === locale)
     .sort((a, b) => a.data.orden - b.data.orden);
@@ -26,4 +38,47 @@ export async function proyectosPorLocale(locale: Locale): Promise<Proyecto[]> {
 export async function proyectosDestacados(locale: Locale, limite = 3): Promise<Proyecto[]> {
   const proyectos = await proyectosPorLocale(locale);
   return proyectos.filter((p) => p.data.destacado).slice(0, limite);
+}
+
+export interface Vecinos {
+  anterior?: Proyecto;
+  siguiente?: Proyecto;
+}
+
+/**
+ * Proyecto anterior y siguiente según `orden`, sin envolver los extremos:
+ * el primero no tiene anterior y el último no tiene siguiente.
+ */
+export async function vecinosDeProyecto(entrada: Proyecto): Promise<Vecinos> {
+  const proyectos = await proyectosPorLocale(localeDeEntrada(entrada));
+  const indice = proyectos.findIndex((p) => p.data.slug === entrada.data.slug);
+  if (indice === -1) return {};
+  return {
+    anterior: proyectos[indice - 1],
+    siguiente: proyectos[indice + 1],
+  };
+}
+
+/**
+ * Proyectos que comparten al menos una categoría, ordenados por cuántas
+ * comparten y luego por `orden`. Si no hay ninguno, completa con los
+ * siguientes del mismo idioma para no dejar la sección vacía.
+ */
+export async function proyectosRelacionados(entrada: Proyecto, limite = 3): Promise<Proyecto[]> {
+  const proyectos = await proyectosPorLocale(localeDeEntrada(entrada));
+  const otros = proyectos.filter((p) => p.data.slug !== entrada.data.slug);
+  const categorias = new Set<string>(entrada.data.categoria);
+
+  const enComun = (p: Proyecto) => p.data.categoria.filter((c) => categorias.has(c)).length;
+
+  const relacionados = otros
+    .filter((p) => enComun(p) > 0)
+    .sort((a, b) => enComun(b) - enComun(a) || a.data.orden - b.data.orden)
+    .slice(0, limite);
+
+  if (relacionados.length === limite) return relacionados;
+
+  const yaIncluidos = new Set(relacionados.map((p) => p.data.slug));
+  const relleno = otros.filter((p) => !yaIncluidos.has(p.data.slug));
+  return [...relacionados, ...relleno].slice(0, limite);
 }

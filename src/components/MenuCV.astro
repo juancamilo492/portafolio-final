@@ -1,0 +1,68 @@
+---
+/**
+ * Botón "Descargar CV" con un desplegable para elegir el idioma del PDF.
+ *
+ * Lleva `data-selector-idioma` a propósito: es el mismo patrón de menú que el
+ * selector de idioma del header y reutiliza su script (clic fuera, Escape,
+ * flechas, aria-expanded) en lugar de duplicar esa lógica.
+ */
+import Icono from './Icono.astro';
+import { useTranslations } from '../i18n/utils';
+import { CV } from '../config/sitio';
+import { LOCALES_ACTIVOS, NOMBRE_LOCALE, type Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const id = 'menu-cv';
+
+// El idioma actual primero: es el PDF que casi siempre se busca.
+const idiomas = [...LOCALES_ACTIVOS].sort((a, b) => Number(b === locale) - Number(a === locale));
+---
+
+<div class="relative" data-selector-idioma>
+  <button
+    type="button"
+    data-disparador
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls={id}
+    class="inline-flex items-center gap-[9px] rounded-full border border-dashed border-borde-fuerte px-[22px] py-[15px] text-[14.5px] font-semibold text-profundo transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta"
+  >
+    <Icono nombre="descargar" tamano={15} />
+    {t('contacto.cv')}
+    <Icono nombre="caret" tamano={9} />
+  </button>
+
+  <div
+    id={id}
+    data-menu
+    hidden
+    class="absolute top-[calc(100%+10px)] left-0 z-60 flex min-w-[230px] flex-col gap-0.5 rounded-menu border border-borde bg-superficie p-1.5 shadow-menu dark:border-borde-noche dark:bg-noche-superficie"
+  >
+    <span
+      class="px-3 pt-2 pb-1.5 text-[11px] tracking-[.12em] text-texto-tenue uppercase dark:text-noche-cuerpo"
+    >
+      {t('inicio.cvIdioma')}
+    </span>
+    {
+      idiomas.map((idioma) => (
+        <a
+          href={CV[idioma] ?? CV.es}
+          download
+          hreflang={idioma}
+          class="flex items-center justify-between gap-3 rounded-[9px] px-3 py-2 text-sm text-texto-cuerpo transition-colors hover:bg-acento/10 hover:text-profundo dark:text-noche-cuerpo dark:hover:text-noche-titulo"
+        >
+          <span>{NOMBRE_LOCALE[idioma]}</span>
+          <span class="text-[11px] tracking-[.08em] opacity-60">PDF</span>
+        </a>
+      ))
+    }
+    <span class="px-3 pt-1.5 pb-2 text-[11px] leading-snug text-texto-tenue dark:text-noche-cuerpo">
+      [PENDIENTE: subir los PDFs a public/cv/]
+    </span>
+  </div>
+</div>

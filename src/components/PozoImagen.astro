@@ -1,0 +1,25 @@
+---
+/**
+ * Marco de imagen vacío. Ocupa el espacio exacto de la foto que falta y deja
+ * el marcador [PENDIENTE: ...] a la vista, como pide CLAUDE.md: nada de
+ * imágenes inventadas ni de huecos silenciosos.
+ */
+interface Props {
+  /** Texto del marcador; siempre en formato [PENDIENTE: ...]. */
+  texto: string;
+  class?: string;
+}
+
+const { texto, class: clase } = Astro.props;
+---
+
+<div
+  class:list={[
+    'ondas [--ondas-radio:24px] [--ondas-x:30%] [--ondas-y:60%] grid place-items-center bg-pozo p-5 text-center dark:bg-noche-superficie',
+    clase,
+  ]}
+>
+  <span class="max-w-[26ch] text-[12.5px] leading-relaxed text-texto-tenue dark:text-noche-cuerpo">
+    {texto}
+  </span>
+</div>

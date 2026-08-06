@@ -1,11 +1,22 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BloqueCTA from '../../../components/BloqueCTA.astro';
 import Contenedor from '../../../components/Contenedor.astro';
-import { segmento, useTranslations } from '../../../i18n/utils';
+import PozoImagen from '../../../components/PozoImagen.astro';
+import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { rutaDe, segmento, useTranslations } from '../../../i18n/utils';
+import { etiquetaCategoria } from '../../../lib/categorias';
+import {
+  localeDeEntrada,
+  proyectosPorLocale,
+  proyectosRelacionados,
+  vecinosDeProyecto,
+  type Proyecto,
+} from '../../../lib/proyectos';
 import { LOCALES_ACTIVOS } from '../../../i18n/ui';
-import { localeDeEntrada, proyectosPorLocale, type Proyecto } from '../../../lib/proyectos';
 
 interface Props {
   proyecto: Proyecto;
@@ -28,49 +39,196 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const { proyecto } = Astro.props;
 const locale = localeDeEntrada(proyecto);
 const t = useTranslations(locale);
-const { Content } = await render(proyecto);
+const { Content, headings } = await render(proyecto);
+const datos = proyecto.data;
+
+// El índice reproduce los H2 del Markdown, en su orden de aparición.
+const indice = headings.filter((encabezado) => encabezado.depth === 2);
+
+const { anterior, siguiente } = await vecinosDeProyecto(proyecto);
+const relacionados = await proyectosRelacionados(proyecto, 3);
+
+const contexto = [
+  { etiqueta: t('proyectos.cliente'), valor: datos.cliente },
+  { etiqueta: t('proyectos.anio'), valor: datos.año },
+  { etiqueta: t('proyectos.rol'), valor: datos.rol },
+  { etiqueta: t('proyectos.herramientas'), valor: datos.herramientas.join(', ') },
+];
 ---
 
 <BaseLayout
   locale={locale}
   activa="proyectos"
-  slug={proyecto.data.slug}
-  titulo={proyecto.data.titulo}
-  descripcion={proyecto.data.resumen}
+  slug={datos.slug}
+  titulo={datos.titulo}
+  descripcion={datos.resumen}
 >
-  <Contenedor class="py-20">
-    <h1 class="max-w-3xl text-4xl tracking-[-.02em] md:text-5xl">{proyecto.data.titulo}</h1>
+  {/* --- Encabezado del caso --- */}
+  <Contenedor class="pt-12 md:pt-14">
+    <a
+      href={rutaDe(locale, 'proyectos')}
+      class="mb-7 inline-flex items-center gap-2 text-[13.5px] text-texto-suave transition-colors hover:text-acento-texto dark:text-noche-cuerpo dark:hover:text-menta"
+    >
+      <span aria-hidden="true">←</span>
+      {t('proyectos.todosLosProyectos')}
+    </a>
 
-    {/* FASE 3: barra de contexto, cita destacada, anterior/siguiente, relacionados y CTA. */}
-    <dl class="mt-8 grid gap-6 text-sm sm:grid-cols-2 lg:grid-cols-4">
-      <div>
-        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
-          {t('proyectos.cliente')}
-        </dt>
-        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.cliente}</dd>
-      </div>
-      <div>
-        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
-          {t('proyectos.anio')}
-        </dt>
-        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.año}</dd>
-      </div>
-      <div>
-        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
-          {t('proyectos.rol')}
-        </dt>
-        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.rol}</dd>
-      </div>
-      <div>
-        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
-          {t('proyectos.herramientas')}
-        </dt>
-        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">
-          {proyecto.data.herramientas.join(', ')}
-        </dd>
-      </div>
+    <p
+      class="inline-block rounded-full bg-acento/10 px-3 py-[5px] text-xs font-semibold text-profundo dark:bg-menta/12 dark:text-noche-enfasis"
+    >
+      {datos.categoria.map((cat) => etiquetaCategoria(locale, cat)).join(' · ')}
+    </p>
+
+    <h1
+      class="mt-5 max-w-[860px] text-[34px] leading-[1.08] tracking-[-.025em] sm:text-[44px] lg:text-[56px]"
+    >
+      {datos.titulo}
+    </h1>
+
+    <p
+      class="mt-5 max-w-[640px] text-[17px] leading-relaxed font-light text-texto-cuerpo sm:text-[19px] dark:text-noche-cuerpo"
+    >
+      {datos.resumen}
+    </p>
+
+    {
+      datos.imagen_portada ? (
+        <Image
+          src={datos.imagen_portada}
+          alt=""
+          widths={[720, 1200]}
+          sizes="(min-width: 1280px) 1120px, 100vw"
+          class="mt-11 h-[240px] w-full rounded-bloque object-cover sm:h-[340px] lg:h-[460px]"
+        />
+      ) : (
+        <PozoImagen
+          texto={t('proyectos.imagenPendiente')}
+          class="mt-11 h-[240px] rounded-bloque sm:h-[340px] lg:h-[460px]"
+        />
+      )
+    }
+  </Contenedor>
+
+  {/* --- Barra de contexto --- */}
+  <Contenedor class="pt-7">
+    <dl
+      class="grid gap-6 rounded-tarjeta-sm border border-borde-medio bg-superficie px-[30px] py-[26px] sm:grid-cols-2 lg:grid-cols-4 dark:border-borde-noche dark:bg-noche-superficie"
+    >
+      {
+        contexto.map((campo) => (
+          <div>
+            <dt class="mb-[7px] text-[11.5px] tracking-[.13em] text-texto-tenue uppercase dark:text-noche-cuerpo">
+              {campo.etiqueta}
+            </dt>
+            <dd class="text-[14.5px] font-medium text-bosque dark:text-noche-texto">
+              {campo.valor}
+            </dd>
+          </div>
+        ))
+      }
     </dl>
+  </Contenedor>
 
-    <Content />
+  {/* --- Cuerpo --- */}
+  <Contenedor as="article" class="grid items-start gap-14 pt-14 lg:grid-cols-[220px_1fr] lg:pt-[72px]">
+    {
+      indice.length > 0 && (
+        // En móvil el índice se oculta: el contenido queda a un scroll de distancia.
+        <nav
+          aria-label={t('proyectos.contenido')}
+          class="sticky top-[110px] hidden flex-col gap-[11px] lg:flex"
+        >
+          <span class="mb-1 text-[11.5px] tracking-[.13em] text-texto-tenue uppercase dark:text-noche-cuerpo">
+            {t('proyectos.contenido')}
+          </span>
+          {indice.map((encabezado) => (
+            <a
+              href={`#${encabezado.slug}`}
+              class="text-[13.5px] text-texto-suave transition-colors hover:text-acento-texto dark:text-noche-cuerpo dark:hover:text-menta"
+            >
+              {encabezado.text}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+
+    <div class="max-w-[680px]">
+      <div class="prosa">
+        <Content />
+      </div>
+
+      {
+        datos.cita && (
+          <figure class="ondas [--ondas-radio:40px] [--ondas-x:6%] [--ondas-y:100%] mt-14 rounded-tarjeta bg-pozo px-8 py-9 sm:px-10 dark:bg-noche-superficie">
+            <blockquote class="font-titular text-[22px] leading-[1.4] tracking-[-.01em] text-profundo italic sm:text-[27px] dark:text-noche-titulo">
+              {`“${datos.cita}”`}
+            </blockquote>
+            {datos.cita_autor && (
+              <figcaption class="mt-[18px] text-[13.5px] tracking-[.02em] text-texto-suave dark:text-noche-cuerpo">
+                — {datos.cita_autor}
+              </figcaption>
+            )}
+          </figure>
+        )
+      }
+    </div>
+  </Contenedor>
+
+  {/* --- Anterior / siguiente --- */}
+  {
+    (anterior || siguiente) && (
+      <Contenedor class="pt-14 md:pt-[88px]">
+        <nav aria-label={t('proyectos.relacionados')} class="grid gap-5 sm:grid-cols-2">
+          {anterior && (
+            <a
+              href={rutaDe(locale, 'proyectos', anterior.data.slug)}
+              class="rounded-tarjeta-sm border border-borde-medio bg-superficie px-[30px] py-[26px] transition-colors hover:border-acento sm:col-start-1 dark:border-borde-noche dark:bg-noche-superficie dark:hover:border-menta"
+            >
+              <span class="mb-2 block text-xs text-texto-tenue dark:text-noche-cuerpo">
+                ← {t('proyectos.anterior')}
+              </span>
+              <span class="font-titular text-xl text-profundo dark:text-noche-titulo">
+                {anterior.data.titulo}
+              </span>
+            </a>
+          )}
+          {siguiente && (
+            <a
+              href={rutaDe(locale, 'proyectos', siguiente.data.slug)}
+              class="rounded-tarjeta-sm border border-borde-medio bg-superficie px-[30px] py-[26px] text-right transition-colors hover:border-acento sm:col-start-2 dark:border-borde-noche dark:bg-noche-superficie dark:hover:border-menta"
+            >
+              <span class="mb-2 block text-xs text-texto-tenue dark:text-noche-cuerpo">
+                {t('proyectos.siguiente')} →
+              </span>
+              <span class="font-titular text-xl text-profundo dark:text-noche-titulo">
+                {siguiente.data.titulo}
+              </span>
+            </a>
+          )}
+        </nav>
+      </Contenedor>
+    )
+  }
+
+  {/* --- Relacionados --- */}
+  {
+    relacionados.length > 0 && (
+      <Contenedor as="section" class="pt-14 md:pt-[72px]">
+        <h2 class="mb-7 text-[26px] sm:text-[30px]">{t('proyectos.relacionados')}</h2>
+        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {relacionados.map((relacionado) => (
+            <li>
+              <TarjetaProyecto proyecto={relacionado} locale={locale} variante="compacta" />
+            </li>
+          ))}
+        </ul>
+      </Contenedor>
+    )
+  }
+
+  {/* --- CTA --- */}
+  <Contenedor class="pt-14 md:pt-20">
+    <BloqueCTA locale={locale} variante="compacto" id="contacto" />
   </Contenedor>
 </BaseLayout>

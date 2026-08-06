@@ -1,0 +1,55 @@
+---
+/**
+ * Botón de acción del sistema. Siempre es un enlace: en el sitio no hay
+ * formularios, todas las acciones llevan a una ruta, un ancla o un contacto.
+ *
+ * Variantes:
+ *   solido        — relleno esmeralda sobre fondo claro u oscuro
+ *   contorno      — borde sobre fondo claro
+ *   punteado      — borde punteado (descargas)
+ *   claro-contorno— borde claro sobre los bloques verdes profundos
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  variante?: 'solido' | 'contorno' | 'punteado' | 'claro-contorno';
+  tamano?: 'md' | 'sm';
+}
+
+const {
+  href,
+  variante = 'solido',
+  tamano = 'md',
+  class: clase,
+  ...resto
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors';
+
+const tamanos = {
+  md: 'px-7 py-[15px] text-[14.5px]',
+  sm: 'px-[26px] py-3.5 text-sm',
+};
+
+const variantes = {
+  solido:
+    'bg-acento text-sobre-acento shadow-[0_8px_22px_-10px_rgb(0_189_123_/_0.9)] hover:bg-acento-hover dark:hover:bg-menta',
+  contorno:
+    'border border-borde-fuerte text-profundo hover:border-acento hover:bg-acento/8 dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta',
+  punteado:
+    'border border-dashed border-borde-fuerte text-profundo hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta',
+  /*
+   * Sobre los bloques verdes el texto se queda en blanco roto también en hover:
+   * la menta sobre el extremo claro del gradiente (#1F5E3D) da 4.23:1 y este
+   * texto es pequeño. El hover se marca con el borde y un velo de fondo.
+   */
+  'claro-contorno':
+    'border border-borde-claro-fuerte text-fondo hover:border-menta hover:bg-fondo/10',
+};
+---
+
+<a href={href} class:list={[base, tamanos[tamano], variantes[variante], clase]} {...resto}>
+  <slot />
+</a>

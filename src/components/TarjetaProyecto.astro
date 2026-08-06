@@ -1,0 +1,111 @@
+---
+/**
+ * Tarjeta de proyecto. Tres tamaños del handoff:
+ *   destacada — portada, imagen de 200px
+ *   grilla    — /proyectos, imagen de 190px y píldoras de categoría
+ *   compacta  — relacionados y "quizá buscabas", imagen de 150px
+ *
+ * El enlace envuelve el título y se estira sobre toda la tarjeta
+ * (`after:absolute`): un solo destino por tarjeta y un nombre accesible claro.
+ */
+import { Image } from 'astro:assets';
+import PozoImagen from './PozoImagen.astro';
+import { rutaDe, useTranslations } from '../i18n/utils';
+import { etiquetaCategoria, slugCategoria } from '../lib/categorias';
+import type { Proyecto } from '../lib/proyectos';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  proyecto: Proyecto;
+  locale: Locale;
+  variante?: 'destacada' | 'grilla' | 'compacta';
+  class?: string;
+}
+
+const { proyecto, locale, variante = 'grilla', class: clase } = Astro.props;
+const t = useTranslations(locale);
+const { titulo, resumen, categoria, imagen_portada } = proyecto.data;
+
+const alturas = {
+  destacada: 'h-[200px]',
+  grilla: 'h-[190px]',
+  compacta: 'h-[150px]',
+};
+
+const titulos = {
+  destacada: 'text-[22px]',
+  grilla: 'text-[21px]',
+  compacta: 'text-[18px]',
+};
+
+const cuerpos = {
+  destacada: 'text-sm',
+  grilla: 'text-sm',
+  compacta: 'text-[13px]',
+};
+
+const rellenos = {
+  destacada: 'p-6 pb-[26px]',
+  grilla: 'p-6 pb-[26px]',
+  compacta: 'px-[22px] pt-5 pb-6',
+};
+
+const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm';
+---
+
+<article
+  data-categorias={categoria.map(slugCategoria).join(' ')}
+  class:list={[
+    'group relative flex h-full flex-col overflow-hidden border border-borde bg-superficie transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-tarjeta focus-within:-translate-y-1 focus-within:shadow-tarjeta dark:border-borde-noche dark:bg-noche-superficie',
+    radio,
+    clase,
+  ]}
+>
+  {
+    imagen_portada ? (
+      // `alt` vacío a propósito: la imagen es decorativa, el título del
+      // enlace que va justo debajo ya nombra el caso.
+      <Image
+        src={imagen_portada}
+        alt=""
+        widths={[400, 800]}
+        sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+        class:list={['w-full object-cover', alturas[variante]]}
+      />
+    ) : (
+      <PozoImagen texto={t('proyectos.imagenPendiente')} class={alturas[variante]} />
+    )
+  }
+
+  <div class:list={['flex flex-1 flex-col gap-3', rellenos[variante]]}>
+    <h3 class:list={['tracking-[-.01em]', titulos[variante]]}>
+      <a
+        href={rutaDe(locale, 'proyectos', proyecto.data.slug)}
+        class="after:absolute after:inset-0 hover:text-acento-texto dark:hover:text-menta"
+      >
+        {titulo}
+      </a>
+    </h3>
+
+    <p
+      class:list={[
+        'flex-1 leading-relaxed font-light text-texto-suave dark:text-noche-cuerpo',
+        cuerpos[variante],
+      ]}
+    >
+      {resumen}
+    </p>
+
+    {
+      variante === 'grilla' && (
+        <ul class="flex flex-wrap gap-[7px]">
+          {categoria.map((cat) => (
+            <li class="rounded-full border border-borde-medio px-[11px] py-[5px] text-[11.5px] tracking-[.02em] text-texto-cuerpo dark:border-borde-noche dark:text-noche-cuerpo">
+              {etiquetaCategoria(locale, cat)}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

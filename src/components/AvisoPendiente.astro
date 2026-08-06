@@ -1,0 +1,21 @@
+---
+/**
+ * Marcador visible para contenido que aún no existe. Reemplaza a cualquier
+ * relleno tipo Lorem Ipsum: el vacío se ve y se explica.
+ */
+interface Props {
+  texto: string;
+  class?: string;
+}
+
+const { texto, class: clase } = Astro.props;
+---
+
+<p
+  class:list={[
+    'rounded-tarjeta border border-dashed border-borde-fuerte px-6 py-8 text-center text-sm text-texto-suave dark:border-borde-noche dark:text-noche-cuerpo',
+    clase,
+  ]}
+>
+  {texto}
+</p>

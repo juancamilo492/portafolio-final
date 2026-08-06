@@ -1,0 +1,112 @@
+---
+/**
+ * Bloque de contacto sobre el degradado verde profundo.
+ *   completo — cierre de la portada: centrado, con marca y "Volver arriba"
+ *   compacto — cierre del caso de estudio: título y botones en una fila
+ *
+ * Las ondas van en una capa propia porque la utilidad `ondas` y el degradado
+ * ocupan la misma propiedad (`background-image`).
+ */
+import Boton from './Boton.astro';
+import Icono from './Icono.astro';
+import MarcaGeometrica from './MarcaGeometrica.astro';
+import { useTranslations } from '../i18n/utils';
+import { ENLACE_CORREO, ENLACE_WHATSAPP } from '../config/sitio';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  variante?: 'completo' | 'compacto';
+  id?: string;
+}
+
+const { locale, variante = 'completo', id } = Astro.props;
+const t = useTranslations(locale);
+const completo = variante === 'completo';
+---
+
+<section
+  id={id}
+  class:list={[
+    'relative overflow-hidden bg-[linear-gradient(150deg,var(--color-profundo),var(--color-bosque))]',
+    completo ? 'rounded-cta px-6 py-14 sm:px-14 sm:py-[72px]' : 'rounded-bloque px-6 py-12 sm:p-14',
+  ]}
+>
+  <div
+    aria-hidden="true"
+    class:list={[
+      'ondas [--ondas-color:rgb(72_217_139_/_0.1)] absolute inset-0',
+      completo
+        ? '[--ondas-radio:54px] [--ondas-x:50%] [--ondas-y:120%]'
+        : '[--ondas-radio:44px] [--ondas-x:95%] [--ondas-y:110%]',
+    ]}
+  >
+  </div>
+
+  <div
+    class:list={[
+      'relative',
+      completo
+        ? 'text-center'
+        : 'flex flex-wrap items-center justify-between gap-8 text-left',
+    ]}
+  >
+    <div>
+      {completo && <MarcaGeometrica tamano={22} class="mx-auto mb-[18px] text-menta" />}
+      <h2
+        class:list={[
+          'tracking-[-.02em] text-fondo',
+          completo ? 'text-[34px] sm:text-[46px]' : 'text-[28px] sm:text-4xl',
+        ]}
+      >
+        {t('cta.titulo')}
+      </h2>
+      <p
+        class:list={[
+          'font-light text-footer-texto',
+          completo ? 'mt-4 text-base' : 'mt-3 text-[15px]',
+        ]}
+      >
+        {completo ? t('cta.apoyo') : t('cta.apoyoCompacto')}
+      </p>
+    </div>
+
+    <div
+      class:list={[
+        'flex flex-wrap gap-3.5',
+        completo ? 'mt-8 justify-center' : 'justify-start',
+      ]}
+    >
+      <Boton
+        href={ENLACE_WHATSAPP}
+        target="_blank"
+        rel="noopener"
+        tamano={completo ? 'md' : 'sm'}
+      >
+        <Icono nombre="whatsapp" tamano={16} />
+        {t('cta.whatsapp')}
+      </Boton>
+      <Boton href={ENLACE_CORREO} variante="claro-contorno" tamano={completo ? 'md' : 'sm'}>
+        <Icono nombre="correo" tamano={16} />
+        {t('cta.correo')}
+      </Boton>
+    </div>
+
+    {
+      completo && (
+        <a
+          href="#contenido"
+          class="mt-11 inline-flex items-center gap-2.5 px-1 py-2.5 text-xs font-semibold tracking-[.14em] text-footer-texto uppercase transition-colors hover:text-fondo"
+        >
+          <span
+            aria-hidden="true"
+            class="grid size-7 place-items-center rounded-full border border-borde-claro-fuerte"
+          >
+            <Icono nombre="flecha-arriba" tamano={12} />
+          </span>
+          {t('cta.volverArriba')}
+        </a>
+      )
+    }
+  </div>
+</section>
