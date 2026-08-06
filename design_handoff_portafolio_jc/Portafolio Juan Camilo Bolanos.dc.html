@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#F9FFFE; font-family:'Plus Jakarta Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#005348; text-decoration:none; }
+  a:hover { color:#00BD7B; }
+  :focus-visible { outline:2px solid #00BD7B; outline-offset:3px; border-radius:4px; }
+  @keyframes scrollHint { 0%,100%{transform:translateY(0);opacity:.55} 50%{transform:translateY(6px);opacity:1} }
+  @keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(.8)} }
+  [data-tema="oscuro"] { background:#0B2A22 !important; color:#D7EEE6 !important; }
+  [data-tema="oscuro"] header { background:rgba(11,42,34,.9) !important; border-bottom-color:rgba(72,217,139,.16) !important; }
+  [data-tema="oscuro"] nav button, [data-tema="oscuro"] header button span:last-child { color:#D7EEE6 !important; }
+  [data-tema="oscuro"] h1, [data-tema="oscuro"] h2, [data-tema="oscuro"] h3, [data-tema="oscuro"] blockquote { color:#EAFBF4 !important; }
+  [data-tema="oscuro"] p { color:#9CBDB2 !important; }
+  [data-tema="oscuro"] strong { color:#8FEFC1 !important; }
+  [data-tema="oscuro"] em { color:#48D98B !important; }
+  [data-tema="oscuro"] [data-surface] { background:#11342B !important; border-color:rgba(72,217,139,.16) !important; }
+  [data-tema="oscuro"] [data-hero] { background:repeating-radial-gradient(circle at 88% 12%, rgba(72,217,139,0) 0 46px, rgba(72,217,139,.09) 46px 47px), #0B2A22 !important; }
+  [data-tema="oscuro"] [data-surface="fab"] { background:#12382E !important; border-color:rgba(72,217,139,.55) !important; color:#8FEFC1 !important; box-shadow:0 10px 26px -14px rgba(0,0,0,.8) !important; }
+  [data-tema="oscuro"] [data-surface="well"] { background:#11342B !important; }
+  [data-tema="oscuro"] [data-strong] { color:#EAFBF4 !important; }
+  [data-tema="oscuro"] article nav a, [data-tema="oscuro"] [data-muted] { color:#9CBDB2 !important; }
+  [data-tema="oscuro"] footer { background:#06231C !important; }
+  [data-tema="oscuro"] a { color:#D7EEE6; }
+  [data-tema="oscuro"] a:hover { color:#48D98B; }
+</style>
+</helmet>
+<div data-tema="{{ tema }}" style="min-height:100vh;background:#F9FFFE;color:#0F2E26;font-family:'Plus Jakarta Sans',sans-serif">
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(249,255,254,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,83,72,.09)">
+    <div style="max-width:1200px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px">
+      <button onClick="{{ irInicio }}" style="display:flex;align-items:center;gap:10px;background:none;border:none;padding:0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">
+        <span style="width:38px;height:38px;border-radius:11px;background:#005348;color:#F9FFFE;display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:16px;letter-spacing:.02em">JC</span>
+        <span style="font-size:14px;font-weight:500;color:#005348;letter-spacing:-.01em">Juan Camilo Bolaños</span>
+      </button>
+      <nav style="display:flex;align-items:center;gap:34px">
+        <button onClick="{{ irInicio }}" style="background:none;border:none;padding:4px 0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:#1F5E3D" style-hover="color:#00BD7B">Inicio</button>
+        <button onClick="{{ irProyectos }}" style="background:none;border:none;padding:4px 0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:#1F5E3D" style-hover="color:#00BD7B">Proyectos</button>
+        <button onClick="{{ irInicio }}" style="background:none;border:none;padding:4px 0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;color:#1F5E3D" style-hover="color:#00BD7B">Sobre mí</button>
+        <div style="display:flex;align-items:center;gap:8px;padding-left:14px;border-left:1px solid rgba(0,83,72,.14)">
+          <div style="position:relative">
+            <button onClick="{{ toggleLangMenu }}" aria-haspopup="listbox" data-strong="" style="display:flex;align-items:center;gap:7px;padding:7px 12px 7px 11px;border:1px solid rgba(0,83,72,.16);border-radius:999px;background:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;color:#1F5E3D" style-hover="border-color:#00BD7B;color:#00BD7B">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" /></svg>
+              {{ langCodigo }}
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 9 7 7 7-7" /></svg>
+            </button>
+            <sc-if value="{{ langMenuAbierto }}">
+              <div data-surface="card" role="listbox" style="position:absolute;top:calc(100% + 10px);right:0;min-width:180px;background:#FFFFFF;border:1px solid rgba(0,83,72,.12);border-radius:14px;padding:6px;display:flex;flex-direction:column;gap:2px;box-shadow:0 20px 44px -24px rgba(0,83,72,.6);z-index:60">
+                <sc-for list="{{ idiomas }}" as="l" hint-placeholder-count="3">
+                  <button onClick="{{ l.onClick }}" role="option" style="{{ l.estilo }}">
+                    <span>{{ l.nombre }}</span>
+                    <span style="font-size:11px;letter-spacing:.08em;opacity:.6">{{ l.codigo }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <button onClick="{{ toggleDark }}" aria-label="Cambiar tema" style="width:34px;height:34px;border-radius:999px;border:1px solid rgba(0,83,72,.16);background:none;cursor:pointer;display:grid;place-items:center;color:#1F5E3D" style-hover="border-color:#00BD7B;color:#00BD7B">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <sc-if value="{{ esInicio }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section data-hero="" style="position:relative;overflow:hidden;background:repeating-radial-gradient(circle at 88% 12%, rgba(0,189,123,0) 0 46px, rgba(0,189,123,.13) 46px 47px), radial-gradient(1000px 600px at 85% 0%, rgba(72,217,139,.10), transparent 70%), #F9FFFE">
+      <div style="max-width:1200px;margin:0 auto;padding:96px 40px 88px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative">
+        <div>
+          <span data-strong="" style="display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;border:1px solid rgba(0,189,123,.35);background:rgba(0,189,123,.07);border-radius:999px;font-size:12.5px;font-weight:500;color:#005348;letter-spacing:.01em">
+            <span style="width:7px;height:7px;border-radius:50%;background:#00BD7B;animation:pulseDot 2.4s ease-in-out infinite"></span>Disponible para proyectos
+          </span>
+          <h1 style="font-family:'Playfair Display',serif;font-weight:500;font-size:66px;line-height:1.04;letter-spacing:-.025em;color:#005348;margin:26px 0 0;text-wrap:pretty">Diseñador de Interacción y <em style="font-style:italic;color:#00BD7B">Creador de Sistemas de IA</em></h1>
+          <p style="font-size:19px;line-height:1.6;color:#2F5B4F;max-width:480px;margin:24px 0 0;font-weight:300">Diseño y automatizo experiencias que conectan personas, herramientas y datos.</p>
+          <div style="display:flex;gap:14px;margin-top:38px;flex-wrap:wrap">
+            <button onClick="{{ irProyectos }}" style="padding:15px 28px;border-radius:999px;border:none;background:#00BD7B;color:#04241C;font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;font-weight:600;cursor:pointer;box-shadow:0 8px 22px -10px rgba(0,189,123,.9)" style-hover="background:#00A96D">Ver proyectos</button>
+            <a href="#contacto" style="padding:15px 28px;border-radius:999px;border:1px solid rgba(0,83,72,.28);color:#005348;font-size:14.5px;font-weight:600" style-hover="border-color:#00BD7B;background:rgba(0,189,123,.06)">Hablemos</a>
+            <div style="position:relative">
+              <button onClick="{{ toggleCvMenu }}" aria-haspopup="listbox" data-strong="" style="display:flex;align-items:center;gap:9px;padding:15px 22px;border-radius:999px;border:1px dashed rgba(0,83,72,.32);background:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;font-weight:600;color:#005348" style-hover="border-color:#00BD7B;color:#00BD7B">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 20h16" /></svg>
+                Descargar CV
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 9 7 7 7-7" /></svg>
+              </button>
+              <sc-if value="{{ cvMenuAbierto }}">
+                <div data-surface="card" role="listbox" style="position:absolute;top:calc(100% + 10px);left:0;min-width:210px;background:#FFFFFF;border:1px solid rgba(0,83,72,.12);border-radius:14px;padding:6px;display:flex;flex-direction:column;gap:2px;box-shadow:0 20px 44px -24px rgba(0,83,72,.6);z-index:60">
+                  <span data-muted="" style="padding:8px 12px 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7A9990">Idioma del CV</span>
+                  <sc-for list="{{ cvIdiomas }}" as="l" hint-placeholder-count="3">
+                    <button onClick="{{ l.onClick }}" role="option" style="{{ l.estilo }}">
+                      <span>{{ l.nombre }}</span>
+                      <span style="font-size:11px;letter-spacing:.08em;opacity:.6">PDF</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+          <a href="https://linkedin.com" style="display:inline-flex;align-items:center;gap:8px;margin-top:34px;font-size:13px;color:#5A7D72;font-weight:400" style-hover="color:#00BD7B">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21h-4z" /></svg>
+            linkedin.com/in/juancamilobolaños
+          </a>
+          <button onClick="{{ verDestacados }}" data-strong="" style="display:flex;align-items:center;gap:11px;margin-top:52px;padding:0;background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#5A7D72" style-hover="color:#00BD7B">
+            <span style="display:grid;place-items:center;width:30px;height:30px;border-radius:999px;border:1px solid rgba(0,83,72,.2);animation:scrollHint 2s ease-in-out infinite">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v15M6 13l6 6 6-6" /></svg>
+            </span>
+            Mira los proyectos
+          </button>
+        </div>
+        <div style="position:relative">
+          <div style="position:absolute;inset:6% -4% -6% 6%;border-radius:26px;background:linear-gradient(160deg,#005348,#1F5E3D);"></div>
+          <svg width="26" height="26" viewBox="0 0 24 24" style="position:absolute;top:-14px;left:-6px;z-index:3"><g fill="none" stroke="#00BD7B" stroke-width="1"><circle cx="12" cy="12" r="7" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></g></svg>
+          <div style="position:relative;z-index:2;border-radius:22px;overflow:hidden;aspect-ratio:4/4.6;filter:grayscale(1) contrast(1.05)">
+            <image-slot id="jc-hero" shape="rect" placeholder="Retrato B/N sin fondo"></image-slot>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-surface="band" style="border-top:1px solid rgba(0,83,72,.08);border-bottom:1px solid rgba(0,83,72,.08);background:rgba(0,83,72,.02)">
+      <div style="max-width:1200px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;gap:14px">
+        <svg width="15" height="15" viewBox="0 0 24 24" style="flex:none"><g fill="none" stroke="#3AB071" stroke-width="1.4"><circle cx="12" cy="12" r="7" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></g></svg>
+        <p style="margin:0;font-size:14px;color:#3F6A5C;font-weight:400;letter-spacing:.005em">Proyectos con clientes reales en Medellín: gastronomía, industria del empaque, domótica.</p>
+      </div>
+    </section>
+
+    <section id="destacados" style="max-width:1200px;margin:0 auto;padding:92px 40px 20px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:42px">
+        <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:40px;letter-spacing:-.02em;color:#005348;margin:0">Proyectos destacados</h2>
+        <button onClick="{{ irProyectos }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;color:#00BD7B">Ver todos →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+        <sc-for list="{{ destacados }}" as="p" hint-placeholder-count="3">
+          <button onClick="{{ p.abrir }}" data-surface="card" style="text-align:left;background:#FFFFFF;border:1px solid rgba(0,83,72,.1);border-radius:20px;overflow:hidden;padding:0;cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(0,83,72,.55)">
+            <div data-surface="well" style="height:200px;background:repeating-radial-gradient(circle at 30% 60%, rgba(0,189,123,0) 0 24px, rgba(0,189,123,.1) 24px 25px), #EDF7F3">
+              <image-slot id="{{ p.slot }}" shape="rect" placeholder="Imagen del proyecto"></image-slot>
+            </div>
+            <div style="padding:24px 24px 26px">
+              <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:22px;color:#005348;margin:0 0 10px;letter-spacing:-.01em">{{ p.titulo }}</h3>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#4A7466;font-weight:300">{{ p.resultado }}</p>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:92px 40px 0">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:40px;letter-spacing:-.02em;color:#005348;margin:0 0 42px">Qué hago</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+        <div data-surface="card" style="padding:34px 30px 38px;border:1px solid rgba(0,83,72,.1);border-radius:20px;background:repeating-radial-gradient(circle at 100% 0%, rgba(0,189,123,0) 0 40px, rgba(0,189,123,.075) 40px 41px), #FFFFFF">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00BD7B" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="4" /><path d="M3 9h18M9 21V9" /></svg>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:21px;color:#005348;margin:20px 0 10px">Diseño de interacción y UX/UI</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">Interfaces claras, probadas con usuarios reales y listas para construir.</p>
+        </div>
+        <div data-surface="card" style="padding:34px 30px 38px;border:1px solid rgba(0,83,72,.1);border-radius:20px;background:repeating-radial-gradient(circle at 100% 0%, rgba(0,189,123,0) 0 40px, rgba(0,189,123,.075) 40px 41px), #FFFFFF">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00BD7B" stroke-width="1.4"><circle cx="12" cy="12" r="3" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3" /></svg>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:21px;color:#005348;margin:20px 0 10px">Automatización e IA aplicada</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">n8n, agentes y APIs conectando las herramientas que ya usa el negocio.</p>
+        </div>
+        <div data-surface="card" style="padding:34px 30px 38px;border:1px solid rgba(0,83,72,.1);border-radius:20px;background:repeating-radial-gradient(circle at 100% 0%, rgba(0,189,123,0) 0 40px, rgba(0,189,123,.075) 40px 41px), #FFFFFF">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00BD7B" stroke-width="1.4"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" /><circle cx="12" cy="12" r="2.5" /></svg>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:21px;color:#005348;margin:20px 0 10px">Experiencias inmersivas e interactivas</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">VR y física computacional para espacios que responden al cuerpo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:92px 40px 0">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:40px;letter-spacing:-.02em;color:#005348;margin:0 0 42px">Mi proceso</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(0,83,72,.14)">
+        <div style="padding:34px 32px 34px 0;border-right:1px solid rgba(0,83,72,.1)">
+          <span style="font-family:'Playfair Display',serif;font-size:14px;color:#00BD7B;letter-spacing:.14em">01</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:26px;color:#005348;margin:12px 0 10px">Descubrir</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">Escucho al negocio, observo la operación real y defino qué problema vale la pena resolver.</p>
+        </div>
+        <div style="padding:34px 32px;border-right:1px solid rgba(0,83,72,.1)">
+          <span style="font-family:'Playfair Display',serif;font-size:14px;color:#00BD7B;letter-spacing:.14em">02</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:26px;color:#005348;margin:12px 0 10px">Diseñar</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">Prototipo rápido, valido con quien lo va a usar y ajusto antes de escribir código.</p>
+        </div>
+        <div style="padding:34px 0 34px 32px">
+          <span style="font-family:'Playfair Display',serif;font-size:14px;color:#00BD7B;letter-spacing:.14em">03</span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:26px;color:#005348;margin:12px 0 10px">Entregar</h3>
+          <p style="margin:0;font-size:14px;line-height:1.65;color:#4A7466;font-weight:300">Lanzo, mido con datos reales y dejo el sistema documentado para que siga vivo.</p>
+        </div>
+      </div>
+    </section>
+
+    <sc-if value="{{ mostrarOscuro }}" hint-placeholder-val="{{ true }}">
+    <section id="modo-oscuro" style="max-width:1200px;margin:0 auto;padding:92px 40px 0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:24px;color:#005348;margin:0">Modo oscuro</h2>
+        <span style="font-size:12px;color:#7A9990;letter-spacing:.03em">muestra del hero</span>
+      </div>
+      <div style="border-radius:24px;overflow:hidden;background:repeating-radial-gradient(circle at 90% 10%, rgba(72,217,139,0) 0 46px, rgba(72,217,139,.09) 46px 47px), #0B2A22;padding:56px 48px;display:grid;grid-template-columns:1.05fr .8fr;gap:40px;align-items:center">
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px 6px 10px;border:1px solid rgba(72,217,139,.35);background:rgba(72,217,139,.09);border-radius:999px;font-size:12px;font-weight:500;color:#8FEFC1">
+            <span style="width:6px;height:6px;border-radius:50%;background:#48D98B"></span>Disponible para proyectos
+          </span>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:42px;line-height:1.08;letter-spacing:-.02em;color:#EAFBF4;margin:20px 0 0">Diseñador de Interacción y <em style="color:#48D98B">Creador de Sistemas de IA</em></h3>
+          <p style="font-size:15px;line-height:1.6;color:#9CBDB2;max-width:420px;margin:16px 0 0;font-weight:300">Diseño y automatizo experiencias que conectan personas, herramientas y datos.</p>
+          <div style="display:flex;gap:12px;margin-top:26px">
+            <span style="padding:12px 22px;border-radius:999px;background:#00BD7B;color:#04241C;font-size:13.5px;font-weight:600">Ver proyectos</span>
+            <span style="padding:12px 22px;border-radius:999px;border:1px solid rgba(234,251,244,.28);color:#EAFBF4;font-size:13.5px;font-weight:600">Hablemos</span>
+          </div>
+        </div>
+        <div style="border-radius:18px;overflow:hidden;aspect-ratio:4/4.4;filter:grayscale(1)">
+          <image-slot id="jc-hero-dark" shape="rect" placeholder="Retrato B/N"></image-slot>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <section id="contacto" style="max-width:1200px;margin:92px auto 0;padding:0 40px">
+      <div style="border-radius:26px;padding:72px 56px;text-align:center;background:repeating-radial-gradient(circle at 50% 120%, rgba(72,217,139,0) 0 54px, rgba(72,217,139,.1) 54px 55px), linear-gradient(150deg,#005348,#1F5E3D)">
+        <svg width="22" height="22" viewBox="0 0 24 24" style="margin-bottom:18px"><g fill="none" stroke="#48D98B" stroke-width="1.1"><circle cx="12" cy="12" r="7" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></g></svg>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:46px;letter-spacing:-.02em;color:#F9FFFE;margin:0">¿Trabajamos juntos?</h2>
+        <p style="font-size:16px;color:#A9CDC0;margin:16px 0 0;font-weight:300">Cuéntame qué necesitas y te respondo el mismo día.</p>
+        <div style="display:flex;gap:14px;justify-content:center;margin-top:34px;flex-wrap:wrap">
+          <a href="https://wa.me/57" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:#00BD7B;color:#04241C;font-size:14.5px;font-weight:600" style-hover="background:#48D98B">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a12 12 0 0 1-5.9-5.1c-.4-.7-.9-1.7-.9-2.6 0-.9.5-1.4.7-1.6.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.2.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.2.1.4.2.4.3v.9Z" /></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:hola@juancamilo.design" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;border:1px solid rgba(249,255,254,.3);color:#F9FFFE;font-size:14.5px;font-weight:600" style-hover="border-color:#48D98B;color:#48D98B">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" /><path d="m3 6 9 6.5L21 6" /></svg>
+            Correo
+          </a>
+        </div>
+        <button onClick="{{ volverArriba }}" style="display:inline-flex;align-items:center;gap:9px;margin-top:44px;padding:10px 4px;background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8FB3A7" style-hover="color:#48D98B">
+          <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:999px;border:1px solid rgba(249,255,254,.25)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 20V5M6 11l6-6 6 6" /></svg>
+          </span>
+          Volver arriba
+        </button>
+      </div>
+    </section>
+
+    <footer style="margin-top:92px;background:#005348;color:#CFE7DE">
+      <div style="max-width:1200px;margin:0 auto;padding:56px 40px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px">
+        <div>
+          <span style="width:40px;height:40px;border-radius:12px;background:rgba(249,255,254,.1);border:1px solid rgba(249,255,254,.18);color:#F9FFFE;display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:16px">JC</span>
+          <p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#9BC4B6;max-width:280px;font-weight:300">Diseño de interacción y sistemas de IA. Medellín, Colombia.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#6D9C8D">Navegación</span>
+          <a href="#" style="color:#E4F3ED;font-size:14px" style-hover="color:#48D98B">Inicio</a>
+          <a href="#" style="color:#E4F3ED;font-size:14px" style-hover="color:#48D98B">Proyectos</a>
+          <a href="#" style="color:#E4F3ED;font-size:14px" style-hover="color:#48D98B">Sobre mí</a>
+          <a href="https://linkedin.com" style="color:#E4F3ED;font-size:14px" style-hover="color:#48D98B">LinkedIn</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <span style="font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#6D9C8D">Recursos</span>
+          <a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;border:1px solid rgba(249,255,254,.28);color:#F9FFFE;font-size:13.5px;font-weight:600" style-hover="border-color:#48D98B;color:#48D98B">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 20h16" /></svg>
+            Descargar CV
+          </a>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ idiomasFooter }}" as="l" hint-placeholder-count="3">
+              <button onClick="{{ l.onClick }}" style="{{ l.estilo }}">{{ l.codigo }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="max-width:1200px;margin:0 auto;padding:20px 40px 34px;border-top:1px solid rgba(249,255,254,.12);font-size:12.5px;color:#7FA99A">© 2026 Juan Camilo Bolaños. Todos los derechos reservados.</div>
+    </footer>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ esCaso }}">
+  <main>
+    <section style="max-width:1200px;margin:0 auto;padding:56px 40px 0">
+      <button onClick="{{ irProyectos }}" style="display:block;background:none;border:none;padding:0;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;color:#5A7D72;margin-bottom:28px">← Todos los proyectos</button>
+      <span data-strong="" style="display:inline-block;padding:5px 12px;border-radius:999px;background:rgba(0,189,123,.1);color:#005348;font-size:12px;font-weight:600;letter-spacing:.02em">UX/UI · Producto</span>
+      <h1 style="font-family:'Playfair Display',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.025em;color:#005348;margin:20px 0 0;max-width:860px;text-wrap:pretty">Industrial: menú digital y sistema de gestión para un bar</h1>
+      <p style="font-size:19px;line-height:1.6;color:#3F6A5C;max-width:640px;margin:20px 0 0;font-weight:300">El cliente consulta la carta desde el QR; la mesera toma la orden desde el mismo enlace y el bar factura sin errores.</p>
+      <div data-surface="well" style="margin-top:44px;border-radius:24px;overflow:hidden;height:460px">
+        <image-slot id="caso-hero" shape="rect" placeholder="Imagen principal del caso"></image-slot>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:28px 40px 0">
+      <div data-surface="card" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:26px 30px;border:1px solid rgba(0,83,72,.12);border-radius:18px;background:#FFFFFF">
+        <div><span style="display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:7px">Cliente</span><span data-strong="" style="font-size:14.5px;color:#1F5E3D;font-weight:500">Bar Industrial</span></div>
+        <div><span style="display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:7px">Año</span><span data-strong="" style="font-size:14.5px;color:#1F5E3D;font-weight:500">2026</span></div>
+        <div><span style="display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:7px">Rol</span><span data-strong="" style="font-size:14.5px;color:#1F5E3D;font-weight:500">Diseño y desarrollo de punta a punta</span></div>
+        <div><span style="display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:7px">Herramientas</span><span data-strong="" style="font-size:14.5px;color:#1F5E3D;font-weight:500">Next.js, TypeScript, Tailwind, Supabase, Vercel</span></div>
+      </div>
+    </section>
+
+    <article style="max-width:1200px;margin:0 auto;padding:72px 40px 0;display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start">
+      <nav style="position:sticky;top:110px;display:flex;flex-direction:column;gap:11px">
+        <span style="font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:4px">Contenido</span>
+        <a href="#ctx" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">El contexto</a>
+        <a href="#dec" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">La decisión de diseño clave</a>
+        <a href="#con" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">Lo que construí</a>
+        <a href="#pro" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">El proceso</a>
+        <a href="#res" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">El resultado</a>
+        <a href="#apr" style="font-size:13.5px;color:#4A7466" style-hover="color:#00BD7B">Lo que aprendí</a>
+      </nav>
+      <div style="max-width:680px;display:flex;flex-direction:column;gap:56px">
+        <div id="ctx">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">El contexto</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0 0 16px;font-weight:300">Industrial es un bar de Medellín con carta rotativa y noches llenas. La carta impresa quedaba desactualizada cada semana y las órdenes se anotaban en papel, así que la cocina recibía pedidos incompletos y la caja cerraba con diferencias frente al inventario.</p>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0;font-weight:300">El encargo inicial era “un menú por QR”. Al observar dos noches de operación quedó claro que el problema real estaba en el registro de la orden, no en la carta.</p>
+        </div>
+        <div id="dec">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">La decisión de diseño clave</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0 0 16px;font-weight:300">Los clientes <strong style="font-weight:600;color:#005348">no pueden ordenar desde el QR</strong>. En un bar, la gente toma; un botón de “pedir” a la una de la mañana genera pedidos accidentales, dobles y reclamos que el negocio termina pagando.</p>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0;font-weight:300">El mismo enlace del QR, con sesión de mesera, cambia de modo: se convierte en el panel para tomar la orden en la mesa. Una sola pieza sirve a las dos audiencias y el bar mantiene el control de lo que entra al sistema.</p>
+        </div>
+        <figure data-surface="card" style="margin:0;padding:38px 40px;border-radius:20px;background:repeating-radial-gradient(circle at 6% 100%, rgba(0,189,123,0) 0 40px, rgba(0,189,123,.09) 40px 41px), #EDF7F3;border-left:none">
+          <blockquote style="margin:0;font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:27px;line-height:1.4;color:#005348;letter-spacing:-.01em">“Nos está coincidiendo muy bien con los datos facturados y con el inventario.”</blockquote>
+          <figcaption style="margin-top:18px;font-size:13.5px;color:#4A7466;letter-spacing:.02em">— Administradora del bar</figcaption>
+        </figure>
+        <div id="con">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">Lo que construí</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0 0 16px;font-weight:300">Una carta pública en Next.js que carga en menos de un segundo con red móvil mala, un panel de mesera con búsqueda por producto y notas por ítem, y un tablero de administración con ventas del día, productos más vendidos y control de existencias sobre Supabase.</p>
+          <div data-surface="well" style="height:360px;border-radius:20px;overflow:hidden;margin-top:22px"><image-slot id="caso-2" shape="rect" placeholder="Pantallas del panel"></image-slot></div>
+        </div>
+        <div id="pro">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">El proceso</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0;font-weight:300">Acompañé dos turnos completos antes de diseñar nada. Prototipé la carta en una tarde y la probé con tres meseras sobre sus propios teléfonos, en la penumbra del bar: de ahí salieron los tamaños de toque, el contraste alto y el orden de las categorías por hora de la noche.</p>
+        </div>
+        <div id="res">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">El resultado</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0;font-weight:300">El cierre de caja pasó de una hora de conciliación a una revisión rápida, y las diferencias con inventario dejaron de ser un tema de discusión semanal. La carta se actualiza en dos minutos desde el celular del administrador.</p>
+        </div>
+        <div id="apr">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:34px;color:#005348;margin:0 0 18px;letter-spacing:-.015em">Lo que aprendí</h2>
+          <p style="font-size:16.5px;line-height:1.75;color:#3F6A5C;margin:0;font-weight:300">Quitar una función puede ser la mejor decisión de producto. Diseñar para el contexto real —ruido, prisa, gente tomada— importa más que cualquier patrón de interfaz que se vea bien en pantalla.</p>
+        </div>
+      </div>
+    </article>
+
+    <section style="max-width:1200px;margin:88px auto 0;padding:0 40px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <button onClick="{{ irProyectos }}" data-surface="card" style="text-align:left;padding:26px 30px;border:1px solid rgba(0,83,72,.12);border-radius:18px;background:#FFFFFF;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif" style-hover="border-color:#00BD7B">
+          <span style="display:block;font-size:12px;color:#7A9990;margin-bottom:8px">← Anterior</span>
+          <span data-strong="" style="font-family:'Playfair Display',serif;font-size:20px;color:#005348">Siguiendo la huella azul</span>
+        </button>
+        <button onClick="{{ irProyectos }}" data-surface="card" style="text-align:right;padding:26px 30px;border:1px solid rgba(0,83,72,.12);border-radius:18px;background:#FFFFFF;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif" style-hover="border-color:#00BD7B">
+          <span style="display:block;font-size:12px;color:#7A9990;margin-bottom:8px">Siguiente →</span>
+          <span data-strong="" style="font-family:'Playfair Display',serif;font-size:20px;color:#005348">Empaques con IA</span>
+        </button>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:72px 40px 0">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:30px;color:#005348;margin:0 0 28px">Proyectos relacionados</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ relacionados }}" as="p" hint-placeholder-count="3">
+          <div data-surface="card" style="border:1px solid rgba(0,83,72,.1);border-radius:18px;overflow:hidden;background:#FFFFFF">
+            <div data-surface="well" style="height:150px"><image-slot id="{{ p.slotRel }}" shape="rect" placeholder="Imagen"></image-slot></div>
+            <div style="padding:20px 22px 24px">
+              <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:18px;color:#005348;margin:0 0 8px">{{ p.titulo }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.6;color:#4A7466;font-weight:300">{{ p.resultado }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:80px auto 0;padding:0 40px 0">
+      <div style="border-radius:24px;padding:56px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;background:repeating-radial-gradient(circle at 95% 110%, rgba(72,217,139,0) 0 44px, rgba(72,217,139,.1) 44px 45px), linear-gradient(150deg,#005348,#1F5E3D)">
+        <div>
+          <h2 style="font-family:'Playfair Display',serif;font-weight:500;font-size:36px;color:#F9FFFE;margin:0;letter-spacing:-.02em">¿Trabajamos juntos?</h2>
+          <p style="font-size:15px;color:#A9CDC0;margin:12px 0 0;font-weight:300">Escríbeme por WhatsApp o correo.</p>
+        </div>
+        <div style="display:flex;gap:12px">
+          <a href="https://wa.me/57" style="padding:14px 26px;border-radius:999px;background:#00BD7B;color:#04241C;font-size:14px;font-weight:600" style-hover="background:#48D98B">WhatsApp</a>
+          <a href="mailto:hola@juancamilo.design" style="padding:14px 26px;border-radius:999px;border:1px solid rgba(249,255,254,.3);color:#F9FFFE;font-size:14px;font-weight:600" style-hover="border-color:#48D98B;color:#48D98B">Correo</a>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:80px;background:#005348;color:#CFE7DE">
+      <div style="max-width:1200px;margin:0 auto;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;color:#F9FFFE">JC</span>
+        <span style="font-size:12.5px;color:#7FA99A">© 2026 Juan Camilo Bolaños. Todos los derechos reservados.</span>
+      </div>
+    </footer>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ esGrilla }}">
+  <main>
+    <section style="max-width:1200px;margin:0 auto;padding:72px 40px 0">
+      <h1 style="font-family:'Playfair Display',serif;font-weight:500;font-size:54px;letter-spacing:-.025em;color:#005348;margin:0">Proyectos</h1>
+      <p style="font-size:17px;line-height:1.6;color:#3F6A5C;max-width:520px;margin:18px 0 0;font-weight:300">Trabajo de diseño, automatización e interacción física con clientes y proyectos de investigación en Medellín.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:38px">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.onClick }}" style="{{ c.estilo }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:40px 40px 0">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+        <sc-for list="{{ visibles }}" as="p" hint-placeholder-count="6">
+          <button onClick="{{ p.abrir }}" data-surface="card" style="text-align:left;background:#FFFFFF;border:1px solid rgba(0,83,72,.1);border-radius:20px;overflow:hidden;padding:0;cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(0,83,72,.55)">
+            <div data-surface="well" style="height:190px;background:#EDF7F3"><image-slot id="{{ p.slotGrid }}" shape="rect" placeholder="Imagen del proyecto"></image-slot></div>
+            <div style="padding:24px 24px 26px;display:flex;flex-direction:column;gap:12px;flex:1">
+              <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:21px;color:#005348;margin:0;letter-spacing:-.01em">{{ p.titulo }}</h3>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#4A7466;font-weight:300;flex:1">{{ p.resultado }}</p>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <sc-for list="{{ p.cats }}" as="cat" hint-placeholder-count="2">
+                  <span style="padding:5px 11px;border-radius:999px;border:1px solid rgba(0,83,72,.14);font-size:11.5px;color:#3F6A5C;letter-spacing:.02em">{{ cat }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:92px;background:#005348;color:#CFE7DE">
+      <div style="max-width:1200px;margin:0 auto;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;color:#F9FFFE">JC</span>
+        <span style="font-size:12.5px;color:#7FA99A">© 2026 Juan Camilo Bolaños. Todos los derechos reservados.</span>
+      </div>
+    </footer>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ es404 }}">
+  <main>
+    <section data-hero="" style="position:relative;overflow:hidden;background:repeating-radial-gradient(circle at 50% 30%, rgba(0,189,123,0) 0 52px, rgba(0,189,123,.11) 52px 53px), #F9FFFE">
+      <div style="max-width:820px;margin:0 auto;padding:130px 40px 120px;display:flex;flex-direction:column;align-items:center;text-align:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" style="margin-bottom:26px"><g fill="none" stroke="#00BD7B" stroke-width="1"><circle cx="12" cy="12" r="7" /><path d="M12 1v5M12 18v5M1 12h5M18 12h5" /></g></svg>
+        <span data-strong="" style="font-family:'Playfair Display',serif;font-size:96px;line-height:1;letter-spacing:-.04em;color:#005348">404</span>
+        <h1 style="font-family:'Playfair Display',serif;font-weight:500;font-size:40px;line-height:1.12;letter-spacing:-.02em;color:#005348;margin:22px 0 0;text-wrap:pretty">Esta página se perdió en el camino</h1>
+        <p style="font-size:17px;line-height:1.6;color:#3F6A5C;max-width:440px;margin:16px 0 0;font-weight:300">El enlace que seguiste no existe o cambió de lugar. Puedes volver al inicio o mirar los proyectos.</p>
+        <div style="display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;justify-content:center">
+          <button onClick="{{ irInicio }}" style="padding:15px 28px;border-radius:999px;border:none;background:#00BD7B;color:#04241C;font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;font-weight:600;cursor:pointer;box-shadow:0 8px 22px -10px rgba(0,189,123,.9)" style-hover="background:#00A96D">Ir al inicio</button>
+          <button onClick="{{ irProyectos }}" data-strong="" style="padding:15px 28px;border-radius:999px;border:1px solid rgba(0,83,72,.28);background:none;color:#005348;font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;font-weight:600;cursor:pointer" style-hover="border-color:#00BD7B;background:rgba(0,189,123,.06)">Ver proyectos</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1200px;margin:0 auto;padding:0 40px">
+      <span data-muted="" style="display:block;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:#7A9990;margin-bottom:24px">Quizá buscabas</span>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ destacados }}" as="p" hint-placeholder-count="3">
+          <button onClick="{{ p.abrir }}" data-surface="card" style="text-align:left;background:#FFFFFF;border:1px solid rgba(0,83,72,.1);border-radius:18px;overflow:hidden;padding:0;cursor:pointer;display:flex;flex-direction:column;transition:transform .25s ease, box-shadow .25s ease" style-hover="transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(0,83,72,.55)">
+            <div data-surface="well" style="height:150px"><image-slot id="{{ p.slot404 }}" shape="rect" placeholder="Imagen"></image-slot></div>
+            <div style="padding:20px 22px 24px">
+              <h3 style="font-family:'Playfair Display',serif;font-weight:500;font-size:18px;color:#005348;margin:0 0 8px">{{ p.titulo }}</h3>
+              <p style="margin:0;font-size:13px;line-height:1.6;color:#4A7466;font-weight:300">{{ p.resultado }}</p>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="margin-top:92px;background:#005348;color:#CFE7DE">
+      <div style="max-width:1200px;margin:0 auto;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;color:#F9FFFE">JC</span>
+        <span style="font-size:12.5px;color:#7FA99A">© 2026 Juan Camilo Bolaños. Todos los derechos reservados.</span>
+      </div>
+    </footer>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ flotantes }}" hint-placeholder-val="{{ true }}">
+  <div style="position:fixed;right:26px;bottom:26px;z-index:60;display:flex;flex-direction:column;gap:12px">
+    <a href="mailto:hola@juancamilo.design" aria-label="Escribir correo" data-surface="fab" style="width:46px;height:46px;border-radius:999px;background:#FFFFFF;border:1px solid rgba(0,83,72,.16);display:grid;place-items:center;color:#005348;box-shadow:0 10px 26px -14px rgba(0,83,72,.7)" style-hover="border-color:#00BD7B;color:#00BD7B">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" /><path d="m3 6 9 6.5L21 6" /></svg>
+    </a>
+    <a href="https://wa.me/57" aria-label="Escribir por WhatsApp" style="width:52px;height:52px;border-radius:999px;background:#00BD7B;display:grid;place-items:center;color:#04241C;box-shadow:0 12px 30px -12px rgba(0,189,123,.95)" style-hover="background:#48D98B">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a12 12 0 0 1-5.9-5.1c-.4-.7-.9-1.7-.9-2.6 0-.9.5-1.4.7-1.6.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2 1.3 2.3 1.4.2.1.4.1.6-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.2.1.4.2.4.3v.9Z" /></svg>
+    </a>
+  </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vistaInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;inicio&quot;,&quot;caso&quot;,&quot;grilla&quot;,&quot;404&quot;],&quot;default&quot;:&quot;inicio&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;mostrarFlotantes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;mostrarMuestraOscura&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototipo&quot;}}">
+const PROYECTOS = [
+  { id:'industrial', titulo:'Industrial', resultado:'Menú QR y gestión para un bar real: el cliente consulta, la mesera ordena.', cats:['UX/UI'] },
+  { id:'empaques', titulo:'Empaques con IA', resultado:'Del formulario al render: caficultores ven su marca empacada, generada con IA.', cats:['IA y automatización','UX/UI'] },
+  { id:'huella', titulo:'Siguiendo la huella azul', resultado:'Espacio interactivo para niños validado con prototipo de ESP32 y gestos.', cats:['Inmersivo'] },
+  { id:'planeta', titulo:'Planeta SST en VR', resultado:'Capacitación en seguridad laboral convertida en recorrido de realidad virtual.', cats:['Inmersivo'] },
+  { id:'ihomotic', titulo:'i-Homotic', resultado:'Domótica accesible: una app que traduce la casa conectada a lenguaje cotidiano.', cats:['UX/UI','IA y automatización'] },
+  { id:'abuelos', titulo:'Investigación abuelos-nietos', resultado:'Estudio de campo sobre vínculos intergeneracionales y tecnología en el hogar.', cats:['Investigación'] }
+];
+const IDIOMAS = [
+  { codigo:'ES', nombre:'Español' },
+  { codigo:'EN', nombre:'English' },
+  { codigo:'FR', nombre:'Français' }
+];
+const CHIPS = ['Todos','UX/UI','IA y automatización','Inmersivo','Investigación'];
+
+class Component extends DCLogic {
+  state = { vista: null, filtro: 'Todos', lang: 'ES', tema: 'claro' };
+
+  get vista() { return this.state.vista || this.props.vistaInicial || 'inicio'; }
+
+  ir = (v) => { this.setState({ vista: v }); window.scrollTo(0, 0); };
+
+  chipStyle(activo) {
+    const dark = this.state.tema === 'oscuro';
+    const base = 'padding:10px 20px;border-radius:999px;cursor:pointer;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:13.5px;font-weight:600;letter-spacing:.01em;transition:all .2s ease;';
+    if (activo) return base + (dark ? 'background:#48D98B;color:#04241C;border:1px solid #48D98B;' : 'background:#005348;color:#F9FFFE;border:1px solid #005348;');
+    return base + (dark ? 'background:transparent;color:#9CBDB2;border:1px solid rgba(72,217,139,.22);' : 'background:transparent;color:#3F6A5C;border:1px solid rgba(0,83,72,.18);');
+  }
+
+  animarScroll(destino) {
+    const inicio = window.scrollY || document.documentElement.scrollTop || 0;
+    const delta = destino - inicio;
+    const dur = 480;
+    const t0 = performance.now();
+    const paso = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      window.scrollTo(0, inicio + delta * e);
+      if (p < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  }
+
+  opcionIdiomaStyle(activo) {
+    const dark = this.state.tema === 'oscuro';
+    return 'display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:9px 12px;border:none;border-radius:9px;cursor:pointer;text-align:left;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:13.5px;font-weight:' + (activo ? '600;' : '400;') +
+      (activo
+        ? (dark ? 'background:rgba(72,217,139,.16);color:#8FEFC1;' : 'background:rgba(0,189,123,.1);color:#005348;')
+        : (dark ? 'background:transparent;color:#C7E3D9;' : 'background:transparent;color:#3F6A5C;'));
+  }
+
+  langStyle(activo, dark) {
+    const base = 'padding:6px 11px;border:none;cursor:pointer;font-family:\'Plus Jakarta Sans\',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.04em;';
+    if (activo) return base + (dark ? 'background:#48D98B;color:#04241C;' : 'background:#005348;color:#F9FFFE;');
+    return base + (dark ? 'background:transparent;color:#9BC4B6;' : 'background:transparent;color:#5A7D72;');
+  }
+
+  renderVals() {
+    const v = this.vista;
+    const f = this.state.filtro;
+    const abrirCaso = () => this.ir('caso');
+    const withSlots = (list, prefix, key) => list.map(p => Object.assign({}, p, { [key]: prefix + p.id, abrir: abrirCaso }));
+
+    return {
+      esInicio: v === 'inicio',
+      esCaso: v === 'caso',
+      esGrilla: v === 'grilla',
+      es404: v === '404',
+      irInicio: () => this.ir('inicio'),
+      irProyectos: () => this.ir('grilla'),
+      flotantes: this.props.mostrarFlotantes !== false,
+      mostrarOscuro: this.props.mostrarMuestraOscura !== false,
+      destacados: withSlots(PROYECTOS.slice(0, 3), 'dest-', 'slot').map(p => Object.assign({}, p, { slot404: '404-' + p.id })),
+      relacionados: withSlots(PROYECTOS.slice(1, 4), 'rel-', 'slotRel'),
+      visibles: withSlots(f === 'Todos' ? PROYECTOS : PROYECTOS.filter(p => p.cats.includes(f)), 'grid-', 'slotGrid'),
+      chips: CHIPS.map(c => ({ label: c, estilo: this.chipStyle(c === f), onClick: () => this.setState({ filtro: c }) })),
+      tema: this.state.tema,
+      toggleDark: () => this.setState(s => ({ tema: s.tema === 'claro' ? 'oscuro' : 'claro' })),
+      langCodigo: this.state.lang,
+      langMenuAbierto: !!this.state.langMenu,
+      toggleLangMenu: () => this.setState(s => ({ langMenu: !s.langMenu })),
+      idiomas: IDIOMAS.map(l => ({
+        codigo: l.codigo,
+        nombre: l.nombre,
+        estilo: this.opcionIdiomaStyle(l.codigo === this.state.lang),
+        onClick: () => this.setState({ lang: l.codigo, langMenu: false })
+      })),
+      idiomasFooter: IDIOMAS.map(l => ({
+        codigo: l.codigo,
+        onClick: () => this.setState({ lang: l.codigo }),
+        estilo: this.langStyle(l.codigo === this.state.lang, true) + 'border-radius:999px;border:1px solid rgba(249,255,254,.24);'
+      })),
+      cvMenuAbierto: !!this.state.cvMenu,
+      toggleCvMenu: () => this.setState(s => ({ cvMenu: !s.cvMenu })),
+      cvIdiomas: IDIOMAS.map(l => ({
+        nombre: l.nombre,
+        estilo: this.opcionIdiomaStyle(false),
+        onClick: () => this.setState({ cvMenu: false })
+      })),
+      volverArriba: () => this.animarScroll(0),
+      verDestacados: () => {
+        const el = document.getElementById('destacados');
+        if (el) this.animarScroll(el.getBoundingClientRect().top + window.scrollY - 80);
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
