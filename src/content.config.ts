@@ -29,7 +29,16 @@ export type Categoria = (typeof CATEGORIAS)[number];
 const proyectos = defineCollection({
   // Un archivo por idioma: src/content/proyectos/{es,en,fr,de}/<slug>.md
   // El id resultante es `es/industrial`, `en/industrial`, etc.
-  loader: glob({ base: './src/content/proyectos', pattern: '**/*.md' }),
+  //
+  // `generateId` es obligatorio, no cosmético: por defecto el glob loader usa
+  // el `slug` del frontmatter como id cuando existe, y ese campo es idéntico
+  // en las traducciones de un mismo caso. Sin esto, `en/industrial` pisaría a
+  // `es/industrial` y la colección devolvería un solo idioma.
+  loader: glob({
+    base: './src/content/proyectos',
+    pattern: '**/*.md',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
   schema: ({ image }) =>
     z.object({
       titulo: z.string(),
