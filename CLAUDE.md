@@ -80,8 +80,8 @@ en español vivían también en `contenido/`, con el cuerpo duplicado byte a byt
 y un frontmatter ya obsoleto; esa carpeta se eliminó porque obligaba a
 mantener dos copias sincronizadas a mano. Los originales siguen en el
 historial de git si alguna vez hacen falta. Los 5 casos están en
-`src/content/proyectos/es/`; falta `abuelos-nietos`, que Juan Camilo agregará
-después.
+`src/content/proyectos/es/` y en `src/content/proyectos/en/` (FASE 6); falta
+`abuelos-nietos`, que Juan Camilo agregará después.
 
 Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
 salen en la portada):
@@ -163,9 +163,10 @@ de verdad en cada idioma. No activar esa opción.
 
 ## Estado actual
 
-FASES 1, 2, 3, 4 y 5 están completas y commiteadas. `astro check` pasa con
-0 errores, 0 warnings y 0 hints; el build genera 12 páginas, 11 tarjetas
-Open Graph, el sitemap, `robots.txt` y `llms.txt`.
+FASES 1, 2, 3, 4, 5 y 6 están completas y commiteadas. `astro check` pasa con
+0 errores, 0 warnings y 0 hints; el build genera 17 páginas, 16 tarjetas
+Open Graph, el sitemap, `robots.txt` y `llms.txt`. Queda FASE 6-bis (francés)
+y FASE 7.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -190,10 +191,13 @@ Ya existe:
 - i18n con rutas traducidas y todas las cadenas de FASE 3 en es/en.
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
+- Los mismos 5 casos traducidos en `src/content/proyectos/en/` (FASE 6), con
+  los campos estructurales idénticos al español.
 - Las 5 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
-  en inglés y francés de las 3 que llevan texto, a la espera de FASE 6:
-  `<slug>-portada.png`, `-portada-en.png`, `-portada-fr.png`. i-homotic e
-  industrial son logos, así que sirven para los cuatro idiomas.
+  en inglés y francés de las 3 que llevan texto: `<slug>-portada.png`,
+  `-portada-en.png`, `-portada-fr.png`. i-homotic e industrial son logos, así
+  que sirven para los cuatro idiomas. Las `-en` ya están conectadas; las `-fr`
+  esperan a FASE 6-bis.
 - Los dos retratos (`src/assets/retratos/`) y el CV en español
   (`public/cv/juan-camilo-bolanos-es.pdf`).
 - Toda la capa de SEO/GEO: `BaseLayout` con Open Graph, Twitter Card,
@@ -284,6 +288,36 @@ Decisiones de FASE 5 que no hay que revertir:
   al disco y las cabeceras las pone el host. Si hacen falta de verdad, van en
   `public/_headers` (FASE 7).
 
+Decisiones de FASE 6 que no hay que revertir:
+- El `glob` loader de `content.config.ts` lleva `generateId` explícito. No es
+  cosmético: por defecto usa el `slug` del frontmatter como id cuando ese
+  campo existe, y el `slug` es idéntico en las traducciones de un mismo caso.
+  Con solo español nunca colisionó; al aparecer `en/` cada archivo inglés
+  pisaba al español con el mismo slug y la colección devolvía un solo idioma
+  por caso. `generateId` devuelve la ruta sin extensión, que es justo el
+  `<locale>/<slug>` que asume `localeDeEntrada()` en `src/lib/proyectos.ts`.
+  Cualquier idioma nuevo depende de esto.
+- Solo se tradujeron `titulo`, `resumen`, `rol` y el `cliente` de
+  `siguiendo-la-huella-azul`, que es descriptivo. Los nombres propios de
+  empresa (i-Homotic (GELECT S.A.S), Bar Industrial, Alico S.A.S BIC) van
+  igual en los dos idiomas.
+- `herramientas` incluye «Desarrollo a la medida» en `empaques-ia-alico`, en
+  español dentro del archivo inglés. Es deliberado: el campo tiene que ser
+  idéntico entre idiomas porque alimenta comparaciones, no prosa.
+- Los `[PENDIENTE]` del cuerpo se tradujeron como `[PENDING]`, no se
+  resolvieron. `industrial` sigue esperando permiso del bar para la cita y
+  las métricas, en inglés igual que en español.
+- Los avisos `[PENDIENTE]` de la portada y de la grilla desaparecen solos en
+  inglés: sus condiciones miran si hay proyectos en el idioma. No hubo que
+  tocar `ui.ts` — las claves `inicio.destacadosPendiente` y
+  `proyectos.pendiente` se quedan para los idiomas todavía vacíos.
+- El título más largo en inglés sigue siendo el de `siguiendo-la-huella-azul`
+  y cae en tres renglones en la tarjeta OG, igual que su original: la
+  calibración de `tamanoTitulo` aguanta sin cambios.
+- Los apóstrofes del frontmatter van tipográficos (’). El cuerpo Markdown
+  pasa por smartypants y los convierte solo; el frontmatter no, así que un
+  apóstrofe recto ahí saldría distinto al del texto en la misma página.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -301,10 +335,11 @@ Pendientes conocidos, además de las fases:
   secas, únicos dentro del sitio pero genéricos en un resultado de búsqueda.
   Añadirles el nombre como sufijo es candidato de FASE 7, junto con el resto
   de la auditoría.
-- Cuando FASE 6 traduzca los casos, el `hreflang` y el selector de idioma se
-  abren solos: `localesDeProyecto()` los detecta al aparecer el `.md`. Lo que
-  sí hay que conectar a mano es la portada traducida
-  (`<slug>-portada-en.png`), que hoy nadie importa.
+- `llms.txt` sigue listando solo las URLs en español: se arma con el locale
+  por defecto y es un único archivo en la raíz. Si conviene que también anuncie
+  las versiones inglesas, es decisión de FASE 7.
+- Los casos en inglés heredan los `[PENDIENTE]` de contenido del español, así
+  que al conseguir el permiso del bar hay que editar los dos `industrial.md`.
 
 ## Cómo se agrega un caso nuevo (queda de FASE 4)
 
@@ -327,7 +362,12 @@ Pendientes conocidos, además de las fases:
    texto, logos — tiene que caber ahí. `imagen_portada` puede omitirse; sin
    ella el caso cae en el marco `PozoImagen`.
    Si la portada lleva texto, su traducción va al lado con sufijo de locale
-   (`-portada-en.png`, `-portada-fr.png`) y se conecta en FASE 6.
+   (`-portada-en.png`, `-portada-fr.png`) y la referencia el `.md` de ese
+   idioma.
+3-bis. Traducir el caso a `src/content/proyectos/en/<slug>.md` con las reglas
+   de FASE 6 (mismo `slug`, `orden`, `destacado`, `categoria`, `herramientas`
+   y `año`). Mientras no exista, el caso solo sale en español: el `hreflang` y
+   el selector de idioma lo detectan solos vía `localesDeProyecto()`.
 4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
    grilla genera un chip por categoría en uso, el anterior/siguiente sigue
    el `orden` y los relacionados comparten categoría.
@@ -357,22 +397,24 @@ Pendientes conocidos, además de las fases:
   `npm run build` en 0 errores y 0 warnings."
 - FASE 5 — SEO/GEO: "Lee CLAUDE.md. Implementa toda la sección SEO y GEO:
   metas, OG por proyecto, JSON-LD, sitemap, robots, llms.txt, hreflang."
-- FASE 6 — Inglés: los 5 casos en `src/content/proyectos/en/` (la interfaz
-  ya está traducida en `ui.ts`). Una sesión por idioma: traducir cinco casos
-  largos dos veces en una sola conversación degrada el resultado.
+- FASE 6 — Inglés: **completa.** Los 5 casos están en
+  `src/content/proyectos/en/` y la interfaz ya estaba traducida en `ui.ts`.
+  Una sesión por idioma: traducir cinco casos largos dos veces en una sola
+  conversación degrada el resultado.
 - FASE 6-bis — Francés: completar `fr` en `ui.ts` (hoy `{}`), los 5 casos en
   `src/content/proyectos/fr/` y solo entonces añadir `'fr'` a
   `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
   tienen `fr`: no hay que tocarlos. Cuidado: `useTranslations` cae al español
   cuando falta una clave, así que un `fr` incompleto no rompe el build, solo
   deja frases en español dentro de páginas francesas.
-  Reglas de frontmatter para ambas: `slug`, `orden`, `destacado`,
-  `categoria`, `herramientas` y `año` idénticos al español. `slug` porque la
-  URL y `localesDeProyecto()` emparejan las versiones por él; `categoria`
-  porque es un enum de Zod con los valores canónicos en español, que se
-  muestran traducidos vía las claves `categoria.*`. Cada `.md` apunta a su
-  propia portada: `-portada-en.png` / `-portada-fr.png` en los tres casos con
-  texto, la base en i-homotic e industrial.
+  Reglas de frontmatter, ya aplicadas en `en/` y a copiar tal cual en `fr/`:
+  `slug`, `orden`, `destacado`, `categoria`, `herramientas` y `año` idénticos
+  al español. `slug` porque la URL y `localesDeProyecto()` emparejan las
+  versiones por él; `categoria` porque es un enum de Zod con los valores
+  canónicos en español, que se muestran traducidos vía las claves
+  `categoria.*`. Cada `.md` apunta a su propia portada: `-portada-fr.png` en
+  los tres casos con texto, la base en i-homotic e industrial. El camino más
+  corto es partir de `en/`, que ya resolvió qué se traduce y qué no.
 - FASE 7 — QA y despliegue: "Lee CLAUDE.md. Audita Lighthouse y
   accesibilidad hasta cumplir las metas, corrige, y configura el despliegue
   en Cloudflare Pages con el dominio." Lo que ya está resuelto: el host
