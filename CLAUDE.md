@@ -224,9 +224,6 @@ Pendientes conocidos, además de las fases:
   y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
   Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
   y=170 y y=830 —, no en el código.
-- `siguiendo-la-huella-azul-portada-fr.png` dice «SUIVONS LA PISTE BLUEU»:
-  la palabra correcta es BLEUE. Rehacer esa tarjeta antes de FASE 6. Las
-  otras cuatro traducciones se revisaron y están bien.
 - CV en inglés (al subirlo: `public/cv/juan-camilo-bolanos-en.pdf` y la línea
   `en` en `CV`, con eso `MenuCV` vuelve solo a ser desplegable).
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
