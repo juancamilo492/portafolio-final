@@ -8,7 +8,7 @@ categoria: ["Producto digital", "UX/UI"]
 herramientas: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"]
 destacado: true
 orden: 2
-resumen: "Système de menu par QR code et panneau de gestion pour un bar réel : les clients consultent, les serveuses prennent les commandes, et les gérantes voient les indicateurs de l’activité en temps réel."
+resumen: "Système de menu par QR code et panneau de gestion pour un bar réel : les clients consultent, le personnel de salle prend les commandes, et les gérantes voient les indicateurs de l’activité en temps réel."
 imagen_portada: "../../../assets/proyectos/industrial-portada.png"
 ---
 
@@ -32,8 +32,8 @@ La solution a été de concevoir un seul système à deux visages :
 
 - **Le client** scanne le QR code de sa table et consulte le menu, les prix,
   les promotions du jour et l’état de son addition. Rien de plus.
-- **La serveuse** utilise ce même parcours pour entrer dans le panneau
-  d’administration, sélectionner la table et enregistrer elle-même la commande,
+- **Le personnel de salle** utilise ce même parcours pour entrer dans le
+  panneau d’administration, sélectionner la table et enregistrer la commande,
   en la confirmant en personne.
 
 La commande reste associée à la bonne table, le client garde le contrôle de ce
@@ -66,10 +66,10 @@ défini tout le produit.
 La première version suivait le schéma standard des menus par QR code : le
 client composait un panier et envoyait sa commande depuis la table. En
 confrontant ce parcours à la réalité du bar lors des réunions avec les
-gérantes, le modèle s’est inversé complètement : le client consulte, la
-serveuse commande. La meilleure décision du projet ne figurait pas dans le plan
-initial — elle est sortie des itérations avec celles qui vivent l’exploitation
-au quotidien.
+gérantes, le modèle s’est inversé complètement : le client consulte, le
+personnel de salle commande. La meilleure décision du projet ne figurait pas
+dans le plan initial — elle est sortie des itérations avec les personnes qui
+vivent l’exploitation au quotidien.
 
 Le développement a avancé par cycles courts : des avancées partagées par
 WhatsApp et des réunions sur place au bar, d’où sortaient des listes concrètes
@@ -100,4 +100,4 @@ Ce projet m’a confirmé que le design centré sur l’utilisateur peut amélio
 radicalement le fonctionnement d’une entreprise, quelle que soit sa taille. Et
 il m’a laissé une conviction simple : un système que l’on comprend est un
 système dont on profite — autant pour le client qui scanne le QR code que pour
-la serveuse qui l’utilise toute la nuit.
+le personnel de salle qui l’utilise toute la nuit.

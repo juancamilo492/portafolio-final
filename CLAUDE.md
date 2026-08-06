@@ -342,6 +342,12 @@ Decisiones de FASE 6-bis que no hay que revertir:
 - El selector de idioma y el `hreflang` pasaron a tres entradas solos, desde
   `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
   tenían `fr` desde FASE 1: no se tocó ninguno.
+- El rol de servicio del caso `industrial` es neutro en los tres idiomas:
+  «el personal de sala», «le personnel de salle», «the server». El original en
+  español decía «las meseras», y el francés lo había heredado como «les
+  serveuses»; se neutralizó a propósito porque ahí se describe un rol del flujo,
+  no a una persona concreta. Las **administradoras** sí siguen en femenino: son
+  personas identificadas del bar. No revertir ninguna de las dos cosas.
 
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
