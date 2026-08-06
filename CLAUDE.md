@@ -176,6 +176,12 @@ Ya existe:
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Los `.md` originales siguen en
   `contenido/` como fuente; el cuerpo de las copias es idéntico byte a byte.
+- Las 5 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
+  en inglés y francés de las 3 que llevan texto, a la espera de FASE 6:
+  `<slug>-portada.png`, `-portada-en.png`, `-portada-fr.png`. i-homotic e
+  industrial son logos, así que sirven para los cuatro idiomas.
+- Los dos retratos (`src/assets/retratos/`) y el CV en español
+  (`public/cv/juan-camilo-bolanos-es.pdf`).
 
 Decisiones de FASE 3 que no hay que revertir:
 - La itálica del H1 del hero usa `--color-acento-hover` (3.01:1, válido
@@ -192,11 +198,19 @@ Decisiones de FASE 4 que no hay que revertir:
 - Los 5 `.md` se copiaron con un script: solo cambió el frontmatter
   (`categoria` canónica, `orden`, `imagen_portada`). El cuerpo se verificó
   idéntico al de `contenido/`.
-- Las portadas son placeholders generados (1600×1000 PNG, estética Esmeralda,
-  con el texto «[PENDIENTE: imagen de portada]» dentro de la propia imagen)
-  en `src/assets/proyectos/<slug>-portada.png`. Se reemplazan archivo por
-  archivo conservando el nombre: el frontmatter no se toca. Están en el
-  repo para ejercitar el pipeline de astro:assets, no como arte definitivo.
+- Las portadas placeholder generadas se reemplazaron por las reales
+  conservando el nombre `<slug>-portada.png`, sin tocar el frontmatter.
+- Los retratos llegaron recortados en PNG con alfa (sin fondo). Se
+  compusieron sobre un degradado claro de la paleta en la proporción exacta
+  de cada caja (`hero-juan-camilo.webp` 1200×1380, `sobre-mi-juan-camilo.webp`
+  1200×1320) porque el sitio les aplica `grayscale(1)`: en blanco y negro el
+  traje oscuro se separa de un fondo claro, no de uno verde. Los originales
+  con alfa siguen en `src/assets/retratos/` como fuente (nadie los importa,
+  así que no entran al build). Recompuestos con un script, no a mano.
+- `MenuCV` es un enlace directo mientras haya un solo PDF, con el código del
+  idioma a la vista; vuelve a ser desplegable en cuanto `CV` tenga dos
+  entradas. `cvDe(locale)` en `src/config/sitio.ts` es la única fuente de esa
+  decisión, y `CV` solo lista PDFs que existen: nunca un enlace roto.
 - `industrial` sigue sin `cita`: el propio caso marca
   «[PENDIENTE: testimonio — pedir permiso para citar]» y la frase del
   handoff es de la administradora del bar. No se publica sin ese permiso.
@@ -205,13 +219,15 @@ Decisiones de FASE 4 que no hay que revertir:
   traducción de los casos, no la integración.
 
 Pendientes conocidos, además de las fases:
-- Retratos de Juan Camilo (hero y sobre-mi): siguen en `PozoImagen`, sin
-  placeholder generado, porque una foto no se puede fingir.
-- Reemplazar las 6 portadas placeholder por las imágenes reales (≥1200px de
-  ancho) y añadir la del caso `abuelos-nietos` cuando exista.
+- Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
+  del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
+  y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
+  Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
+  y=170 y y=830 —, no en el código.
+- CV en inglés (al subirlo: `public/cv/juan-camilo-bolanos-en.pdf` y la línea
+  `en` en `CV`, con eso `MenuCV` vuelve solo a ser desplegable).
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
-- PDFs del CV en `public/cv/` (rutas ya declaradas en `src/config/sitio.ts`).
-- El caso `abuelos-nietos`.
+- El caso `abuelos-nietos` y su portada.
 - Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
   hechos verificables de los casos y marca el resto como `[PENDIENTE]`).
 - No hay `public/favicon.ico`; el dev server lo avisa en cada carga.
@@ -229,11 +245,15 @@ Pendientes conocidos, además de las fases:
    - vr-capacitacion-alico → `Inmersivo`, `Investigación`
    - empaques-ia-alico → `IA y automatización`, `UX/UI`
    - siguiendo-la-huella-azul → `Inmersivo`, `Investigación`, `UX/UI`
-3. Imagen en `src/assets/proyectos/`, referenciada como
-   `../../../assets/proyectos/<archivo>`. Las plantillas piden hasta 1200px
-   de ancho (portada del caso) y 800px (tarjetas): el original debe medir
-   1200px o más. `imagen_portada` puede omitirse; sin ella el caso cae en el
-   marco `PozoImagen`.
+3. Imagen en `src/assets/proyectos/<slug>-portada.png`, referenciada como
+   `../../../assets/proyectos/<archivo>`. Formato acordado: **1600×1000**
+   (mínimo 1200 de ancho, que es el mayor `widths` de la plantilla). El
+   recorte es `object-cover` centrado en las cuatro cajas donde aparece, y
+   la más estrecha conserva solo **y=170 a y=830**: todo lo que importe —
+   texto, logos — tiene que caber ahí. `imagen_portada` puede omitirse; sin
+   ella el caso cae en el marco `PozoImagen`.
+   Si la portada lleva texto, su traducción va al lado con sufijo de locale
+   (`-portada-en.png`, `-portada-fr.png`) y se conecta en FASE 6.
 4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
    grilla genera un chip por categoría en uso, el anterior/siguiente sigue
    el `orden` y los relacionados comparten categoría.
