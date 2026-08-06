@@ -149,8 +149,8 @@ LinkedIn /in/juan-camilo-bolanos-garcia
 
 ## Estado actual
 
-FASE 1 y FASE 2 están completas y commiteadas. `npm run build` pasa con
-0 errores y 0 warnings; genera 7 páginas.
+FASES 1, 2 y 3 están completas y commiteadas. `astro check` pasa con
+0 errores, 0 warnings y 0 hints; el build genera 7 páginas.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -159,15 +159,76 @@ Ya existe:
   sticky con menú hamburguesa < 768px, `Footer`, `SelectorIdioma` accesible,
   `ToggleTema` sin parpadeo, `BotonesFlotantes`, `MarcaGeometrica`, `Icono`,
   `Contenedor`.
-- i18n con rutas traducidas y colección `proyectos` vacía a la espera de
-  FASE 4. Todos los pares de texto verificados en AA.
-- Páginas placeholder con marcadores `[PENDIENTE: ...]` visibles.
+- Componentes de página: `Boton` (variantes solido / contorno / punteado /
+  claro-contorno), `TarjetaProyecto` (destacada / grilla / compacta),
+  `PozoImagen` (marco de imagen ausente), `AvisoPendiente`, `BloqueCTA`
+  (completo / compacto) y `MenuCV`. `MenuCV` lleva `data-selector-idioma`
+  a propósito: reutiliza el script del selector de idioma (clic fuera,
+  Escape, flechas) en vez de duplicarlo.
+- Clase `.prosa` en `global.css` para el Markdown de los casos.
+- Las 5 vistas construidas con contenido real en español: inicio, grilla
+  con filtro client-side (`?categoria=`, `aria-pressed`, conteo en
+  `aria-live`), plantilla de caso, sobre-mi y 404.
+- `src/lib/proyectos.ts` con `proyectosPorLocale`, `proyectosDestacados`,
+  `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
+  con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
+- i18n con rutas traducidas y todas las cadenas de FASE 3 en es/en.
+  Colección `proyectos` vacía a la espera de FASE 4.
+
+Decisiones de FASE 3 que no hay que revertir:
+- La itálica del H1 del hero usa `--color-acento-hover` (3.01:1, válido
+  solo por ser texto grande); todo el resto del verde textual usa
+  `--color-acento-texto`. Sobre los bloques verdes el hover NO vira a
+  menta: da 4.23:1 sobre `#1F5E3D` y ese texto es pequeño.
+- Los `<li>` de las grillas no llevan utilidad de display, para que el
+  atributo `hidden` del filtro pueda ocultarlos.
+- Se omitió la sección 6 del handoff ("muestra del hero en modo oscuro"):
+  era una prop del prototipo y aquí existe el toggle real.
+- El índice del caso se oculta bajo 1024px, opción que el handoff permite.
 
 Pendientes conocidos, además de las fases:
 - Retratos de Juan Camilo (hero y sobre-mi) e imágenes de los 6 casos.
 - PDFs del CV en `public/cv/` (rutas ya declaradas en `src/config/sitio.ts`).
 - El caso `abuelos-nietos`.
-- El build avisa que la colección `proyectos` está vacía; desaparece en FASE 4.
+- Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
+  hechos verificables de los casos y marca el resto como `[PENDIENTE]`).
+- No hay `public/favicon.ico`; el dev server lo avisa en cada carga.
+- El build avisa que la colección `proyectos` está vacía; desaparece en
+  FASE 4.
+
+## Qué le falta a FASE 4 (checklist)
+
+Las páginas ya están construidas: FASE 4 solo mueve contenido, no rediseña.
+Todo lo que dependa de la colección hoy muestra un `[PENDIENTE: ...]`
+visible y debe quedar resuelto al terminar.
+
+1. Copiar los 5 `.md` de `contenido/` a `src/content/proyectos/es/`,
+   nombrando cada archivo con su `slug`. No reescribir el cuerpo: los `##`
+   alimentan el índice lateral del caso.
+2. En el frontmatter, y solo ahí:
+   - añadir `orden` según la lista de la sección Contenido;
+   - remapear `categoria` a la lista canónica (tabla de abajo);
+   - **borrar `imagen_portada: "[pendiente]"`**: el campo es `image()` y
+     ese string rompe la validación de Zod. Se vuelve a añadir cuando la
+     imagen exista.
+3. Mapeo acordado de categorías (regla en `src/content.config.ts`):
+   - i-homotic → `Investigación`, `Diseño de servicio`, `UX/UI`
+   - industrial → `Producto digital`, `UX/UI`
+   - vr-capacitacion-alico → `Inmersivo`, `Investigación`
+   - empaques-ia-alico → `IA y automatización`, `UX/UI`
+   - siguiendo-la-huella-azul → `Inmersivo`, `Investigación`, `UX/UI`
+4. Imágenes en `src/assets/proyectos/`, referenciadas desde el `.md` como
+   `../../../assets/proyectos/<archivo>`. Las plantillas piden hasta
+   1200px de ancho (portada del caso) y 800px (tarjetas), así que el
+   original debe medir 1200px o más.
+5. La cita de `industrial` está en el handoff ("Nos está coincidiendo muy
+   bien con los datos facturados y con el inventario." — Administradora del
+   bar). Confirmarla con Juan Camilo antes de ponerla en `cita` /
+   `cita_autor`; no inventar citas para los demás casos.
+6. Verificar después: la portada muestra i-homotic, industrial y
+   vr-capacitacion-alico; la grilla genera un chip por cada categoría en
+   uso; el anterior/siguiente sigue el `orden`; los relacionados comparten
+   categoría.
 
 ## Fases y prompt de arranque de cada una
 
@@ -182,8 +243,11 @@ Pendientes conocidos, además de las fases:
 - FASE 3 — Páginas: "Lee CLAUDE.md. Construye inicio, grilla de proyectos
   con filtros, plantilla de caso de estudio con anterior/siguiente y
   relacionados, sobre-mi y 404, con el contenido real en español."
-- FASE 4 — Contenido: "Lee CLAUDE.md. Integra los 6 casos .md y sus
-  imágenes optimizadas con astro:assets. Verifica destacados y orden."
+- FASE 4 — Contenido: "Lee CLAUDE.md, en especial 'Qué le falta a FASE 4'.
+  Integra los casos .md de contenido/ en la colección y sus imágenes
+  optimizadas con astro:assets, tocando solo el frontmatter. Verifica
+  destacados, orden, filtros, anterior/siguiente y relacionados, y deja
+  `npm run build` en 0 errores y 0 warnings."
 - FASE 5 — SEO/GEO: "Lee CLAUDE.md. Implementa toda la sección SEO y GEO:
   metas, OG por proyecto, JSON-LD, sitemap, robots, llms.txt, hreflang."
 - FASE 6 — Inglés: "Lee CLAUDE.md. Crea las versiones en inglés de la
