@@ -6,9 +6,10 @@ import Contenedor from '../../components/Contenedor.astro';
 import Icono from '../../components/Icono.astro';
 import MarcaGeometrica from '../../components/MarcaGeometrica.astro';
 import MenuCV from '../../components/MenuCV.astro';
-import PozoImagen from '../../components/PozoImagen.astro';
 import TarjetaProyecto from '../../components/TarjetaProyecto.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import retrato from '../../assets/retratos/hero-juan-camilo.webp';
 import { pathsDeLocalesActivos, rutaDe, useTranslations } from '../../i18n/utils';
 import { proyectosDestacados } from '../../lib/proyectos';
 import { SITIO } from '../../config/sitio';
@@ -117,10 +118,15 @@ const proceso = [
           tamano={26}
           class="absolute -top-3.5 -left-1.5 z-[3] text-acento dark:text-menta"
         />
-        {/* [PENDIENTE: retrato del hero — se integra con astro:assets cuando exista la foto] */}
-        <PozoImagen
-          texto={t('inicio.retratoPendiente')}
-          class="retrato-bn relative z-[2] aspect-[4/4.6] overflow-hidden rounded-[22px]"
+        {/* La única imagen sobre la línea de flotación: se carga con prioridad. */}
+        <Image
+          src={retrato}
+          alt={t('inicio.retratoAlt')}
+          widths={[420, 640, 1010]}
+          sizes="(min-width: 1024px) 505px, (min-width: 640px) 420px, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="retrato-bn relative z-[2] aspect-[4/4.6] w-full rounded-[22px] object-cover"
         />
       </div>
     </Contenedor>

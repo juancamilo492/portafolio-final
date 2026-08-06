@@ -80,7 +80,7 @@ export const ui = {
     'inicio.hablemos': 'Hablemos',
     'inicio.cvIdioma': 'Idioma del CV',
     'inicio.miraProyectos': 'Mira los proyectos',
-    'inicio.retratoPendiente': '[PENDIENTE: retrato en blanco y negro para el hero]',
+    'inicio.retratoAlt': 'Juan Camilo Bolaños, de traje y con los brazos cruzados',
     'inicio.pruebaSocial':
       'Proyectos con clientes reales en Medellín: gastronomía, industria del empaque, domótica.',
     'inicio.destacados': 'Proyectos destacados',
@@ -151,7 +151,7 @@ export const ui = {
       'Los proyectos de este portafolio salieron de contextos reales: un bar de Medellín, el área de innovación de una empresa de empaques flexibles, una empresa de domótica que dependía del voz a voz y una propuesta de espacio interactivo para el Parque de la Conservación.',
     'sobreMi.parrafoPendiente':
       '[PENDIENTE: ampliar la historia con Juan Camilo — trayectoria, motivación y forma de trabajar en primera persona]',
-    'sobreMi.retratoPendiente': '[PENDIENTE: segundo retrato para Sobre mí]',
+    'sobreMi.retratoAlt': 'Retrato de Juan Camilo Bolaños de medio cuerpo',
     'sobreMi.habilidades': 'Habilidades',
     'sobreMi.habilidades.diseno': 'Diseño',
     'sobreMi.habilidades.ia': 'Automatización e IA',
@@ -225,7 +225,7 @@ export const ui = {
     'inicio.hablemos': "Let's talk",
     'inicio.cvIdioma': 'CV language',
     'inicio.miraProyectos': 'See the projects',
-    'inicio.retratoPendiente': '[PENDING: black and white portrait for the hero]',
+    'inicio.retratoAlt': 'Juan Camilo Bolaños, wearing a suit with his arms crossed',
     'inicio.pruebaSocial':
       'Projects with real clients in Medellín: hospitality, packaging industry, home automation.',
     'inicio.destacados': 'Featured projects',
@@ -294,7 +294,7 @@ export const ui = {
       'The projects in this portfolio come from real settings: a bar in Medellín, the innovation team of a flexible packaging company, a home automation company that depended on word of mouth, and a proposal for an interactive space at the Parque de la Conservación.',
     'sobreMi.parrafoPendiente':
       '[PENDING: expand this story with Juan Camilo — background, motivation and way of working, in first person]',
-    'sobreMi.retratoPendiente': '[PENDING: second portrait for the About page]',
+    'sobreMi.retratoAlt': 'Waist-up portrait of Juan Camilo Bolaños',
     'sobreMi.habilidades': 'Skills',
     'sobreMi.habilidades.diseno': 'Design',
     'sobreMi.habilidades.ia': 'Automation and AI',

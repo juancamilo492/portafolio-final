@@ -3,8 +3,9 @@ import BloqueCTA from '../../components/BloqueCTA.astro';
 import Contenedor from '../../components/Contenedor.astro';
 import MarcaGeometrica from '../../components/MarcaGeometrica.astro';
 import MenuCV from '../../components/MenuCV.astro';
-import PozoImagen from '../../components/PozoImagen.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import retrato from '../../assets/retratos/sobre-mi-juan-camilo.webp';
 import { pathsDePagina, useTranslations } from '../../i18n/utils';
 import { etiquetaCategoria } from '../../lib/categorias';
 import type { Locale } from '../../i18n/ui';
@@ -108,10 +109,12 @@ const idiomas = [
           tamano={24}
           class="absolute -top-3 -left-1.5 z-[3] text-acento dark:text-menta"
         />
-        {/* [PENDIENTE: segundo retrato — se integra con astro:assets cuando exista la foto] */}
-        <PozoImagen
-          texto={t('sobreMi.retratoPendiente')}
-          class="retrato-bn relative z-[2] aspect-[4/4.4] overflow-hidden rounded-[22px]"
+        <Image
+          src={retrato}
+          alt={t('sobreMi.retratoAlt')}
+          widths={[420, 640, 960]}
+          sizes="(min-width: 1024px) 480px, (min-width: 640px) 420px, 100vw"
+          class="retrato-bn relative z-[2] aspect-[4/4.4] w-full rounded-[22px] object-cover"
         />
       </div>
     </Contenedor>

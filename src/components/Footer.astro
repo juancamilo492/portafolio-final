@@ -1,7 +1,7 @@
 ﻿---
 import Icono from './Icono.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
-import { CV, SITIO } from '../config/sitio';
+import { cvDe, SITIO } from '../config/sitio';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
 const { locale, alternativas } = Astro.props;
 const t = useTranslations(locale);
 const anio = new Date().getFullYear();
+const cv = cvDe(locale);
 
 const enlaces = [
   { texto: t('nav.inicio'), href: rutaDe(locale) },
@@ -61,14 +62,15 @@ const enlaces = [
       <span class="text-[11.5px] tracking-[.13em] text-footer-suave uppercase">
         {t('footer.recursos')}
       </span>
-      {/* [PENDIENTE: subir los PDFs a public/cv/ — ver src/config/sitio.ts] */}
       <a
-        href={CV[locale] ?? CV.es}
+        href={cv.href}
         download
+        hreflang={cv.idioma}
         class="inline-flex items-center gap-2 rounded-full border border-borde-claro-fuerte px-5 py-[11px] text-[13.5px] font-semibold text-fondo transition-colors hover:border-menta hover:text-menta"
       >
         <Icono nombre="descargar" tamano={14} />
         {t('contacto.cv')}
+        <span class="text-[11px] tracking-[.08em] opacity-70">{cv.idioma.toUpperCase()}</span>
       </a>
       <div class="flex flex-wrap gap-2">
         {

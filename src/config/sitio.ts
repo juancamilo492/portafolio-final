@@ -2,6 +2,7 @@
  * Datos fijos del sitio y de contacto.
  * [PENDIENTE: confirmar con el dueño antes de publicar — CLAUDE.md → Páginas]
  */
+import { DEFAULT_LOCALE, LOCALES_ACTIVOS, type Locale } from '../i18n/ui';
 
 export const SITIO = {
   autor: 'Juan Camilo Bolaños',
@@ -15,10 +16,19 @@ export const ENLACE_WHATSAPP = `https://wa.me/${SITIO.whatsapp}`;
 export const ENLACE_CORREO = `mailto:${SITIO.correo}`;
 
 /**
- * PDFs del CV, uno por idioma.
- * [PENDIENTE: los archivos no existen todavía — subirlos a public/cv/]
+ * PDFs del CV. Solo se listan los que existen en `public/cv/`: un idioma sin
+ * PDF no debe aparecer en el menú de descarga ofreciendo un enlace roto.
+ * [PENDIENTE: el CV en inglés — al subirlo, añadir aquí la línea `en`]
  */
-export const CV: Record<string, string> = {
+export const CV: Partial<Record<Locale, string>> = {
   es: '/cv/juan-camilo-bolanos-es.pdf',
-  en: '/cv/juan-camilo-bolanos-en.pdf',
 };
+
+/** Idiomas con PDF disponible, en el orden de `LOCALES_ACTIVOS`. */
+export const CV_IDIOMAS = LOCALES_ACTIVOS.filter((locale) => CV[locale]);
+
+/** El CV del idioma pedido, o el primero disponible como respaldo. */
+export function cvDe(locale: Locale): { href: string; idioma: Locale } {
+  const idioma = CV[locale] ? locale : (CV_IDIOMAS[0] ?? DEFAULT_LOCALE);
+  return { href: CV[idioma] ?? '', idioma };
+}
