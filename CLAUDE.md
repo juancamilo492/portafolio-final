@@ -72,10 +72,13 @@ destacado (boolean), resumen, imagen_portada (opcional, `image()`), orden
 (number, obligatorio), cita y cita_autor (opcionales). Estructura:
 `src/content/proyectos/{es,en,fr,de}/<slug>.md`.
 
-Los casos en español están escritos en `contenido/` y NO deben reescribirse;
-esa carpeta queda como fuente original. Los 5 ya están integrados en la
-colección (FASE 4) con el cuerpo intacto. Falta `abuelos-nietos`, que Juan
-Camilo agregará después.
+**La colección es la única fuente de los casos.** Hasta FASE 5 los originales
+en español vivían también en `contenido/`, con el cuerpo duplicado byte a byte
+y un frontmatter ya obsoleto; esa carpeta se eliminó porque obligaba a
+mantener dos copias sincronizadas a mano. Los originales siguen en el
+historial de git si alguna vez hacen falta. Los 5 casos están en
+`src/content/proyectos/es/`; falta `abuelos-nietos`, que Juan Camilo agregará
+después.
 
 Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
 salen en la portada):
@@ -183,8 +186,7 @@ Ya existe:
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
 - i18n con rutas traducidas y todas las cadenas de FASE 3 en es/en.
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
-  categorías canónicas y portada. Los `.md` originales siguen en
-  `contenido/` como fuente; el cuerpo de las copias es idéntico byte a byte.
+  categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
 - Las 5 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
   en inglés y francés de las 3 que llevan texto, a la espera de FASE 6:
   `<slug>-portada.png`, `-portada-en.png`, `-portada-fr.png`. i-homotic e
@@ -209,9 +211,9 @@ Decisiones de FASE 3 que no hay que revertir:
 - El índice del caso se oculta bajo 1024px, opción que el handoff permite.
 
 Decisiones de FASE 4 que no hay que revertir:
-- Los 5 `.md` se copiaron con un script: solo cambió el frontmatter
-  (`categoria` canónica, `orden`, `imagen_portada`). El cuerpo se verificó
-  idéntico al de `contenido/`.
+- Los 5 `.md` se integraron con un script: solo cambió el frontmatter
+  (`categoria` canónica, `orden`, `imagen_portada`) y el cuerpo se verificó
+  idéntico al original. La carpeta duplicada desapareció en FASE 5.
 - Las portadas placeholder generadas se reemplazaron por las reales
   conservando el nombre `<slug>-portada.png`, sin tocar el frontmatter.
 - Los retratos llegaron recortados en PNG con alfa (sin fondo). Se
@@ -293,8 +295,8 @@ Pendientes conocidos, además de las fases:
 
 ## Cómo se agrega un caso nuevo (queda de FASE 4)
 
-1. Escribir el `.md` en `contenido/` y copiarlo a
-   `src/content/proyectos/es/<slug>.md`. El cuerpo no se reescribe: los `##`
+1. Escribir el `.md` directamente en `src/content/proyectos/es/<slug>.md`.
+   Ahí vive el caso, no hay copia en otra carpeta. Los `##` del cuerpo
    alimentan el índice lateral del caso.
 2. Frontmatter obligatorio: `orden` según la lista de la sección Contenido y
    `categoria` dentro de la lista canónica (cualquier otro valor rompe el
@@ -342,9 +344,22 @@ Pendientes conocidos, además de las fases:
   `npm run build` en 0 errores y 0 warnings."
 - FASE 5 — SEO/GEO: "Lee CLAUDE.md. Implementa toda la sección SEO y GEO:
   metas, OG por proyecto, JSON-LD, sitemap, robots, llms.txt, hreflang."
-- FASE 6 — Inglés: "Lee CLAUDE.md. Crea las versiones en inglés de la
-  interfaz y de los 6 casos a partir de los .md en español, manteniendo el
-  tono. Marco [PENDIENTE] lo que requiera decisión humana."
+- FASE 6 — Inglés: los 5 casos en `src/content/proyectos/en/` (la interfaz
+  ya está traducida en `ui.ts`). Una sesión por idioma: traducir cinco casos
+  largos dos veces en una sola conversación degrada el resultado.
+- FASE 6-bis — Francés: completar `fr` en `ui.ts` (hoy `{}`), los 5 casos en
+  `src/content/proyectos/fr/` y solo entonces añadir `'fr'` a
+  `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
+  tienen `fr`: no hay que tocarlos. Cuidado: `useTranslations` cae al español
+  cuando falta una clave, así que un `fr` incompleto no rompe el build, solo
+  deja frases en español dentro de páginas francesas.
+  Reglas de frontmatter para ambas: `slug`, `orden`, `destacado`,
+  `categoria`, `herramientas` y `año` idénticos al español. `slug` porque la
+  URL y `localesDeProyecto()` emparejan las versiones por él; `categoria`
+  porque es un enum de Zod con los valores canónicos en español, que se
+  muestran traducidos vía las claves `categoria.*`. Cada `.md` apunta a su
+  propia portada: `-portada-en.png` / `-portada-fr.png` en los tres casos con
+  texto, la base en i-homotic e industrial.
 - FASE 7 — QA y despliegue: "Lee CLAUDE.md. Audita Lighthouse y
   accesibilidad hasta cumplir las metas, corrige, y configura el despliegue
   en Cloudflare Pages/Vercel con el dominio."
