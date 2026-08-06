@@ -21,19 +21,28 @@ mantenimiento trivial (agregar un proyecto = agregar un archivo Markdown).
 - Contenido en Content Collections (Markdown + frontmatter validado con Zod)
 - Imágenes con astro:assets (webp, lazy loading, tamaños responsivos)
 - Despliegue: GitHub → Cloudflare Pages o Vercel (build automático por push)
+- Dominio de producción: `juancamilo492.online` (ya configurado en `site`)
 
 ## Sistema de diseño "Esmeralda"
 
 - Colores: fondo claro `#F9FFFE`; acento `#00BD7B`; profundos `#005348` y
   `#1F5E3D` (texto fuerte, footer, base del modo oscuro); apoyos `#48D98B`
-  y `#3AB071` solo en detalles. Definirlos como tokens de Tailwind.
+  y `#3AB071` solo en detalles. Ya definidos como tokens en
+  `src/styles/global.css` (Tailwind 4 usa `@theme`, no `tailwind.config.js`).
+- `#00BD7B` es SOLO relleno: como texto sobre fondo claro da 2.42:1. Para
+  texto en verde usar `--color-acento-texto` (#008259, 4.78:1) o, en texto
+  grande, `--color-acento-hover` (#00A96D, 3.01:1). Varios grises del
+  handoff se oscurecieron por la misma razón; no revertirlos.
 - Modo oscuro: clase `dark` en `<html>`, persistida en localStorage,
   inicial según `prefers-color-scheme`, sin flash (script inline en head).
   Fondo oscuro derivado de los verdes profundos, nunca negro puro.
 - Tipografía: Fraunces (titulares, serif) + Inter (cuerpo) vía @fontsource,
   self-hosted, `font-display: swap`.
-- Firma visual: patrones SVG sutiles de ondas concéntricas y estrellas de
-  4 puntas como textura de fondo (trazo fino, opacidad ≤ 0.08).
+- Firma visual: ondas concéntricas de fondo mediante la utilidad `ondas`
+  (repeating-radial-gradient, no SVG: más liviana e igual de sutil;
+  parametrizable con `[--ondas-x]`, `[--ondas-y]`, `[--ondas-radio]`), más
+  la marca geométrica de mira en SVG (`MarcaGeometrica.astro`). La mira
+  reemplazó a las estrellas de 4 puntas por decisión del handoff de diseño.
 - Retrato del hero siempre en blanco y negro: `filter: grayscale(1)`.
 - Contraste AA mínimo; estados de foco visibles; sin barras de habilidades
   con porcentajes; sin formularios de contacto.
@@ -47,20 +56,39 @@ mantenimiento trivial (agregar un proyecto = agregar un archivo Markdown).
   contenido esté completo.
 - Cadenas de interfaz en `src/i18n/ui.ts` (diccionario tipado). Contenido
   largo en las colecciones, un archivo por idioma.
+- Los segmentos de URL también se traducen, según el mapa `RUTAS` de
+  `src/i18n/ui.ts`: `/es/proyectos/` ↔ `/en/projects/`, `/es/sobre-mi/` ↔
+  `/en/about/` (fr/de ya tienen sus segmentos definidos). Nunca escribir
+  rutas a mano: usar `rutaDe(locale, clave, slug?)` de `src/i18n/utils.ts`.
+- Las páginas viven en rutas dinámicas (`src/pages/[lang]/[seccion]/`,
+  `[lang]/[pagina].astro`) y se generan solo para `LOCALES_ACTIVOS`.
 - hreflang entre versiones de cada página; `/` redirige a `/es/`.
 
 ## Contenido
 
-Colección `proyectos` con esquema (Zod):
-titulo, slug, cliente, año, rol, categoria[], herramientas[], destacado
-(boolean), resumen, imagen_portada, orden (number). Estructura:
-`src/content/proyectos/{es,en,fr,de}/<slug>.md`. Los 6 casos en español ya
-están escritos (industrial, empaques-ia-alico, vr-capacitacion-alico,
-i-homotic, siguiendo-la-huella-azul, abuelos-nietos) — usarlos tal cual,
-sin reescribirlos.
+Colección `proyectos`, esquema Zod en `src/content.config.ts`:
+titulo, slug, cliente, año (string), rol, categoria[], herramientas[],
+destacado (boolean), resumen, imagen_portada (opcional, `image()`), orden
+(number, obligatorio), cita y cita_autor (opcionales). Estructura:
+`src/content/proyectos/{es,en,fr,de}/<slug>.md`.
 
-Categorías canónicas para filtros: UX/UI, IA y automatización, Inmersivo,
-Investigación.
+Los casos en español están escritos en `contenido/` y NO deben reescribirse.
+Son 5 de los 6 previstos; falta `abuelos-nietos`, que Juan Camilo agregará
+después. Al integrarlos (FASE 4) hay que tocar solo el frontmatter:
+añadir `orden` y remapear `categoria` a la lista canónica.
+
+Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
+salen en la portada):
+1. i-homotic · 2. industrial · 3. vr-capacitacion-alico ·
+4. empaques-ia-alico · 5. siguiendo-la-huella-azul · 6. abuelos-nietos
+
+Los 5 archivos traen `destacado: true`; la portada muestra los 3 de menor
+orden, es decir i-homotic, industrial y vr-capacitacion-alico.
+
+Categorías canónicas para filtros (6, ampliadas sobre las 4 originales para
+cubrir los casos reales): UX/UI, Producto digital, IA y automatización,
+Inmersivo, Investigación, Diseño de servicio. El mapeo desde las etiquetas
+originales de cada `.md` está documentado en `src/content.config.ts`.
 
 ## Páginas
 
@@ -118,6 +146,28 @@ LinkedIn /in/juan-camilo-bolanos-garcia
 - Commits pequeños con mensajes claros; no mezclar fases en un commit.
 - Al final de cada fase: `npm run build` sin errores ni warnings y revisar
   la preview responsive (360px, 768px, 1280px).
+
+## Estado actual
+
+FASE 1 y FASE 2 están completas y commiteadas. `npm run build` pasa con
+0 errores y 0 warnings; genera 7 páginas.
+
+Ya existe:
+- Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
+- Tokens Esmeralda completos, fuentes Fraunces/Inter autoalojadas.
+- `BaseLayout` (skip link, `main#contenido`, hueco para UserWay), `Header`
+  sticky con menú hamburguesa < 768px, `Footer`, `SelectorIdioma` accesible,
+  `ToggleTema` sin parpadeo, `BotonesFlotantes`, `MarcaGeometrica`, `Icono`,
+  `Contenedor`.
+- i18n con rutas traducidas y colección `proyectos` vacía a la espera de
+  FASE 4. Todos los pares de texto verificados en AA.
+- Páginas placeholder con marcadores `[PENDIENTE: ...]` visibles.
+
+Pendientes conocidos, además de las fases:
+- Retratos de Juan Camilo (hero y sobre-mi) e imágenes de los 6 casos.
+- PDFs del CV en `public/cv/` (rutas ya declaradas en `src/config/sitio.ts`).
+- El caso `abuelos-nietos`.
+- El build avisa que la colección `proyectos` está vacía; desaparece en FASE 4.
 
 ## Fases y prompt de arranque de cada una
 
