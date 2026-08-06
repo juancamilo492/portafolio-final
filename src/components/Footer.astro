@@ -1,0 +1,101 @@
+﻿---
+import Icono from './Icono.astro';
+import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
+import { CV, SITIO } from '../config/sitio';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  alternativas: Alternativa[];
+}
+
+const { locale, alternativas } = Astro.props;
+const t = useTranslations(locale);
+const anio = new Date().getFullYear();
+
+const enlaces = [
+  { texto: t('nav.inicio'), href: rutaDe(locale) },
+  { texto: t('nav.proyectos'), href: rutaDe(locale, 'proyectos') },
+  { texto: t('nav.sobreMi'), href: rutaDe(locale, 'sobreMi') },
+];
+---
+
+<footer class="mt-[92px] bg-profundo text-footer-texto dark:bg-noche-footer">
+  <div
+    class="mx-auto grid max-w-sitio gap-10 px-5 pt-14 pb-8 sm:grid-cols-2 md:px-10 lg:grid-cols-[1.4fr_1fr_1fr]"
+  >
+    <div>
+      <span
+        aria-hidden="true"
+        class="grid size-10 place-items-center rounded-xl border border-borde-claro bg-fondo/10 font-titular text-base text-fondo"
+        >JC</span
+      >
+      <p class="mt-[18px] max-w-[280px] text-sm leading-relaxed font-light text-footer-suave">
+        {t('footer.descripcion')}
+      </p>
+    </div>
+
+    <nav class="flex flex-col gap-3" aria-label={t('footer.navegacion')}>
+      <span class="text-[11.5px] tracking-[.13em] text-footer-suave uppercase">
+        {t('footer.navegacion')}
+      </span>
+      {
+        enlaces.map((enlace) => (
+          <a href={enlace.href} class="text-sm text-footer-enlace transition-colors hover:text-menta">
+            {enlace.texto}
+          </a>
+        ))
+      }
+      <a
+        href={SITIO.linkedin}
+        rel="me noopener"
+        target="_blank"
+        class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"
+      >
+        <Icono nombre="linkedin" tamano={14} />
+        LinkedIn
+      </a>
+    </nav>
+
+    <div class="flex flex-col items-start gap-3.5">
+      <span class="text-[11.5px] tracking-[.13em] text-footer-suave uppercase">
+        {t('footer.recursos')}
+      </span>
+      {/* [PENDIENTE: subir los PDFs a public/cv/ — ver src/config/sitio.ts] */}
+      <a
+        href={CV[locale] ?? CV.es}
+        download
+        class="inline-flex items-center gap-2 rounded-full border border-borde-claro-fuerte px-5 py-[11px] text-[13.5px] font-semibold text-fondo transition-colors hover:border-menta hover:text-menta"
+      >
+        <Icono nombre="descargar" tamano={14} />
+        {t('contacto.cv')}
+      </a>
+      <div class="flex flex-wrap gap-2">
+        {
+          alternativas.map((alt) => (
+            <a
+              href={alt.href}
+              hreflang={alt.locale}
+              lang={alt.locale}
+              aria-current={alt.locale === locale ? 'true' : undefined}
+              class:list={[
+                'rounded-full px-3 py-1.5 text-[11.5px] font-semibold tracking-[.08em] transition-colors',
+                alt.locale === locale
+                  ? 'bg-menta/20 text-menta'
+                  : 'border border-borde-claro text-footer-texto hover:border-menta hover:text-menta',
+              ]}
+            >
+              {alt.locale.toUpperCase()}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto max-w-sitio border-t border-[rgb(249_255_254_/_0.12)] px-5 pt-5 pb-8 text-[12.5px] text-footer-suave md:px-10"
+  >
+    © {anio} {SITIO.autor}. {t('footer.derechos')}
+  </div>
+</footer>

@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Contenedor from '../../../components/Contenedor.astro';
 import { segmento, useTranslations } from '../../../i18n/utils';
 import { LOCALES_ACTIVOS } from '../../../i18n/ui';
 import { localeDeEntrada, proyectosPorLocale, type Proyecto } from '../../../lib/proyectos';
@@ -30,20 +31,46 @@ const t = useTranslations(locale);
 const { Content } = await render(proyecto);
 ---
 
-<BaseLayout locale={locale} titulo={proyecto.data.titulo} descripcion={proyecto.data.resumen}>
-  <h1>{proyecto.data.titulo}</h1>
+<BaseLayout
+  locale={locale}
+  activa="proyectos"
+  slug={proyecto.data.slug}
+  titulo={proyecto.data.titulo}
+  descripcion={proyecto.data.resumen}
+>
+  <Contenedor class="py-20">
+    <h1 class="max-w-3xl text-4xl tracking-[-.02em] md:text-5xl">{proyecto.data.titulo}</h1>
 
-  {/* FASE 3: barra de contexto, cita destacada, anterior/siguiente, relacionados y CTA. */}
-  <dl>
-    <dt>{t('proyectos.cliente')}</dt>
-    <dd>{proyecto.data.cliente}</dd>
-    <dt>{t('proyectos.anio')}</dt>
-    <dd>{proyecto.data.año}</dd>
-    <dt>{t('proyectos.rol')}</dt>
-    <dd>{proyecto.data.rol}</dd>
-    <dt>{t('proyectos.herramientas')}</dt>
-    <dd>{proyecto.data.herramientas.join(', ')}</dd>
-  </dl>
+    {/* FASE 3: barra de contexto, cita destacada, anterior/siguiente, relacionados y CTA. */}
+    <dl class="mt-8 grid gap-6 text-sm sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
+          {t('proyectos.cliente')}
+        </dt>
+        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.cliente}</dd>
+      </div>
+      <div>
+        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
+          {t('proyectos.anio')}
+        </dt>
+        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.año}</dd>
+      </div>
+      <div>
+        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
+          {t('proyectos.rol')}
+        </dt>
+        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">{proyecto.data.rol}</dd>
+      </div>
+      <div>
+        <dt class="text-[11.5px] tracking-[.13em] text-texto-tenue uppercase">
+          {t('proyectos.herramientas')}
+        </dt>
+        <dd class="mt-1.5 text-texto-cuerpo dark:text-noche-cuerpo">
+          {proyecto.data.herramientas.join(', ')}
+        </dd>
+      </div>
+    </dl>
 
-  <Content />
+    <Content />
+  </Contenedor>
 </BaseLayout>

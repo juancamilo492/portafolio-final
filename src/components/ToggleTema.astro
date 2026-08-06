@@ -1,0 +1,34 @@
+﻿---
+import Icono from './Icono.astro';
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+{/* El estado inicial lo fija el script sin parpadeo de BaseLayout. */}
+<button
+  type="button"
+  data-toggle-tema
+  aria-label={t('nav.cambiarTema')}
+  class="grid size-[34px] shrink-0 place-items-center rounded-full border border-borde-medio text-bosque transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:hover:text-menta"
+>
+  <span class="dark:hidden"><Icono nombre="luna" tamano={15} /></span>
+  <span class="hidden dark:block"><Icono nombre="sol" tamano={15} /></span>
+</button>
+
+<script>
+  const raiz = document.documentElement;
+
+  for (const boton of document.querySelectorAll<HTMLButtonElement>('[data-toggle-tema]')) {
+    boton.addEventListener('click', () => {
+      const oscuro = raiz.classList.toggle('dark');
+      localStorage.setItem('tema', oscuro ? 'oscuro' : 'claro');
+    });
+  }
+</script>

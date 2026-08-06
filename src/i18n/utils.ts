@@ -2,6 +2,7 @@ import {
   DEFAULT_LOCALE,
   LOCALES,
   LOCALES_ACTIVOS,
+  NOMBRE_LOCALE,
   RUTAS,
   ui,
   type ClaveRuta,
@@ -44,11 +45,33 @@ export function segmento(locale: Locale, clave: ClaveRuta): string {
  *   rutaDe('en', 'proyectos')             → '/en/projects/'
  *   rutaDe('en', 'proyectos', 'industrial') → '/en/projects/industrial/'
  */
-export function rutaDe(locale: Locale, clave?: ClaveRuta, ...extra: string[]): string {
+export function rutaDe(
+  locale: Locale,
+  clave?: ClaveRuta,
+  ...extra: (string | undefined)[]
+): string {
   const partes: string[] = [locale];
   if (clave) partes.push(segmento(locale, clave));
-  partes.push(...extra.filter(Boolean));
+  partes.push(...extra.filter((s): s is string => Boolean(s)));
   return `/${partes.join('/')}/`;
+}
+
+export interface Alternativa {
+  locale: Locale;
+  nombre: string;
+  href: string;
+}
+
+/**
+ * La misma página en cada idioma activo. Alimenta el selector de idioma y,
+ * en FASE 5, las etiquetas hreflang.
+ */
+export function alternativasDeIdioma(clave?: ClaveRuta, slug?: string): Alternativa[] {
+  return LOCALES_ACTIVOS.map((locale) => ({
+    locale,
+    nombre: NOMBRE_LOCALE[locale],
+    href: rutaDe(locale, clave, slug),
+  }));
 }
 
 /** Rutas de páginas sin sub-segmento (portada): solo los locales activos. */

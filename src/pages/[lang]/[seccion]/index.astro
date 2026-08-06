@@ -1,5 +1,6 @@
----
+﻿---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Contenedor from '../../../components/Contenedor.astro';
 import { pathsDeSeccion, rutaDe, useTranslations } from '../../../i18n/utils';
 import { proyectosPorLocale } from '../../../lib/proyectos';
 import { CATEGORIAS } from '../../../content.config';
@@ -15,25 +16,37 @@ const proyectos = await proyectosPorLocale(locale);
 
 <BaseLayout
   locale={locale}
+  activa="proyectos"
   titulo={t('meta.proyectos.titulo')}
   descripcion="[PENDIENTE: meta description de la grilla de proyectos]"
 >
-  <h1>{t('meta.proyectos.titulo')}</h1>
+  <Contenedor class="py-20">
+    <h1 class="text-4xl tracking-[-.02em] md:text-5xl">{t('meta.proyectos.titulo')}</h1>
 
-  {/* FASE 3: chips de filtro con filtrado client-side. */}
-  <p>{t('proyectos.filtrarPor')}: {CATEGORIAS.join(' · ')}</p>
+    {/* FASE 3: chips de filtro con filtrado client-side. */}
+    <p class="mt-6 text-sm text-texto-suave dark:text-noche-cuerpo">
+      {t('proyectos.filtrarPor')}: {CATEGORIAS.join(' · ')}
+    </p>
 
-  {
-    proyectos.length === 0 ? (
-      <p>[PENDIENTE: los casos de estudio se integran en FASE 4]</p>
-    ) : (
-      <ul>
-        {proyectos.map((proyecto) => (
-          <li>
-            <a href={rutaDe(locale, 'proyectos', proyecto.data.slug)}>{proyecto.data.titulo}</a>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+    {
+      proyectos.length === 0 ? (
+        <p class="mt-6 font-light text-texto-cuerpo dark:text-noche-cuerpo">
+          [PENDIENTE: los casos de estudio se integran en FASE 4]
+        </p>
+      ) : (
+        <ul class="mt-8 flex flex-col gap-3">
+          {proyectos.map((proyecto) => (
+            <li>
+              <a
+                href={rutaDe(locale, 'proyectos', proyecto.data.slug)}
+                class="text-profundo transition-colors hover:text-acento-texto dark:text-noche-texto dark:hover:text-menta"
+              >
+                {proyecto.data.titulo}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Contenedor>
 </BaseLayout>

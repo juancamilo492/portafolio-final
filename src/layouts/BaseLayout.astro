@@ -1,15 +1,27 @@
 ---
 import '../styles/global.css';
-import { DEFAULT_LOCALE, HREFLANG, type Locale } from '../i18n/ui';
+import BotonesFlotantes from '../components/BotonesFlotantes.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { alternativasDeIdioma, useTranslations } from '../i18n/utils';
+import { DEFAULT_LOCALE, HREFLANG, type ClaveRuta, type Locale } from '../i18n/ui';
 
 interface Props {
   titulo: string;
   descripcion: string;
   locale?: Locale;
+  /** Sección actual: marca el enlace activo del nav y arma el selector de idioma. */
+  activa?: 'inicio' | ClaveRuta;
+  /** Slug del caso de estudio, si la página es uno. */
+  slug?: string;
 }
 
-const { titulo, descripcion, locale = DEFAULT_LOCALE } = Astro.props;
+const { titulo, descripcion, locale = DEFAULT_LOCALE, activa, slug } = Astro.props;
+const t = useTranslations(locale);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const claveRuta: ClaveRuta | undefined = activa === 'inicio' ? undefined : activa;
+const alternativas = alternativasDeIdioma(claveRuta, slug);
 ---
 
 <!doctype html>
@@ -21,13 +33,41 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonical.href} />
     <meta name="generator" content={Astro.generator} />
-    {/* FASE 2: fuentes, patrones SVG y script de tema sin flash. */}
+
+    {/*
+      Tema sin parpadeo: se ejecuta antes de pintar, así que el fondo correcto
+      ya está aplicado en el primer frame. `is:inline` evita que Astro lo mueva
+      a un bundle diferido.
+    */}
+    <script is:inline>
+      (() => {
+        const guardado = localStorage.getItem('tema');
+        const oscuro = guardado
+          ? guardado === 'oscuro'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', oscuro);
+      })();
+    </script>
+
     {/* FASE 5: Open Graph, Twitter Card, hreflang y JSON-LD. */}
+    {/* FASE 7: aquí va el script del widget de accesibilidad UserWay. */}
   </head>
+
   <body>
-    {/* FASE 2: nav, footer y botones flotantes de contacto. */}
-    <main>
+    <a
+      href="#contenido"
+      class="salto-contenido rounded-full bg-profundo px-5 py-3 text-sm font-semibold text-fondo"
+    >
+      {t('nav.skipLink')}
+    </a>
+
+    <Header locale={locale} activa={activa} alternativas={alternativas} />
+
+    <main id="contenido">
       <slot />
     </main>
+
+    <Footer locale={locale} alternativas={alternativas} />
+    <BotonesFlotantes locale={locale} />
   </body>
 </html>

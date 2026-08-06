@@ -1,0 +1,13 @@
+---
+/** Ancho y padding lateral estándar del sitio: 1200px, 40px de padding en escritorio. */
+interface Props {
+  class?: string;
+  as?: 'div' | 'section' | 'article';
+}
+
+const { class: clase, as: Etiqueta = 'div' }: Props = Astro.props;
+---
+
+<Etiqueta class:list={['mx-auto w-full max-w-sitio px-5 md:px-10', clase]}>
+  <slot />
+</Etiqueta>

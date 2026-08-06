@@ -1,0 +1,32 @@
+﻿---
+import Icono from './Icono.astro';
+import { useTranslations } from '../i18n/utils';
+import { ENLACE_CORREO, ENLACE_WHATSAPP } from '../config/sitio';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<div class="fixed right-4 bottom-4 z-60 flex flex-col gap-3 md:right-[26px] md:bottom-[26px]">
+  <a
+    href={ENLACE_CORREO}
+    aria-label={t('contacto.correo')}
+    class="grid size-[46px] place-items-center rounded-full border border-borde-medio bg-superficie text-profundo shadow-flotante transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche-fuerte dark:bg-noche-flotante dark:text-noche-enfasis dark:shadow-flotante-noche dark:hover:text-menta"
+  >
+    <Icono nombre="correo" tamano={18} />
+  </a>
+  <a
+    href={ENLACE_WHATSAPP}
+    target="_blank"
+    rel="noopener"
+    aria-label={t('contacto.whatsapp')}
+    class="grid size-[52px] place-items-center rounded-full bg-acento text-sobre-acento shadow-whatsapp transition-colors hover:bg-menta"
+  >
+    <Icono nombre="whatsapp" tamano={24} />
+  </a>
+</div>

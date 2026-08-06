@@ -1,0 +1,153 @@
+﻿---
+import Icono from './Icono.astro';
+import SelectorIdioma from './SelectorIdioma.astro';
+import ToggleTema from './ToggleTema.astro';
+import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
+import { SITIO } from '../config/sitio';
+import type { ClaveRuta, Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  activa?: 'inicio' | ClaveRuta;
+  alternativas: Alternativa[];
+}
+
+const { locale, activa, alternativas } = Astro.props;
+const t = useTranslations(locale);
+
+const enlaces = [
+  { clave: 'inicio' as const, texto: t('nav.inicio'), href: rutaDe(locale) },
+  { clave: 'proyectos' as const, texto: t('nav.proyectos'), href: rutaDe(locale, 'proyectos') },
+  { clave: 'sobreMi' as const, texto: t('nav.sobreMi'), href: rutaDe(locale, 'sobreMi') },
+];
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-borde-sutil bg-fondo/85 backdrop-blur-[14px] dark:border-borde-noche dark:bg-noche/90"
+>
+  <div
+    class="mx-auto flex max-w-sitio items-center justify-between gap-4 px-5 py-[18px] md:gap-8 md:px-10"
+  >
+    <a
+      href={rutaDe(locale)}
+      aria-label={t('nav.irAlInicio')}
+      class="flex shrink-0 items-center gap-2.5"
+    >
+      <span
+        aria-hidden="true"
+        class="grid size-[38px] place-items-center rounded-monograma bg-profundo font-titular text-base tracking-[.02em] text-fondo"
+        >JC</span
+      >
+      <span
+        class="hidden text-sm font-medium tracking-[-.01em] text-profundo sm:inline dark:text-noche-texto"
+        >{SITIO.autor}</span
+      >
+    </a>
+
+    <div class="flex items-center gap-2 md:gap-[34px]">
+      <nav aria-label={t('nav.navegacionPrincipal')} class="hidden items-center gap-[34px] md:flex">
+        {
+          enlaces.map((enlace) => (
+            <a
+              href={enlace.href}
+              aria-current={activa === enlace.clave ? 'page' : undefined}
+              class:list={[
+                'py-1 text-sm font-medium transition-colors hover:text-acento-texto dark:hover:text-menta',
+                activa === enlace.clave
+                  ? 'text-acento-texto dark:text-menta'
+                  : 'text-bosque dark:text-noche-texto',
+              ]}
+            >
+              {enlace.texto}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div
+        class="flex items-center gap-2 border-borde-medio md:border-l md:pl-3.5 dark:border-borde-noche"
+      >
+        <SelectorIdioma locale={locale} alternativas={alternativas} />
+        <ToggleTema locale={locale} />
+
+        <button
+          type="button"
+          data-abrir-menu
+          data-etiqueta-cerrar={t('nav.cerrarMenu')}
+          aria-expanded="false"
+          aria-controls="menu-movil"
+          aria-label={t('nav.abrirMenu')}
+          class="grid size-[34px] shrink-0 place-items-center rounded-full border border-borde-medio text-bosque transition-colors hover:border-acento hover:text-acento-texto md:hidden dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:hover:text-menta"
+        >
+          <span data-icono-abrir><Icono nombre="menu" tamano={17} /></span>
+          <span data-icono-cerrar hidden><Icono nombre="cerrar" tamano={17} /></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav
+    id="menu-movil"
+    hidden
+    aria-label={t('nav.navegacionPrincipal')}
+    class="border-t border-borde-sutil px-5 py-3 md:hidden dark:border-borde-noche"
+  >
+    <ul class="flex flex-col">
+      {
+        enlaces.map((enlace) => (
+          <li>
+            <a
+              href={enlace.href}
+              aria-current={activa === enlace.clave ? 'page' : undefined}
+              class:list={[
+                'block py-3 text-base font-medium transition-colors hover:text-acento-texto dark:hover:text-menta',
+                activa === enlace.clave
+                  ? 'text-acento-texto dark:text-menta'
+                  : 'text-bosque dark:text-noche-texto',
+              ]}
+            >
+              {enlace.texto}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const boton = document.querySelector<HTMLButtonElement>('[data-abrir-menu]');
+  const menu = document.querySelector<HTMLElement>('#menu-movil');
+  const iconoAbrir = boton?.querySelector<HTMLElement>('[data-icono-abrir]');
+  const iconoCerrar = boton?.querySelector<HTMLElement>('[data-icono-cerrar]');
+
+  if (boton && menu && iconoAbrir && iconoCerrar) {
+    const etiquetaAbrir = boton.getAttribute('aria-label') ?? '';
+    const etiquetaCerrar = boton.dataset.etiquetaCerrar ?? etiquetaAbrir;
+
+    const fijar = (abierto: boolean) => {
+      menu.hidden = !abierto;
+      boton.setAttribute('aria-expanded', String(abierto));
+      boton.setAttribute('aria-label', abierto ? etiquetaCerrar : etiquetaAbrir);
+      iconoAbrir.hidden = abierto;
+      iconoCerrar.hidden = !abierto;
+    };
+
+    boton.addEventListener('click', () => {
+      fijar(boton.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape' && !menu.hidden) {
+        fijar(false);
+        boton.focus();
+      }
+    });
+
+    // Al pasar a escritorio el menú desplegable deja de tener sentido.
+    const escritorio = window.matchMedia('(min-width: 48rem)');
+    escritorio.addEventListener('change', (evento) => {
+      if (evento.matches && !menu.hidden) fijar(false);
+    });
+  }
+</script>

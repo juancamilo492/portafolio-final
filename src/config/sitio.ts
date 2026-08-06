@@ -13,3 +13,12 @@ export const SITIO = {
 
 export const ENLACE_WHATSAPP = `https://wa.me/${SITIO.whatsapp}`;
 export const ENLACE_CORREO = `mailto:${SITIO.correo}`;
+
+/**
+ * PDFs del CV, uno por idioma.
+ * [PENDIENTE: los archivos no existen todavía — subirlos a public/cv/]
+ */
+export const CV: Record<string, string> = {
+  es: '/cv/juan-camilo-bolanos-es.pdf',
+  en: '/cv/juan-camilo-bolanos-en.pdf',
+};

@@ -51,9 +51,10 @@ export const ui = {
     'nav.skipLink': 'Saltar al contenido principal',
     'nav.abrirMenu': 'Abrir menú',
     'nav.cerrarMenu': 'Cerrar menú',
+    'nav.navegacionPrincipal': 'Navegación principal',
     'nav.selectorIdioma': 'Cambiar idioma',
-    'nav.temaClaro': 'Activar modo claro',
-    'nav.temaOscuro': 'Activar modo oscuro',
+    'nav.cambiarTema': 'Cambiar entre modo claro y oscuro',
+    'nav.irAlInicio': 'Juan Camilo Bolaños — ir al inicio',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Diseñador de Interacción y Creador de Sistemas de IA',
     'meta.proyectos.titulo': 'Proyectos',
@@ -77,10 +78,16 @@ export const ui = {
     'contacto.linkedin': 'Ver perfil de LinkedIn',
     'contacto.cv': 'Descargar CV',
 
-    '404.titulo': 'Esta página no existe',
-    '404.volver': 'Volver al inicio',
+    '404.titulo': 'Esta página se perdió en el camino',
+    '404.descripcion':
+      'El enlace que seguiste no existe o cambió de lugar. Puedes volver al inicio o mirar los proyectos.',
+    '404.volver': 'Ir al inicio',
+    '404.verProyectos': 'Ver proyectos',
 
     'footer.derechos': 'Todos los derechos reservados.',
+    'footer.descripcion': 'Diseño de interacción y sistemas de IA. Medellín, Colombia.',
+    'footer.navegacion': 'Navegación',
+    'footer.recursos': 'Recursos',
   },
 
   en: {
@@ -90,9 +97,10 @@ export const ui = {
     'nav.skipLink': 'Skip to main content',
     'nav.abrirMenu': 'Open menu',
     'nav.cerrarMenu': 'Close menu',
+    'nav.navegacionPrincipal': 'Main navigation',
     'nav.selectorIdioma': 'Change language',
-    'nav.temaClaro': 'Switch to light mode',
-    'nav.temaOscuro': 'Switch to dark mode',
+    'nav.cambiarTema': 'Switch between light and dark mode',
+    'nav.irAlInicio': 'Juan Camilo Bolaños — go to homepage',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Interaction Designer and AI Systems Builder',
     'meta.proyectos.titulo': 'Projects',
@@ -116,10 +124,16 @@ export const ui = {
     'contacto.linkedin': 'View LinkedIn profile',
     'contacto.cv': 'Download CV',
 
-    '404.titulo': 'This page does not exist',
-    '404.volver': 'Back to home',
+    '404.titulo': 'This page got lost along the way',
+    '404.descripcion':
+      'The link you followed does not exist or has moved. You can go back home or browse the projects.',
+    '404.volver': 'Go to homepage',
+    '404.verProyectos': 'View projects',
 
     'footer.derechos': 'All rights reserved.',
+    'footer.descripcion': 'Interaction design and AI systems. Medellín, Colombia.',
+    'footer.navegacion': 'Navigation',
+    'footer.recursos': 'Resources',
   },
 
   // [PENDIENTE: traducción al francés — FASE posterior]
