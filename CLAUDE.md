@@ -54,15 +54,16 @@ mantenimiento trivial (agregar un proyecto = agregar un archivo Markdown).
 
 - Rutas por locale con el i18n nativo de Astro: `/es/` (default), `/en/`,
   `/fr/`, `/de/`. Los 4 configurados desde el día uno.
-- LANZAMIENTO: solo es/en visibles en el selector. fr/de existen en config
-  pero ocultos (constante `LOCALES_ACTIVOS = ['es','en']`) hasta que su
+- LANZAMIENTO: es/en/fr visibles en el selector (`LOCALES_ACTIVOS =
+  ['es','en','fr']`). `de` existe en config pero sigue oculto hasta que su
   contenido esté completo.
 - Cadenas de interfaz en `src/i18n/ui.ts` (diccionario tipado). Contenido
   largo en las colecciones, un archivo por idioma.
 - Los segmentos de URL también se traducen, según el mapa `RUTAS` de
-  `src/i18n/ui.ts`: `/es/proyectos/` ↔ `/en/projects/`, `/es/sobre-mi/` ↔
-  `/en/about/` (fr/de ya tienen sus segmentos definidos). Nunca escribir
-  rutas a mano: usar `rutaDe(locale, clave, slug?)` de `src/i18n/utils.ts`.
+  `src/i18n/ui.ts`: `/es/proyectos/` ↔ `/en/projects/` ↔ `/fr/projets/`,
+  `/es/sobre-mi/` ↔ `/en/about/` ↔ `/fr/a-propos/` (de ya tiene sus segmentos
+  definidos). Nunca escribir rutas a mano: usar `rutaDe(locale, clave, slug?)`
+  de `src/i18n/utils.ts`.
 - Las páginas viven en rutas dinámicas (`src/pages/[lang]/[seccion]/`,
   `[lang]/[pagina].astro`) y se generan solo para `LOCALES_ACTIVOS`.
 - hreflang entre versiones de cada página; `/` redirige a `/es/`.
@@ -80,7 +81,7 @@ en español vivían también en `contenido/`, con el cuerpo duplicado byte a byt
 y un frontmatter ya obsoleto; esa carpeta se eliminó porque obligaba a
 mantener dos copias sincronizadas a mano. Los originales siguen en el
 historial de git si alguna vez hacen falta. Los 5 casos están en
-`src/content/proyectos/es/` y en `src/content/proyectos/en/` (FASE 6); falta
+`src/content/proyectos/es/`, en `en/` (FASE 6) y en `fr/` (FASE 6-bis); falta
 `abuelos-nietos`, que Juan Camilo agregará después.
 
 Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
@@ -163,10 +164,9 @@ de verdad en cada idioma. No activar esa opción.
 
 ## Estado actual
 
-FASES 1, 2, 3, 4, 5 y 6 están completas y commiteadas. `astro check` pasa con
-0 errores, 0 warnings y 0 hints; el build genera 17 páginas, 16 tarjetas
-Open Graph, el sitemap, `robots.txt` y `llms.txt`. Queda FASE 6-bis (francés)
-y FASE 7.
+FASES 1, 2, 3, 4, 5, 6 y 6-bis están completas y commiteadas. `astro check`
+pasa con 0 errores, 0 warnings y 0 hints; el build genera 25 páginas, 24
+tarjetas Open Graph, el sitemap, `robots.txt` y `llms.txt`. Queda FASE 7.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -188,16 +188,17 @@ Ya existe:
 - `src/lib/proyectos.ts` con `proyectosPorLocale`, `proyectosDestacados`,
   `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
-- i18n con rutas traducidas y todas las cadenas de FASE 3 en es/en.
+- i18n con rutas traducidas y las 111 cadenas del diccionario en es/en/fr.
+  `de` sigue en `{}`.
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
-- Los mismos 5 casos traducidos en `src/content/proyectos/en/` (FASE 6), con
-  los campos estructurales idénticos al español.
+- Los mismos 5 casos traducidos en `src/content/proyectos/en/` (FASE 6) y en
+  `fr/` (FASE 6-bis), con los campos estructurales idénticos al español.
 - Las 5 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
   en inglés y francés de las 3 que llevan texto: `<slug>-portada.png`,
   `-portada-en.png`, `-portada-fr.png`. i-homotic e industrial son logos, así
-  que sirven para los cuatro idiomas. Las `-en` ya están conectadas; las `-fr`
-  esperan a FASE 6-bis.
+  que sirven para los cuatro idiomas. Las `-en` y las `-fr` ya están
+  conectadas.
 - Los dos retratos (`src/assets/retratos/`) y el CV en español
   (`public/cv/juan-camilo-bolanos-es.pdf`).
 - Toda la capa de SEO/GEO: `BaseLayout` con Open Graph, Twitter Card,
@@ -318,14 +319,39 @@ Decisiones de FASE 6 que no hay que revertir:
   pasa por smartypants y los convierte solo; el frontmatter no, así que un
   apóstrofe recto ahí saldría distinto al del texto en la misma página.
 
+Decisiones de FASE 6-bis que no hay que revertir:
+- El francés se activó en el mismo commit que su contenido, no antes:
+  `useTranslations` cae al español en silencio, así que un `fr` a medias no
+  rompe el build, solo deja frases sueltas en español dentro de páginas
+  francesas. Se verificó que no queda ninguna comparando cada valor del
+  diccionario español contra el texto visible de las 8 páginas de `dist/fr/`.
+- Los decimales van con coma, como pide la ortografía francesa: 4,32 · 2,4/5 ·
+  8,5 × 9,75 · 65 %. En español y en inglés siguen con punto. Es la única
+  diferencia numérica entre las tres versiones de un mismo caso.
+- Los `[PENDIENTE]` del cuerpo se tradujeron como `[EN ATTENTE]`, sin
+  resolverse: `industrial` sigue esperando el permiso del bar en los tres
+  idiomas. Al conseguirlo hay que editar los tres `industrial.md`.
+- Las tarjetas OG no necesitaron nada: los tres TTF de `src/assets/og/`
+  (Fraunces SemiBold, Inter Regular, Inter SemiBold) traen é à ç œ Œ è ê ï ù û
+  « » y los guiones, comprobado renderizando con el mismo satori + sharp. El
+  título más largo en francés vuelve a ser el de `siguiendo-la-huella-azul` y
+  cae en tres renglones, igual que en los otros dos idiomas.
+- No hay CV en francés y no se inventó uno: `cvDe('fr')` cae al español y el
+  botón muestra «ES · PDF». `CV_IDIOMAS` sigue con una sola entrada, así que
+  `MenuCV` continúa siendo un enlace directo.
+- El selector de idioma y el `hreflang` pasaron a tres entradas solos, desde
+  `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
+  tenían `fr` desde FASE 1: no se tocó ninguno.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
   y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
   Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
   y=170 y y=830 —, no en el código.
-- CV en inglés (al subirlo: `public/cv/juan-camilo-bolanos-en.pdf` y la línea
-  `en` en `CV`, con eso `MenuCV` vuelve solo a ser desplegable).
+- CV en inglés y en francés (al subirlos:
+  `public/cv/juan-camilo-bolanos-{en,fr}.pdf` y su línea en `CV`; con la
+  segunda entrada `MenuCV` vuelve solo a ser desplegable).
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
 - Ampliar la historia de `/sobre-mi` en primera persona (hoy solo afirma
@@ -337,9 +363,13 @@ Pendientes conocidos, además de las fases:
   de la auditoría.
 - `llms.txt` sigue listando solo las URLs en español: se arma con el locale
   por defecto y es un único archivo en la raíz. Si conviene que también anuncie
-  las versiones inglesas, es decisión de FASE 7.
-- Los casos en inglés heredan los `[PENDIENTE]` de contenido del español, así
-  que al conseguir el permiso del bar hay que editar los dos `industrial.md`.
+  las versiones inglesa y francesa, es decisión de FASE 7.
+- La 404 existe en un solo idioma (el español, por `DEFAULT_LOCALE`). Es una
+  página sin ruta por locale, así que un visitante francés que se pierda la ve
+  en español. Decidir en FASE 7 si vale la pena.
+- Los casos en inglés y en francés heredan los `[PENDIENTE]` de contenido del
+  español, así que al conseguir el permiso del bar hay que editar los tres
+  `industrial.md`.
 
 ## Cómo se agrega un caso nuevo (queda de FASE 4)
 
@@ -364,10 +394,11 @@ Pendientes conocidos, además de las fases:
    Si la portada lleva texto, su traducción va al lado con sufijo de locale
    (`-portada-en.png`, `-portada-fr.png`) y la referencia el `.md` de ese
    idioma.
-3-bis. Traducir el caso a `src/content/proyectos/en/<slug>.md` con las reglas
-   de FASE 6 (mismo `slug`, `orden`, `destacado`, `categoria`, `herramientas`
-   y `año`). Mientras no exista, el caso solo sale en español: el `hreflang` y
-   el selector de idioma lo detectan solos vía `localesDeProyecto()`.
+3-bis. Traducir el caso a `src/content/proyectos/en/<slug>.md` y a `fr/`, con
+   las reglas de FASE 6 (mismo `slug`, `orden`, `destacado`, `categoria`,
+   `herramientas` y `año`). Mientras falte un idioma, el caso no sale en él:
+   el `hreflang` y el selector de idioma lo detectan solos vía
+   `localesDeProyecto()`, y el selector manda a la grilla en vez de a un 404.
 4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
    grilla genera un chip por categoría en uso, el anterior/siguiente sigue
    el `orden` y los relacionados comparten categoría.
@@ -401,20 +432,24 @@ Pendientes conocidos, además de las fases:
   `src/content/proyectos/en/` y la interfaz ya estaba traducida en `ui.ts`.
   Una sesión por idioma: traducir cinco casos largos dos veces en una sola
   conversación degrada el resultado.
-- FASE 6-bis — Francés: completar `fr` en `ui.ts` (hoy `{}`), los 5 casos en
-  `src/content/proyectos/fr/` y solo entonces añadir `'fr'` a
-  `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
-  tienen `fr`: no hay que tocarlos. Cuidado: `useTranslations` cae al español
-  cuando falta una clave, así que un `fr` incompleto no rompe el build, solo
-  deja frases en español dentro de páginas francesas.
-  Reglas de frontmatter, ya aplicadas en `en/` y a copiar tal cual en `fr/`:
-  `slug`, `orden`, `destacado`, `categoria`, `herramientas` y `año` idénticos
-  al español. `slug` porque la URL y `localesDeProyecto()` emparejan las
+- FASE 6-bis — Francés: **completa.** Las 111 claves en `fr`, los 5 casos en
+  `src/content/proyectos/fr/` y `'fr'` en `LOCALES_ACTIVOS`, en ese orden y en
+  un solo commit.
+- FASE 6-ter — Alemán, si algún día se hace: mismo guion que el francés.
+  `de` está en `{}` en `ui.ts` y `src/content/proyectos/de/` está vacía;
+  `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya tienen `de`, así que
+  no hay que tocarlos. Añadir `'de'` a `LOCALES_ACTIVOS` **solo al final**:
+  `useTranslations` cae al español cuando falta una clave, de modo que un `de`
+  incompleto no rompe el build, solo deja frases en español dentro de páginas
+  alemanas. Reglas de frontmatter, ya aplicadas en `en/` y `fr/`: `slug`,
+  `orden`, `destacado`, `categoria`, `herramientas` y `año` idénticos al
+  español. `slug` porque la URL y `localesDeProyecto()` emparejan las
   versiones por él; `categoria` porque es un enum de Zod con los valores
   canónicos en español, que se muestran traducidos vía las claves
-  `categoria.*`. Cada `.md` apunta a su propia portada: `-portada-fr.png` en
-  los tres casos con texto, la base en i-homotic e industrial. El camino más
-  corto es partir de `en/`, que ya resolvió qué se traduce y qué no.
+  `categoria.*`. Faltarían las portadas `-portada-de.png` de los tres casos
+  con texto (i-homotic e industrial son logos y sirven igual). Una sesión por
+  idioma: traducir cinco casos largos dos veces en una sola conversación
+  degrada el resultado.
 - FASE 7 — QA y despliegue: "Lee CLAUDE.md. Audita Lighthouse y
   accesibilidad hasta cumplir las metas, corrige, y configura el despliegue
   en Cloudflare Pages con el dominio." Lo que ya está resuelto: el host
