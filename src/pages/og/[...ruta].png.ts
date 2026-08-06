@@ -85,7 +85,11 @@ export const GET: APIRoute = async ({ props, site }) => {
   return new Response(new Uint8Array(png), {
     headers: {
       'Content-Type': 'image/png',
-      // El contenido de una tarjeta solo cambia si cambia su página.
+      /*
+       * Declara la intención, pero en un build estático solo llega al disco el
+       * cuerpo: la cabecera se pierde y quien la sirve es el host. Si en FASE 7
+       * hace falta cachear las tarjetas de verdad, va en `public/_headers`.
+       */
       'Cache-Control': 'public, max-age=31536000, immutable',
     },
   });

@@ -20,7 +20,10 @@ mantenimiento trivial (agregar un proyecto = agregar un archivo Markdown).
   solo si una isla lo amerita)
 - Contenido en Content Collections (Markdown + frontmatter validado con Zod)
 - Imágenes con astro:assets (webp, lazy loading, tamaños responsivos)
-- Despliegue: GitHub → Cloudflare Pages o Vercel (build automático por push)
+- Despliegue: GitHub → **Cloudflare Pages** (build automático por push).
+  Decidido en FASE 5 por el plan gratuito: 20.000 archivos por despliegue y
+  25 MiB por archivo, contra los 83 archivos y 1,3 MB del build actual; 500
+  builds al mes y uno concurrente. Vercel queda descartado.
 - Dominio de producción: `juancamilo492.online` (ya configurado en `site`)
 
 ## Sistema de diseño "Esmeralda"
@@ -270,6 +273,16 @@ Decisiones de FASE 5 que no hay que revertir:
 - `SITIO.ubicacion` se partió en `ciudad` y `pais` porque el nodo
   `PostalAddress` los pide por separado; `UBICACION` los vuelve a juntar para
   los textos corridos.
+- `public/_redirects` hace que `/` → `/es/` sea una 302 de HTTP. El
+  `redirects` de `astro.config.mjs` genera una página con `meta refresh`, y
+  los rastreadores de WhatsApp y LinkedIn no la siguen: quien comparta el
+  dominio pelado se quedaba sin vista previa. En Cloudflare Pages la regla
+  gana sobre el `dist/index.html`, así que el `redirects` de la config se
+  queda — sigue siendo lo que hace funcionar `/` en `astro dev` y `preview`.
+- El `Cache-Control` del endpoint de las tarjetas OG documenta la intención
+  pero no llega a producción: en un build estático solo se escribe el cuerpo
+  al disco y las cabeceras las pone el host. Si hacen falta de verdad, van en
+  `public/_headers` (FASE 7).
 
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
@@ -362,4 +375,9 @@ Pendientes conocidos, además de las fases:
   texto, la base en i-homotic e industrial.
 - FASE 7 — QA y despliegue: "Lee CLAUDE.md. Audita Lighthouse y
   accesibilidad hasta cumplir las metas, corrige, y configura el despliegue
-  en Cloudflare Pages/Vercel con el dominio."
+  en Cloudflare Pages con el dominio." Lo que ya está resuelto: el host
+  elegido y `public/_redirects`. Lo que queda: conectar el repo de GitHub al
+  proyecto de Pages (comando `npm run build`, salida `dist`), apuntar
+  `juancamilo492.online` con su DNS, activar el widget UserWay, decidir si
+  hacen falta cabeceras de caché en `public/_headers`, y comprobar que la
+  vista previa del dominio pelado ya sale con imagen al compartirlo.

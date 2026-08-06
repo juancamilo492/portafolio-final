@@ -1,0 +1,21 @@
+# Reglas de redirección de Cloudflare Pages.
+#
+# `/` → `/es/` tiene que ser una redirección HTTP y no la página con
+# `meta refresh` que genera el `redirects` de astro.config.mjs: los
+# rastreadores de WhatsApp y LinkedIn no siguen ese meta, así que quien
+# comparta el dominio pelado se queda sin vista previa. Una 302 sí la siguen,
+# y leen el Open Graph de `/es/`.
+#
+# En Cloudflare Pages las reglas de este archivo ganan sobre el archivo
+# estático de la misma ruta, así que `dist/index.html` queda inerte sin que
+# haya que quitar el `redirects` de la config — que sigue haciendo falta para
+# que `/` funcione en `astro dev` y en `astro preview`.
+#
+# 302 y no 301: la elección de idioma en la raíz puede cambiar (detección por
+# `Accept-Language`, por ejemplo) y una 301 se queda cacheada en el navegador
+# del visitante. Los buscadores siguen ambas, y el x-default del hreflang ya
+# les dice que el español es la versión por defecto.
+#
+# Otros hosts ignoran este archivo, así que no estorba si algún día se migra.
+
+/    /es/    302
