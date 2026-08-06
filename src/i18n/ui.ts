@@ -10,10 +10,10 @@ export const DEFAULT_LOCALE: Locale = 'es';
 
 /**
  * Locales visibles en el selector de idioma y generados como rutas.
- * fr/de existen en la configuración pero permanecen ocultos hasta que
- * su contenido esté completo (ver CLAUDE.md → Idiomas).
+ * `de` existe en la configuración pero permanece oculto hasta que su
+ * contenido esté completo (ver CLAUDE.md → Idiomas).
  */
-export const LOCALES_ACTIVOS: readonly Locale[] = ['es', 'en'];
+export const LOCALES_ACTIVOS: readonly Locale[] = ['es', 'en', 'fr'];
 
 /** Nombre del idioma en su propio idioma, para el selector. */
 export const NOMBRE_LOCALE: Record<Locale, string> = {
@@ -349,8 +349,155 @@ export const ui = {
     'footer.recursos': 'Resources',
   },
 
-  // [PENDIENTE: traducción al francés — FASE posterior]
-  fr: {},
+  fr: {
+    'nav.inicio': 'Accueil',
+    'nav.proyectos': 'Projets',
+    'nav.sobreMi': 'À propos',
+    'nav.skipLink': 'Aller au contenu principal',
+    'nav.abrirMenu': 'Ouvrir le menu',
+    'nav.cerrarMenu': 'Fermer le menu',
+    'nav.navegacionPrincipal': 'Navigation principale',
+    'nav.selectorIdioma': 'Changer de langue',
+    'nav.cambiarTema': 'Basculer entre le mode clair et le mode sombre',
+    'nav.irAlInicio': 'Juan Camilo Bolaños — aller à l’accueil',
+
+    'meta.inicio.titulo':
+      'Juan Camilo Bolaños — Designer d’interaction et créateur de systèmes d’IA',
+    'meta.inicio.descripcion':
+      'Designer d’interaction et créateur de systèmes d’IA à Medellín. Je conçois des interfaces claires et j’automatise les opérations qui les soutiennent, avec de vrais clients dans la restauration, l’emballage et la domotique.',
+    'meta.proyectos.titulo': 'Projets',
+    'meta.proyectos.descripcion':
+      'Études de cas en design d’interaction, automatisation par IA, expériences immersives et recherche, avec des clients et des projets à Medellín.',
+    'meta.sobreMi.titulo': 'À propos',
+    'meta.sobreMi.descripcion':
+      'Qui est Juan Camilo Bolaños : designer d’interaction et créateur de systèmes d’IA à Medellín. Compétences, formation à EAFIT et langues.',
+    'meta.404.titulo': 'Page introuvable',
+    'meta.404.descripcion':
+      'La page que vous cherchiez n’existe pas ou a été déplacée. Revenez à l’accueil ou parcourez les projets.',
+    'meta.ogAlt': 'Carte de « {titulo} » dans le portfolio de Juan Camilo Bolaños',
+
+    // --- Accueil ---
+    'inicio.badge': 'Disponible pour vos projets',
+    'inicio.h1.parte1': 'Designer d’interaction et',
+    'inicio.h1.enfasis': 'créateur de systèmes d’IA',
+    'inicio.subtitulo':
+      'Je conçois et j’automatise des expériences qui relient les personnes, les outils et les données.',
+    'inicio.verProyectos': 'Voir les projets',
+    'inicio.hablemos': 'Discutons-en',
+    'inicio.cvIdioma': 'Langue du CV',
+    'inicio.miraProyectos': 'Découvrez les projets',
+    'inicio.retratoAlt': 'Juan Camilo Bolaños, en costume et les bras croisés',
+    'inicio.pruebaSocial':
+      'Des projets avec de vrais clients à Medellín : restauration, industrie de l’emballage, domotique.',
+    'inicio.destacados': 'Projets à la une',
+    'inicio.verTodos': 'Voir tout',
+    'inicio.destacadosPendiente':
+      '[EN ATTENTE : les projets à la une apparaissent une fois les études de cas de cette langue intégrées]',
+    'inicio.queHago': 'Ce que je fais',
+    'inicio.queHago.1.titulo': 'Design d’interaction et UX/UI',
+    'inicio.queHago.1.texto':
+      'Des interfaces claires, testées avec de vrais utilisateurs et prêtes à être développées.',
+    'inicio.queHago.2.titulo': 'Automatisation et IA appliquée',
+    'inicio.queHago.2.texto':
+      'n8n, des agents et des API qui relient les outils déjà utilisés par l’entreprise.',
+    'inicio.queHago.3.titulo': 'Expériences immersives et interactives',
+    'inicio.queHago.3.texto':
+      'VR et informatique physique pour des espaces qui répondent au corps.',
+    'inicio.proceso': 'Ma démarche',
+    'inicio.proceso.1.titulo': 'Découvrir',
+    'inicio.proceso.1.texto':
+      'J’écoute l’entreprise, j’observe son fonctionnement réel et je définis quel problème vaut la peine d’être résolu.',
+    'inicio.proceso.2.titulo': 'Concevoir',
+    'inicio.proceso.2.texto':
+      'Je prototype vite, je valide avec les personnes qui vont s’en servir et j’ajuste avant d’écrire du code.',
+    'inicio.proceso.3.titulo': 'Livrer',
+    'inicio.proceso.3.texto':
+      'Je mets en ligne, je mesure avec de vraies données et je laisse le système documenté pour qu’il reste vivant.',
+
+    // --- Appel au contact ---
+    'cta.titulo': 'On travaille ensemble ?',
+    'cta.apoyo': 'Dites-moi ce dont vous avez besoin et je vous réponds le jour même.',
+    'cta.apoyoCompacto': 'Écrivez-moi sur WhatsApp ou par e-mail.',
+    'cta.whatsapp': 'WhatsApp',
+    'cta.correo': 'E-mail',
+    'cta.volverArriba': 'Retour en haut',
+
+    // --- Projets : grille et étude de cas ---
+    'proyectos.bajada':
+      'Du travail de design, d’automatisation et d’interaction physique avec des clients et des projets de recherche à Medellín.',
+    'proyectos.filtroTodos': 'Tous',
+    'proyectos.filtrarPor': 'Filtrer par catégorie',
+    'proyectos.verCaso': 'Voir l’étude de cas',
+    'proyectos.anterior': 'Précédent',
+    'proyectos.siguiente': 'Suivant',
+    'proyectos.relacionados': 'Projets liés',
+    'proyectos.todosLosProyectos': 'Tous les projets',
+    'proyectos.contenido': 'Sommaire',
+    'proyectos.cliente': 'Client',
+    'proyectos.anio': 'Année',
+    'proyectos.rol': 'Rôle',
+    'proyectos.herramientas': 'Outils',
+    'proyectos.vacio': 'Aucun projet dans cette catégorie.',
+    'proyectos.pendiente':
+      '[EN ATTENTE : les études de cas de cette langue restent à intégrer]',
+    'proyectos.imagenPendiente': '[EN ATTENTE : image du projet]',
+    'proyectos.conteoUno': 'projet affiché',
+    'proyectos.conteoVarios': 'projets affichés',
+
+    // --- Catégories canoniques (voir src/content.config.ts) ---
+    'categoria.UX/UI': 'UX/UI',
+    'categoria.Producto digital': 'Produit numérique',
+    'categoria.IA y automatización': 'IA et automatisation',
+    'categoria.Inmersivo': 'Immersif',
+    'categoria.Investigación': 'Recherche',
+    'categoria.Diseño de servicio': 'Design de service',
+
+    // --- À propos ---
+    'sobreMi.intro':
+      'Je suis Juan Camilo Bolaños, designer d’interaction et créateur de systèmes d’IA à Medellín. Mon travail réunit deux choses qui vont rarement ensemble : des interfaces que l’on comprend du premier coup et des automatisations qui font tourner l’activité derrière elles.',
+    'sobreMi.parrafo2':
+      'Les projets de ce portfolio viennent de contextes réels : un bar de Medellín, l’équipe d’innovation d’une entreprise d’emballages souples, une entreprise de domotique qui ne vivait que du bouche-à-oreille et une proposition d’espace interactif pour le Parque de la Conservación.',
+    'sobreMi.parrafoPendiente':
+      '[EN ATTENTE : développer le récit avec Juan Camilo — parcours, motivation et façon de travailler, à la première personne]',
+    'sobreMi.retratoAlt': 'Portrait de Juan Camilo Bolaños à mi-corps',
+    'sobreMi.habilidades': 'Compétences',
+    'sobreMi.habilidades.diseno': 'Design',
+    'sobreMi.habilidades.ia': 'Automatisation et IA',
+    'sobreMi.habilidades.desarrollo': 'Développement',
+    'sobreMi.habilidades.metodologias': 'Méthodes',
+    'sobreMi.metodo.entrevistas': 'Entretiens semi-directifs',
+    'sobreMi.metodo.pruebas': 'Tests utilisateurs',
+    'sobreMi.metodo.prototipado': 'Prototypage fonctionnel',
+    'sobreMi.educacion': 'Formation',
+    'sobreMi.educacion.programa': 'Design interactif',
+    'sobreMi.educacion.institucion': 'Universidad EAFIT, Medellín',
+    'sobreMi.educacion.periodo': '2022 – 2026',
+    'sobreMi.educacion.distincion': 'Meilleur résultat aux épreuves Saber Pro',
+    'sobreMi.idiomas': 'Langues',
+    'sobreMi.idiomas.es': 'Espagnol — langue maternelle',
+    'sobreMi.idiomas.en': 'Anglais — C1',
+    'sobreMi.idiomas.fr': 'Français — B2',
+    'sobreMi.idiomas.de': 'Allemand — A2, en cours d’apprentissage',
+
+    // --- Contact ---
+    'contacto.whatsapp': 'Écrire sur WhatsApp',
+    'contacto.correo': 'Envoyer un e-mail',
+    'contacto.linkedin': 'Voir le profil LinkedIn',
+    'contacto.cv': 'Télécharger le CV',
+
+    // --- 404 ---
+    '404.titulo': 'Cette page s’est perdue en chemin',
+    '404.descripcion':
+      'Le lien que vous avez suivi n’existe pas ou a été déplacé. Vous pouvez revenir à l’accueil ou parcourir les projets.',
+    '404.volver': 'Aller à l’accueil',
+    '404.verProyectos': 'Voir les projets',
+    '404.quizaBuscabas': 'Vous cherchiez peut-être',
+
+    'footer.derechos': 'Tous droits réservés.',
+    'footer.descripcion': 'Design d’interaction et systèmes d’IA. Medellín, Colombie.',
+    'footer.navegacion': 'Navigation',
+    'footer.recursos': 'Ressources',
+  },
 
   // [PENDIENTE: traducción al alemán — FASE posterior]
   de: {},
