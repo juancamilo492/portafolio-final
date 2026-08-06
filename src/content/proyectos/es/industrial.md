@@ -8,7 +8,7 @@ categoria: ["Producto digital", "UX/UI"]
 herramientas: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"]
 destacado: true
 orden: 2
-resumen: "Sistema de menú por QR y panel de gestión para un bar real: los clientes consultan, el personal de sala ordena, y las administradoras ven métricas del negocio en tiempo real."
+resumen: "Sistema de menú por QR y panel de gestión para un bar real: los clientes consultan, los meseros ordenan, y las administradoras ven métricas del negocio en tiempo real."
 imagen_portada: "../../../assets/proyectos/industrial-portada.png"
 ---
 
@@ -30,9 +30,8 @@ La solución fue diseñar un solo sistema con dos caras:
 
 - **El cliente** escanea el QR de su mesa y consulta el menú, los precios, las
   promociones del día y el estado de su cuenta. Nada más.
-- **El personal de sala** usa ese mismo flujo para entrar al panel de
-  administración, seleccionar la mesa y registrar la orden, confirmándola en
-  persona.
+- **El mesero** usa ese mismo flujo para entrar al panel de administración,
+  seleccionar la mesa y registrar la orden él mismo, confirmando en persona.
 
 El pedido queda asociado a la mesa correcta, el cliente mantiene el control de
 lo que consume, y el bar elimina los pedidos accidentales. Diseñar para el
@@ -62,9 +61,9 @@ producto.
 La primera versión seguía el patrón estándar de los menús QR: el cliente
 armaba un carrito y enviaba su pedido desde la mesa. Al confrontar ese flujo
 con la realidad del bar en las reuniones con las administradoras, el modelo
-se invirtió por completo: el cliente consulta, el personal de sala ordena. La
-mejor decisión del proyecto no estaba en el plan inicial — salió de iterar
-con quienes viven la operación.
+se invirtió por completo: el cliente consulta, el mesero ordena. La mejor
+decisión del proyecto no estaba en el plan inicial — salió de iterar con
+quienes viven la operación.
 
 El desarrollo avanzó en ciclos cortos: avances compartidos por WhatsApp y
 reuniones presenciales en el bar, de las que salían listas concretas de
@@ -94,5 +93,5 @@ segundos.
 Este proyecto me confirmó que el diseño centrado en el usuario puede mejorar
 drásticamente la operación de un negocio, sin importar su tamaño. Y me dejó
 una convicción simple: un sistema que se entiende es un sistema que se
-disfruta — tanto para el cliente que escanea el QR como para quien lo usa en
-sala toda la noche.
+disfruta — tanto para el cliente que escanea el QR como para el mesero que
+lo usa toda la noche.
