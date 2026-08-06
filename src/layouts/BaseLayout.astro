@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+import { DEFAULT_LOCALE, HREFLANG, type Locale } from '../i18n/ui';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  locale?: Locale;
+}
+
+const { titulo, descripcion, locale = DEFAULT_LOCALE } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={HREFLANG[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="generator" content={Astro.generator} />
+    {/* FASE 2: fuentes, patrones SVG y script de tema sin flash. */}
+    {/* FASE 5: Open Graph, Twitter Card, hreflang y JSON-LD. */}
+  </head>
+  <body>
+    {/* FASE 2: nav, footer y botones flotantes de contacto. */}
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

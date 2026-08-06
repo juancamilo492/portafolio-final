@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { rutaDe, useTranslations } from '../i18n/utils';
+import { DEFAULT_LOCALE } from '../i18n/ui';
+
+// El host sirve un único 404 en la raíz; se muestra en el idioma por defecto.
+const locale = DEFAULT_LOCALE;
+const t = useTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  titulo={t('meta.404.titulo')}
+  descripcion="[PENDIENTE: meta description de la página 404]"
+>
+  <h1>{t('404.titulo')}</h1>
+  <a href={rutaDe(locale)}>{t('404.volver')}</a>
+  {/* FASE 3: 404 con la estética del sitio. */}
+</BaseLayout>

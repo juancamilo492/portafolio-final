@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { segmento, useTranslations } from '../../../i18n/utils';
+import { LOCALES_ACTIVOS } from '../../../i18n/ui';
+import { localeDeEntrada, proyectosPorLocale, type Proyecto } from '../../../lib/proyectos';
+
+interface Props {
+  proyecto: Proyecto;
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = [];
+  for (const lang of LOCALES_ACTIVOS) {
+    const proyectos = await proyectosPorLocale(lang);
+    for (const proyecto of proyectos) {
+      paths.push({
+        params: { lang, seccion: segmento(lang, 'proyectos'), slug: proyecto.data.slug },
+        props: { proyecto },
+      });
+    }
+  }
+  return paths;
+};
+
+const { proyecto } = Astro.props;
+const locale = localeDeEntrada(proyecto);
+const t = useTranslations(locale);
+const { Content } = await render(proyecto);
+---
+
+<BaseLayout locale={locale} titulo={proyecto.data.titulo} descripcion={proyecto.data.resumen}>
+  <h1>{proyecto.data.titulo}</h1>
+
+  {/* FASE 3: barra de contexto, cita destacada, anterior/siguiente, relacionados y CTA. */}
+  <dl>
+    <dt>{t('proyectos.cliente')}</dt>
+    <dd>{proyecto.data.cliente}</dd>
+    <dt>{t('proyectos.anio')}</dt>
+    <dd>{proyecto.data.año}</dd>
+    <dt>{t('proyectos.rol')}</dt>
+    <dd>{proyecto.data.rol}</dd>
+    <dt>{t('proyectos.herramientas')}</dt>
+    <dd>{proyecto.data.herramientas.join(', ')}</dd>
+  </dl>
+
+  <Content />
+</BaseLayout>

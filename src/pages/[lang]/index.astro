@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pathsDeLocalesActivos, useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+
+export const getStaticPaths = pathsDeLocalesActivos;
+
+const locale = Astro.params.lang as Locale;
+const t = useTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  titulo={t('meta.inicio.titulo')}
+  descripcion="[PENDIENTE: meta description de la portada]"
+>
+  <h1>{t('meta.inicio.titulo')}</h1>
+  <p>[PENDIENTE: hero, prueba social, destacados, qué hago, proceso y CTA — FASE 3]</p>
+</BaseLayout>

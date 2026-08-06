@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pathsDePagina, useTranslations } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+
+// Solo genera Sobre mí: /es/sobre-mi/, /en/about/
+export const getStaticPaths = () => pathsDePagina('sobreMi');
+
+const locale = Astro.params.lang as Locale;
+const t = useTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  titulo={t('meta.sobreMi.titulo')}
+  descripcion="[PENDIENTE: meta description de Sobre mí]"
+>
+  <h1>{t('meta.sobreMi.titulo')}</h1>
+  <p>[PENDIENTE: historia, habilidades agrupadas, educación, idiomas y CV — FASE 3]</p>
+</BaseLayout>

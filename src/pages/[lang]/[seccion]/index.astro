@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { pathsDeSeccion, rutaDe, useTranslations } from '../../../i18n/utils';
+import { proyectosPorLocale } from '../../../lib/proyectos';
+import { CATEGORIAS } from '../../../content.config';
+import type { Locale } from '../../../i18n/ui';
+
+// Solo genera la sección de proyectos: /es/proyectos/, /en/projects/
+export const getStaticPaths = () => pathsDeSeccion('proyectos');
+
+const locale = Astro.params.lang as Locale;
+const t = useTranslations(locale);
+const proyectos = await proyectosPorLocale(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  titulo={t('meta.proyectos.titulo')}
+  descripcion="[PENDIENTE: meta description de la grilla de proyectos]"
+>
+  <h1>{t('meta.proyectos.titulo')}</h1>
+
+  {/* FASE 3: chips de filtro con filtrado client-side. */}
+  <p>{t('proyectos.filtrarPor')}: {CATEGORIAS.join(' · ')}</p>
+
+  {
+    proyectos.length === 0 ? (
+      <p>[PENDIENTE: los casos de estudio se integran en FASE 4]</p>
+    ) : (
+      <ul>
+        {proyectos.map((proyecto) => (
+          <li>
+            <a href={rutaDe(locale, 'proyectos', proyecto.data.slug)}>{proyecto.data.titulo}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
