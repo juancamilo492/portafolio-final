@@ -170,10 +170,10 @@ de verdad en cada idioma. No activar esa opción.
 
 ## Estado actual
 
-FASES 1 a 6-bis están completas y commiteadas, y **FASE 7 está hecha en todo
-lo que se resuelve con código**. `astro check` pasa con 0 errores, 0 warnings
-y 0 hints; el build genera 28 páginas, 24 tarjetas Open Graph, el sitemap,
-`robots.txt` y `llms.txt`.
+FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**.
+`astro check` pasa con 0 errores, 0 warnings y 0 hints; el build genera 28
+páginas, 24 tarjetas Open Graph, el sitemap, `robots.txt` y `llms.txt`.
+Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
 Performance 97-99, Accessibility 100, **Best Practices 100** y SEO 100 en las
@@ -414,6 +414,15 @@ Decisiones de FASE 7 que no hay que revertir:
   PNG, declarar ambos evita que un contexto que pide `any` se quede sin icono.
   Con ellos en su sitio, Best Practices pasó de 96 a **100** en las cuatro
   plantillas.
+- El monograma «JC» del header y del footer lo reemplazó el oso de la marca,
+  el mismo dibujo del favicon, en `Logo.astro` (fuente:
+  `src/assets/marca/logo.svg`). Va en `currentColor` como el resto de los
+  iconos, no en el turquesa del archivo original: así toma el claro que le
+  toca sobre el cuadrado verde profundo sin mantener una versión por fondo. El
+  hueco entre el hocico y la cabeza es parte del dibujo y deja ver la caja. Al
+  montarlo, `nav.irAlInicio` perdió el «JC — » de los tres idiomas: se había
+  puesto cuando el texto visible eran esas dos letras y el oso no lleva texto.
+  El nombre que se lee al lado sigue siendo «Juan Camilo Bolaños».
 - El `<title>` de la grilla y de Sobre mí lleva el nombre como sufijo, vía
   `conMarca()` en `src/lib/seo.ts` y la prop `tituloDocumento` de `BaseLayout`.
   El H1 y el `og:title` se quedan con el nombre corto a propósito: en un
@@ -507,10 +516,8 @@ Pendientes conocidos, además de las fases:
   tocar el componente.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
-- El logo del oso dentro del sitio: reemplaza el monograma «JC» del header y
-  del footer. Va en `src/assets/marca/`. Al montarlo hay que quitar el «JC — »
-  del arranque de `nav.irAlInicio` en los tres idiomas: se puso por WCAG 2.5.3
-  cuando el texto visible eran esas dos letras, y con el oso deja de aplicar.
+- Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido, y
+  los archivos e imágenes que va a sumar dentro de cada caso.
 - `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
   así que al activar el francés apareció sola su sección. Un idioma nuevo entra
   igual, sin tocar nada.
@@ -621,3 +628,40 @@ Pendientes conocidos, además de las fases:
   el enlace: los CV en inglés y francés, las portadas de Alico con el logo
   cortado, el caso `abuelos-nietos` y los archivos e imágenes que Juan Camilo
   quiere sumar a cada caso.
+
+- FASE 8 — Publicación. Empieza con el sitio ya desplegado: conectar el repo a
+  Pages y apuntar el DNS lo hace Juan Camilo desde los paneles, no el código.
+  Prompt de arranque: "Lee CLAUDE.md. Ejecuta FASE 8: el sitio ya está
+  publicado en juancamilo492.online. Verifica en producción lo que no se puede
+  verificar en local, deja el sitio dado de alta en Search Console y decide la
+  analítica."
+
+  **Lo que hay que comprobar ya publicado**, porque en local no se puede:
+  1. Compartir el dominio pelado en WhatsApp y en LinkedIn: tiene que salir la
+     vista previa con imagen. Es lo que demuestra que `public/_redirects`
+     manda `/` a `/es/` con una 302 de verdad y que las tarjetas OG se sirven.
+  2. Que `public/_headers` llegó: `curl -I` sobre un archivo de `/_astro/`
+     debe traer `max-age=31536000, immutable`, y cualquier página, `nosniff`.
+  3. Las 404 por idioma: pedir `/fr/loquesea` tiene que devolver la francesa
+     y `/loquesea` la de la raíz, las dos con estado 404.
+  4. `robots.txt`, `llms.txt` y `sitemap-index.xml` accesibles en el dominio
+     real, con las URL absolutas apuntando a `https://juancamilo492.online`.
+  5. Lighthouse sobre el dominio publicado, no sobre `localhost`.
+
+  **Indexación.** El sitio ya trae todo lo que se hace desde el código
+  (sitemap, `robots.txt` abierto, canonical, hreflang, JSON-LD, `llms.txt`).
+  Lo que falta es darlo de alta: Google Search Console, verificando por
+  registro TXT en el DNS —que ya está en Cloudflare, así que no hace falta
+  meter ninguna etiqueta en el HTML— y enviar `sitemap-index.xml`. Bing
+  Webmaster Tools importa la propiedad desde Search Console si se quiere.
+  Indexar tarda días o semanas; un dominio nuevo no aparece por pedirlo.
+
+  **Analítica: recomendado Cloudflare Web Analytics, no Google Analytics.**
+  En un proyecto de Pages se activa con un clic y Cloudflare inyecta su script
+  en el despliegue siguiente, sin tocar el código ni el `<head>`. GA4 significa
+  ~50 KB de JavaScript de terceros sobre un sitio cuyo JS propio son 2,4 KB, y
+  con visitantes europeos —el sitio está en francés— obliga a un banner de
+  consentimiento, que es justo el tipo de cosa que este portafolio no tiene.
+  Además la CSP que se dejó sin escribir (ver decisiones de FASE 7) tendría
+  que contemplarlo. Ninguna de las dos ayuda a posicionar: quien indexa es
+  Search Console. Decisión de Juan Camilo; a agosto de 2026 no está tomada.
