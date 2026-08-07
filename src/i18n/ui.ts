@@ -67,11 +67,13 @@ export const ui = {
     'nav.selectorIdioma': 'Cambiar idioma',
     'nav.cambiarTema': 'Cambiar entre modo claro y oscuro',
     /*
-     * El nombre accesible tiene que empezar por el texto que se ve en el
-     * botón — «JC» en el logo, «ES» en el selector — o quien navega por voz
-     * dicta lo que lee y no pasa nada (WCAG 2.5.3, Label in Name).
+     * El nombre accesible tiene que contener el texto que se ve —«ES» en el
+     * selector de idioma, el nombre junto al logo— o quien navega por voz
+     * dicta lo que lee y no pasa nada (WCAG 2.5.3, Label in Name). El logo ya
+     * no dice «JC»: es el oso, un dibujo sin texto, así que aquí basta con el
+     * nombre que se lee a su lado.
      */
-    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, ir al inicio',
+    'nav.irAlInicio': 'Juan Camilo Bolaños, ir al inicio',
 
     'meta.inicio.titulo':
       'Juan Camilo Bolaños — Diseñador de Interacción y Creador de Sistemas de IA',
@@ -220,7 +222,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Main navigation',
     'nav.selectorIdioma': 'Change language',
     'nav.cambiarTema': 'Switch between light and dark mode',
-    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, go to homepage',
+    'nav.irAlInicio': 'Juan Camilo Bolaños, go to homepage',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Interaction Designer and AI Systems Builder',
     'meta.inicio.descripcion':
@@ -364,7 +366,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Navigation principale',
     'nav.selectorIdioma': 'Changer de langue',
     'nav.cambiarTema': 'Basculer entre le mode clair et le mode sombre',
-    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, aller à l’accueil',
+    'nav.irAlInicio': 'Juan Camilo Bolaños, aller à l’accueil',
 
     'meta.inicio.titulo':
       'Juan Camilo Bolaños — Designer d’interaction et créateur de systèmes d’IA',

@@ -1,5 +1,6 @@
 ﻿---
 import Icono from './Icono.astro';
+import Logo from './Logo.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
 import { cvDe, linkedinDe, SITIO } from '../config/sitio';
 import type { Locale } from '../i18n/ui';
@@ -27,10 +28,10 @@ const enlaces = [
   >
     <div>
       <span
-        aria-hidden="true"
-        class="grid size-10 place-items-center rounded-xl border border-borde-claro bg-fondo/10 font-titular text-base text-fondo"
-        >JC</span
+        class="grid size-10 place-items-center rounded-xl border border-borde-claro bg-fondo/10 text-fondo"
       >
+        <Logo ancho={24} />
+      </span>
       <p class="mt-[18px] max-w-[280px] text-sm leading-relaxed font-light text-footer-suave">
         {t('footer.descripcion')}
       </p>

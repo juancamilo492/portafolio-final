@@ -1,5 +1,6 @@
 ﻿---
 import Icono from './Icono.astro';
+import Logo from './Logo.astro';
 import SelectorIdioma from './SelectorIdioma.astro';
 import ToggleTema from './ToggleTema.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
@@ -34,10 +35,10 @@ const enlaces = [
       class="flex shrink-0 items-center gap-2.5"
     >
       <span
-        aria-hidden="true"
-        class="grid size-[38px] place-items-center rounded-monograma bg-profundo font-titular text-base tracking-[.02em] text-fondo"
-        >JC</span
+        class="grid size-[38px] shrink-0 place-items-center rounded-monograma bg-profundo text-fondo"
       >
+        <Logo ancho={23} />
+      </span>
       <span
         class="hidden text-sm font-medium tracking-[-.01em] text-profundo sm:inline dark:text-noche-texto"
         >{SITIO.autor}</span
