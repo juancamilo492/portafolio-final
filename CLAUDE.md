@@ -116,11 +116,15 @@ originales de cada `.md` está documentado en `src/content.config.ts`.
    (Diseño / Automatización e IA / Desarrollo / Metodologías), educación
    (EAFIT, Diseño Interactivo, 2022-2026, mejor Saber Pro), idiomas
    (ES nativo, EN C1, FR B2, DE A2 en aprendizaje), botón Descargar CV.
-5. 404 personalizada con la estética del sitio.
+5. 404 personalizada con la estética del sitio, una por idioma activo más la
+   de la raíz en español (FASE 7).
 6. Persistentes: botones flotantes de WhatsApp (wa.me con número) y correo
    (mailto), esquina inferior derecha, con aria-labels.
 
-Datos de contacto (confirmar con el dueño antes de publicar):
+El `<title>` de la grilla y de Sobre mí lleva el nombre como sufijo; su H1 no
+(FASE 7).
+
+Datos de contacto, **confirmados por Juan Camilo el 6 de agosto de 2026**:
 correo juancamilob492@gmail.com · WhatsApp +57 300 397 4565 ·
 LinkedIn /in/juan-camilo-bolanos-garcia
 
@@ -150,9 +154,11 @@ de verdad en cada idioma. No activar esa opción.
 
 - Skip link, navegación completa por teclado, focus visible, aria en
   toggles e íconos.
-- Widget UserWay: dejar el espacio para el script, se activa al final.
+- Widget UserWay: el hueco sigue marcado en `BaseLayout`, pero en FASE 7 se
+  recomendó no instalarlo. Ver «Decisiones de FASE 7».
 - Meta de Lighthouse: ≥95 en Performance, Accessibility, Best Practices,
-  SEO en las 4 páginas principales antes de publicar.
+  SEO en las 4 páginas principales antes de publicar. **Se mide sobre
+  `npm run preview`**, nunca sobre `npm run dev`: ver «Estado actual».
 
 ## Reglas de trabajo
 
@@ -164,15 +170,38 @@ de verdad en cada idioma. No activar esa opción.
 
 ## Estado actual
 
-FASES 1, 2, 3, 4, 5, 6 y 6-bis están completas y commiteadas. `astro check`
-pasa con 0 errores, 0 warnings y 0 hints; el build genera 25 páginas, 24
-tarjetas Open Graph, el sitemap, `robots.txt` y `llms.txt`. Queda FASE 7.
+FASES 1 a 6-bis están completas y commiteadas, y **FASE 7 está hecha en todo
+lo que se resuelve con código**. `astro check` pasa con 0 errores, 0 warnings
+y 0 hints; el build genera 28 páginas, 24 tarjetas Open Graph, el sitemap,
+`robots.txt` y `llms.txt`.
 
-En el sitio publicado quedan **6 marcadores `[PENDIENTE]` visibles**: los dos
-del caso `industrial` (métricas y testimonio, ambos esperando permiso del bar)
-por cada uno de los tres idiomas. Son los únicos. Decidir qué hacer con ellos
-antes de publicar es tarea de contenido, no de FASE 7: o llega el permiso, o
-esas dos líneas se reescriben sin cifras ni cita.
+Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
+Performance 97-100, Accessibility 100, Best Practices 96, SEO 100 en las
+cuatro plantillas. Best Practices sube a 100 en cuanto existan los archivos de
+icono: los dos 404 de `/favicon.ico` y `/favicon.svg` son su única causa,
+comprobado poniendo iconos de prueba en `dist/` y borrándolos después.
+
+Para publicar solo faltan cosas que no dependen del código:
+
+1. Los tres archivos de icono en `public/` (`favicon.ico` 32×32, `favicon.svg`,
+   `apple-touch-icon.png` 180×180). El `<head>` ya los pide con esos nombres.
+2. Los **6 marcadores `[PENDIENTE]` visibles**: los dos del caso `industrial`
+   (métricas y testimonio, ambos esperando permiso del bar) por cada uno de los
+   tres idiomas. Son los únicos que quedan en todo el sitio, verificado sobre
+   `dist/`. O llega el permiso, o esas dos líneas se reescriben sin cifras ni
+   cita.
+3. Conectar el repo a Cloudflare Pages (`npm run build`, salida `dist`) y
+   apuntar el DNS de `juancamilo492.online`.
+
+**Medir el rendimiento sobre el build, no sobre `astro dev`.** El dev server
+da Performance 42-57 con TBT de miles de milisegundos, y los diagnósticos
+hablan de 304 KiB de JavaScript sin minificar y 2,4 MB sin usar: todo eso es
+Vite, su cliente de HMR y la barra de herramientas de Astro. El sitio
+publicado no tiene un solo archivo `.js`; su JavaScript son ~2,4 KB en línea
+en la portada y ~3,3 KB en la grilla. Esa misma barra de herramientas mete un
+enlace «Learn more» a `docs.astro.build` que baja el SEO a 92 en dev y no
+existe en `dist/`. Si se ve la barrita flotante de Astro, se está midiendo lo
+que no es.
 
 Ya existe:
 - Astro 7 estático + TypeScript strict + Tailwind 4 (`@tailwindcss/vite`).
@@ -203,6 +232,8 @@ Ya existe:
 - Las 5 vistas construidas con contenido real en español: inicio, grilla
   con filtro client-side (`?categoria=`, `aria-pressed`, conteo en
   `aria-live`), plantilla de caso, sobre-mi y 404.
+- `Pagina404.astro`, el cuerpo de la 404 que comparten la ruta de la raíz y
+  la de cada idioma.
 - `src/lib/proyectos.ts` con `proyectosPorLocale`, `proyectosDestacados`,
   `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
@@ -224,6 +255,8 @@ Ya existe:
   `src/lib/jsonld.ts` + `JsonLd.astro`; `src/lib/og.ts` con la plantilla de
   las tarjetas; el endpoint `src/pages/og/[...ruta].png.ts`;
   `src/pages/robots.txt.ts` y `src/pages/llms.txt.ts`; sitemap en la config.
+- `public/_headers` (caché y seguridad) y `public/_redirects` (`/` → `/es/`),
+  las dos piezas que Cloudflare Pages lee del build.
 
 Decisiones de FASE 3 que no hay que revertir:
 - La itálica del H1 del hero usa `--color-acento-hover` (3.01:1, válido
@@ -370,29 +403,108 @@ Decisiones de FASE 6-bis que no hay que revertir:
   siguen en femenino: son personas identificadas del bar. No revertir ninguna
   de las dos cosas — ni volver a emparejar la palabra entre idiomas.
 
+Decisiones de FASE 7 que no hay que revertir:
+- Las etiquetas de icono del `<head>` apuntan a `favicon.ico`, `favicon.svg` y
+  `apple-touch-icon.png` en `public/`. El arte lo hace Juan Camilo a partir de
+  la marca JC; el código no lo genera. Si al final solo existe el SVG, hay que
+  quitar los otros dos `<link>` en vez de dejarlos pidiendo archivos que no
+  están. El `theme-color` va aparte y no depende de esos archivos: son los dos
+  fondos del sistema, claro y oscuro.
+- El `<title>` de la grilla y de Sobre mí lleva el nombre como sufijo, vía
+  `conMarca()` en `src/lib/seo.ts` y la prop `tituloDocumento` de `BaseLayout`.
+  El H1 y el `og:title` se quedan con el nombre corto a propósito: en un
+  compartido el nombre ya lo pone `og:site_name`, y meterlo en `og:title` lo
+  repetiría también dentro del alt de la tarjeta.
+- `BaseLayout` precarga Inter y Fraunces latinas. @fontsource las declara
+  dentro del CSS, así que el navegador solo las descubría tras parsear la hoja
+  y el texto se reacomodaba al llegar la definitiva: la portada estaba en 90
+  de Performance con un CLS de 0.141 y pasó a 97 con CLS 0. Los `?url` de
+  Vite devuelven la misma ruta con hash que emite el CSS —verificado— así que
+  no hay descarga duplicada. La itálica de Fraunces no se precarga: son 81 KB
+  que solo gastan el énfasis del H1 y las citas de los casos.
+- La portada del caso y la primera tarjeta de la grilla cargan en `eager` con
+  `fetchpriority="high"`: son el elemento LCP de su plantilla y `astro:assets`
+  las marcaba `lazy`. De ahí la prop `prioritaria` de `TarjetaProyecto`.
+- `TarjetaProyecto` acepta `nivel`. En la grilla las tarjetas cuelgan del H1 y
+  van en H2; en la portada y en relacionados cuelgan de un H2 y se quedan en
+  H3. Con todo en H3 se saltaba un nivel de encabezado.
+- El nombre accesible del logo y del selector de idioma empieza por el texto
+  que se ve —«JC», «ES»— porque quien navega por voz dicta lo que lee
+  (WCAG 2.5.3, Label in Name). Por eso `nav.irAlInicio` arranca con «JC» en
+  los tres idiomas y el selector arma su etiqueta con el código delante.
+- El toggle de tema lleva `aria-pressed`, fijado por su propio script: la
+  etiqueta es la misma en los dos modos y sin eso no decía en cuál está. Se
+  pone desde JS porque la página es estática y el modo lo decide el script sin
+  parpadeo del `<head>`.
+- Ni el selector de idioma ni `MenuCV` declaran `aria-haspopup`: lo que abren
+  es una lista de enlaces, no un menú con `role="menu"`, y anunciarlo como
+  menú promete una navegación que esos enlaces no tienen. `aria-expanded` y
+  `aria-controls` describen lo que hacen.
+- El conteo de la grilla no escribe en su región `aria-live` durante la carga,
+  solo al filtrar (el parámetro `anunciar` de `aplicar()`). Antes soltaba
+  «5 proyectos visibles» encima de la lectura inicial de la página.
+- El color del anillo de foco se declara en `*` y no dentro de
+  `:focus-visible`. `outline-color` vale `currentColor` mientras no se toque y
+  `transition-colors` de Tailwind 4 lo lleva en su lista: el anillo nacía en el
+  color del texto y viraba al acento durante 150 ms. Por lo mismo ahí no se usa
+  el atajo `outline`, que reescribiría el color y devolvería el parpadeo.
+- El pie deja libre la columna de los botones flotantes en móvil
+  (`pr-[76px] md:pr-10`). A 360 px el de WhatsApp tapaba el final de la línea
+  de derechos al llegar al fondo de la página. Se ataja por el ancho y no por
+  la altura porque esa línea ocupa una o dos líneas según el idioma.
+- `public/_headers` sí hacía falta: Pages sirve todo con
+  `max-age=0, must-revalidate`, así que hasta los archivos con hash se
+  revalidaban. Lleva caché inmutable para `/_astro/`, un día para las tarjetas
+  OG —su URL depende del slug, no del contenido— y `nosniff`,
+  `Referrer-Policy` y `X-Frame-Options`. **Sin CSP a propósito**: el script sin
+  parpadeo del tema va en línea y Astro no emite su hash, y UserWay cargaría
+  desde un dominio externo. Escribirla antes de resolver eso es escribirla dos
+  veces. El HTML se queda con el `must-revalidate` de Pages para que un
+  despliegue nuevo se vea de inmediato.
+- La 404 existe en los tres idiomas. Cloudflare Pages sirve el `404.html` más
+  cercano subiendo por el árbol de directorios, pero Astro solo emite como
+  archivo suelto la de la raíz: las demás salen como `404/index.html` y Pages
+  no las encontraría. La integración `cuatro-cero-cuatro-por-idioma` de
+  `astro.config.mjs` las mueve a `<lang>/404.html` al terminar el build.
+  Recorre el disco en vez de leer `LOCALES_ACTIVOS`, así que un idioma nuevo
+  queda cubierto solo. No se resolvió con `build.format`, que cambiaría la
+  forma de todas las URLs. El sitemap las excluye: llevan `noindex`.
+  La de la raíz se queda en español, para quien se pierda fuera de todo
+  prefijo de idioma, y el cuerpo lo comparten las dos rutas vía
+  `Pagina404.astro`.
+- **UserWay: recomendado NO instalarlo.** Es un widget de superposición, y
+  esos no arreglan lo que dicen arreglar: añaden JavaScript de terceros sobre
+  un sitio que ya cumple AA —Accessibility 100, foco visible, recorrido por
+  teclado y contraste verificados a mano, también en modo oscuro— y llegan a
+  estorbar a los lectores de pantalla que dicen ayudar. En un portafolio de
+  diseño de interacción, además, un reclutador que conozca el tema lo lee como
+  señal contraria. El hueco sigue marcado en `BaseLayout` por si Juan Camilo
+  decide otra cosa; la decisión es suya y a agosto de 2026 no está tomada.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
   y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
   Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
   y=170 y y=830 —, no en el código.
-- CV en inglés y en francés (al subirlos:
-  `public/cv/juan-camilo-bolanos-{en,fr}.pdf` y su línea en `CV`; con la
-  segunda entrada `MenuCV` vuelve solo a ser desplegable).
+- CV en inglés y en francés. Se guardan en `public/cv/` con el nombre
+  `juan-camilo-bolanos-<locale>.pdf` (`-en.pdf`, `-fr.pdf`) y hay que añadir su
+  línea al objeto `CV` de `src/config/sitio.ts` — es la única fuente de esa
+  lista y solo debe listar PDFs que existan, para no ofrecer nunca un enlace
+  roto. Con la segunda entrada `MenuCV` vuelve solo a ser desplegable, sin
+  tocar el componente.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
-- No hay `public/favicon.ico` ni ninguna etiqueta de icono en el HTML; el dev
-  server lo avisa en cada carga.
-- Los `<title>` de la grilla y de Sobre mí son «Proyectos» y «Sobre mí» a
-  secas, únicos dentro del sitio pero genéricos en un resultado de búsqueda.
-  Añadirles el nombre como sufijo es candidato de FASE 7, junto con el resto
-  de la auditoría.
+- Los tres archivos de icono en `public/`. Las etiquetas del `<head>` ya
+  existen, así que hasta entonces son dos 404 en consola y Best Practices se
+  queda en 96.
 - `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
   así que al activar el francés apareció sola su sección. Un idioma nuevo entra
   igual, sin tocar nada.
-- La 404 existe en un solo idioma (el español, por `DEFAULT_LOCALE`). Es una
-  página sin ruta por locale, así que un visitante francés que se pierda la ve
-  en español. Decidir en FASE 7 si vale la pena.
+- Las portadas de los casos se descargan más grandes de lo que su recorte
+  conserva (`object-cover` en cajas más bajas que la imagen): Lighthouse estima
+  27 KiB en móvil. Arreglarlo obliga a generar recortes distintos por caja y el
+  rendimiento ya está en 97-100 sin eso. Candidato para después de publicar.
 - Los casos en inglés y en francés heredan los `[PENDIENTE]` de contenido del
   español, así que al conseguir el permiso del bar hay que editar los tres
   `industrial.md`.
@@ -476,41 +588,24 @@ Pendientes conocidos, además de las fases:
   con texto (i-homotic e industrial son logos y sirven igual). Una sesión por
   idioma: traducir cinco casos largos dos veces en una sola conversación
   degrada el resultado.
-- FASE 7 — QA y despliegue. Prompt de arranque: "Lee CLAUDE.md. Ejecuta
-  FASE 7: audita y corrige hasta cumplir las metas de Lighthouse y
-  accesibilidad, y deja el sitio listo para publicar en Cloudflare Pages."
-  Lo que ya está resuelto: el host elegido, `public/_redirects` y toda la
-  capa de SEO/GEO. Lo que queda, en dos bloques:
+- FASE 7 — QA y despliegue. **La parte de código está completa** (ver
+  «Decisiones de FASE 7»): etiquetas de icono, títulos con marca, Lighthouse
+  ≥95 en las cuatro categorías y las cuatro plantillas, recorrido por teclado,
+  `public/_headers`, responsive verificado a 360/768/1280 en los tres idiomas
+  sin desbordes horizontales, y la 404 traducida.
 
-  **Se puede hacer en esta sesión, en código:**
-  1. Favicon. No existe `public/favicon.ico` ni ninguna etiqueta de icono en
-     el `<head>`. Hace falta el juego completo (ico, PNG 180 para Apple,
-     SVG si se puede) derivado de la marca JC, más el `<link>` en
-     `BaseLayout`.
-  2. `<title>` de la grilla y de Sobre mí: hoy son «Proyectos» y «Sobre mí»
-     a secas. Añadirles el nombre como sufijo, sin tocar los de los casos,
-     que ya son descriptivos.
-  3. Lighthouse ≥95 en Performance, Accessibility, Best Practices y SEO. Son
-     4 plantillas × 3 idiomas; basta auditar una de cada plantilla y
-     comprobar que el arreglo aplica a las demás.
-  4. Accesibilidad a mano, más allá de Lighthouse: recorrido completo por
-     teclado (menú hamburguesa, selector de idioma, `MenuCV`, chips de
-     filtro), focus visible, y que el `aria-live` del conteo de la grilla
-     anuncie bien al filtrar.
-  5. Decidir si `public/_headers` hace falta. El `Cache-Control` del
-     endpoint OG no llega a producción en un build estático (ver decisiones
-     de FASE 5): si se quieren cabeceras de caché de verdad, van ahí.
-  6. Revisar la preview responsive a 360, 768 y 1280 px en los tres idiomas
-     — el francés y el inglés alargan varios titulares.
-
-  **Necesita a Juan Camilo o a terceros, no lo resuelve el código:**
+  **Lo que falta para publicar, y no lo resuelve el código:**
+  - Los tres archivos de icono en `public/`.
   - El permiso del bar Industrial: los 6 `[PENDIENTE]` que siguen visibles.
-  - El widget UserWay: hay que crear la cuenta y pegar el script en el hueco
-    de `BaseLayout` (ver la línea marcada «FASE 7»).
-  - Conectar el repo de GitHub al proyecto de Pages (comando `npm run
-    build`, salida `dist`) y apuntar `juancamilo492.online` con su DNS.
+  - Conectar el repo de GitHub al proyecto de Pages (comando `npm run build`,
+    salida `dist`) y apuntar `juancamilo492.online` con su DNS.
   - Comprobar, ya publicado, que compartir el dominio pelado en WhatsApp y
-    LinkedIn muestra la vista previa con imagen.
-  - Los CV en inglés y francés, las portadas de Alico con el logo cortado y
-    el caso `abuelos-nietos` no bloquean el lanzamiento, pero conviene
-    resolverlos antes de difundir el enlace.
+    LinkedIn muestra la vista previa con imagen — es lo que verifica de verdad
+    que `public/_redirects` y las tarjetas OG funcionan en Pages.
+
+  **Decidido y descartado:** el widget UserWay. Ver «Decisiones de FASE 7».
+
+  **No bloquean el lanzamiento**, pero conviene resolverlos antes de difundir
+  el enlace: los CV en inglés y francés, las portadas de Alico con el logo
+  cortado, el caso `abuelos-nietos` y los archivos e imágenes que Juan Camilo
+  quiere sumar a cada caso.
