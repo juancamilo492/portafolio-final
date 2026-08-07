@@ -119,7 +119,9 @@ originales de cada `.md` está documentado en `src/content.config.ts`.
 5. 404 personalizada con la estética del sitio, una por idioma activo más la
    de la raíz en español (FASE 7).
 6. Persistentes: botones flotantes de WhatsApp (wa.me con número) y correo
-   (mailto), esquina inferior derecha, con aria-labels.
+   (mailto), esquina inferior derecha, con aria-labels. En la esquina inferior
+   izquierda, `BotonSubir` («volver arriba»), que aparece pasado el primer
+   pantallazo y se retira sobre el pie.
 
 El `<title>` de la grilla y de Sobre mí lleva el nombre como sufijo; su H1 no
 (FASE 7).
@@ -181,11 +183,10 @@ cuatro plantillas, ya con los iconos definitivos y sin un solo 404 en consola.
 
 Para publicar solo faltan cosas que no dependen del código:
 
-1. Los **6 marcadores `[PENDIENTE]` visibles**: los dos del caso `industrial`
-   (métricas y testimonio, ambos esperando permiso del bar) por cada uno de los
-   tres idiomas. Son los únicos que quedan en todo el sitio, verificado sobre
-   `dist/`. O llega el permiso, o esas dos líneas se reescriben sin cifras ni
-   cita.
+1. ~~Los 6 marcadores `[PENDIENTE]`~~ **Resuelto en FASE 8**: se reescribieron
+   sin cifras ni cita en los tres idiomas (ver «Decisiones de FASE 8»). No
+   queda ningún marcador en el sitio, verificado sobre `dist/`. Pedir el
+   permiso al bar sigue pendiente, pero ya no bloquea la publicación.
 2. Conectar el repo a Cloudflare Pages (`npm run build`, salida `dist`) y
    apuntar el DNS de `juancamilo492.online`.
 
@@ -193,8 +194,8 @@ Para publicar solo faltan cosas que no dependen del código:
 da Performance 42-57 con TBT de miles de milisegundos, y los diagnósticos
 hablan de 304 KiB de JavaScript sin minificar y 2,4 MB sin usar: todo eso es
 Vite, su cliente de HMR y la barra de herramientas de Astro. El sitio
-publicado no tiene un solo archivo `.js`; su JavaScript son ~2,4 KB en línea
-en la portada y ~3,3 KB en la grilla. Esa misma barra de herramientas mete un
+publicado no tiene un solo archivo `.js`; su JavaScript son ~3,0 KB en línea
+en la portada y ~4,0 KB en la grilla. Esa misma barra de herramientas mete un
 enlace «Learn more» a `docs.astro.build` que baja el SEO a 92 en dev y no
 existe en `dist/`. Si se ve la barrita flotante de Astro, se está midiendo lo
 que no es.
@@ -204,8 +205,8 @@ Ya existe:
 - Tokens Esmeralda completos, fuentes Fraunces/Inter autoalojadas.
 - `BaseLayout` (skip link, `main#contenido`, hueco para UserWay), `Header`
   sticky con menú hamburguesa < 768px, `Footer`, `SelectorIdioma` accesible,
-  `ToggleTema` sin parpadeo, `BotonesFlotantes`, `MarcaGeometrica`, `Icono`,
-  `Contenedor`.
+  `ToggleTema` sin parpadeo, `BotonesFlotantes`, `BotonSubir`,
+  `MarcaGeometrica`, `Icono`, `Contenedor`.
 - Componentes de página: `Boton` (variantes solido / contorno / punteado /
   claro-contorno), `TarjetaProyecto` (destacada / grilla / compacta),
   `PozoImagen` (marco de imagen ausente), `AvisoPendiente`, `BloqueCTA`
@@ -233,7 +234,7 @@ Ya existe:
 - `src/lib/proyectos.ts` con `proyectosPorLocale`, `proyectosDestacados`,
   `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
-- i18n con rutas traducidas y las 111 cadenas del diccionario en es/en/fr.
+- i18n con rutas traducidas y las 112 cadenas del diccionario en es/en/fr.
   `de` sigue en `{}`.
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
@@ -282,9 +283,9 @@ Decisiones de FASE 4 que no hay que revertir:
   idioma a la vista; vuelve a ser desplegable en cuanto `CV` tenga dos
   entradas. `cvDe(locale)` en `src/config/sitio.ts` es la única fuente de esa
   decisión, y `CV` solo lista PDFs que existen: nunca un enlace roto.
-- `industrial` sigue sin `cita`: el propio caso marca
-  «[PENDIENTE: testimonio — pedir permiso para citar]» y la frase del
-  handoff es de la administradora del bar. No se publica sin ese permiso.
+- `industrial` sigue sin `cita`: la frase del handoff es de la administradora
+  del bar y no se publica sin ese permiso. (El marcador que lo señalaba en el
+  cuerpo desapareció en FASE 8; el campo `cita` sigue vacío.)
 - Los avisos `[PENDIENTE]` de destacados y de la grilla ahora hablan de
   FASE 6: en español ya no se ven, y en inglés lo que falta es la
   traducción de los casos, no la integración.
@@ -502,6 +503,38 @@ Decisiones de FASE 7 que no hay que revertir:
   señal contraria. El hueco sigue marcado en `BaseLayout` por si Juan Camilo
   decide otra cosa; la decisión es suya y a agosto de 2026 no está tomada.
 
+Decisiones de FASE 8 que no hay que revertir:
+- El `.nvmrc` con `22.19.0` no es cosmético: sin él, Cloudflare Pages elige la
+  versión de Node por su cuenta y esa elección cambia sin aviso. Es la misma
+  con la que se verifica el build en local.
+- Los seis `[PENDIENTE]` del caso `industrial` se cerraron **sin resolverlos**:
+  el permiso del bar sigue sin llegar. El párrafo que los sustituye en los tres
+  idiomas solo afirma lo que el propio caso ya sostiene en otras secciones —las
+  26 mesas, los más de 170 productos, el ciclo de cambios en el día— y no
+  señala que falte nada. Cuando llegue el permiso, las cifras y la cita se
+  **suman** a ese párrafo; no hay que quitar lo que hay ni volver a poner
+  marcadores. Siguen siendo los tres `industrial.md` los que hay que editar.
+- `BotonSubir` («volver arriba») vive en la esquina inferior izquierda, el
+  espejo de los flotantes de contacto. Tres decisiones dentro:
+  - **Se retira cuando el pie entra en cuadro.** Abajo a la izquierda está la
+    línea de derechos, que a 360 px ya cede su lado derecho a los botones de
+    contacto (`pr-[76px]`, ver `Footer.astro`). Cederle también el izquierdo la
+    dejaría en una franja de 208 px. Retirar el botón sale más barato, no toca
+    el pie y vale igual en todos los anchos; abajo quedan la navegación del pie
+    y el header sticky, que nunca se va.
+  - **La visibilidad se decide con `IntersectionObserver`, no escuchando
+    `scroll`.** Un centinela de 520 px colgado del tope del documento marca el
+    primer pantallazo. Así no hay un handler corriendo en cada cuadro mientras
+    se desplaza la página. Son +546 bytes de JS y `dist/` sigue sin un solo
+    archivo `.js`.
+  - **`window.scrollTo({top: 0})` va sin `behavior` a propósito**: manda el
+    `scroll-behavior` del CSS, que ya es `smooth` y vuelve a `auto` bajo
+    `prefers-reduced-motion`. Una sola fuente para todo el sitio. El foco salta
+    al logo solo si el clic vino del teclado (`evento.detail === 0`), o quien
+    navega así seguiría en el pie con la página arriba. Mientras está
+    desvanecido lleva `inert`: fuera del tabulador y del árbol de
+    accesibilidad.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -525,9 +558,9 @@ Pendientes conocidos, además de las fases:
   conserva (`object-cover` en cajas más bajas que la imagen): Lighthouse estima
   27 KiB en móvil. Arreglarlo obliga a generar recortes distintos por caja y el
   rendimiento ya está en 97-100 sin eso. Candidato para después de publicar.
-- Los casos en inglés y en francés heredan los `[PENDIENTE]` de contenido del
-  español, así que al conseguir el permiso del bar hay que editar los tres
-  `industrial.md`.
+- Al conseguir el permiso del bar hay que editar los tres `industrial.md`: las
+  cifras y la cita se suman al párrafo de cierre que dejó FASE 8, que ya no
+  lleva marcadores.
 
 ## Cómo se agrega un caso nuevo (queda de FASE 4)
 
@@ -615,7 +648,8 @@ Pendientes conocidos, además de las fases:
   sin desbordes horizontales, y la 404 traducida.
 
   **Lo que falta para publicar, y no lo resuelve el código:**
-  - El permiso del bar Industrial: los 6 `[PENDIENTE]` que siguen visibles.
+  - ~~El permiso del bar Industrial~~ resuelto en FASE 8: los 6 `[PENDIENTE]`
+    se reescribieron sin cifras ni cita y ya no bloquean.
   - Conectar el repo de GitHub al proyecto de Pages (comando `npm run build`,
     salida `dist`) y apuntar `juancamilo492.online` con su DNS.
   - Comprobar, ya publicado, que compartir el dominio pelado en WhatsApp y
@@ -659,7 +693,7 @@ Pendientes conocidos, además de las fases:
   **Analítica: recomendado Cloudflare Web Analytics, no Google Analytics.**
   En un proyecto de Pages se activa con un clic y Cloudflare inyecta su script
   en el despliegue siguiente, sin tocar el código ni el `<head>`. GA4 significa
-  ~50 KB de JavaScript de terceros sobre un sitio cuyo JS propio son 2,4 KB, y
+  ~50 KB de JavaScript de terceros sobre un sitio cuyo JS propio son 3 KB, y
   con visitantes europeos —el sitio está en francés— obliga a un banner de
   consentimiento, que es justo el tipo de cosa que este portafolio no tiene.
   Además la CSP que se dejó sin escribir (ver decisiones de FASE 7) tendría

@@ -14,6 +14,7 @@ import '../styles/global.css';
 import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
 import BotonesFlotantes from '../components/BotonesFlotantes.astro';
+import BotonSubir from '../components/BotonSubir.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -203,5 +204,6 @@ const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
 
     <Footer locale={locale} alternativas={alternativas} />
     <BotonesFlotantes locale={locale} />
+    <BotonSubir locale={locale} />
   </body>
 </html>

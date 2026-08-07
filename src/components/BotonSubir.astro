@@ -1,0 +1,96 @@
+---
+/**
+ * Botón «volver arriba», esquina inferior izquierda — el espejo de los
+ * flotantes de contacto, que viven en la derecha.
+ *
+ * Aparece cuando la página ya bajó del primer pantallazo y se retira cuando el
+ * pie entra en cuadro: ahí abajo la columna izquierda la ocupa la línea de
+ * derechos, que a 360 px ya cede su lado derecho a los botones de contacto
+ * (ver el comentario de `Footer.astro`). Ceder también el izquierdo dejaría el
+ * texto en una franja de 208 px; retirar el botón sale más barato y en el pie
+ * queda su propia navegación, además del header sticky que nunca se va.
+ *
+ * La visibilidad se decide con IntersectionObserver y no escuchando `scroll`:
+ * el trabajo ocurre fuera del hilo principal y no hay un handler corriendo en
+ * cada cuadro mientras se desplaza la página.
+ */
+import Icono from './Icono.astro';
+import { useTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+{/*
+  Centinela: 520 px colgados del tope del documento. Mientras se le vea, la
+  página sigue arriba. Va en `absolute` sin ancestro posicionado, así que se
+  ancla al bloque contenedor inicial y su `top: 0` es el tope real.
+*/}
+<div
+  data-centinela-tope
+  aria-hidden="true"
+  class="pointer-events-none absolute top-0 left-0 h-[520px] w-px opacity-0"
+>
+</div>
+
+<button
+  type="button"
+  data-boton-subir
+  data-visible="no"
+  inert
+  aria-label={t('nav.volverArriba')}
+  class="fixed bottom-4 left-4 z-60 grid size-[46px] translate-y-2 place-items-center rounded-full border border-borde-medio bg-superficie text-profundo opacity-0 shadow-flotante transition duration-200 hover:border-acento hover:text-acento-texto data-[visible=si]:translate-y-0 data-[visible=si]:opacity-100 md:bottom-[26px] md:left-[26px] dark:border-borde-noche-fuerte dark:bg-noche-flotante dark:text-noche-enfasis dark:shadow-flotante-noche dark:hover:text-menta"
+>
+  <Icono nombre="flecha-arriba" tamano={18} />
+</button>
+
+<script>
+  const boton = document.querySelector<HTMLButtonElement>('[data-boton-subir]');
+  const centinela = document.querySelector<HTMLElement>('[data-centinela-tope]');
+  const pie = document.querySelector('footer');
+
+  if (boton && centinela) {
+    let pasoElTope = false;
+    let elPieALaVista = false;
+
+    function pintar() {
+      const mostrar = pasoElTope && !elPieALaVista;
+      boton!.dataset.visible = mostrar ? 'si' : 'no';
+      // `inert` lo saca del recorrido por teclado y del árbol de accesibilidad
+      // mientras está desvanecido: un botón invisible no debe recibir foco.
+      boton!.toggleAttribute('inert', !mostrar);
+    }
+
+    const observador = new IntersectionObserver((entradas) => {
+      for (const entrada of entradas) {
+        if (entrada.target === centinela) pasoElTope = !entrada.isIntersecting;
+        else elPieALaVista = entrada.isIntersecting;
+      }
+      pintar();
+    });
+
+    observador.observe(centinela);
+    if (pie) observador.observe(pie);
+
+    boton.addEventListener('click', (evento) => {
+      // Sin `behavior`: manda el `scroll-behavior` del CSS, que ya es `smooth`
+      // y vuelve a `auto` bajo `prefers-reduced-motion`. Una sola fuente.
+      window.scrollTo({ top: 0 });
+
+      /*
+       * El foco tiene que viajar con la vista, o quien navega por teclado
+       * seguiría en el pie con la página arriba. Solo cuando el clic vino del
+       * teclado: en un `click` disparado con Enter o Espacio `detail` es 0,
+       * mientras que con el ratón es el número de pulsaciones.
+       */
+      if (evento.detail === 0) {
+        document.querySelector<HTMLElement>('header a')?.focus({ preventScroll: true });
+      }
+    });
+  }
+</script>

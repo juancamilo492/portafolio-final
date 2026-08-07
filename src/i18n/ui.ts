@@ -66,6 +66,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Navegación principal',
     'nav.selectorIdioma': 'Cambiar idioma',
     'nav.cambiarTema': 'Cambiar entre modo claro y oscuro',
+    'nav.volverArriba': 'Volver arriba',
     /*
      * El nombre accesible tiene que contener el texto que se ve —«ES» en el
      * selector de idioma, el nombre junto al logo— o quien navega por voz
@@ -222,6 +223,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Main navigation',
     'nav.selectorIdioma': 'Change language',
     'nav.cambiarTema': 'Switch between light and dark mode',
+    'nav.volverArriba': 'Back to top',
     'nav.irAlInicio': 'Juan Camilo Bolaños, go to homepage',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Interaction Designer and AI Systems Builder',
@@ -366,6 +368,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Navigation principale',
     'nav.selectorIdioma': 'Changer de langue',
     'nav.cambiarTema': 'Basculer entre le mode clair et le mode sombre',
+    'nav.volverArriba': 'Retour en haut',
     'nav.irAlInicio': 'Juan Camilo Bolaños, aller à l’accueil',
 
     'meta.inicio.titulo':
