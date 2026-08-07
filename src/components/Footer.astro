@@ -1,7 +1,7 @@
 ﻿---
 import Icono from './Icono.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
-import { cvDe, SITIO } from '../config/sitio';
+import { cvDe, linkedinDe, SITIO } from '../config/sitio';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
@@ -48,7 +48,7 @@ const enlaces = [
         ))
       }
       <a
-        href={SITIO.linkedin}
+        href={linkedinDe(locale)}
         rel="me noopener"
         target="_blank"
         class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"

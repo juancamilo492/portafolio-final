@@ -472,6 +472,14 @@ Decisiones de FASE 7 que no hay que revertir:
   La de la raíz se queda en español, para quien se pierda fuera de todo
   prefijo de idioma, y el cuerpo lo comparten las dos rutas vía
   `Pagina404.astro`.
+- Los enlaces visibles a LinkedIn llevan el perfil en el idioma del visitante
+  vía `linkedinDe(locale)` (`src/config/sitio.ts`): `?locale=es-ES` en español
+  y `?locale=en-US` en todo lo demás, porque el perfil existe escrito en esos
+  dos idiomas y el francés todavía no. `SITIO.linkedin` se queda sin parámetro
+  y sigue siendo la URL canónica: es la que va en el `sameAs` del JSON-LD
+  —ahí se declara la identidad de la persona, no una versión traducida—, la de
+  `llms.txt` y la que se muestra como texto del enlace en el hero. Si algún día
+  hay perfil en francés, la función es el único sitio que hay que tocar.
 - **UserWay: recomendado NO instalarlo.** Es un widget de superposición, y
   esos no arreglan lo que dicen arreglar: añaden JavaScript de terceros sobre
   un sitio que ya cumple AA —Accessibility 100, foco visible, recorrido por

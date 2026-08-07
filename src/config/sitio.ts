@@ -21,6 +21,23 @@ export const ENLACE_WHATSAPP = `https://wa.me/${SITIO.whatsapp}`;
 export const ENLACE_CORREO = `mailto:${SITIO.correo}`;
 
 /**
+ * El perfil de LinkedIn en el idioma del visitante.
+ *
+ * Juan Camilo tiene el perfil escrito en español y en inglés, y `?locale=`
+ * es el parámetro con el que LinkedIn elige cuál mostrar. El francés no
+ * existe todavía, así que cae al inglés: es la versión que un visitante
+ * francófono tiene más probabilidades de leer, y el alemán entraría igual.
+ *
+ * `SITIO.linkedin` se queda sin parámetro y sigue siendo la URL canónica del
+ * perfil: es la que va en el `sameAs` del JSON-LD, donde lo que se declara es
+ * la identidad de la persona y no una versión traducida, y la que se muestra
+ * como texto del enlace en el hero.
+ */
+export function linkedinDe(locale: Locale): string {
+  return `${SITIO.linkedin}/?locale=${locale === 'es' ? 'es-ES' : 'en-US'}`;
+}
+
+/**
  * PDFs del CV. Solo se listan los que existen en `public/cv/`: un idioma sin
  * PDF no debe aparecer en el menú de descarga ofreciendo un enlace roto.
  * [PENDIENTE: el CV en inglés — al subirlo, añadir aquí la línea `en`]

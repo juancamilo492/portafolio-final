@@ -15,7 +15,7 @@ import { jsonLdInicio } from '../../lib/jsonld';
 import { rutaOg } from '../../lib/og';
 import { proyectosDestacados } from '../../lib/proyectos';
 import { siteDe } from '../../lib/seo';
-import { SITIO } from '../../config/sitio';
+import { linkedinDe, SITIO } from '../../config/sitio';
 import type { NombreIcono } from '../../components/Icono.astro';
 import type { Locale } from '../../i18n/ui';
 
@@ -28,6 +28,7 @@ const t = useTranslations(locale);
 // marcador, no con relleno.
 const destacados = await proyectosDestacados(locale, 3);
 
+// El texto del enlace es la dirección limpia; el `?locale=` solo va en el href.
 const perfilLinkedin = SITIO.linkedin.replace(/^https?:\/\/(www\.)?/, '');
 
 const queHago: { icono: NombreIcono; titulo: string; texto: string }[] = [
@@ -89,7 +90,7 @@ const proceso = [
         </div>
 
         <a
-          href={SITIO.linkedin}
+          href={linkedinDe(locale)}
           rel="me noopener"
           target="_blank"
           class="mt-8 inline-flex items-center gap-2 text-[13px] text-texto-suave transition-colors hover:text-acento-texto dark:text-noche-cuerpo dark:hover:text-menta"
