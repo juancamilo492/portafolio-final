@@ -11,16 +11,30 @@ interface Props {
 const { locale, alternativas } = Astro.props;
 const t = useTranslations(locale);
 const id = 'menu-idioma';
+
+/*
+ * El código del idioma abre el nombre accesible porque es lo único que se lee
+ * en el botón: quien navega por voz dicta lo que ve —«ES»— y el nombre tiene
+ * que contenerlo (WCAG 2.5.3, Label in Name).
+ */
+const etiquetaDisparador = `${locale.toUpperCase()} — ${t('nav.selectorIdioma')}`;
+
+/*
+ * Sin `aria-haspopup`: lo que se despliega es una lista de enlaces, no un menú
+ * de aplicación con `role="menu"`, y anunciarlo como menú promete una
+ * navegación que estos enlaces no tienen. `aria-expanded` + `aria-controls`
+ * describen exactamente lo que hace el botón. Las flechas siguen funcionando
+ * como atajo, que no estorba a nadie.
+ */
 ---
 
 <div class="relative" data-selector-idioma>
   <button
     type="button"
     data-disparador
-    aria-haspopup="true"
     aria-expanded="false"
     aria-controls={id}
-    aria-label={t('nav.selectorIdioma')}
+    aria-label={etiquetaDisparador}
     class="flex items-center gap-[7px] rounded-full border border-borde-medio py-[7px] pr-3 pl-[11px] text-xs font-semibold tracking-[.04em] text-bosque transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta"
   >
     <Icono nombre="globo" tamano={15} />

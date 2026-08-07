@@ -10,7 +10,7 @@ import { pathsDePagina, useTranslations } from '../../i18n/utils';
 import { etiquetaCategoria } from '../../lib/categorias';
 import { jsonLdSobreMi } from '../../lib/jsonld';
 import { rutaOg } from '../../lib/og';
-import { siteDe } from '../../lib/seo';
+import { conMarca, siteDe } from '../../lib/seo';
 import type { Locale } from '../../i18n/ui';
 
 // Solo genera Sobre mí: /es/sobre-mi/, /en/about/
@@ -77,6 +77,7 @@ const idiomas = [
   locale={locale}
   activa="sobreMi"
   titulo={t('meta.sobreMi.titulo')}
+  tituloDocumento={conMarca(t('meta.sobreMi.titulo'))}
   descripcion={t('meta.sobreMi.descripcion')}
   imagenOg={rutaOg(locale, 'sobreMi')}
   jsonLd={jsonLdSobreMi(siteDe(Astro.site), locale)}

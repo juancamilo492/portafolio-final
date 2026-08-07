@@ -6,7 +6,9 @@
  * opción sería un clic de más. Cuando exista el CV en otro idioma vuelve a ser
  * un menú, y entonces lleva `data-selector-idioma` a propósito — es el mismo
  * patrón del selector de idioma del header y reutiliza su script (clic fuera,
- * Escape, flechas, aria-expanded) en lugar de duplicar esa lógica.
+ * Escape, flechas, aria-expanded) en lugar de duplicar esa lógica — incluida
+ * su decisión de no declarar `aria-haspopup`: lo que se abre es una lista de
+ * enlaces de descarga, no un menú con `role="menu"`.
  */
 import Icono from './Icono.astro';
 import { useTranslations } from '../i18n/utils';
@@ -42,7 +44,6 @@ const estiloBoton =
       <button
         type="button"
         data-disparador
-        aria-haspopup="true"
         aria-expanded="false"
         aria-controls={id}
         class={estiloBoton}

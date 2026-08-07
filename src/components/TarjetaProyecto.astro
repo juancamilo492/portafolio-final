@@ -19,10 +19,32 @@ interface Props {
   proyecto: Proyecto;
   locale: Locale;
   variante?: 'destacada' | 'grilla' | 'compacta';
+  /**
+   * Nivel del título. Por defecto 3, que es lo correcto cuando la lista cuelga
+   * de un H2 («Proyectos destacados», «Proyectos relacionados»). En la grilla
+   * las tarjetas cuelgan directamente del H1 y allí el nivel es 2: saltarse el
+   * H2 rompe la jerarquía de encabezados.
+   */
+  nivel?: 2 | 3;
+  /**
+   * Carga la portada con prioridad. Solo para la primera tarjeta de la grilla,
+   * que es su elemento LCP: por defecto `astro:assets` marca las imágenes como
+   * `lazy` y eso retrasa justo la que se ve de entrada.
+   */
+  prioritaria?: boolean;
   class?: string;
 }
 
-const { proyecto, locale, variante = 'grilla', class: clase } = Astro.props;
+const {
+  proyecto,
+  locale,
+  variante = 'grilla',
+  nivel = 3,
+  prioritaria = false,
+  class: clase,
+} = Astro.props;
+
+const Titulo = `h${nivel}` as const;
 const t = useTranslations(locale);
 const { titulo, resumen, categoria, imagen_portada } = proyecto.data;
 
@@ -70,6 +92,8 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
         alt=""
         widths={[400, 800]}
         sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+        loading={prioritaria ? 'eager' : 'lazy'}
+        fetchpriority={prioritaria ? 'high' : undefined}
         class:list={['w-full object-cover', alturas[variante]]}
       />
     ) : (
@@ -78,14 +102,14 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
   }
 
   <div class:list={['flex flex-1 flex-col gap-3', rellenos[variante]]}>
-    <h3 class:list={['tracking-[-.01em]', titulos[variante]]}>
+    <Titulo class:list={['tracking-[-.01em]', titulos[variante]]}>
       <a
         href={rutaDe(locale, 'proyectos', proyecto.data.slug)}
         class="after:absolute after:inset-0 hover:text-acento-texto dark:hover:text-menta"
       >
         {titulo}
       </a>
-    </h3>
+    </Titulo>
 
     <p
       class:list={[

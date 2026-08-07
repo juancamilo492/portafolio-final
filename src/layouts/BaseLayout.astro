@@ -1,5 +1,18 @@
 ---
 import '../styles/global.css';
+/*
+ * Las dos fuentes del primer pantallazo, precargadas.
+ * @fontsource las declara dentro del CSS, así que el navegador solo las
+ * descubre después de descargar y parsear la hoja: con `font-display: swap`
+ * eso significa pintar con la fuente de respaldo y reacomodar el texto al
+ * llegar la definitiva — el desplazamiento (CLS) que medía Lighthouse en la
+ * fila de botones del hero. El `?url` devuelve la misma ruta con hash que
+ * emite el CSS, así que el preload no duplica la descarga.
+ * La itálica de Fraunces no entra: solo la usan el énfasis del H1 y las citas
+ * de los casos, y son 81 KB que la grilla y Sobre mí no llegan a gastar.
+ */
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
 import BotonesFlotantes from '../components/BotonesFlotantes.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -19,6 +32,13 @@ import { absoluta, siteDe } from '../lib/seo';
 
 interface Props {
   titulo: string;
+  /**
+   * Lo que va en el `<title>` cuando la página necesita el nombre de marca
+   * («Proyectos — Juan Camilo Bolaños»). `og:title` y el alt de la tarjeta
+   * siguen usando `titulo`, que es el nombre corto: en un compartido el
+   * nombre ya lo pone `og:site_name` y repetirlo sobra.
+   */
+  tituloDocumento?: string;
   descripcion: string;
   locale?: Locale;
   /** Sección actual: marca el enlace activo del nav y arma el selector de idioma. */
@@ -42,6 +62,7 @@ interface Props {
 
 const {
   titulo,
+  tituloDocumento,
   descripcion,
   locale = DEFAULT_LOCALE,
   activa,
@@ -78,12 +99,34 @@ const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{titulo}</title>
+    <title>{tituloDocumento ?? titulo}</title>
     <meta name="description" content={descripcion} />
     {/* La 404 no es una página: no tiene URL propia que declarar como canónica. */}
     {!noindex && <link rel="canonical" href={canonical.href} />}
     <meta name="generator" content={Astro.generator} />
     {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <link rel="preload" as="font" type="font/woff2" href={interLatin} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={frauncesLatin} crossorigin />
+
+    {/*
+      Iconos del sitio. El SVG es el que usan los navegadores de escritorio
+      modernos; el .ico queda para los que solo piden /favicon.ico y para las
+      vistas de historial; el PNG de 180 es el que se ancla a la pantalla de
+      inicio en iOS. Los tres archivos los pone Juan Camilo en `public/` con
+      exactamente estos nombres (ver CLAUDE.md → FASE 7): el arte sale de la
+      marca JC, no se genera desde aquí.
+    */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    {/*
+      Color de la barra del navegador en móvil. No depende de los archivos de
+      icono: son los dos fondos del sistema Esmeralda, claro y oscuro.
+    */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9FFFE" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B2A22" />
 
     {/* Cada versión de esta página que de verdad existe en dist. */}
     {

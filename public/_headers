@@ -1,0 +1,35 @@
+# Cabeceras de respuesta de Cloudflare Pages.
+#
+# Sí hacen falta: en un build estático el `Cache-Control` que declara el
+# endpoint de las tarjetas Open Graph no llega a producción —Astro solo
+# escribe el cuerpo al disco y las cabeceras las pone el host—, y Pages sirve
+# todo por defecto con `max-age=0, must-revalidate`, así que hasta los
+# archivos con hash en el nombre se revalidan en cada visita.
+#
+# Las reglas que coinciden se acumulan; las de abajo no reemplazan a `/*`.
+
+# Todo lo que hay en /_astro/ lleva el hash del contenido en el nombre: si
+# cambia el archivo, cambia la URL. Nunca hay que revalidarlo.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Las tarjetas Open Graph no llevan hash: su URL depende del slug del caso, y
+# la imagen cambia si se edita el título. Un día de caché le ahorra el trabajo
+# a los rastreadores que las piden al compartir un enlace, y una corrección de
+# título tarda como mucho ese día en propagarse.
+/og/*
+  Cache-Control: public, max-age=86400
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+
+# Sin Content-Security-Policy por ahora, y es deliberado: el script sin
+# parpadeo del tema va en línea en el <head> (una CSP estricta lo bloquearía
+# sin un hash que Astro no emite) y el widget de accesibilidad UserWay, que
+# todavía está pendiente, carga desde un dominio externo. Escribir la política
+# antes de tener ese script significaría escribirla dos veces.
+#
+# El HTML se queda con el `must-revalidate` de Pages: es lo que hace que un
+# despliegue nuevo se vea de inmediato.

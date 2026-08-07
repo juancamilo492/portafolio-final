@@ -95,8 +95,16 @@ const enlaces = [
     </div>
   </div>
 
+  {/*
+    El margen derecho de más en móvil no es estético: los botones flotantes se
+    posan sobre la esquina inferior derecha del viewport y a 360 px tapaban el
+    final de esta línea («…todos los derechos reser|vados») al llegar al fondo
+    de la página. Su columna arranca en x=292, así que el texto corta antes y
+    envuelve. Se ataja por el ancho y no por la altura porque la línea ocupa
+    una o dos líneas según el idioma. En md sobra ancho y vuelve el px normal.
+  */}
   <div
-    class="mx-auto max-w-sitio border-t border-[rgb(249_255_254_/_0.12)] px-5 pt-5 pb-8 text-[12.5px] text-footer-suave md:px-10"
+    class="mx-auto max-w-sitio border-t border-[rgb(249_255_254_/_0.12)] px-5 pt-5 pr-[76px] pb-8 text-[12.5px] text-footer-suave md:px-10 md:pr-10"
   >
     © {anio} {SITIO.autor}. {t('footer.derechos')}
   </div>

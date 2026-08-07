@@ -66,7 +66,12 @@ export const ui = {
     'nav.navegacionPrincipal': 'Navegación principal',
     'nav.selectorIdioma': 'Cambiar idioma',
     'nav.cambiarTema': 'Cambiar entre modo claro y oscuro',
-    'nav.irAlInicio': 'Juan Camilo Bolaños — ir al inicio',
+    /*
+     * El nombre accesible tiene que empezar por el texto que se ve en el
+     * botón — «JC» en el logo, «ES» en el selector — o quien navega por voz
+     * dicta lo que lee y no pasa nada (WCAG 2.5.3, Label in Name).
+     */
+    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, ir al inicio',
 
     'meta.inicio.titulo':
       'Juan Camilo Bolaños — Diseñador de Interacción y Creador de Sistemas de IA',
@@ -215,7 +220,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Main navigation',
     'nav.selectorIdioma': 'Change language',
     'nav.cambiarTema': 'Switch between light and dark mode',
-    'nav.irAlInicio': 'Juan Camilo Bolaños — go to homepage',
+    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, go to homepage',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Interaction Designer and AI Systems Builder',
     'meta.inicio.descripcion':
@@ -359,7 +364,7 @@ export const ui = {
     'nav.navegacionPrincipal': 'Navigation principale',
     'nav.selectorIdioma': 'Changer de langue',
     'nav.cambiarTema': 'Basculer entre le mode clair et le mode sombre',
-    'nav.irAlInicio': 'Juan Camilo Bolaños — aller à l’accueil',
+    'nav.irAlInicio': 'JC — Juan Camilo Bolaños, aller à l’accueil',
 
     'meta.inicio.titulo':
       'Juan Camilo Bolaños — Designer d’interaction et créateur de systèmes d’IA',

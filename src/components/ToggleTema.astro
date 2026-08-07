@@ -26,9 +26,19 @@ const t = useTranslations(locale);
   const raiz = document.documentElement;
 
   for (const boton of document.querySelectorAll<HTMLButtonElement>('[data-toggle-tema]')) {
+    /*
+     * El estado se anuncia con `aria-pressed`: la etiqueta es la misma en los
+     * dos modos y el icono no lo lee nadie con un lector de pantalla, así que
+     * sin esto el botón no dice en qué modo está el sitio. Se fija aquí y no
+     * en el HTML porque la página es estática: el modo lo decide el script sin
+     * parpadeo del `<head>`, ya ejecutado cuando este corre.
+     */
+    boton.setAttribute('aria-pressed', String(raiz.classList.contains('dark')));
+
     boton.addEventListener('click', () => {
       const oscuro = raiz.classList.toggle('dark');
       localStorage.setItem('tema', oscuro ? 'oscuro' : 'claro');
+      boton.setAttribute('aria-pressed', String(oscuro));
     });
   }
 </script>

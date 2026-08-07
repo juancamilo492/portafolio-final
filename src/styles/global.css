@@ -173,9 +173,28 @@
     text-wrap: pretty;
   }
 
-  /* Foco visible en todo elemento interactivo. */
+  /*
+   * Foco visible en todo elemento interactivo.
+   *
+   * El color se declara sobre todos los elementos y no dentro de
+   * `:focus-visible` a propósito. `outline-color` vale `currentColor` mientras
+   * no se toque, y la utilidad `transition-colors` de Tailwind 4 lo lleva en
+   * su lista de propiedades: al recibir el foco, el anillo de los botones y
+   * enlaces que usan esa utilidad nacía en el color del texto y viraba al
+   * acento durante los 150 ms de la transición. Fijándolo desde el principio
+   * no hay cambio que animar y el indicador aparece ya en su color. Por eso
+   * tampoco se usa aquí el atajo `outline`: reescribiría el color a
+   * `currentColor` y devolvería el parpadeo.
+   */
+  *,
+  ::before,
+  ::after {
+    outline-color: var(--color-acento);
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-acento);
+    outline-width: 2px;
+    outline-style: solid;
     outline-offset: 3px;
     border-radius: 4px;
   }

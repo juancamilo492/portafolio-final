@@ -109,12 +109,16 @@ const imagenOg = rutaOg(locale, 'caso', datos.slug);
     </p>
 
     {
+      /* La portada es el elemento LCP del caso: `astro:assets` la marcaría
+         `lazy` y con eso el navegador la descubre tarde. */
       datos.imagen_portada ? (
         <Image
           src={datos.imagen_portada}
           alt=""
           widths={[720, 1200]}
           sizes="(min-width: 1280px) 1120px, 100vw"
+          loading="eager"
+          fetchpriority="high"
           class="mt-11 h-[240px] w-full rounded-bloque object-cover sm:h-[340px] lg:h-[460px]"
         />
       ) : (

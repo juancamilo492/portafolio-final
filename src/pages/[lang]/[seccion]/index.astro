@@ -9,7 +9,7 @@ import { etiquetaCategoria, slugCategoria } from '../../../lib/categorias';
 import { jsonLdProyectos } from '../../../lib/jsonld';
 import { rutaOg } from '../../../lib/og';
 import { proyectosPorLocale } from '../../../lib/proyectos';
-import { siteDe } from '../../../lib/seo';
+import { conMarca, siteDe } from '../../../lib/seo';
 import { CATEGORIAS } from '../../../content.config';
 import type { Locale } from '../../../i18n/ui';
 
@@ -35,6 +35,7 @@ const chips = [
   locale={locale}
   activa="proyectos"
   titulo={t('meta.proyectos.titulo')}
+  tituloDocumento={conMarca(t('meta.proyectos.titulo'))}
   descripcion={t('meta.proyectos.descripcion')}
   imagenOg={rutaOg(locale, 'proyectos')}
   jsonLd={jsonLdProyectos(siteDe(Astro.site), locale, proyectos)}
@@ -82,9 +83,15 @@ const chips = [
               del filtro basta para ocultarlo (la regla de Preflight tiene
               especificidad cero y cualquier clase la ganaría).
             */}
-            {proyectos.map((proyecto) => (
+            {proyectos.map((proyecto, indice) => (
               <li data-categorias={proyecto.data.categoria.map(slugCategoria).join(' ')}>
-                <TarjetaProyecto proyecto={proyecto} locale={locale} variante="grilla" />
+                <TarjetaProyecto
+                  proyecto={proyecto}
+                  locale={locale}
+                  variante="grilla"
+                  nivel={2}
+                  prioritaria={indice === 0}
+                />
               </li>
             ))}
           </ul>
@@ -124,7 +131,14 @@ const chips = [
     const unoTexto = raiz.dataset.conteoUno ?? '';
     const variosTexto = raiz.dataset.conteoVarios ?? '';
 
-    const aplicar = (filtro: string) => {
+    /*
+     * `anunciar` distingue el filtrado de la primera pasada. El conteo vive en
+     * una región `aria-live`, y escribir en ella al cargar la página hace que
+     * el lector de pantalla suelte «5 proyectos visibles» sobre la lectura de
+     * la página, sin que nadie haya filtrado nada. El estado inicial se aplica
+     * en silencio; a partir de ahí cada cambio sí se anuncia.
+     */
+    const aplicar = (filtro: string, anunciar = true) => {
       let visibles = 0;
 
       for (const tarjeta of tarjetas) {
@@ -139,7 +153,9 @@ const chips = [
       }
 
       if (vacio) vacio.hidden = visibles > 0;
-      if (conteo) conteo.textContent = `${visibles} ${visibles === 1 ? unoTexto : variosTexto}`;
+      if (conteo && anunciar) {
+        conteo.textContent = `${visibles} ${visibles === 1 ? unoTexto : variosTexto}`;
+      }
     };
 
     const filtroValido = (valor: string | null) =>
@@ -158,10 +174,10 @@ const chips = [
     }
 
     // Estado inicial y navegación con los botones atrás/adelante.
-    const desdeUrl = () =>
-      aplicar(filtroValido(new URL(window.location.href).searchParams.get('categoria')));
+    const desdeUrl = (anunciar = true) =>
+      aplicar(filtroValido(new URL(window.location.href).searchParams.get('categoria')), anunciar);
 
-    desdeUrl();
-    window.addEventListener('popstate', desdeUrl);
+    desdeUrl(false);
+    window.addEventListener('popstate', () => desdeUrl());
   }
 </script>
