@@ -84,8 +84,11 @@ The system is in production and in daily use. The managers verified that the
 reports match the bar's invoicing and inventory, which let them go from
 reviewing orders one by one to seeing the day's summary in seconds.
 
-[PENDING: real metrics — requires the bar's authorization]
-[PENDING: testimonial — ask for permission to quote]
+The rest of the outcome shows in the nightly operation: the 26 tables and the
+170-plus products are managed from a single panel, accidental orders are gone
+because the flow no longer allows them, and every adjustment the bar asks for
+reaches production the same day or the next. The system stopped being a
+deliverable and became part of how the business works.
 
 ## What I learned
 

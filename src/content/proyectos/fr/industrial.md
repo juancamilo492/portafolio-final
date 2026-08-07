@@ -91,8 +91,12 @@ vérifié que les rapports coïncident avec la facturation et l’inventaire du 
 ce qui leur a permis de passer d’une revue des commandes une par une à une vue
 du résumé de la journée en quelques secondes.
 
-[EN ATTENTE : indicateurs réels — nécessite l’autorisation du bar]
-[EN ATTENTE : témoignage — demander la permission de citer]
+Le reste du résultat se voit dans l’exploitation du soir : les 26 tables et les
+plus de 170 produits se gèrent depuis un seul panneau, les commandes
+accidentelles ont disparu parce que le flux ne les permet plus, et chaque
+ajustement demandé par le bar arrive en production le jour même ou le
+lendemain. Le système a cessé d’être un livrable pour devenir une partie du
+fonctionnement de l’entreprise.
 
 ## Ce que j’ai appris
 

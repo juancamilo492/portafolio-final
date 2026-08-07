@@ -85,8 +85,11 @@ que los informes coinciden con la facturación y el inventario del bar, lo que
 les permitió pasar de revisar pedidos uno por uno a ver el resumen del día en
 segundos.
 
-[PENDIENTE: métricas reales — requiere autorización del bar]
-[PENDIENTE: testimonio — pedir permiso para citar]
+El resto del resultado se ve en la operación de la noche: las 26 mesas y los
+más de 170 productos se administran desde un solo panel, los pedidos
+accidentales desaparecieron porque el flujo ya no los permite, y cada ajuste
+que pide el bar entra en producción el mismo día o el siguiente. El sistema
+dejó de ser un entregable y pasó a ser parte de cómo trabaja el negocio.
 
 ## Lo que aprendí
 
