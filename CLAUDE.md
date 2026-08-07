@@ -176,21 +176,17 @@ y 0 hints; el build genera 28 páginas, 24 tarjetas Open Graph, el sitemap,
 `robots.txt` y `llms.txt`.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
-Performance 97-100, Accessibility 100, Best Practices 96, SEO 100 en las
-cuatro plantillas. Best Practices sube a 100 en cuanto existan los archivos de
-icono: los dos 404 de `/favicon.ico` y `/favicon.svg` son su única causa,
-comprobado poniendo iconos de prueba en `dist/` y borrándolos después.
+Performance 97-99, Accessibility 100, **Best Practices 100** y SEO 100 en las
+cuatro plantillas, ya con los iconos definitivos y sin un solo 404 en consola.
 
 Para publicar solo faltan cosas que no dependen del código:
 
-1. Los tres archivos de icono en `public/` (`favicon.ico` 32×32, `favicon.svg`,
-   `apple-touch-icon.png` 180×180). El `<head>` ya los pide con esos nombres.
-2. Los **6 marcadores `[PENDIENTE]` visibles**: los dos del caso `industrial`
+1. Los **6 marcadores `[PENDIENTE]` visibles**: los dos del caso `industrial`
    (métricas y testimonio, ambos esperando permiso del bar) por cada uno de los
    tres idiomas. Son los únicos que quedan en todo el sitio, verificado sobre
    `dist/`. O llega el permiso, o esas dos líneas se reescriben sin cifras ni
    cita.
-3. Conectar el repo a Cloudflare Pages (`npm run build`, salida `dist`) y
+2. Conectar el repo a Cloudflare Pages (`npm run build`, salida `dist`) y
    apuntar el DNS de `juancamilo492.online`.
 
 **Medir el rendimiento sobre el build, no sobre `astro dev`.** El dev server
@@ -404,12 +400,20 @@ Decisiones de FASE 6-bis que no hay que revertir:
   de las dos cosas — ni volver a emparejar la palabra entre idiomas.
 
 Decisiones de FASE 7 que no hay que revertir:
-- Las etiquetas de icono del `<head>` apuntan a `favicon.ico`, `favicon.svg` y
-  `apple-touch-icon.png` en `public/`. El arte lo hace Juan Camilo a partir de
-  la marca JC; el código no lo genera. Si al final solo existe el SVG, hay que
-  quitar los otros dos `<link>` en vez de dejarlos pidiendo archivos que no
-  están. El `theme-color` va aparte y no depende de esos archivos: son los dos
-  fondos del sistema, claro y oscuro.
+- Los iconos ya están en `public/`, generados por Juan Camilo con
+  RealFaviconGenerator a partir de la marca del oso: `favicon.svg`,
+  `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png`,
+  `site.webmanifest` y los dos PNG de 192 y 512 del manifest. El `<head>` los
+  enlaza con esos nombres exactos; no se pegó el fragmento del generador
+  porque habría duplicado etiquetas y pisado el `theme-color` por modo claro y
+  oscuro, que va aparte y no depende de estos archivos. El oso va en claro
+  sobre el verde profundo `#005348`: a 16 px la silueta necesita el contraste,
+  y así el mismo icono sirve en pestaña clara y oscura sin un «dark icon»
+  aparte. En el manifest los iconos llevan `"purpose": "any maskable"` y no
+  solo `maskable`, que es lo que genera la herramienta: con un único juego de
+  PNG, declarar ambos evita que un contexto que pide `any` se quede sin icono.
+  Con ellos en su sitio, Best Practices pasó de 96 a **100** en las cuatro
+  plantillas.
 - El `<title>` de la grilla y de Sobre mí lleva el nombre como sufijo, vía
   `conMarca()` en `src/lib/seo.ts` y la prop `tituloDocumento` de `BaseLayout`.
   El H1 y el `og:title` se quedan con el nombre corto a propósito: en un
@@ -503,9 +507,10 @@ Pendientes conocidos, además de las fases:
   tocar el componente.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
-- Los tres archivos de icono en `public/`. Las etiquetas del `<head>` ya
-  existen, así que hasta entonces son dos 404 en consola y Best Practices se
-  queda en 96.
+- El logo del oso dentro del sitio: reemplaza el monograma «JC» del header y
+  del footer. Va en `src/assets/marca/`. Al montarlo hay que quitar el «JC — »
+  del arranque de `nav.irAlInicio` en los tres idiomas: se puso por WCAG 2.5.3
+  cuando el texto visible eran esas dos letras, y con el oso deja de aplicar.
 - `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
   así que al activar el francés apareció sola su sección. Un idioma nuevo entra
   igual, sin tocar nada.
@@ -603,7 +608,6 @@ Pendientes conocidos, además de las fases:
   sin desbordes horizontales, y la 404 traducida.
 
   **Lo que falta para publicar, y no lo resuelve el código:**
-  - Los tres archivos de icono en `public/`.
   - El permiso del bar Industrial: los 6 `[PENDIENTE]` que siguen visibles.
   - Conectar el repo de GitHub al proyecto de Pages (comando `npm run build`,
     salida `dist`) y apuntar `juancamilo492.online` con su DNS.

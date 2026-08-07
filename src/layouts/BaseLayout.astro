@@ -110,16 +110,19 @@ const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
     <link rel="preload" as="font" type="font/woff2" href={frauncesLatin} crossorigin />
 
     {/*
-      Iconos del sitio. El SVG es el que usan los navegadores de escritorio
-      modernos; el .ico queda para los que solo piden /favicon.ico y para las
-      vistas de historial; el PNG de 180 es el que se ancla a la pantalla de
-      inicio en iOS. Los tres archivos los pone Juan Camilo en `public/` con
-      exactamente estos nombres (ver CLAUDE.md → FASE 7): el arte sale de la
-      marca JC, no se genera desde aquí.
+      Iconos del sitio, con los nombres del paquete que generó Juan Camilo a
+      partir de la marca del oso (ver CLAUDE.md → FASE 7). El SVG es el que
+      usan los navegadores modernos, el PNG de 96 el respaldo para los que no
+      leen SVG, el .ico queda para quien pide `/favicon.ico` a secas y el de
+      180 es el que se ancla a la pantalla de inicio en iOS.
     */}
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    {/* Nombre bajo el icono al anclar el sitio en iOS: el `<title>` es muy largo. */}
+    <meta name="apple-mobile-web-app-title" content="Juan Camilo" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     {/*
       Color de la barra del navegador en móvil. No depende de los archivos de
