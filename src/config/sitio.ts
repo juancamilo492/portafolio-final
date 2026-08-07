@@ -1,6 +1,6 @@
 /**
  * Datos fijos del sitio y de contacto.
- * [PENDIENTE: confirmar con el dueño antes de publicar — CLAUDE.md → Páginas]
+ * Confirmados por Juan Camilo el 6 de agosto de 2026, antes de publicar.
  */
 import { DEFAULT_LOCALE, LOCALES_ACTIVOS, type Locale } from '../i18n/ui';
 

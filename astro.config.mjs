@@ -1,10 +1,53 @@
 // @ts-check
+import { readdir, rename, rm, stat } from 'node:fs/promises';
+import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // Dominio de producción. Base de canonical, hreflang, sitemap y Open Graph.
 const SITE = 'https://juancamilo492.online';
+
+/**
+ * Publica las 404 por idioma como `dist/<lang>/404.html`.
+ *
+ * Astro solo trata como archivo suelto la 404 de la raíz; cualquier otra sale
+ * como `404/index.html`, que es lo correcto para una página normal pero no
+ * para esta. Cloudflare Pages busca el `404.html` más cercano subiendo por el
+ * árbol de directorios, así que sin este movimiento no encontraría
+ * `/fr/404.html` y le serviría la española a todo el mundo.
+ *
+ * Se resuelve moviendo el archivo y no con `build.format`, que cambiaría la
+ * forma de todas las URLs del sitio. Recorre el disco en vez de leer la lista
+ * de idiomas: un idioma nuevo queda cubierto sin tocar nada.
+ */
+function cuatroCeroCuatroPorIdioma() {
+  return {
+    name: 'cuatro-cero-cuatro-por-idioma',
+    hooks: {
+      /** @type {(opciones: { dir: URL, logger: { info: (mensaje: string) => void } }) => Promise<void>} */
+      'astro:build:done': async ({ dir, logger }) => {
+        const raiz = dir.pathname.replace(/^\/([A-Za-z]:)/, '$1');
+
+        for (const entrada of await readdir(raiz, { withFileTypes: true })) {
+          if (!entrada.isDirectory()) continue;
+
+          const origen = join(raiz, entrada.name, '404', 'index.html');
+          const destino = join(raiz, entrada.name, '404.html');
+          const existe = await stat(origen).then(
+            () => true,
+            () => false,
+          );
+          if (!existe) continue;
+
+          await rename(origen, destino);
+          await rm(join(raiz, entrada.name, '404'), { recursive: true, force: true });
+          logger.info(`404 de /${entrada.name}/ publicada como ${entrada.name}/404.html`);
+        }
+      },
+    },
+  };
+}
 
 export default defineConfig({
   site: SITE,
@@ -27,6 +70,7 @@ export default defineConfig({
   },
 
   integrations: [
+    cuatroCeroCuatroPorIdioma(),
     sitemap({
       /*
        * Solo páginas HTML. El build también produce endpoints (/robots.txt,
@@ -34,7 +78,11 @@ export default defineConfig({
        * buscador deba indexar como resultados.
        */
       filter: (pagina) =>
-        !/\/(robots\.txt|llms\.txt)$/.test(pagina) && !pagina.includes('/og/'),
+        !/\/(robots\.txt|llms\.txt)$/.test(pagina) &&
+        !pagina.includes('/og/') &&
+        // Las 404 por idioma se generan como páginas, pero llevan `noindex` y
+        // no son un resultado de búsqueda: no tienen nada que hacer aquí.
+        !/\/404\/?$/.test(pagina),
 
       /*
        * Sin `i18n`: esa opción del plugin empareja los idiomas asumiendo que

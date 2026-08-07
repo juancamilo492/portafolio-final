@@ -1,0 +1,16 @@
+---
+import Pagina404 from '../../components/Pagina404.astro';
+import { pathsDeLocalesActivos } from '../../i18n/utils';
+import type { Locale } from '../../i18n/ui';
+
+/*
+ * Una 404 por idioma activo. Cloudflare Pages sirve el `404.html` más cercano
+ * a la ruta pedida subiendo por el árbol de directorios, así que /fr/lo-que-sea
+ * recibe /fr/404.html y no la española de la raíz.
+ */
+export const getStaticPaths = pathsDeLocalesActivos;
+
+const locale = Astro.params.lang as Locale;
+---
+
+<Pagina404 locale={locale} />
