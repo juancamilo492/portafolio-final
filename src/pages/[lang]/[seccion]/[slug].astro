@@ -241,15 +241,25 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
         Un enlace de verdad al mismo archivo que ya anunciaba el `rel="alternate"`
         del head. Es `<a>` y no `<button>` a propósito: funciona sin JS, se abre
         en pestaña nueva con el clic del medio y deja un enlace interno rastreable
-        hacia el .md. Va en la misma pestaña porque es un recurso del sitio y el
-        botón atrás devuelve al caso.
+        hacia el .md.
+
+        Abre en otra pestaña por decisión de Juan Camilo: el .md es texto plano
+        que el navegador muestra desnudo, y volver al caso no debería depender
+        del botón atrás. Eso obliga a las otras dos piezas: la flecha de enlace
+        externo, que lo avisa a la vista, y la coletilla `sr-only`, que lo avisa
+        a quien no la ve. Va detrás del texto, no como aria-label, para que el
+        nombre accesible siga empezando por lo que se lee.
       */}
       <a
         href={rutaMarkdown}
+        target="_blank"
+        rel="noopener"
         class="inline-flex shrink-0 items-center gap-2 rounded-full border border-borde-medio px-4 py-2.5 text-[13.5px] font-medium text-bosque transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:hover:text-menta"
       >
         <Icono nombre="ojo" tamano={15} />
         {t('proyectos.verMarkdown')}
+        <span class="sr-only">{t('proyectos.nuevaPestana')}</span>
+        <Icono nombre="enlace-externo" tamano={13} class="opacity-70" />
       </a>
     </div>
   </Contenedor>

@@ -159,6 +159,12 @@ export const ui = {
     'proyectos.conteoVarios': 'proyectos visibles',
     'proyectos.copiarMarkdown': 'Copiar para LLM',
     'proyectos.verMarkdown': 'Ver como Markdown',
+    /*
+     * Se lee después del texto del enlace, nunca en lugar de él: el nombre
+     * accesible tiene que empezar por lo que se ve (WCAG 2.5.3). La flecha de
+     * enlace externo avisa a la vista de lo mismo.
+     */
+    'proyectos.nuevaPestana': '(se abre en una pestaña nueva)',
     'proyectos.copiarMarkdownListo': '¡Copiado!',
     'proyectos.copiarMarkdownError': 'No se pudo copiar',
     'proyectos.fuenteMarkdown': 'Fuente',
@@ -337,6 +343,7 @@ export const ui = {
     'proyectos.conteoVarios': 'projects shown',
     'proyectos.copiarMarkdown': 'Copy for LLM',
     'proyectos.verMarkdown': 'View as Markdown',
+    'proyectos.nuevaPestana': '(opens in a new tab)',
     'proyectos.copiarMarkdownListo': 'Copied!',
     'proyectos.copiarMarkdownError': 'Could not copy',
     'proyectos.fuenteMarkdown': 'Source',
@@ -508,6 +515,7 @@ export const ui = {
     'proyectos.conteoVarios': 'projets affichés',
     'proyectos.copiarMarkdown': 'Copier pour un LLM',
     'proyectos.verMarkdown': 'Voir en Markdown',
+    'proyectos.nuevaPestana': '(s’ouvre dans un nouvel onglet)',
     'proyectos.copiarMarkdownListo': 'Copié !',
     'proyectos.copiarMarkdownError': 'Échec de la copie',
     'proyectos.fuenteMarkdown': 'Source',

@@ -173,8 +173,9 @@ de verdad en cada idioma. No activar esa opción.
 ## Estado actual
 
 FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**, más las
-fases 9, 10 y 11. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
-build genera 28 páginas, 24 tarjetas Open Graph, **los 15 casos en Markdown**,
+fases 9 a 13. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
+build genera 28 páginas, 24 tarjetas Open Graph **con el oso y el fondo del
+banner** (FASE 13), **los 15 casos en Markdown**,
 el sitemap (24 URL, sin los `.md`), `robots.txt` y `llms.txt`.
 Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
 
@@ -682,6 +683,79 @@ revertir:
   Juan Camilo decidió conservarlo el 8 de agosto de 2026. Lo que cambió es su
   prominencia, no su presencia.
 
+Decisiones de FASE 13 (las tarjetas Open Graph con la marca actual) que no hay
+que revertir:
+- **Las tarjetas eran de FASE 5 y se habían quedado con dos piezas anteriores a
+  la marca**: el monograma «JC», que el oso reemplazó en FASE 7 en el header y en
+  el pie, y el fondo claro `#F9FFFE`. Un enlace compartido no se parecía al banner
+  de LinkedIn desde el que suele llegar quien lo abre. Lo que cambió es la piel de
+  la plantilla, no su reparto: oso y nombre arriba, etiqueta en versalitas, título
+  de la página, bajada y pie con el dominio siguen donde estaban, porque es lo que
+  hace que cada compartido muestre el título de SU página. Decisión de Juan Camilo
+  el 8 de agosto de 2026.
+- **Todo el cambio vive en `src/lib/og.ts`.** `rutaOg()`, las rutas de las
+  imágenes, el `og:image` de `BaseLayout`, `meta.ogAlt` (que no menciona colores),
+  el endpoint y el sitemap no se tocaron: las 24 tarjetas se regeneraron solas.
+- Fondo: degradado a 100° entre `--color-noche-footer` (#06231C),
+  `--color-noche` (#0B2A22) y un #0D4335 derivado de `--color-profundo`, con
+  `backgroundColor` debajo por si el degradado no se resolviera. Los textos pasaron
+  a los tokens de noche: `--color-noche-titulo` en el título (15.9:1),
+  `--color-noche-cuerpo` en la bajada (7.4:1) y `--color-menta` en la etiqueta y en
+  el dominio (9.7:1). El comentario de la constante `COLOR` dice que es un espejo
+  de `global.css` y hay que mantenerlo cierto.
+- **El oso entra por `?raw`, no por `process.cwd()` como las fuentes.** Vite
+  inlinea el string del SVG en el bundle del build, así que no depende del
+  directorio de trabajo y el archivo no se emite a `dist/`. `vite/client` ya
+  declara el tipo `*?raw` vía `astro/client`: `astro check` no necesitó nada.
+- **satori quiere un `ArrayBuffer`, no el `Buffer` de Node**, aunque su README
+  liste las dos cosas. sharp rasteriza el SVG una vez por build (memoizado con el
+  mismo patrón que `cargarFuentes()`) y `aArrayBuffer()` copia el rango exacto;
+  pasar el `Buffer` directo revienta el build con «First argument to DataView
+  constructor must be an ArrayBuffer». Se rasteriza a 2× el tamaño de uso porque a
+  1200 px de ancho el borde del oso se nota.
+- El oso va **suelto sobre el fondo, sin el cuadrado verde** del header: ahí el
+  cuadrado lo separa de una superficie clara, y sobre el degradado oscuro el blanco
+  se separa solo. Es además como aparece en el banner. El PNG conserva el alfa, así
+  que el hueco entre el hocico y la cabeza deja ver el degradado, igual que en el
+  sitio.
+- Las ondas y las miras se dibujan **con divs, no con SVG**, que es lo que ya hacía
+  `ondas()`: dos anillos más y el centro en (1150, 640) para que el barrido llegue
+  al centro del lienzo, y `mira()` reproduce `MarcaGeometrica.astro` con un div
+  circular y cuatro barras de 1,5 px.
+- **La bajada de «Sobre mí» mostraba `<strong>` literal en las tres tarjetas.**
+  Era un defecto anterior, de FASE 9: `sobreMi.intro` lleva HTML porque su página
+  la pinta con `set:html`, y satori dibuja texto, no marcado. `textoPlano()` quita
+  las etiquetas **antes** de recortar, o gastarían caracteres del límite y el corte
+  caería antes de tiempo. Se aplica también al título y a la etiqueta, para que la
+  próxima cadena del diccionario que gane resaltado no repita el defecto.
+- No entró Fraunces itálica a `src/assets/og/`: la usaría solo el énfasis del H1 de
+  la portada, que aquí llega como una cadena única, y son 80 KB más en el repo por
+  un detalle que la tarjeta no distingue.
+- `tamanoTitulo()` y el corte de 130 letras **no se tocaron**: el peor caso de la
+  colección (`siguiendo-la-huella-azul`) sigue cayendo en tres renglones a 44 px,
+  verificado en los tres idiomas, y el francés sigue trayendo sus acentos y su
+  cedilla desde los mismos tres TTF.
+- Al desplegar hay que pasar el dominio por el **Post Inspector de LinkedIn**: las
+  tarjetas se sirven con `max-age=86400` desde `public/_headers` y las redes
+  cachean la vista previa, así que la versión clara puede seguir apareciendo un día
+  si no se refresca a mano.
+- **«Ver como Markdown» abre en otra pestaña**, contra lo que decidió FASE 11
+  («va en la misma pestaña porque es un recurso del sitio»). Decisión de Juan
+  Camilo el 8 de agosto de 2026: el `.md` es texto plano que el navegador muestra
+  desnudo, y volver al caso no debería depender del botón atrás. Lo que la nota
+  tachada de FASE 11 sí sigue diciendo bien es por qué es un `<a>` y no un
+  `<button>`. Van con él dos piezas que no son opcionales:
+  - El icono `enlace-externo` de `Icono.astro` (caja abierta y flecha que sale),
+    detrás del texto y a `opacity-70`, que es donde se espera el indicador. El ojo
+    se queda delante: uno dice qué hace, el otro dónde lo abre.
+  - `proyectos.nuevaPestana` en un `<span class="sr-only">` **detrás** del texto y
+    no como `aria-label`: el nombre accesible tiene que empezar por lo que se lee
+    (WCAG 2.5.3, la misma regla que el «ES» del selector de idioma). Un
+    `aria-label` habría reemplazado el texto visible en vez de sumarse.
+  - `rel="noopener"`, como los demás `target="_blank"` del sitio.
+  Verificado a 360 px: el enlace pasó de ~190 a 212 px, las dos píldoras siguen
+  envolviendo en dos líneas y no hay desborde horizontal.
+
 Comprobado en producción el 8 de agosto de 2026, con el sitio ya publicado en
 Cloudflare Pages (cierra los puntos 1 a 5 de FASE 8 salvo el compartido en
 WhatsApp/LinkedIn, que hay que hacer a mano):
@@ -770,8 +844,9 @@ que revertir:
 - **Cada caso tiene los dos botones**: «Copiar para LLM» (el `<button>` de
   siempre) y «Ver como Markdown», que es un `<a>` real al `.md`. Enlace y no
   botón a propósito: funciona sin JS, se abre en pestaña nueva con el clic del
-  medio y deja un enlace interno rastreable. Va en la misma pestaña porque es un
-  recurso del sitio. A 360 px las dos píldoras envuelven en dos líneas
+  medio y deja un enlace interno rastreable. ~~Va en la misma pestaña porque es un
+  recurso del sitio.~~ **Revisado en FASE 13**: abre en otra pestaña, ver sus
+  decisiones. A 360 px las dos píldoras envuelven en dos líneas
   (`flex-wrap`), no se desbordan.
 - **El `charset=utf-8` del bloque `/*.md` de `public/_headers` es la línea más
   frágil del proyecto.** El archivo en disco es UTF-8 correcto y el endpoint
@@ -1022,3 +1097,15 @@ Pendientes conocidos, además de las fases:
   herramientas, las categorías y el año como listas y `<time>` en vez de
   cadenas unidas. Ver «Decisiones de FASE 11». `astro check` sigue en 0/0/0 y
   Lighthouse en 97-99 / 100 / 100 / 100 sobre las cuatro plantillas.
+
+- FASE 12 — La portada se dirige a quien recluta: **completa.** Nueve cadenas del
+  diccionario y dos pares de botones intercambiados entre sí, para que el marco de
+  disponibilidad hable de empleo formal y el correo sea el canal principal. El
+  trabajo con clientes no se tocó. Ver «Decisiones de FASE 12».
+
+- FASE 13 — Tarjetas Open Graph con la marca actual: **completa.** Casi todo en un
+  archivo, `src/lib/og.ts`: el monograma «JC» dejó paso al oso y el fondo claro al
+  degradado del banner de LinkedIn, con el mismo reparto de siempre. De paso se
+  corrigió el `<strong>` que se leía literal en la bajada de «Sobre mí», y
+  «Ver como Markdown» pasó a abrir en otra pestaña, con su flecha de enlace
+  externo. Ver «Decisiones de FASE 13».
