@@ -23,10 +23,10 @@ export const ENLACE_CORREO = `mailto:${SITIO.correo}`;
 /**
  * El perfil de LinkedIn en el idioma del visitante.
  *
- * Juan Camilo tiene el perfil escrito en español y en inglés, y `?locale=`
- * es el parámetro con el que LinkedIn elige cuál mostrar. El francés no
- * existe todavía, así que cae al inglés: es la versión que un visitante
- * francófono tiene más probabilidades de leer, y el alemán entraría igual.
+ * Juan Camilo tiene el perfil escrito en español, inglés y francés, y
+ * `?locale=` es el parámetro con el que LinkedIn elige cuál mostrar. El
+ * alemán cae al inglés: es la versión que un visitante germanófono tiene más
+ * probabilidades de leer, hasta que exista una versión en alemán.
  *
  * `SITIO.linkedin` se queda sin parámetro y sigue siendo la URL canónica del
  * perfil: es la que va en el `sameAs` del JSON-LD, donde lo que se declara es
@@ -34,7 +34,8 @@ export const ENLACE_CORREO = `mailto:${SITIO.correo}`;
  * como texto del enlace en el hero.
  */
 export function linkedinDe(locale: Locale): string {
-  return `${SITIO.linkedin}/?locale=${locale === 'es' ? 'es-ES' : 'en-US'}`;
+  const idioma = locale === 'es' ? 'es-ES' : locale === 'fr' ? 'fr-FR' : 'en-US';
+  return `${SITIO.linkedin}/?locale=${idioma}`;
 }
 
 /**
