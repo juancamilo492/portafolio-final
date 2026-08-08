@@ -13,6 +13,9 @@ const t = useTranslations(locale);
 ---
 
 <div class="fixed right-4 bottom-4 z-60 flex flex-col gap-3 md:right-[26px] md:bottom-[26px]">
+  {/* Ver la nota de `email_off` en Footer.astro: sin esto Cloudflare cambia el
+      `mailto:` por un enlace que solo funciona con su JavaScript. */}
+  <!--email_off-->
   <a
     href={ENLACE_CORREO}
     aria-label={t('contacto.correo')}
@@ -20,6 +23,7 @@ const t = useTranslations(locale);
   >
     <Icono nombre="correo" tamano={18} />
   </a>
+  <!--email_on-->
   <a
     href={ENLACE_WHATSAPP}
     target="_blank"

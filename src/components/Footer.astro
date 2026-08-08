@@ -43,6 +43,15 @@ const enlaces = [
         no los encontraba en ninguna parte del texto de la página.
       */}
       <ul class="mt-5 flex flex-col items-start gap-2.5">
+        {/*
+          `email_off` desactiva la ofuscación de correo de Cloudflare para este
+          trozo. Sin él, Cloudflare sustituye el texto por «[email protected]» y
+          el `mailto:` por /cdn-cgi/l/email-protection#<hex>, que solo se
+          descifra ejecutando su script: exactamente lo que este enlace existe
+          para evitar. Comprobado en producción, no en local: `astro preview`
+          no ofusca nada. Deja el resto del sitio protegido.
+        */}
+        <!--email_off-->
         <li>
           <a
             href={ENLACE_CORREO}
@@ -52,6 +61,7 @@ const enlaces = [
             {SITIO.correo}
           </a>
         </li>
+        <!--email_on-->
         <li>
           <a
             href={ENLACE_WHATSAPP}

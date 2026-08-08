@@ -86,10 +86,13 @@ const completo = variante === 'completo';
         <Icono nombre="whatsapp" tamano={16} />
         {t('cta.whatsapp')}
       </Boton>
+      {/* Ver la nota de `email_off` en Footer.astro. */}
+      <!--email_off-->
       <Boton href={ENLACE_CORREO} variante="claro-contorno" tamano={completo ? 'md' : 'sm'}>
         <Icono nombre="correo" tamano={16} />
         {t('cta.correo')}
       </Boton>
+      <!--email_on-->
     </div>
 
     {
