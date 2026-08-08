@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import BloqueCTA from '../../../components/BloqueCTA.astro';
+import BotonCopiarMarkdown from '../../../components/BotonCopiarMarkdown.astro';
 import Contenedor from '../../../components/Contenedor.astro';
 import PozoImagen from '../../../components/PozoImagen.astro';
 import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
@@ -10,6 +11,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { rutaDe, segmento, useTranslations } from '../../../i18n/utils';
 import { etiquetaCategoria } from '../../../lib/categorias';
 import { jsonLdCaso } from '../../../lib/jsonld';
+import { markdownDeCaso } from '../../../lib/markdown-caso';
 import { rutaOg } from '../../../lib/og';
 import {
   localeDeEntrada,
@@ -67,6 +69,7 @@ const contexto = [
 const localesDisponibles = await localesDeProyecto(datos.slug);
 const site = siteDe(Astro.site);
 const imagenOg = rutaOg(locale, 'caso', datos.slug);
+const markdownCaso = markdownDeCaso(locale, proyecto, site);
 ---
 
 <BaseLayout
@@ -148,6 +151,16 @@ const imagenOg = rutaOg(locale, 'caso', datos.slug);
         ))
       }
     </dl>
+  </Contenedor>
+
+  {/* --- Copiar para LLM --- */}
+  <Contenedor class="pt-6">
+    <BotonCopiarMarkdown
+      markdown={markdownCaso}
+      etiqueta={t('proyectos.copiarMarkdown')}
+      etiquetaCopiado={t('proyectos.copiarMarkdownListo')}
+      etiquetaError={t('proyectos.copiarMarkdownError')}
+    />
   </Contenedor>
 
   {/* --- Cuerpo --- */}

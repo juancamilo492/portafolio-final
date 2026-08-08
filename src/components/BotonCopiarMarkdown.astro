@@ -1,0 +1,82 @@
+---
+/**
+ * Botón «Copiar para LLM» de la plantilla de caso: copia el caso completo en
+ * Markdown al portapapeles, en el idioma que se está leyendo.
+ *
+ * El Markdown viaja en base64 dentro de un atributo de datos, no como texto
+ * plano: el cuerpo del caso es Markdown libre y podría traer comillas,
+ * backticks o, en el peor caso, la etiqueta de cierre de un script, que
+ * cortaría el bloque inline a mitad de camino. Base64 solo usa alfanumérico y
+ * `+/=`, así que no hace falta escapar nada ni arriesgar esa colisión.
+ */
+import Icono from './Icono.astro';
+
+interface Props {
+  markdown: string;
+  etiqueta: string;
+  etiquetaCopiado: string;
+  etiquetaError: string;
+}
+
+const { markdown, etiqueta, etiquetaCopiado, etiquetaError } = Astro.props;
+const markdownB64 = Buffer.from(markdown, 'utf-8').toString('base64');
+---
+
+<div class="flex items-center gap-3">
+  <button
+    type="button"
+    data-boton-copiar-md
+    data-markdown={markdownB64}
+    data-etiqueta={etiqueta}
+    data-etiqueta-copiado={etiquetaCopiado}
+    data-etiqueta-error={etiquetaError}
+    class="inline-flex shrink-0 items-center gap-2 rounded-full border border-borde-medio px-4 py-2.5 text-[13.5px] font-medium text-bosque transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:hover:text-menta"
+  >
+    <span data-icono-copiar>
+      <Icono nombre="copiar" tamano={15} />
+    </span>
+    <span data-icono-copiado class="hidden">
+      <Icono nombre="chulo" tamano={15} />
+    </span>
+    <span data-texto-boton>{etiqueta}</span>
+  </button>
+  <p data-estado-copiar aria-live="polite" class="sr-only"></p>
+</div>
+
+<script>
+  const botones = document.querySelectorAll<HTMLButtonElement>('[data-boton-copiar-md]');
+
+  botones.forEach((boton) => {
+    const iconoCopiar = boton.querySelector<HTMLElement>('[data-icono-copiar]');
+    const iconoCopiado = boton.querySelector<HTMLElement>('[data-icono-copiado]');
+    const texto = boton.querySelector<HTMLElement>('[data-texto-boton]');
+    const estado = boton.parentElement?.querySelector<HTMLElement>('[data-estado-copiar]');
+    const etiqueta = boton.dataset.etiqueta ?? '';
+    const etiquetaCopiado = boton.dataset.etiquetaCopiado ?? '';
+    const etiquetaError = boton.dataset.etiquetaError ?? '';
+    let temporizador: ReturnType<typeof setTimeout> | undefined;
+
+    boton.addEventListener('click', async () => {
+      try {
+        const binario = atob(boton.dataset.markdown ?? '');
+        const bytes = Uint8Array.from(binario, (caracter) => caracter.charCodeAt(0));
+        const markdown = new TextDecoder().decode(bytes);
+        await navigator.clipboard.writeText(markdown);
+
+        texto && (texto.textContent = etiquetaCopiado);
+        iconoCopiar?.classList.add('hidden');
+        iconoCopiado?.classList.remove('hidden');
+        estado && (estado.textContent = etiquetaCopiado);
+      } catch {
+        estado && (estado.textContent = etiquetaError);
+      } finally {
+        clearTimeout(temporizador);
+        temporizador = setTimeout(() => {
+          texto && (texto.textContent = etiqueta);
+          iconoCopiar?.classList.remove('hidden');
+          iconoCopiado?.classList.add('hidden');
+        }, 2200);
+      }
+    });
+  });
+</script>

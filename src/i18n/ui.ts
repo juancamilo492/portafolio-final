@@ -157,6 +157,10 @@ export const ui = {
     'proyectos.imagenPendiente': '[PENDIENTE: imagen del proyecto]',
     'proyectos.conteoUno': 'proyecto visible',
     'proyectos.conteoVarios': 'proyectos visibles',
+    'proyectos.copiarMarkdown': 'Copiar para LLM',
+    'proyectos.copiarMarkdownListo': '¡Copiado!',
+    'proyectos.copiarMarkdownError': 'No se pudo copiar',
+    'proyectos.fuenteMarkdown': 'Fuente',
 
     // --- Categorías canónicas (ver src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
@@ -330,6 +334,10 @@ export const ui = {
     'proyectos.imagenPendiente': '[PENDING: project image]',
     'proyectos.conteoUno': 'project shown',
     'proyectos.conteoVarios': 'projects shown',
+    'proyectos.copiarMarkdown': 'Copy for LLM',
+    'proyectos.copiarMarkdownListo': 'Copied!',
+    'proyectos.copiarMarkdownError': 'Could not copy',
+    'proyectos.fuenteMarkdown': 'Source',
 
     // --- Canonical categories (see src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
@@ -496,6 +504,10 @@ export const ui = {
     'proyectos.imagenPendiente': '[EN ATTENTE : image du projet]',
     'proyectos.conteoUno': 'projet affiché',
     'proyectos.conteoVarios': 'projets affichés',
+    'proyectos.copiarMarkdown': 'Copier pour un LLM',
+    'proyectos.copiarMarkdownListo': 'Copié !',
+    'proyectos.copiarMarkdownError': 'Échec de la copie',
+    'proyectos.fuenteMarkdown': 'Source',
 
     // --- Catégories canoniques (voir src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
