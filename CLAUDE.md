@@ -219,13 +219,20 @@ Ya existe:
   idiomas: por qué eligió Diseño Interactivo (el pénsum multifacético), por qué
   junta interfaz y automatización (un sistema tiene que funcionar para
   presentarse como MVP) y el cierre sobre reportar lo que sale mal. Las dos
-  cifras que cita — 2.4/5 y la mitad de los participantes — salen de
+  cifras que cita, 2.4/5 y la mitad de los participantes, salen de
   `i-homotic` y de `siguiendo-la-huella-azul`: si esos casos cambian, la frase
-  hay que revisarla. Se dejó fuera «no me considero programador», que era la
-  frase literal de Juan Camilo: encima de una lista de habilidades con React,
-  Next.js y Supabase, y de un sistema suyo en producción, se leía como
-  contradicción. Quedó «no vengo de la programación», que dice lo mismo sin
-  restarle lo hecho.
+  hay que revisarla. El tramo del medio dice ahora que su trabajo es definir
+  cómo funciona el sistema completo y sostener esas decisiones hasta
+  producción; antes decía «no vengo de la programación», que se leía como
+  disculpa. Ni esa frase ni «no me considero programador», la literal de Juan
+  Camilo, se usan: encima de un sistema suyo en producción restan lo hecho.
+  **Son tres párrafos y no cuatro**, cortos, y viven dentro de un contenedor con
+  la clase `.prosa` de los casos: así los tres tienen el mismo tamaño —antes el
+  primero iba a 19 px y los demás a 16.5— y el `<strong>` toma el mismo
+  resaltado que los casos sin escribir CSS nuevo. `.prosa` se declara con
+  `:where()`, de modo que la utilidad `text-[17px]` le gana a sus 16.5 px. Por
+  eso los párrafos se pintan con `set:html`: el resaltado viaja dentro de la
+  cadena del diccionario. Dos o tres `<strong>` por párrafo, no más.
 - Las 5 vistas construidas con contenido real en español: inicio, grilla
   con filtro client-side (`?categoria=`, `aria-pressed`, conteo en
   `aria-live`), plantilla de caso, sobre-mi y 404.
@@ -234,7 +241,7 @@ Ya existe:
 - `src/lib/proyectos.ts` con `proyectosPorLocale`, `proyectosDestacados`,
   `vecinosDeProyecto` y `proyectosRelacionados`; `src/lib/categorias.ts`
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
-- i18n con rutas traducidas y las 112 cadenas del diccionario en es/en/fr.
+- i18n con rutas traducidas y las 127 cadenas del diccionario en es/en/fr.
   `de` sigue en `{}`.
 - Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
@@ -350,9 +357,11 @@ Decisiones de FASE 6 que no hay que revertir:
   `siguiendo-la-huella-azul`, que es descriptivo. Los nombres propios de
   empresa (i-Homotic (GELECT S.A.S), Bar Industrial, Alico S.A.S BIC) van
   igual en los dos idiomas.
-- `herramientas` incluye «Desarrollo a la medida» en `empaques-ia-alico`, en
-  español dentro del archivo inglés. Es deliberado: el campo tiene que ser
-  idéntico entre idiomas porque alimenta comparaciones, no prosa.
+- ~~`herramientas` incluye «Desarrollo a la medida» en `empaques-ia-alico`, en
+  español dentro del archivo inglés.~~ **Revisado en FASE 9**: el campo no
+  alimenta ninguna comparación (solo se muestra con `join(', ')` y va a
+  `keywords` del JSON-LD), así que sus etiquetas descriptivas se traducen como
+  el resto de la prosa. Los nombres de producto (Figma, n8n, Unity) no.
 - Los `[PENDIENTE]` del cuerpo se tradujeron como `[PENDING]`, no se
   resolvieron. `industrial` sigue esperando permiso del bar para la cita y
   las métricas, en inglés igual que en español.
@@ -535,6 +544,63 @@ Decisiones de FASE 8 que no hay que revertir:
     desvanecido lleva `inert`: fuera del tabulador y del árbol de
     accesibilidad.
 
+Decisiones de FASE 9 (ajuste de contenido) que no hay que revertir:
+- **El sitio se leía como el de un desarrollador y esa era la queja.** El
+  contenido se escribió antes de la hoja de vida actual; al compararlos, «Sobre
+  mí» vendía un stack y los casos se contaban desde la construcción. Todo lo que
+  sigue apunta a lo mismo: el rol es diseñar y definir estos sistemas.
+- **Las habilidades salen de la hoja de vida, no de los casos.** Cinco grupos
+  (`sobreMi.habilidades.*`): investigación y evaluación, diseño e ideación,
+  sistemas de IA y automatización, prototipado/IoT/3D, y herramientas. El grupo
+  «Desarrollo», con sus diez tecnologías, desapareció: era lo que más empujaba
+  la lectura equivocada. Lo que queda de desarrollo es «desarrollo web asistido
+  por IA», dentro de prototipado, tal como lo dice la hoja de vida. Los ítems
+  traducibles viven en `sobreMi.hab.*` (antes `sobreMi.metodo.*`, renombradas);
+  los nombres propios (Design Thinking, tree testing, prompt engineering, IoT,
+  Figma, n8n…) van literales, sin clave. «Diseño de servicio» se toma de
+  `etiquetaCategoria()` para no duplicar su traducción. El grupo de herramientas
+  lleva `completo: true` y ocupa la fila entera: sus diez chips en media columna
+  caían en cuatro renglones.
+- **Las tecnologías siguen visibles, pero en el caso que las justifica.** El
+  campo `herramientas` de cada `.md` es su sitio: ahí tienen contexto. Se podó
+  lo que solo describía un stack (TypeScript, Tailwind, i18next, Vercel, React
+  Three Fiber) y `industrial` ganó «Desarrollo asistido por IA», que es lo que
+  de verdad pasó y lo que dice la hoja de vida. Dos correcciones que hizo Juan
+  Camilo al revisar: `siguiendo-la-huella-azul` lleva **Blender** (el render del
+  espacio) y `industrial` **no lleva Figma**, que no se usó ahí.
+- **Los chips de herramientas llevan el logo de cada producto**
+  (`src/components/IconoHerramienta.astro`), y solo ese grupo: los otros cuatro
+  son métodos y disciplinas, que no tienen marca. Los paths se copiaron de
+  Simple Icons (CC0) al componente en vez de instalar el paquete o pedirlos a un
+  CDN, que es lo que permite sumar diez logos sin tocar el rendimiento: SVG en
+  línea, cero peticiones, cero JavaScript. Cuesta ~10 KB en el HTML de una sola
+  página, 4,4 KB ya comprimido. Van en `currentColor` como el oso y el resto de
+  iconos, así que sirven en claro y en oscuro sin una segunda versión; a 13 px y
+  en `text-texto-tenue` dan 4.80:1 sobre el chip, por encima del 3:1 que pide un
+  gráfico. **Microsoft Clarity usa el logo de Microsoft**: no tiene uno propio en
+  la librería.
+- **El resaltado de cifras se usa con moderación: dos o tres por sección.** Si
+  se resalta cada número, dejan de resaltar. Están en el resultado de
+  `i-homotic` —donde la enumeración Likert pasó a lista con la cifra al frente— y
+  en el de `vr-capacitacion-alico` (4.32 y 4.9/5). `siguiendo-la-huella-azul` ya
+  lo tenía en sus bullets de 80% y 50%. Es el mismo `**negrita**` que
+  `.prosa strong` pinta en verde profundo, o menta en modo oscuro.
+- **Francés B1**, no B2. Lo pidió Juan Camilo el 7 de agosto de 2026 y actualizó
+  su hoja de vida en el mismo momento; el sitio y el PDF van juntos.
+- **Regla de escritura: nada de incisos entre rayas.** Se limpiaron las 107
+  rayas de los 15 archivos de casos. La raya sobrevive solo como separador de
+  etiqueta (`Español — nativo`, el `Nombre — Título` de los `<title>`, el
+  `cliente` de `siguiendo-la-huella-azul`) y como atribución de cita
+  (`> — Participante de validación`). En prosa se usan dos puntos, coma,
+  paréntesis o punto. Aplica a todo lo que se escriba de aquí en adelante,
+  incluidos los casos nuevos.
+- Encabezados de caso: `## Lo que construí` pasó a `## El sistema`
+  (`industrial`) y a `## Lo que diseñé` (`empaques-ia-alico`); `## Lo que
+  construimos` a `## Lo que entregamos` (`i-homotic`). Alimentan el índice
+  lateral, que se regenera solo.
+- Ningún dato cambió: las cifras, las citas, las limitaciones reportadas y los
+  aprendizajes son los mismos. Solo cambió quién parece haber hecho qué.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -699,3 +765,11 @@ Pendientes conocidos, además de las fases:
   Además la CSP que se dejó sin escribir (ver decisiones de FASE 7) tendría
   que contemplarlo. Ninguna de las dos ayuda a posicionar: quien indexa es
   Search Console. Decisión de Juan Camilo; a agosto de 2026 no está tomada.
+
+- FASE 9 — Ajuste de contenido: **completa.** Con la hoja de vida y el perfil de
+  LinkedIn de agosto de 2026 delante, se corrigió lo que hacía leer el sitio
+  como el de un desarrollador, se actualizó el francés a B1, se sumó al «Sobre
+  mí» lo que la hoja de vida aporta y se limpiaron los incisos entre rayas. Ver
+  «Decisiones de FASE 9». No es una fase de código: si vuelve a hacer falta,
+  el prompt es "Lee CLAUDE.md, en especial las decisiones de FASE 9, y ajusta
+  el contenido contra la hoja de vida adjunta".
