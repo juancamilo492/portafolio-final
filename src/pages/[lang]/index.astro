@@ -52,10 +52,17 @@ const proceso = [
   imagenOg={rutaOg(locale, 'inicio')}
   jsonLd={jsonLdInicio(siteDe(Astro.site), locale)}
 >
-  {/* --- Hero --- */}
-  <section
-    class="ondas [--ondas-radio:46px] [--ondas-x:88%] [--ondas-y:12%] relative overflow-hidden"
-  >
+  {/*
+    --- Hero ---
+    El recorte es `overflow-x-clip` y no `overflow-hidden` porque el menú del
+    botón «Descargar CV» se despliega hacia abajo y cruza el borde inferior de
+    esta sección: con `hidden` quedaba cortado y solo se veía el filo superior
+    de la caja. `clip` es el único valor que permite recortar un eje y dejar el
+    otro visible (`hidden` en un eje convierte el otro en `auto`), así que la
+    sección sigue protegida contra el desbordamiento horizontal, que es de lo
+    que se defendía.
+  */}
+  <section class="ondas [--ondas-radio:46px] [--ondas-x:88%] [--ondas-y:12%] relative overflow-x-clip">
     <Contenedor class="grid items-center gap-14 py-16 md:py-20 lg:grid-cols-[1.05fr_.95fr] lg:gap-14 lg:pt-24 lg:pb-22">
       <div>
         <span

@@ -115,7 +115,8 @@ const idiomas = [
   jsonLd={jsonLdSobreMi(siteDe(Astro.site), locale)}
 >
   {/* --- Presentación --- */}
-  <section class="ondas [--ondas-radio:48px] [--ondas-x:92%] [--ondas-y:8%] overflow-hidden">
+  {/* `overflow-x-clip`, no `overflow-hidden`: ver la nota del hero de la portada. */}
+  <section class="ondas [--ondas-radio:48px] [--ondas-x:92%] [--ondas-y:8%] overflow-x-clip">
     <Contenedor class="grid items-start gap-12 pt-14 pb-4 md:pt-[72px] lg:grid-cols-[1.05fr_.85fr]">
       <div>
         <h1 class="text-[38px] tracking-[-.025em] sm:text-[46px] lg:text-[54px]">
