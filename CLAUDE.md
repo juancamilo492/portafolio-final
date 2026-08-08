@@ -104,7 +104,7 @@ originales de cada `.md` está documentado en `src/content.config.ts`.
    CTAs "Ver proyectos" y "Hablemos", foto B/N, enlace LinkedIn) → franja
    de prueba social → 3 proyectos destacados (destacado: true, por orden)
    → Qué hago (3 tarjetas) → Mi proceso (Descubrir→Diseñar→Entregar) →
-   CTA final sobre bloque verde profundo → footer (CV descargable ES/EN,
+   CTA final sobre bloque verde profundo → footer (CV descargable ES/EN/FR,
    LinkedIn, derechos).
 2. /proyectos: grilla filtrable por categoría (chips; filtro client-side
    ligero), tarjetas con imagen, título, resumen de una línea, etiquetas.
@@ -252,8 +252,8 @@ Ya existe:
   `-portada-en.png`, `-portada-fr.png`. i-homotic e industrial son logos, así
   que sirven para los cuatro idiomas. Las `-en` y las `-fr` ya están
   conectadas.
-- Los dos retratos (`src/assets/retratos/`) y el CV en español
-  (`public/cv/juan-camilo-bolanos-es.pdf`).
+- Los dos retratos (`src/assets/retratos/`) y el CV en los tres idiomas
+  activos (`public/cv/juan-camilo-bolanos-{es,en,fr}.pdf`).
 - Toda la capa de SEO/GEO: `BaseLayout` con Open Graph, Twitter Card,
   hreflang y JSON-LD; `src/lib/seo.ts` (`siteDe`, `absoluta`);
   `src/lib/jsonld.ts` + `JsonLd.astro`; `src/lib/og.ts` con la plantilla de
@@ -393,9 +393,10 @@ Decisiones de FASE 6-bis que no hay que revertir:
   « » y los guiones, comprobado renderizando con el mismo satori + sharp. El
   título más largo en francés vuelve a ser el de `siguiendo-la-huella-azul` y
   cae en tres renglones, igual que en los otros dos idiomas.
-- No hay CV en francés y no se inventó uno: `cvDe('fr')` cae al español y el
-  botón muestra «ES · PDF». `CV_IDIOMAS` sigue con una sola entrada, así que
-  `MenuCV` continúa siendo un enlace directo.
+- ~~No hay CV en francés y no se inventó uno~~ **resuelto en FASE 10**: el PDF
+  francés existe desde el 8 de agosto de 2026 y `CV` ya lista los tres idiomas
+  activos. Lo que no cambia es la regla: `CV` solo lista PDFs que existen y
+  `cvDe()` cae al primero disponible, nunca a un enlace roto.
 - El selector de idioma y el `hreflang` pasaron a tres entradas solos, desde
   `LOCALES_ACTIVOS`. `RUTAS`, `NOMBRE_LOCALE`, `HREFLANG` y `OG_LOCALE` ya
   tenían `fr` desde FASE 1: no se tocó ninguno.
@@ -585,8 +586,10 @@ Decisiones de FASE 9 (ajuste de contenido) que no hay que revertir:
   en el de `vr-capacitacion-alico` (4.32 y 4.9/5). `siguiendo-la-huella-azul` ya
   lo tenía en sus bullets de 80% y 50%. Es el mismo `**negrita**` que
   `.prosa strong` pinta en verde profundo, o menta en modo oscuro.
-- **Francés B1**, no B2. Lo pidió Juan Camilo el 7 de agosto de 2026 y actualizó
-  su hoja de vida en el mismo momento; el sitio y el PDF van juntos.
+- ~~**Francés B1**, no B2~~ **revertido en FASE 10**: volvió a B2 el 8 de agosto
+  de 2026, otra vez a pedido de Juan Camilo y otra vez con la hoja de vida
+  actualizada en el mismo momento. La regla que sobrevive a los dos cambios es
+  esa: el nivel del sitio y el del PDF se mueven juntos, nunca uno solo.
 - **Regla de escritura: nada de incisos entre rayas.** Se limpiaron las 107
   rayas de los 15 archivos de casos. La raya sobrevive solo como separador de
   etiqueta (`Español — nativo`, el `Nombre — Título` de los `<title>`, el
@@ -610,19 +613,39 @@ Decisiones de FASE 9 (ajuste de contenido) que no hay que revertir:
   menú en su propia lengua) se revisaron y **se dejaron como estaban**: decisión
   de Juan Camilo el 7 de agosto de 2026.
 
+Decisiones de FASE 10 (CV en tres idiomas) que no hay que revertir:
+- **El CV en francés solo necesitó una línea.** Juan Camilo subió
+  `public/cv/juan-camilo-bolanos-fr.pdf` y actualizó los otros dos; en el código
+  todo el cambio fue añadir `fr` al objeto `CV` de `src/config/sitio.ts`. De ahí
+  salieron solos `CV_IDIOMAS`, el menú desplegable con las tres entradas
+  (`MenuCV` ya se convertía en menú al haber más de un PDF), el enlace del pie,
+  el `hreflang` de cada descarga y el nombre legible de cada archivo. Es la
+  prueba de que `CV` es de verdad la única fuente: un idioma nuevo entra igual,
+  con una línea, y ninguno aparece antes de que su PDF exista.
+- El menú pone primero el PDF del idioma que se está leyendo (el `sort` de
+  `MenuCV`), así que en `/fr/` la primera opción es «Français» y en `/es/`,
+  «Español». Con tres entradas eso ya se nota; con dos casi no.
+- **El enlace del pie también descarga con el nombre legible.** Se le había
+  quedado un `download` a secas desde antes de FASE 9, de modo que el mismo CV
+  se guardaba como «Juan Camilo Bolaños - CV (Español).pdf» desde el botón de la
+  página y como «juan-camilo-bolanos-es.pdf» desde el pie. Ahora los dos pasan
+  por `nombreArchivoCv()`.
+- El nivel de francés volvió a **B2** en las tres versiones del diccionario
+  (`sobreMi.idiomas.fr`). Ver la nota tachada en las decisiones de FASE 9.
+- **No se verificó el contenido de los PDF.** Los tres usan fuentes
+  subconjuntadas sin `ToUnicode` legible, así que no se pudo extraer su texto
+  para comprobar que el francés dice B2 y que el PDF francés está en francés.
+  Se toma la palabra de Juan Camilo, que los actualizó en el mismo momento.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
   y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
   Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
   y=170 y y=830 —, no en el código.
-- ~~CV en inglés~~ publicado el 7 de agosto de 2026, junto con el español al día
-  (francés B1). Falta el **CV en francés**: se guarda en `public/cv/` como
-  `juan-camilo-bolanos-fr.pdf` y se añade su línea al objeto `CV` de
-  `src/config/sitio.ts`, que es la única fuente de esa lista y solo debe listar
-  PDFs que existan, para no ofrecer nunca un enlace roto. Mientras tanto
-  `cvDe('fr')` cae al español. Con la segunda entrada `MenuCV` volvió solo a ser
-  desplegable, sin tocar el componente.
+- ~~CV en inglés~~ y ~~CV en francés~~: los tres idiomas activos tienen su PDF
+  desde el 8 de agosto de 2026, todos con francés B2. Solo faltaría el alemán,
+  y solo si algún día se activa `de`.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
 - Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido, y
@@ -735,9 +758,9 @@ Pendientes conocidos, además de las fases:
   **Decidido y descartado:** el widget UserWay. Ver «Decisiones de FASE 7».
 
   **No bloquean el lanzamiento**, pero conviene resolverlos antes de difundir
-  el enlace: los CV en inglés y francés, las portadas de Alico con el logo
-  cortado, el caso `abuelos-nietos` y los archivos e imágenes que Juan Camilo
-  quiere sumar a cada caso.
+  el enlace: ~~los CV en inglés y francés~~ (publicados), las portadas de Alico
+  con el logo cortado, el caso `abuelos-nietos` y los archivos e imágenes que
+  Juan Camilo quiere sumar a cada caso.
 
 - FASE 8 — Publicación. Empieza con el sitio ya desplegado: conectar el repo a
   Pages y apuntar el DNS lo hace Juan Camilo desde los paneles, no el código.
@@ -783,3 +806,10 @@ Pendientes conocidos, además de las fases:
   «Decisiones de FASE 9». No es una fase de código: si vuelve a hacer falta,
   el prompt es "Lee CLAUDE.md, en especial las decisiones de FASE 9, y ajusta
   el contenido contra la hoja de vida adjunta".
+
+- FASE 10 — CV en tres idiomas: **completa.** Juan Camilo subió el PDF francés y
+  actualizó el español y el inglés; en el código solo hubo que añadir `fr` al
+  objeto `CV`, devolver el francés a B2 en el diccionario y darle al enlace del
+  pie el mismo nombre de descarga legible que ya tenía el botón de la página.
+  Ver «Decisiones de FASE 10». Para el CV alemán, si algún día existe, el guion
+  es el mismo: el PDF en `public/cv/` y su línea en `CV`.
