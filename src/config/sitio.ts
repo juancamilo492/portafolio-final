@@ -11,6 +11,12 @@ export const SITIO = {
   pais: 'Colombia',
   correo: 'juancamilob492@gmail.com',
   whatsapp: '573003974565',
+  /*
+   * El mismo número, escrito para leerse. `whatsapp` es lo que pide la URL de
+   * wa.me (sin signos) y esto es lo que se muestra en el pie y lo que se
+   * publica como `telephone` del JSON-LD.
+   */
+  whatsappVisible: '+57 300 397 4565',
   linkedin: 'https://www.linkedin.com/in/juan-camilo-bolanos-garcia',
 } as const;
 

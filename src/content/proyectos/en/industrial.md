@@ -10,6 +10,7 @@ destacado: true
 orden: 2
 resumen: "A QR menu and management panel for a real bar: customers browse, servers take the orders, and the managers see the business metrics in real time."
 imagen_portada: "../../../assets/proyectos/industrial-portada.png"
+imagen_alt: "Bar Industrial’s logo on an off-white background: the word “INDUSTRIAL” in condensed black capitals, its elongated D also starting the word “DRINK’S” below, with yellow, orange and red horizontal stripes running across the image."
 ---
 
 ## The context

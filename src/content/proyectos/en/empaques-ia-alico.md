@@ -10,6 +10,7 @@ destacado: true
 orden: 4
 resumen: "An interactive experience for Cafés de Colombia Expo 2025: coffee growers describe their brand’s vision in a form and receive AI-generated packaging that reflects it in their inbox."
 imagen_portada: "../../../assets/proyectos/empaques-ia-alico-portada-en.png"
+imagen_alt: "Case cover on a pale blue technical-drawing background of grids, dotted guides and dimension marks: the title “AI PLATFORM FOR PACKAGING” in dark blue and, bottom right, the alico logo in yellow."
 ---
 
 ## The context

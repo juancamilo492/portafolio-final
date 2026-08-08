@@ -10,6 +10,7 @@ destacado: true
 orden: 4
 resumen: "Expérience interactive pour Cafés de Colombia Expo 2025 : les producteurs de café décrivent la vision de leur marque dans un formulaire et reçoivent dans leur boîte mail des emballages générés par IA qui la reflètent."
 imagen_portada: "../../../assets/proyectos/empaques-ia-alico-portada-fr.png"
+imagen_alt: "Couverture du cas sur un fond de plan technique bleu clair, fait de grilles, de repères pointillés et de cotes : le titre « PLATEFORME IA D’EMBALLAGES » en bleu foncé et, en bas à droite, le logo alico en jaune."
 ---
 
 ## Le contexte

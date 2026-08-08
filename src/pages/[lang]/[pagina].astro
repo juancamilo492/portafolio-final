@@ -8,11 +8,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import retrato from '../../assets/retratos/sobre-mi-juan-camilo.webp';
 import { pathsDePagina, useTranslations } from '../../i18n/utils';
-import { etiquetaCategoria } from '../../lib/categorias';
 import { jsonLdSobreMi } from '../../lib/jsonld';
 import { rutaOg } from '../../lib/og';
+import { gruposDeHabilidades, idiomasVisibles } from '../../lib/perfil';
 import { conMarca, siteDe } from '../../lib/seo';
-import type { NombreHerramienta } from '../../components/IconoHerramienta.astro';
 import type { Locale } from '../../i18n/ui';
 
 // Solo genera Sobre mí: /es/sobre-mi/, /en/about/
@@ -21,89 +20,14 @@ export const getStaticPaths = () => pathsDePagina('sobreMi');
 const locale = Astro.params.lang as Locale;
 const t = useTranslations(locale);
 
-/**
- * Habilidades agrupadas, sin barras ni porcentajes (CLAUDE.md).
- * Los grupos y su contenido son los de la hoja de vida: el rol es diseñar y
- * definir estos sistemas, no listar un stack. Las tecnologías con las que se
- * construyó cada proyecto siguen en el campo `herramientas` de su caso, que es
- * donde tienen contexto. Nada declarativo inventado.
+/*
+ * Habilidades e idiomas viven en `src/lib/perfil.ts`, no aquí: desde FASE 11
+ * el nodo Person los declara como `knowsAbout` y `knowsLanguage`, y los datos
+ * estructurados no pueden afirmar nada que esta página no muestre. Una sola
+ * lista para las dos cosas es la única forma de que no se separen.
  */
-const habilidades: {
-  titulo: string;
-  items: { texto: string; icono?: NombreHerramienta }[];
-  completo?: boolean;
-}[] = [
-  {
-    titulo: t('sobreMi.habilidades.investigacion'),
-    items: [
-      { texto: t('sobreMi.hab.entrevistas') },
-      { texto: t('sobreMi.hab.gruposFocales') },
-      { texto: t('sobreMi.hab.encuestas') },
-      { texto: t('sobreMi.hab.pruebas') },
-      { texto: 'Tree testing' },
-      { texto: t('sobreMi.hab.paseoCognitivo') },
-    ],
-  },
-  {
-    titulo: t('sobreMi.habilidades.diseno'),
-    items: [
-      { texto: 'Design Thinking' },
-      { texto: etiquetaCategoria(locale, 'Diseño de servicio') },
-      { texto: t('sobreMi.hab.arquitecturaInfo') },
-      { texto: t('sobreMi.hab.disenoInteraccion') },
-      { texto: t('sobreMi.hab.agiles') },
-    ],
-  },
-  {
-    titulo: t('sobreMi.habilidades.ia'),
-    items: [
-      { texto: t('sobreMi.hab.agentes') },
-      { texto: 'Prompt engineering' },
-      { texto: t('sobreMi.hab.automatizacion') },
-      { texto: t('sobreMi.hab.apis') },
-    ],
-  },
-  {
-    titulo: t('sobreMi.habilidades.prototipado'),
-    items: [
-      { texto: t('sobreMi.hab.prototipadoFuncional') },
-      { texto: 'IoT' },
-      { texto: t('sobreMi.hab.vision') },
-      { texto: t('sobreMi.hab.modelado') },
-      { texto: t('sobreMi.hab.desarrolloIA') },
-    ],
-  },
-  {
-    /*
-     * El único grupo con logo: son productos. Los otros cuatro son métodos y
-     * disciplinas, que no tienen marca que poner al lado.
-     * Diez nombres propios en media columna caen en cuatro renglones, así que
-     * este grupo ocupa la fila entera.
-     */
-    titulo: t('sobreMi.habilidades.herramientas'),
-    completo: true,
-    items: [
-      { texto: 'Figma', icono: 'figma' },
-      { texto: 'n8n', icono: 'n8n' },
-      { texto: 'Microsoft Clarity', icono: 'clarity' },
-      { texto: 'Hotjar', icono: 'hotjar' },
-      { texto: 'Unity', icono: 'unity' },
-      { texto: 'Blender', icono: 'blender' },
-      { texto: 'Photoshop', icono: 'photoshop' },
-      { texto: 'Illustrator', icono: 'illustrator' },
-      { texto: 'Premiere Pro', icono: 'premiere' },
-      { texto: 'ClickUp', icono: 'clickup' },
-      { texto: 'GitHub', icono: 'github' },
-    ],
-  },
-];
-
-const idiomas = [
-  t('sobreMi.idiomas.es'),
-  t('sobreMi.idiomas.en'),
-  t('sobreMi.idiomas.fr'),
-  t('sobreMi.idiomas.de'),
-];
+const habilidades = gruposDeHabilidades(locale);
+const idiomas = idiomasVisibles(locale);
 ---
 
 <BaseLayout

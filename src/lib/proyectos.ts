@@ -15,6 +15,16 @@ export function slugDeEntrada(entrada: Proyecto): string {
 }
 
 /**
+ * `año` es texto libre para admitir rangos ("2024–2025"), así que hay que
+ * distinguir cuándo es una fecha de verdad. Lo usan el `<time datetime>` de la
+ * plantilla de caso y el `dateCreated` de su JSON-LD: si los dos no aplican la
+ * misma regla, el HTML y los datos estructurados dirían cosas distintas.
+ */
+export function esAnioSuelto(año: string): boolean {
+  return /^\d{4}$/.test(año);
+}
+
+/**
  * La colección se lee una sola vez por build: todas las páginas comparten la
  * misma promesa en lugar de recorrer los .md una vez por ruta.
  */

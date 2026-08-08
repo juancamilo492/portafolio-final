@@ -10,6 +10,7 @@ destacado: true
 orden: 5
 resumen: "Propuesta de instalación interactiva para niños sobre la fauna del Valle de Aburrá, validada con un prototipo funcional de botones físicos (ESP32) y un juego controlado por gestos con visión por computador."
 imagen_portada: "../../../assets/proyectos/siguiendo-la-huella-azul-portada.png"
+imagen_alt: "Portada del caso sobre una textura de papel arrugado color crema, salpicada de huellas de patas de animal en azul claro: el título «Siguiendo la huella azul» en letras redondeadas de color azul."
 ---
 
 ## El contexto

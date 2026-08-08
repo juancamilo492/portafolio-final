@@ -10,6 +10,7 @@ destacado: true
 orden: 1
 resumen: "Proyecto de grado con cliente real: una estrategia de experiencia completa para que una empresa de domótica deje de depender del voz a voz. Incluyó sitio web interactivo, propuesta de stand para feria y manual de marca."
 imagen_portada: "../../../assets/proyectos/i-homotic-portada.png"
+imagen_alt: "Logotipo de i-Homotic en blanco sobre un fondo azul noche con destellos verde y violeta: una casa estilizada sobre un cuadrado y, debajo, el nombre de la marca con una letra convertida en la misma silueta de casa."
 ---
 
 ## El contexto

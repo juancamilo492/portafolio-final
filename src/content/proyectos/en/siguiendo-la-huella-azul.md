@@ -10,6 +10,7 @@ destacado: true
 orden: 5
 resumen: "A proposal for an interactive installation about the wildlife of the Aburrá Valley for children, validated with a working prototype of physical buttons (ESP32) and a gesture-controlled game using computer vision."
 imagen_portada: "../../../assets/proyectos/siguiendo-la-huella-azul-portada-en.png"
+imagen_alt: "Case cover on a crumpled cream paper texture scattered with pale blue animal paw prints: the title “Following the blue trail” in rounded blue lettering."
 ---
 
 ## The context

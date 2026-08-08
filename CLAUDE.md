@@ -172,9 +172,10 @@ de verdad en cada idioma. No activar esa opción.
 
 ## Estado actual
 
-FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**.
-`astro check` pasa con 0 errores, 0 warnings y 0 hints; el build genera 28
-páginas, 24 tarjetas Open Graph, el sitemap, `robots.txt` y `llms.txt`.
+FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**, más las
+fases 9, 10 y 11. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
+build genera 28 páginas, 24 tarjetas Open Graph, **los 15 casos en Markdown**,
+el sitemap (24 URL, sin los `.md`), `robots.txt` y `llms.txt`.
 Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
@@ -648,6 +649,104 @@ Decisiones de FASE 10 (CV en tres idiomas) que no hay que revertir:
   para comprobar que el francés dice B2 y que el PDF francés está en francés.
   Se toma la palabra de Juan Camilo, que los actualizó en el mismo momento.
 
+Decisiones de FASE 11 (capa técnica para ATS, crawlers y agentes) que no hay
+que revertir:
+- **El sitio describía bien sus páginas y mal a su autor.** Ese era el hueco:
+  el `Person` no declaraba ni un tema, así que nada en el HTML respondía a
+  máquina «¿tiene experiencia con IA?», «¿usa n8n?», «¿trabaja con APIs?»,
+  aunque las 26 habilidades estuvieran a la vista en «Sobre mí». Todo lo que
+  sigue apunta a eso. **Ningún dato nuevo entró al sitio**: cifras, clientes,
+  tecnologías, cargos y fechas son los mismos.
+- **`src/lib/perfil.ts` es ahora la única fuente de las habilidades y de los
+  idiomas.** Los cinco grupos vivían en el frontmatter de `[pagina].astro`; se
+  movieron sin cambiar un ítem ni su orden, porque desde ahora los lee también
+  el JSON-LD. La regla que lo justifica: los datos estructurados no pueden
+  afirmar nada que la página no muestre, y dos listas escritas aparte se
+  separan. `temasConocidos()` aplana esos ítems y les suma las 6 categorías
+  canónicas: 36 temas, todos visibles en pantalla. No lee la colección a
+  propósito, para que las fábricas de JSON-LD sigan siendo síncronas.
+- **`knowsLanguage` revisa la nota de FASE 5** («el JSON-LD no inventa nada: …
+  ni `knowsLanguage`»). Aquella regla era no afirmar lo no publicado, y sigue
+  en pie: los cuatro idiomas llevan desde siempre en «Sobre mí». El nivel del
+  Marco Común (C1, B2, A2) **no** entra —`Language` no tiene dónde ponerlo— y
+  sigue solo en el HTML. `IDIOMAS_PERFIL` se escribe aparte de `LOCALES` aunque
+  hoy coincidan: una cosa es en qué idiomas está el sitio y otra cuáles habla
+  su autor.
+- Lo que sigue **fuera** del `Person` por no tener respaldo: `worksFor`, años
+  de experiencia, premios, certificaciones y cualquier fecha de trabajo. Y
+  `sameAs` se queda solo con LinkedIn: GitHub aparece en el sitio como logo de
+  herramienta, no como perfil, y no hay URL. Decisión de Juan Camilo el 8 de
+  agosto de 2026.
+- `Person.email` va sin `mailto:` (schema.org pide la dirección; el URI es cosa
+  del `href`) y `telephone` en E.164, que es el mismo número de `wa.me` y el
+  que ahora se lee en el pie.
+- **`referenciaPersona` ya no es un muñón**: lleva `url` y `jobTitle` además del
+  `@id`. Cada `@graph` es autocontenido por decisión de FASE 5, así que un
+  agente que aterriza en un caso suelto solo veía un nombre sin oficio.
+- **Los casos se publican también en Markdown**: `/es/proyectos/industrial.md`,
+  desde `src/pages/[lang]/[seccion]/[slug].md.ts`. El contenido ya existía
+  —`markdownDeCaso()` lo arma para el botón «Copiar para LLM»— pero solo
+  viajaba en base64 dentro de un `data-`, ilegible para un rastreador. **No
+  entran al sitemap** (filtro en `astro.config.mjs`): la versión indexable es el
+  HTML, y estos son una representación alternativa que el propio HTML anuncia
+  con `<link rel="alternate" type="text/markdown">`. `rutaMarkdownDeCaso()` es
+  la única fuente de esas URL, y `public/_headers` les fija el `Content-Type`
+  por si el host no deduce la extensión.
+- **Cada caso tiene los dos botones**: «Copiar para LLM» (el `<button>` de
+  siempre) y «Ver como Markdown», que es un `<a>` real al `.md`. Enlace y no
+  botón a propósito: funciona sin JS, se abre en pestaña nueva con el clic del
+  medio y deja un enlace interno rastreable. Va en la misma pestaña porque es un
+  recurso del sitio. A 360 px las dos píldoras envuelven en dos líneas
+  (`flex-wrap`), no se desbordan.
+- **El `charset=utf-8` del bloque `/*.md` de `public/_headers` es la línea más
+  frágil del proyecto.** El archivo en disco es UTF-8 correcto y el endpoint
+  declara el charset, pero en un build estático esa cabecera no llega: solo se
+  escribe el cuerpo. `astro preview` sirve `.md` como `text/markdown` a secas y
+  Chrome cae a windows-1252, así que **en local los acentos se ven rotos
+  («menÃº») y es esperable**. Lo que lo arregla en producción es esa línea, y no
+  se ha podido comprobar publicado. Es lo primero que hay que mirar tras el
+  despliegue. Descartada la alternativa del BOM: markdown-it y compañía no lo
+  quitan y convertirían el `# Título` en un párrafo.
+- **`imagen_alt` es por idioma, no compartido.** Tres de las cinco portadas
+  llevan texto —por eso existen las `-portada-en.png` y `-portada-fr.png`—, así
+  que describir en español una imagen cuyo texto está en francés sería describir
+  otra imagen. Los 15 textos se escribieron mirando cada PNG, no deduciéndolos
+  del caso. El campo es opcional: sin él la portada vuelve a `alt=""`, que es lo
+  correcto mientras nadie la haya mirado, y `abuelos-nietos` no romperá nada al
+  llegar.
+- **Migas de pan visibles en los casos**, en sustitución del «← Todos los
+  proyectos» (su clave `proyectos.todosLosProyectos` se retiró de los tres
+  diccionarios). Hacen el mismo trabajo y ponen a la vista la jerarquía que el
+  `BreadcrumbList` ya declaraba sin contraparte. La última miga lleva
+  `truncate`: es solo visual, el título completo sigue entero en el DOM. Sin él,
+  a 360 px ocupaba tres renglones. **`BreadcrumbList` sigue solo en los casos**,
+  no en la grilla ni en Sobre mí: ahí no hay migas que mostrar.
+- **Categorías y herramientas pasaron de cadenas unidas a listas.** El texto
+  visible es idéntico byte a byte —el ` · ` y el `, ` van en un `<span
+  aria-hidden>` que reproduce lo que hacía el `join`—, pero ahora un rastreador
+  lee cuatro herramientas en vez de una cadena que tendría que partir. Mismo
+  motivo para el `<time datetime>` del año, que solo aparece cuando el campo es
+  un año suelto: `esAnioSuelto()` en `src/lib/proyectos.ts` es la regla
+  compartida con el `dateCreated` del JSON-LD, que antes tenía su propia regex.
+- **Los chips de la grilla siguen siendo `<button>`, no enlaces.** Aquí no hay
+  página que descubrir: los 5 casos ya están en el HTML estático de la grilla
+  sin filtrar y en el sitemap, y el filtro solo aplica `hidden` en runtime.
+  Convertirlos en `<a href="?categoria=">` crearía 6 URL por idioma con el mismo
+  contenido a cambio de cero descubribilidad.
+- Los dos `<nav>` del header comparten `aria-label` **y está bien**: nunca
+  están los dos en el árbol de accesibilidad. El de escritorio es `hidden
+  md:block` (display:none en móvil) y el móvil lleva el atributo `hidden` salvo
+  cuando se abre, momento en el que el otro ya está oculto por CSS.
+- El pie muestra el correo y el número escritos. Hasta ahora solo existían
+  dentro de un `href` y de un `aria-label`, de modo que no estaban en el texto
+  de ninguna página. Van en la primera columna, sin tocar la grilla de tres.
+- `max-image-preview:large` es lo que de verdad aporta el `<meta name="robots">`
+  positivo: sin él el buscador se limita a una miniatura pequeña, y esto es un
+  portafolio de diseño.
+- Arreglo latente: el `x-default` se buscaba sobre todas las alternativas y no
+  sobre las que existen. Con los 5 casos en español no se manifestaba; un caso
+  que algún día solo esté en inglés habría apuntado al índice de la sección.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -824,3 +923,13 @@ Pendientes conocidos, además de las fases:
   pie el mismo nombre de descarga legible que ya tenía el botón de la página.
   Ver «Decisiones de FASE 10». Para el CV alemán, si algún día existe, el guion
   es el mismo: el PDF en `public/cv/` y su línea en `CV`.
+
+- FASE 11 — Capa técnica para ATS, crawlers y agentes de IA: **completa.** No
+  fue un rediseño ni una fase de contenido: el HTML, los tokens, las fuentes y
+  el layout siguen igual, y no entró ni un dato nuevo al sitio. Lo que cambió es
+  cómo queda representado lo que ya había: `Person` con `knowsAbout` (36 temas),
+  `knowsLanguage` y `hasOccupation`; los casos en Markdown como URL; las
+  portadas con texto alternativo escrito mirándolas; migas visibles; y las
+  herramientas, las categorías y el año como listas y `<time>` en vez de
+  cadenas unidas. Ver «Decisiones de FASE 11». `astro check` sigue en 0/0/0 y
+  Lighthouse en 97-99 / 100 / 100 / 100 sobre las cuatro plantillas.

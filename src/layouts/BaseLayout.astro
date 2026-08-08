@@ -57,6 +57,12 @@ interface Props {
    * activos; un caso sin traducir pasa aquí solo los suyos.
    */
   localesDisponibles?: readonly Locale[];
+  /**
+   * Ruta de la versión en Markdown de esta página, si existe. Hoy solo la
+   * tienen los casos de estudio: se anuncia con `rel="alternate"` para que un
+   * agente que prefiera texto plano la encuentre desde el propio HTML.
+   */
+  markdownAlterno?: string;
   /** La 404 no se indexa ni declara hreflang: no es una página del sitio. */
   noindex?: boolean;
 }
@@ -72,6 +78,7 @@ const {
   imagenOg,
   jsonLd = [],
   localesDisponibles,
+  markdownAlterno,
   noindex = false,
 } = Astro.props;
 
@@ -89,7 +96,13 @@ const alternativas = alternativasDeIdioma(claveRuta, slug, localesDisponibles);
  * x-default apunta al español, que es donde vive el contenido original.
  */
 const traducciones = noindex ? [] : alternativas.filter((alt) => alt.exacta);
-const porDefecto = alternativas.find((alt) => alt.locale === DEFAULT_LOCALE);
+/*
+ * El x-default se busca entre las traducciones que existen, no entre todas las
+ * alternativas: un caso que algún día solo esté en inglés apuntaría si no al
+ * índice de /es/proyectos/, que no es esta página. Si el español no está, el
+ * respaldo es la propia URL.
+ */
+const porDefecto = traducciones.find((alt) => alt.locale === DEFAULT_LOCALE) ?? traducciones[0];
 
 const tarjeta = absoluta(site, imagenOg ?? rutaOg(locale, 'inicio'));
 const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
@@ -105,7 +118,23 @@ const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
     {/* La 404 no es una página: no tiene URL propia que declarar como canónica. */}
     {!noindex && <link rel="canonical" href={canonical.href} />}
     <meta name="generator" content={Astro.generator} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="author" content={SITIO.autor} />
+    {/*
+      Lo que de verdad aporta aquí es `max-image-preview:large`: sin él el
+      buscador se limita a una miniatura pequeña, y este es un portafolio de
+      diseño. Los dos `-1` levantan el tope de longitud del fragmento de texto
+      y del vídeo, que por defecto lo decide el buscador.
+    */}
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+      )
+    }
 
     <link rel="preload" as="font" type="font/woff2" href={interLatin} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={frauncesLatin} crossorigin />
@@ -143,13 +172,25 @@ const tarjetaAlt = t('meta.ogAlt').replace('{titulo}', titulo);
         <link rel="alternate" hreflang="x-default" href={absoluta(site, porDefecto.href)} />
       )
     }
+    {/* La misma página en Markdown, para quien prefiera leerla sin HTML. */}
+    {
+      markdownAlterno && (
+        <link
+          rel="alternate"
+          type="text/markdown"
+          hreflang={HREFLANG[locale]}
+          href={absoluta(site, markdownAlterno)}
+        />
+      )
+    }
 
     {/* --- Open Graph --- */}
     <meta property="og:type" content={tipo} />
     <meta property="og:site_name" content={SITIO.autor} />
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
-    <meta property="og:url" content={canonical.href} />
+    {/* Sin `og:url` en la 404, por lo mismo que no lleva canonical. */}
+    {!noindex && <meta property="og:url" content={canonical.href} />}
     <meta property="og:locale" content={OG_LOCALE[locale]} />
     {
       traducciones

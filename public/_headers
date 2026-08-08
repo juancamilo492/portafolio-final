@@ -20,6 +20,24 @@
 /og/*
   Cache-Control: public, max-age=86400
 
+# Los casos en Markdown (/es/proyectos/industrial.md).
+#
+# El `charset=utf-8` NO es decorativo y es la línea más frágil de este archivo:
+# sin él el navegador cae a windows-1252 y los acentos salen rotos («menÃº»).
+# El archivo en disco es UTF-8 correcto y el endpoint declara el charset, pero
+# en un build estático esa cabecera no llega: solo se escribe el cuerpo y las
+# cabeceras las pone el host, igual que pasa con el `Cache-Control` de las
+# tarjetas OG. `astro preview` sirve `.md` sin charset, así que en local se ve
+# mal; esto es lo que lo arregla en producción. Hay que comprobarlo publicado.
+#
+# `noindex` porque un .md no puede declarar canonical y competiría en el
+# buscador con el HTML del caso, que es la versión indexable. No estorba a
+# ningún agente: solo afecta a la indexación, no a poder pedir el archivo.
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+  Cache-Control: public, max-age=86400
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

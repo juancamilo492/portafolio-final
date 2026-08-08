@@ -14,7 +14,8 @@ import { SITIO } from '../config/sitio';
 import { HREFLANG, type Locale } from '../i18n/ui';
 import { rutaDe, useTranslations } from '../i18n/utils';
 import { etiquetaCategoria } from './categorias';
-import type { Proyecto } from './proyectos';
+import { idiomasDelPerfil, temasConocidos } from './perfil';
+import { esAnioSuelto, type Proyecto } from './proyectos';
 import { absoluta } from './seo';
 
 export type NodoJsonLd = Record<string, unknown>;
@@ -23,22 +24,58 @@ export type NodoJsonLd = Record<string, unknown>;
 const idPersona = (site: URL) => absoluta(site, '/#persona');
 const idSitio = (site: URL) => absoluta(site, '/#sitio');
 
-/** El nodo Person completo. Es la entidad central del sitio. */
+/** El cargo, tal cual lo dice el H1 de la portada. */
+const cargo = (locale: Locale) => {
+  const t = useTranslations(locale);
+  return `${t('inicio.h1.parte1')} ${t('inicio.h1.enfasis')}`;
+};
+
+/**
+ * El nodo Person completo. Es la entidad central del sitio y lo que permite
+ * responder a máquina «quién es y qué hace».
+ *
+ * `knowsAbout`, `knowsLanguage` y `hasOccupation` se añadieron en FASE 11 y
+ * revisan la nota de FASE 5 que decía «no hay knowsLanguage». Aquella regla era
+ * no afirmar lo que la página no muestra, y sigue en pie: los tres salen de
+ * `src/lib/perfil.ts`, que es la misma lista que pinta «Sobre mí». Lo que no
+ * está publicado sigue fuera —empleador, años de experiencia, premios, fechas
+ * de trabajo—, porque no hay dato que lo respalde.
+ */
 function nodoPersona(site: URL, locale: Locale): NodoJsonLd {
   const t = useTranslations(locale);
+  const temas = temasConocidos(locale);
   return {
     '@type': 'Person',
     '@id': idPersona(site),
     name: SITIO.autor,
     url: absoluta(site, rutaDe(locale)),
-    jobTitle: `${t('inicio.h1.parte1')} ${t('inicio.h1.enfasis')}`,
+    // El perfil canónico vive en «Sobre mí», no en la portada.
+    mainEntityOfPage: absoluta(site, rutaDe(locale, 'sobreMi')),
+    jobTitle: cargo(locale),
     description: t('footer.descripcion'),
-    email: `mailto:${SITIO.correo}`,
+    // La dirección a secas: el `mailto:` es cosa del href, no de schema.org.
+    email: SITIO.correo,
+    telephone: `+${SITIO.whatsapp}`,
     image: absoluta(site, retrato.src),
     address: {
       '@type': 'PostalAddress',
       addressLocality: SITIO.ciudad,
       addressCountry: SITIO.pais,
+    },
+    knowsAbout: temas,
+    knowsLanguage: idiomasDelPerfil().map(({ nombre, codigo }) => ({
+      '@type': 'Language',
+      name: nombre,
+      alternateName: codigo,
+    })),
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: cargo(locale),
+      occupationLocation: { '@type': 'City', name: SITIO.ciudad },
+      // Array y no una cadena unida: uno de los temas —«Modelado, texturizado,
+      // animación y renderizado»— lleva comas dentro, así que separarlos por
+      // coma sería partirlo en cuatro.
+      skills: temas,
     },
     alumniOf: {
       '@type': 'CollegeOrUniversity',
@@ -48,9 +85,21 @@ function nodoPersona(site: URL, locale: Locale): NodoJsonLd {
   };
 }
 
-/** Referencia compacta a la persona, para usar como autor o creador. */
-function referenciaPersona(site: URL): NodoJsonLd {
-  return { '@type': 'Person', '@id': idPersona(site), name: SITIO.autor };
+/**
+ * Referencia a la persona, para usar como autor o creador.
+ *
+ * Lleva `url` y `jobTitle` además del `@id`: cada `@graph` es autocontenido
+ * (decisión de FASE 5), así que un agente que aterriza en un caso suelto no
+ * vería el nodo completo y se quedaría con un nombre sin oficio.
+ */
+function referenciaPersona(site: URL, locale: Locale): NodoJsonLd {
+  return {
+    '@type': 'Person',
+    '@id': idPersona(site),
+    name: SITIO.autor,
+    url: absoluta(site, rutaDe(locale)),
+    jobTitle: cargo(locale),
+  };
 }
 
 function nodoSitio(site: URL, locale: Locale): NodoJsonLd {
@@ -62,7 +111,7 @@ function nodoSitio(site: URL, locale: Locale): NodoJsonLd {
     name: SITIO.autor,
     description: t('meta.inicio.descripcion'),
     inLanguage: HREFLANG[locale],
-    publisher: referenciaPersona(site),
+    publisher: referenciaPersona(site, locale),
   };
 }
 
@@ -106,17 +155,31 @@ export function jsonLdProyectos(
       description: t('meta.proyectos.descripcion'),
       inLanguage: HREFLANG[locale],
       isPartOf: nodoSitio(site, locale),
-      about: referenciaPersona(site),
+      about: referenciaPersona(site, locale),
       mainEntity: {
         '@type': 'ItemList',
         numberOfItems: proyectos.length,
         itemListOrder: 'https://schema.org/ItemListOrderAscending',
-        itemListElement: proyectos.map((proyecto, indice) => ({
-          '@type': 'ListItem',
-          position: indice + 1,
-          name: proyecto.data.titulo,
-          url: absoluta(site, rutaDe(locale, 'proyectos', proyecto.data.slug)),
-        })),
+        /*
+         * Cada entrada envuelve un CreativeWork y no solo un nombre y una URL:
+         * así quien lee esta página se lleva de qué va cada caso sin tener que
+         * visitar los cinco.
+         */
+        itemListElement: proyectos.map((proyecto, indice) => {
+          const urlCaso = absoluta(site, rutaDe(locale, 'proyectos', proyecto.data.slug));
+          return {
+            '@type': 'ListItem',
+            position: indice + 1,
+            url: urlCaso,
+            item: {
+              '@type': 'CreativeWork',
+              '@id': `${urlCaso}#caso`,
+              url: urlCaso,
+              name: proyecto.data.titulo,
+              description: proyecto.data.resumen,
+            },
+          };
+        }),
       },
     },
   ];
@@ -136,6 +199,15 @@ export function jsonLdCaso(
   const datos = proyecto.data;
   const url = absoluta(site, rutaDe(locale, 'proyectos', datos.slug));
 
+  /*
+   * La portada real va primero y la tarjeta Open Graph después: la primera es
+   * la imagen del caso, la segunda solo su envoltorio para redes sociales.
+   */
+  const imagenes = [
+    ...(datos.imagen_portada ? [absoluta(site, datos.imagen_portada.src)] : []),
+    absoluta(site, imagenOg),
+  ];
+
   const obra: NodoJsonLd = {
     '@type': 'CreativeWork',
     '@id': `${url}#caso`,
@@ -144,19 +216,28 @@ export function jsonLdCaso(
     name: datos.titulo,
     description: datos.resumen,
     inLanguage: HREFLANG[locale],
-    image: absoluta(site, imagenOg),
-    author: referenciaPersona(site),
-    creator: referenciaPersona(site),
+    image: imagenes,
+    author: referenciaPersona(site, locale),
+    creator: referenciaPersona(site, locale),
+    publisher: referenciaPersona(site, locale),
     isPartOf: nodoSitio(site, locale),
+    // Las disciplinas del caso, que son las que se ven como etiqueta bajo el
+    // título. `keywords` va como array: schema.org lo admite y evita que quien
+    // lo lea tenga que partir una cadena por comas.
+    about: datos.categoria.map((cat) => ({
+      '@type': 'Thing',
+      name: etiquetaCategoria(locale, cat),
+    })),
     keywords: [
       ...datos.categoria.map((cat) => etiquetaCategoria(locale, cat)),
       ...datos.herramientas,
-    ].join(', '),
+    ],
   };
 
   // `año` es texto libre para admitir rangos ("2024–2025"): solo se publica
-  // como fecha cuando de verdad es un año suelto.
-  if (/^\d{4}$/.test(datos.año)) obra.dateCreated = datos.año;
+  // como fecha cuando de verdad es un año suelto. Misma regla que el
+  // `<time datetime>` de la plantilla, de ahí que compartan `esAnioSuelto`.
+  if (esAnioSuelto(datos.año)) obra.dateCreated = datos.año;
   else obra.temporalCoverage = datos.año;
 
   if (datos.cita) {

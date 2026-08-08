@@ -10,6 +10,7 @@ destacado: true
 orden: 5
 resumen: "Proposition d’installation interactive pour enfants sur la faune de la vallée d’Aburrá, validée avec un prototype fonctionnel de boutons physiques (ESP32) et un jeu contrôlé par les gestes grâce à la vision par ordinateur."
 imagen_portada: "../../../assets/proyectos/siguiendo-la-huella-azul-portada-fr.png"
+imagen_alt: "Couverture du cas sur une texture de papier froissé couleur crème, parsemée d’empreintes de pattes d’animaux en bleu clair : le titre « Suivons la piste bleue » en lettres arrondies bleues."
 ---
 
 ## Le contexte

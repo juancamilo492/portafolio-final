@@ -10,6 +10,7 @@ destacado: true
 orden: 1
 resumen: "Projet de fin d’études avec un client réel : une stratégie d’expérience complète pour qu’une entreprise de domotique cesse de dépendre du bouche-à-oreille. Elle comprenait un site web interactif, une proposition de stand pour un salon et une charte graphique."
 imagen_portada: "../../../assets/proyectos/i-homotic-portada.png"
+imagen_alt: "Logo d’i-Homotic en blanc sur un fond bleu nuit avec des halos vert et violet : une maison stylisée au-dessus d’un carré et, en dessous, le nom de la marque dont une lettre reprend la même silhouette de maison."
 ---
 
 ## Le contexte

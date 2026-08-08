@@ -10,6 +10,7 @@ destacado: true
 orden: 3
 resumen: "Projet de Design Thinking de bout en bout : des entretiens avec les équipes de formation à un prototype de formation en réalité virtuelle que les opérateurs peuvent utiliser sans quitter leur poste de travail."
 imagen_portada: "../../../assets/proyectos/vr-capacitacion-alico-portada-fr.png"
+imagen_alt: "Couverture du cas sur un fond de plan technique bleu clair, fait de grilles, de repères pointillés et de cotes : le titre « PROJET DE STAGE PROFESSIONNEL » en bleu foncé et, en bas à droite, le logo alico en jaune."
 ---
 
 ## Le contexte

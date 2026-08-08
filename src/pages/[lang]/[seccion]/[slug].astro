@@ -5,15 +5,17 @@ import { render } from 'astro:content';
 import BloqueCTA from '../../../components/BloqueCTA.astro';
 import BotonCopiarMarkdown from '../../../components/BotonCopiarMarkdown.astro';
 import Contenedor from '../../../components/Contenedor.astro';
+import Icono from '../../../components/Icono.astro';
 import PozoImagen from '../../../components/PozoImagen.astro';
 import TarjetaProyecto from '../../../components/TarjetaProyecto.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { rutaDe, segmento, useTranslations } from '../../../i18n/utils';
 import { etiquetaCategoria } from '../../../lib/categorias';
 import { jsonLdCaso } from '../../../lib/jsonld';
-import { markdownDeCaso } from '../../../lib/markdown-caso';
+import { markdownDeCaso, rutaMarkdownDeCaso } from '../../../lib/markdown-caso';
 import { rutaOg } from '../../../lib/og';
 import {
+  esAnioSuelto,
   localeDeEntrada,
   localesDeProyecto,
   proyectosPorLocale,
@@ -54,11 +56,29 @@ const indice = headings.filter((encabezado) => encabezado.depth === 2);
 const { anterior, siguiente } = await vecinosDeProyecto(proyecto);
 const relacionados = await proyectosRelacionados(proyecto, 3);
 
-const contexto = [
+/*
+ * La barra de contexto. `lista` y `fecha` no cambian lo que se lee —el texto
+ * visible es el mismo de siempre—, solo cómo queda representado en el DOM: las
+ * herramientas dejan de ser una cadena con comas y pasan a ser una lista, y el
+ * año lleva `<time datetime>` cuando de verdad es una fecha. Los dos son datos
+ * que un rastreador tenía que adivinar partiendo texto.
+ */
+const contexto: { etiqueta: string; valor: string; lista?: string[]; fecha?: boolean }[] = [
   { etiqueta: t('proyectos.cliente'), valor: datos.cliente },
-  { etiqueta: t('proyectos.anio'), valor: datos.año },
+  { etiqueta: t('proyectos.anio'), valor: datos.año, fecha: esAnioSuelto(datos.año) },
   { etiqueta: t('proyectos.rol'), valor: datos.rol },
-  { etiqueta: t('proyectos.herramientas'), valor: datos.herramientas.join(', ') },
+  {
+    etiqueta: t('proyectos.herramientas'),
+    valor: datos.herramientas.join(', '),
+    lista: datos.herramientas,
+  },
+];
+
+// Inicio › Proyectos › este caso. La última no lleva enlace: ya estás en ella.
+const migas = [
+  { texto: t('nav.inicio'), href: rutaDe(locale) },
+  { texto: t('nav.proyectos'), href: rutaDe(locale, 'proyectos') },
+  { texto: datos.titulo },
 ];
 
 /*
@@ -70,6 +90,8 @@ const localesDisponibles = await localesDeProyecto(datos.slug);
 const site = siteDe(Astro.site);
 const imagenOg = rutaOg(locale, 'caso', datos.slug);
 const markdownCaso = markdownDeCaso(locale, proyecto, site);
+// La misma ruta la usan el enlace visible y el `rel="alternate"` del head.
+const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
 ---
 
 <BaseLayout
@@ -82,22 +104,62 @@ const markdownCaso = markdownDeCaso(locale, proyecto, site);
   imagenOg={imagenOg}
   jsonLd={jsonLdCaso(site, locale, proyecto, imagenOg)}
   localesDisponibles={localesDisponibles}
+  markdownAlterno={rutaMarkdown}
 >
   {/* --- Encabezado del caso --- */}
   <Contenedor class="pt-12 md:pt-14">
-    <a
-      href={rutaDe(locale, 'proyectos')}
-      class="mb-7 inline-flex items-center gap-2 text-[13.5px] text-texto-suave transition-colors hover:text-acento-texto dark:text-noche-cuerpo dark:hover:text-menta"
-    >
-      <span aria-hidden="true">←</span>
-      {t('proyectos.todosLosProyectos')}
-    </a>
+    {/*
+      Las migas sustituyen al «← Todos los proyectos»: hacen el mismo trabajo
+      —volver a la grilla— y además ponen a la vista la jerarquía que el
+      BreadcrumbList del JSON-LD ya declaraba sin contraparte visible.
+    */}
+    <nav aria-label={t('nav.migas')} class="mb-7">
+      <ol
+        class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13.5px] text-texto-suave dark:text-noche-cuerpo"
+      >
+        {
+          migas.map((miga, indice) => (
+            <li class="flex min-w-0 items-center gap-x-2">
+              {indice > 0 && <span aria-hidden="true">›</span>}
+              {miga.href ? (
+                <a
+                  href={miga.href}
+                  class="transition-colors hover:text-acento-texto dark:hover:text-menta"
+                >
+                  {miga.texto}
+                </a>
+              ) : (
+                /* `truncate` es solo visual: el título completo sigue entero en
+                   el DOM, que es lo que leen el rastreador y el lector de
+                   pantalla. Sin él, un título largo ocupaba tres renglones a
+                   360 px, más de lo que ocupaba el enlace al que sustituye. */
+                <span aria-current="page" class="truncate text-bosque dark:text-noche-texto">
+                  {miga.texto}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
 
-    <p
+    {/*
+      Una lista y no una cadena unida: son varias categorías, y el ` · ` es
+      separación visual, no parte de ningún nombre. El `<span>` con el punto
+      reproduce exactamente el texto que producía el `join(' · ')`.
+    */}
+    <ul
       class="inline-block rounded-full bg-acento/10 px-3 py-[5px] text-xs font-semibold text-profundo dark:bg-menta/12 dark:text-noche-enfasis"
     >
-      {datos.categoria.map((cat) => etiquetaCategoria(locale, cat)).join(' · ')}
-    </p>
+      {
+        datos.categoria.map((cat, indice) => (
+          <li class="inline">
+            {indice > 0 && <span aria-hidden="true">{' · '}</span>}
+            {etiquetaCategoria(locale, cat)}
+          </li>
+        ))
+      }
+    </ul>
 
     <h1
       class="mt-5 max-w-[860px] text-[34px] leading-[1.08] tracking-[-.025em] sm:text-[44px] lg:text-[56px]"
@@ -117,7 +179,7 @@ const markdownCaso = markdownDeCaso(locale, proyecto, site);
       datos.imagen_portada ? (
         <Image
           src={datos.imagen_portada}
-          alt=""
+          alt={datos.imagen_alt ?? ''}
           widths={[720, 1200]}
           sizes="(min-width: 1280px) 1120px, 100vw"
           loading="eager"
@@ -145,7 +207,20 @@ const markdownCaso = markdownDeCaso(locale, proyecto, site);
               {campo.etiqueta}
             </dt>
             <dd class="text-[14.5px] font-medium text-bosque dark:text-noche-texto">
-              {campo.valor}
+              {campo.lista ? (
+                <ul class="inline">
+                  {campo.lista.map((herramienta, indice) => (
+                    <li class="inline">
+                      {indice > 0 && <span aria-hidden="true">{', '}</span>}
+                      {herramienta}
+                    </li>
+                  ))}
+                </ul>
+              ) : campo.fecha ? (
+                <time datetime={campo.valor}>{campo.valor}</time>
+              ) : (
+                campo.valor
+              )}
             </dd>
           </div>
         ))
@@ -153,14 +228,30 @@ const markdownCaso = markdownDeCaso(locale, proyecto, site);
     </dl>
   </Contenedor>
 
-  {/* --- Copiar para LLM --- */}
+  {/* --- El caso en Markdown: copiarlo o abrirlo --- */}
   <Contenedor class="pt-6">
-    <BotonCopiarMarkdown
-      markdown={markdownCaso}
-      etiqueta={t('proyectos.copiarMarkdown')}
-      etiquetaCopiado={t('proyectos.copiarMarkdownListo')}
-      etiquetaError={t('proyectos.copiarMarkdownError')}
-    />
+    <div class="flex flex-wrap items-center gap-3">
+      <BotonCopiarMarkdown
+        markdown={markdownCaso}
+        etiqueta={t('proyectos.copiarMarkdown')}
+        etiquetaCopiado={t('proyectos.copiarMarkdownListo')}
+        etiquetaError={t('proyectos.copiarMarkdownError')}
+      />
+      {/*
+        Un enlace de verdad al mismo archivo que ya anunciaba el `rel="alternate"`
+        del head. Es `<a>` y no `<button>` a propósito: funciona sin JS, se abre
+        en pestaña nueva con el clic del medio y deja un enlace interno rastreable
+        hacia el .md. Va en la misma pestaña porque es un recurso del sitio y el
+        botón atrás devuelve al caso.
+      */}
+      <a
+        href={rutaMarkdown}
+        class="inline-flex shrink-0 items-center gap-2 rounded-full border border-borde-medio px-4 py-2.5 text-[13.5px] font-medium text-bosque transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-texto dark:hover:border-menta dark:hover:text-menta"
+      >
+        <Icono nombre="ojo" tamano={15} />
+        {t('proyectos.verMarkdown')}
+      </a>
+    </div>
   </Contenedor>
 
   {/* --- Cuerpo --- */}

@@ -10,6 +10,7 @@ destacado: true
 orden: 1
 resumen: "Capstone project with a real client: a complete experience strategy so a home automation company can stop depending on word of mouth. It included an interactive website, a trade fair stand proposal and a brand manual."
 imagen_portada: "../../../assets/proyectos/i-homotic-portada.png"
+imagen_alt: "i-Homotic logo in white on a midnight-blue background with green and violet glows: a stylised house above a square and, below it, the brand name with one letter turned into the same house silhouette."
 ---
 
 ## The context

@@ -10,6 +10,7 @@ destacado: true
 orden: 3
 resumen: "Proyecto de Design Thinking de punta a punta: de entrevistas con los equipos de formación a un prototipo de capacitación en realidad virtual que los operarios pueden usar sin abandonar su puesto de trabajo."
 imagen_portada: "../../../assets/proyectos/vr-capacitacion-alico-portada.png"
+imagen_alt: "Portada del caso sobre un fondo de plano técnico en azul claro, con retícula, guías punteadas y cotas: el título «PROYECTO DE PRÁCTICAS» en azul oscuro y, abajo a la derecha, el logotipo de alico en amarillo."
 ---
 
 ## El contexto

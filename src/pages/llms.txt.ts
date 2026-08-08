@@ -8,9 +8,17 @@
  * retire desaparece. Así no queda un archivo que envejece en silencio.
  */
 import type { APIRoute } from 'astro';
-import { SITIO, UBICACION } from '../config/sitio';
+import {
+  CV,
+  CV_IDIOMAS,
+  ENLACE_WHATSAPP,
+  SITIO,
+  UBICACION,
+  nombreArchivoCv,
+} from '../config/sitio';
 import { DEFAULT_LOCALE, LOCALES_ACTIVOS, NOMBRE_LOCALE, type Locale } from '../i18n/ui';
 import { rutaDe, useTranslations } from '../i18n/utils';
+import { rutaMarkdownDeCaso } from '../lib/markdown-caso';
 import { proyectosPorLocale } from '../lib/proyectos';
 import { absoluta, siteDe } from '../lib/seo';
 
@@ -36,13 +44,16 @@ async function bloqueDeLocale(site: URL, locale: Locale): Promise<string[]> {
     ),
   ];
 
+  // Cada caso apunta también a su propio Markdown: es el texto completo del
+  // estudio, sin HTML, para quien prefiera leerlo entero de una sola petición.
   const casos = proyectos.map((proyecto) => {
     const d = proyecto.data;
     const contexto = `${d.cliente} · ${d.año} · ${d.rol}`;
+    const md = absoluta(site, rutaMarkdownDeCaso(locale, d.slug));
     return entrada(
       d.titulo,
       absoluta(site, rutaDe(locale, 'proyectos', d.slug)),
-      `${contexto}. ${d.resumen}`,
+      `${contexto}. ${d.resumen} Texto completo en Markdown: ${md}`,
     );
   });
 
@@ -66,6 +77,14 @@ export const GET: APIRoute = async ({ site }) => {
     (locale) => `${NOMBRE_LOCALE[locale]} (${absoluta(base, rutaDe(locale))})`,
   ).join(', ');
 
+  // Los tres titulares de «Qué hago» de la portada, tal cual: es lo que el
+  // sitio ya declara como sus áreas, sin resumirlo ni reescribirlo aquí.
+  const areas = [
+    t('inicio.queHago.1.titulo'),
+    t('inicio.queHago.2.titulo'),
+    t('inicio.queHago.3.titulo'),
+  ].join(' · ');
+
   const lineas: string[] = [
     `# ${SITIO.autor} — ${t('inicio.h1.parte1')} ${t('inicio.h1.enfasis')}`,
     '',
@@ -78,7 +97,21 @@ export const GET: APIRoute = async ({ site }) => {
     `Idiomas del sitio: ${idiomas}. Los segmentos de las URL también están traducidos,` +
       ' así que /es/proyectos/ y /en/projects/ son la misma sección.',
     '',
-    `Contacto: ${SITIO.correo} · LinkedIn ${SITIO.linkedin}`,
+    `Áreas: ${areas}.`,
+    '',
+    `Contacto: ${SITIO.correo} · WhatsApp ${ENLACE_WHATSAPP} · LinkedIn ${SITIO.linkedin}`,
+    '',
+    // El CV se arma desde `CV`, que solo lista los PDF que existen de verdad:
+    // nunca aparecerá aquí un idioma sin archivo.
+    '## Hoja de vida',
+    '',
+    ...CV_IDIOMAS.map((idioma) =>
+      entrada(
+        nombreArchivoCv(idioma),
+        absoluta(base, CV[idioma] ?? ''),
+        `Currículum en PDF, versión en ${NOMBRE_LOCALE[idioma]}.`,
+      ),
+    ),
     '',
   ];
 

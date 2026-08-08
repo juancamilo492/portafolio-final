@@ -10,6 +10,7 @@ destacado: true
 orden: 2
 resumen: "Système de menu par QR code et panneau de gestion pour un bar réel : les clients consultent, le personnel de salle prend les commandes, et les gérantes voient les indicateurs de l’activité en temps réel."
 imagen_portada: "../../../assets/proyectos/industrial-portada.png"
+imagen_alt: "Logo du bar Industrial sur fond ivoire : le mot « INDUSTRIAL » en capitales noires condensées, dont le D allongé amorce aussi le mot « DRINK’S » en dessous, avec des bandes horizontales jaunes, orange et rouges qui traversent l’image."
 ---
 
 ## Le contexte

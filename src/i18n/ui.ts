@@ -67,6 +67,7 @@ export const ui = {
     'nav.selectorIdioma': 'Cambiar idioma',
     'nav.cambiarTema': 'Cambiar entre modo claro y oscuro',
     'nav.volverArriba': 'Volver arriba',
+    'nav.migas': 'Ruta de navegación',
     /*
      * El nombre accesible tiene que contener el texto que se ve —«ES» en el
      * selector de idioma, el nombre junto al logo— o quien navega por voz
@@ -146,7 +147,6 @@ export const ui = {
     'proyectos.anterior': 'Anterior',
     'proyectos.siguiente': 'Siguiente',
     'proyectos.relacionados': 'Proyectos relacionados',
-    'proyectos.todosLosProyectos': 'Todos los proyectos',
     'proyectos.contenido': 'Contenido',
     'proyectos.cliente': 'Cliente',
     'proyectos.anio': 'Año',
@@ -158,6 +158,7 @@ export const ui = {
     'proyectos.conteoUno': 'proyecto visible',
     'proyectos.conteoVarios': 'proyectos visibles',
     'proyectos.copiarMarkdown': 'Copiar para LLM',
+    'proyectos.verMarkdown': 'Ver como Markdown',
     'proyectos.copiarMarkdownListo': '¡Copiado!',
     'proyectos.copiarMarkdownError': 'No se pudo copiar',
     'proyectos.fuenteMarkdown': 'Fuente',
@@ -254,6 +255,7 @@ export const ui = {
     'nav.selectorIdioma': 'Change language',
     'nav.cambiarTema': 'Switch between light and dark mode',
     'nav.volverArriba': 'Back to top',
+    'nav.migas': 'Breadcrumb',
     'nav.irAlInicio': 'Juan Camilo Bolaños, go to homepage',
 
     'meta.inicio.titulo': 'Juan Camilo Bolaños — Interaction Designer and AI Systems Builder',
@@ -323,7 +325,6 @@ export const ui = {
     'proyectos.anterior': 'Previous',
     'proyectos.siguiente': 'Next',
     'proyectos.relacionados': 'Related projects',
-    'proyectos.todosLosProyectos': 'All projects',
     'proyectos.contenido': 'Contents',
     'proyectos.cliente': 'Client',
     'proyectos.anio': 'Year',
@@ -335,6 +336,7 @@ export const ui = {
     'proyectos.conteoUno': 'project shown',
     'proyectos.conteoVarios': 'projects shown',
     'proyectos.copiarMarkdown': 'Copy for LLM',
+    'proyectos.verMarkdown': 'View as Markdown',
     'proyectos.copiarMarkdownListo': 'Copied!',
     'proyectos.copiarMarkdownError': 'Could not copy',
     'proyectos.fuenteMarkdown': 'Source',
@@ -420,6 +422,7 @@ export const ui = {
     'nav.selectorIdioma': 'Changer de langue',
     'nav.cambiarTema': 'Basculer entre le mode clair et le mode sombre',
     'nav.volverArriba': 'Retour en haut',
+    'nav.migas': 'Fil d’Ariane',
     'nav.irAlInicio': 'Juan Camilo Bolaños, aller à l’accueil',
 
     'meta.inicio.titulo':
@@ -492,7 +495,6 @@ export const ui = {
     'proyectos.anterior': 'Précédent',
     'proyectos.siguiente': 'Suivant',
     'proyectos.relacionados': 'Projets liés',
-    'proyectos.todosLosProyectos': 'Tous les projets',
     'proyectos.contenido': 'Sommaire',
     'proyectos.cliente': 'Client',
     'proyectos.anio': 'Année',
@@ -505,6 +507,7 @@ export const ui = {
     'proyectos.conteoUno': 'projet affiché',
     'proyectos.conteoVarios': 'projets affichés',
     'proyectos.copiarMarkdown': 'Copier pour un LLM',
+    'proyectos.verMarkdown': 'Voir en Markdown',
     'proyectos.copiarMarkdownListo': 'Copié !',
     'proyectos.copiarMarkdownError': 'Échec de la copie',
     'proyectos.fuenteMarkdown': 'Source',

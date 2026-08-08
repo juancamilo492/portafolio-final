@@ -3,7 +3,7 @@ import Icono from './Icono.astro';
 import Logo from './Logo.astro';
 import MenuCV from './MenuCV.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
-import { linkedinDe, SITIO } from '../config/sitio';
+import { ENLACE_CORREO, ENLACE_WHATSAPP, linkedinDe, SITIO } from '../config/sitio';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
@@ -35,28 +35,66 @@ const enlaces = [
       <p class="mt-[18px] max-w-[280px] text-sm leading-relaxed font-light text-footer-suave">
         {t('footer.descripcion')}
       </p>
+
+      {/*
+        El correo y el número, escritos. Hasta ahora solo existían dentro del
+        `href` de los botones flotantes y de sus `aria-label`, así que quien
+        quisiera copiarlos —o cualquier lector automático que no siga enlaces—
+        no los encontraba en ninguna parte del texto de la página.
+      */}
+      <ul class="mt-5 flex flex-col items-start gap-2.5">
+        <li>
+          <a
+            href={ENLACE_CORREO}
+            class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"
+          >
+            <Icono nombre="correo" tamano={14} />
+            {SITIO.correo}
+          </a>
+        </li>
+        <li>
+          <a
+            href={ENLACE_WHATSAPP}
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"
+          >
+            <Icono nombre="whatsapp" tamano={14} />
+            {SITIO.whatsappVisible}
+          </a>
+        </li>
+      </ul>
     </div>
 
-    <nav class="flex flex-col gap-3" aria-label={t('footer.navegacion')}>
+    <nav aria-label={t('footer.navegacion')}>
       <span class="text-[11.5px] tracking-[.13em] text-footer-suave uppercase">
         {t('footer.navegacion')}
       </span>
-      {
-        enlaces.map((enlace) => (
-          <a href={enlace.href} class="text-sm text-footer-enlace transition-colors hover:text-menta">
-            {enlace.texto}
+      <ul class="mt-3 flex flex-col gap-3">
+        {
+          enlaces.map((enlace) => (
+            <li>
+              <a
+                href={enlace.href}
+                class="text-sm text-footer-enlace transition-colors hover:text-menta"
+              >
+                {enlace.texto}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a
+            href={linkedinDe(locale)}
+            rel="me noopener"
+            target="_blank"
+            class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"
+          >
+            <Icono nombre="linkedin" tamano={14} />
+            LinkedIn
           </a>
-        ))
-      }
-      <a
-        href={linkedinDe(locale)}
-        rel="me noopener"
-        target="_blank"
-        class="flex items-center gap-2 text-sm text-footer-enlace transition-colors hover:text-menta"
-      >
-        <Icono nombre="linkedin" tamano={14} />
-        LinkedIn
-      </a>
+        </li>
+      </ul>
     </nav>
 
     <div class="flex flex-col items-start gap-3.5">

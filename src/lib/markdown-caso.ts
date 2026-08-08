@@ -12,6 +12,17 @@ import type { Locale } from '../i18n/ui';
 import { rutaDe, useTranslations } from '../i18n/utils';
 import { absoluta } from './seo';
 
+/**
+ * URL de la versión en Markdown de un caso: `/es/proyectos/industrial.md`.
+ *
+ * Una sola fuente para las tres cosas que tienen que coincidir: el endpoint que
+ * la genera, el `rel="alternate"` que la anuncia desde el HTML y el enlace de
+ * llms.txt. No colisiona con `/es/proyectos/industrial/`, que es un directorio.
+ */
+export function rutaMarkdownDeCaso(locale: Locale, slug: string): string {
+  return `${rutaDe(locale, 'proyectos', slug).replace(/\/$/, '')}.md`;
+}
+
 export function markdownDeCaso(
   locale: Locale,
   proyecto: CollectionEntry<'proyectos'>,

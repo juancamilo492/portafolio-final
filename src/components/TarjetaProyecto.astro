@@ -46,7 +46,7 @@ const {
 
 const Titulo = `h${nivel}` as const;
 const t = useTranslations(locale);
-const { titulo, resumen, categoria, imagen_portada } = proyecto.data;
+const { titulo, resumen, categoria, imagen_portada, imagen_alt } = proyecto.data;
 
 const alturas = {
   destacada: 'h-[200px]',
@@ -85,11 +85,12 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
 >
   {
     imagen_portada ? (
-      // `alt` vacío a propósito: la imagen es decorativa, el título del
-      // enlace que va justo debajo ya nombra el caso.
+      // El `alt` sale del frontmatter, que lo tiene escrito por idioma. Sin él
+      // la portada vuelve a ser decorativa (`alt=""`): el título del enlace que
+      // va justo debajo ya nombra el caso, así que nunca queda sin nombrar.
       <Image
         src={imagen_portada}
-        alt=""
+        alt={imagen_alt ?? ''}
         widths={[400, 800]}
         sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
         loading={prioritaria ? 'eager' : 'lazy'}

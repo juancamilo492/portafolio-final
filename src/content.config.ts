@@ -54,6 +54,15 @@ const proyectos = defineCollection({
       // Ruta relativa al .md, procesada por astro:assets. Opcional: un caso
       // sin portada cae en el marco `PozoImagen` en vez de romper el build.
       imagen_portada: image().optional(),
+      /*
+       * Texto alternativo de la portada. Va por idioma y no compartido: tres
+       * de las cinco portadas llevan texto, y por eso existen las variantes
+       * `-portada-en.png` y `-portada-fr.png`. Describir en español una imagen
+       * cuyo texto está en francés sería describir otra imagen.
+       * Opcional: sin él la portada va con `alt=""` y se trata como decorativa,
+       * que es lo correcto mientras nadie la haya mirado para describirla.
+       */
+      imagen_alt: z.string().optional(),
       // Ordena destacados en el inicio y la navegación anterior/siguiente.
       orden: z.number().int().positive(),
       // Opcional: cita destacada de la plantilla de caso.

@@ -46,23 +46,30 @@ const enlaces = [
     </a>
 
     <div class="flex items-center gap-2 md:gap-[34px]">
-      <nav aria-label={t('nav.navegacionPrincipal')} class="hidden items-center gap-[34px] md:flex">
-        {
-          enlaces.map((enlace) => (
-            <a
-              href={enlace.href}
-              aria-current={activa === enlace.clave ? 'page' : undefined}
-              class:list={[
-                'py-1 text-sm font-medium transition-colors hover:text-acento-texto dark:hover:text-menta',
-                activa === enlace.clave
-                  ? 'text-acento-texto dark:text-menta'
-                  : 'text-bosque dark:text-noche-texto',
-              ]}
-            >
-              {enlace.texto}
-            </a>
-          ))
-        }
+      {/* Los enlaces van en una lista: son una serie de destinos hermanos, y
+          así se anuncian con su número. La utilidad flex se mudó al <ul>, de
+          modo que lo que se ve es exactamente lo mismo. */}
+      <nav aria-label={t('nav.navegacionPrincipal')} class="hidden md:block">
+        <ul class="flex items-center gap-[34px]">
+          {
+            enlaces.map((enlace) => (
+              <li>
+                <a
+                  href={enlace.href}
+                  aria-current={activa === enlace.clave ? 'page' : undefined}
+                  class:list={[
+                    'block py-1 text-sm font-medium transition-colors hover:text-acento-texto dark:hover:text-menta',
+                    activa === enlace.clave
+                      ? 'text-acento-texto dark:text-menta'
+                      : 'text-bosque dark:text-noche-texto',
+                  ]}
+                >
+                  {enlace.texto}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </nav>
 
       <div

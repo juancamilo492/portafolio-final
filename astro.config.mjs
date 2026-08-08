@@ -80,6 +80,10 @@ export default defineConfig({
       filter: (pagina) =>
         !/\/(robots\.txt|llms\.txt)$/.test(pagina) &&
         !pagina.includes('/og/') &&
+        // Los .md de cada caso son una representación alternativa del mismo
+        // contenido, no una página aparte: la indexable es su HTML, que ya los
+        // anuncia con `rel="alternate"`. Listarlos sería contenido duplicado.
+        !/\.md$/.test(pagina) &&
         // Las 404 por idioma se generan como páginas, pero llevan `noindex` y
         // no son un resultado de búsqueda: no tienen nada que hacer aquí.
         !/\/404\/?$/.test(pagina),

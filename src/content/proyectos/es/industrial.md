@@ -10,6 +10,7 @@ destacado: true
 orden: 2
 resumen: "Sistema de menú por QR y panel de gestión para un bar real: los clientes consultan, los meseros ordenan, y las administradoras ven métricas del negocio en tiempo real."
 imagen_portada: "../../../assets/proyectos/industrial-portada.png"
+imagen_alt: "Logotipo del bar Industrial sobre fondo hueso: la palabra «INDUSTRIAL» en mayúsculas negras condensadas, con la D alargada que también encabeza la palabra «DRINK’S» de abajo, y franjas horizontales amarillas, naranjas y rojas que cruzan la imagen."
 ---
 
 ## El contexto

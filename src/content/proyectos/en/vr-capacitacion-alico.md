@@ -10,6 +10,7 @@ destacado: true
 orden: 3
 resumen: "An end-to-end Design Thinking project: from interviews with the training teams to a virtual reality training prototype that operators can use without leaving their workstation."
 imagen_portada: "../../../assets/proyectos/vr-capacitacion-alico-portada-en.png"
+imagen_alt: "Case cover on a pale blue technical-drawing background of grids, dotted guides and dimension marks: the title “INTERNSHIP PROJECT” in dark blue and, bottom right, the alico logo in yellow."
 ---
 
 ## The context
