@@ -9,6 +9,13 @@
  * Escape, flechas, aria-expanded) en lugar de duplicar esa lógica — incluida
  * su decisión de no declarar `aria-haspopup`: lo que se abre es una lista de
  * enlaces de descarga, no un menú con `role="menu"`.
+ *
+ * `variante="claro"` es para el pie: el botón vive sobre el verde profundo
+ * (`bg-profundo`) sin importar el tema del sitio, así que usa el mismo
+ * patrón que `claro-contorno` de Boton.astro en vez de los tokens de
+ * `variante="normal"`, pensados para una superficie clara. El panel del
+ * menú no cambia: sigue los tokens de tema normales, como cualquier
+ * desplegable que flota sobre el fondo oscuro del pie.
  */
 import Icono from './Icono.astro';
 import { useTranslations } from '../i18n/utils';
@@ -17,18 +24,30 @@ import { NOMBRE_LOCALE, type Locale } from '../i18n/ui';
 
 interface Props {
   locale: Locale;
+  variante?: 'normal' | 'claro';
 }
 
-const { locale } = Astro.props;
+const { locale, variante = 'normal' } = Astro.props;
 const t = useTranslations(locale);
-const id = 'menu-cv';
+/*
+ * El pie repite este componente en toda página que ya trae un `MenuCV` en el
+ * cuerpo (inicio, Sobre mí): dos instancias con el mismo id romperían el
+ * `aria-controls` de una de las dos. La variante ya es única por página, así
+ * que basta para diferenciarlas sin generar un id al azar.
+ */
+const id = variante === 'claro' ? 'menu-cv-pie' : 'menu-cv';
 
 // El idioma actual primero: es el PDF que casi siempre se busca.
 const idiomas = [...CV_IDIOMAS].sort((a, b) => Number(b === locale) - Number(a === locale));
 const unico = idiomas.length < 2 ? cvDe(locale) : undefined;
 
-const estiloBoton =
-  'inline-flex items-center gap-[9px] rounded-full border border-dashed border-borde-fuerte px-[22px] py-[15px] text-[14.5px] font-semibold text-profundo transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta';
+const variantes = {
+  normal:
+    'border-borde-fuerte text-profundo hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-titulo dark:hover:border-menta dark:hover:text-menta',
+  claro: 'border-borde-claro-fuerte text-fondo hover:border-menta hover:text-menta',
+};
+
+const estiloBoton = `inline-flex items-center gap-[9px] rounded-full border border-dashed px-[22px] py-[15px] text-[14.5px] font-semibold transition-colors ${variantes[variante]}`;
 ---
 
 {
