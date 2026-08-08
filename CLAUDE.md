@@ -600,6 +600,15 @@ Decisiones de FASE 9 (ajuste de contenido) que no hay que revertir:
   lateral, que se regenera solo.
 - Ningún dato cambió: las cifras, las citas, las limitaciones reportadas y los
   aprendizajes son los mismos. Solo cambió quién parece haber hecho qué.
+- **El PDF del CV se descarga con nombre legible**, «Juan Camilo Bolaños - CV
+  (Español).pdf», vía el atributo `download` y `nombreArchivoCv()` de
+  `src/config/sitio.ts`. La URL se queda en minúsculas y con guiones, que es lo
+  que corresponde a una dirección: el nombre bonito solo existe al guardar.
+  Empieza por el nombre porque quien descarga varios CV los agrupa por persona.
+  El idioma sale de `NOMBRE_LOCALE`, así que un idioma nuevo queda cubierto solo.
+  Las etiquetas visibles («Descargar CV», «Idioma del CV», y los idiomas del
+  menú en su propia lengua) se revisaron y **se dejaron como estaban**: decisión
+  de Juan Camilo el 7 de agosto de 2026.
 
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
@@ -607,12 +616,13 @@ Pendientes conocidos, además de las fases:
   y=171 a y=829: el logo sale cortado ahí y en la tarjeta de relacionados.
   Se arregla en Canva subiendo el logo — todo el contenido debe caber entre
   y=170 y y=830 —, no en el código.
-- CV en inglés y en francés. Se guardan en `public/cv/` con el nombre
-  `juan-camilo-bolanos-<locale>.pdf` (`-en.pdf`, `-fr.pdf`) y hay que añadir su
-  línea al objeto `CV` de `src/config/sitio.ts` — es la única fuente de esa
-  lista y solo debe listar PDFs que existan, para no ofrecer nunca un enlace
-  roto. Con la segunda entrada `MenuCV` vuelve solo a ser desplegable, sin
-  tocar el componente.
+- ~~CV en inglés~~ publicado el 7 de agosto de 2026, junto con el español al día
+  (francés B1). Falta el **CV en francés**: se guarda en `public/cv/` como
+  `juan-camilo-bolanos-fr.pdf` y se añade su línea al objeto `CV` de
+  `src/config/sitio.ts`, que es la única fuente de esa lista y solo debe listar
+  PDFs que existan, para no ofrecer nunca un enlace roto. Mientras tanto
+  `cvDe('fr')` cae al español. Con la segunda entrada `MenuCV` volvió solo a ser
+  desplegable, sin tocar el componente.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - El caso `abuelos-nietos` y su portada.
 - Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido, y

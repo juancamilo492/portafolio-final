@@ -2,7 +2,7 @@
  * Datos fijos del sitio y de contacto.
  * Confirmados por Juan Camilo el 6 de agosto de 2026, antes de publicar.
  */
-import { DEFAULT_LOCALE, LOCALES_ACTIVOS, type Locale } from '../i18n/ui';
+import { DEFAULT_LOCALE, LOCALES_ACTIVOS, NOMBRE_LOCALE, type Locale } from '../i18n/ui';
 
 export const SITIO = {
   autor: 'Juan Camilo Bolaños',
@@ -55,4 +55,17 @@ export const CV_IDIOMAS = LOCALES_ACTIVOS.filter((locale) => CV[locale]);
 export function cvDe(locale: Locale): { href: string; idioma: Locale } {
   const idioma = CV[locale] ? locale : (CV_IDIOMAS[0] ?? DEFAULT_LOCALE);
   return { href: CV[idioma] ?? '', idioma };
+}
+
+/**
+ * El nombre con el que se guarda el PDF, vía el atributo `download`.
+ *
+ * La URL se queda en minúsculas y con guiones, que es lo que corresponde a una
+ * dirección; el nombre legible solo aparece al guardar. Empieza por el nombre
+ * porque quien descarga varios CV los agrupa por persona, no por tipo de
+ * documento. El idioma va en su propia lengua, igual que en el menú, y sale de
+ * `NOMBRE_LOCALE`: un idioma nuevo queda cubierto sin tocar esto.
+ */
+export function nombreArchivoCv(idioma: Locale): string {
+  return `${SITIO.autor} - CV (${NOMBRE_LOCALE[idioma]}).pdf`;
 }

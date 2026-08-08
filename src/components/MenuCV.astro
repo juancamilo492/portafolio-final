@@ -12,7 +12,7 @@
  */
 import Icono from './Icono.astro';
 import { useTranslations } from '../i18n/utils';
-import { CV, CV_IDIOMAS, cvDe } from '../config/sitio';
+import { CV, CV_IDIOMAS, cvDe, nombreArchivoCv } from '../config/sitio';
 import { NOMBRE_LOCALE, type Locale } from '../i18n/ui';
 
 interface Props {
@@ -33,7 +33,12 @@ const estiloBoton =
 
 {
   unico ? (
-    <a href={unico.href} download hreflang={unico.idioma} class={estiloBoton}>
+    <a
+      href={unico.href}
+      download={nombreArchivoCv(unico.idioma)}
+      hreflang={unico.idioma}
+      class={estiloBoton}
+    >
       <Icono nombre="descargar" tamano={15} />
       {t('contacto.cv')}
       {/* El código del idioma evita la sorpresa de bajar un PDF en otra lengua. */}
@@ -65,7 +70,7 @@ const estiloBoton =
         {idiomas.map((idioma) => (
           <a
             href={CV[idioma]}
-            download
+            download={nombreArchivoCv(idioma)}
             hreflang={idioma}
             class="flex items-center justify-between gap-3 rounded-[9px] px-3 py-2 text-sm text-texto-cuerpo transition-colors hover:bg-acento/10 hover:text-profundo dark:text-noche-cuerpo dark:hover:text-noche-titulo"
           >
