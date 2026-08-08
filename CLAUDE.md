@@ -649,6 +649,48 @@ Decisiones de FASE 10 (CV en tres idiomas) que no hay que revertir:
   para comprobar que el francés dice B2 y que el PDF francés está en francés.
   Se toma la palabra de Juan Camilo, que los actualizó en el mismo momento.
 
+Comprobado en producción el 8 de agosto de 2026, con el sitio ya publicado en
+Cloudflare Pages (cierra los puntos 1 a 5 de FASE 8 salvo el compartido en
+WhatsApp/LinkedIn, que hay que hacer a mano):
+- `/` devuelve **302 a `/es/`** de verdad, no el `meta refresh`: `_redirects`
+  funciona. `/loquesea`, `/es/loquesea`, `/fr/loquesea` y `/en/loquesea`
+  devuelven **estado 404** con el `<html lang>` correcto de cada idioma, así
+  que la integración `cuatro-cero-cuatro-por-idioma` acertó.
+- `public/_headers` **llega entero**: `/_astro/` con
+  `max-age=31536000, immutable`, las tarjetas OG con `max-age=86400`, los `.md`
+  con `text/markdown; charset=utf-8` y `X-Robots-Tag: noindex`, y `nosniff`,
+  `Referrer-Policy` y `X-Frame-Options` en todo. **El `charset` de los `.md`
+  funciona**: los acentos salen bien publicados aunque en `astro preview` se
+  vean rotos.
+- `robots.txt`, `llms.txt` y `sitemap-index.xml` accesibles, con las 24 URL
+  absolutas al dominio real. JSON-LD íntegro: los 36 `knowsAbout` y el resto.
+- Lighthouse **sobre el dominio**: Performance 91-97, Accessibility 100, Best
+  Practices 100 y SEO 100. Es más bajo que en `preview` (97-99) porque mide con
+  la red real y la 4G simulada; no hay ninguna oportunidad con ahorro > 100 ms,
+  CLS 0 y TBT 0 ms. El 91 de la portada es LCP 3,2 s, latencia y no código.
+- El HTML se sirve con `Cache-Control: public, max-age=14400, must-revalidate`,
+  no solo con `must-revalidate` como se suponía: son 4 horas en las que un
+  visitante que vuelve puede ver el HTML anterior. Lo pone Pages, no
+  `_headers`.
+
+**Dos cosas las decide el panel de Cloudflare, no el repositorio:**
+- **La ofuscación de correo de Scrape Shield está activada** y reescribía los
+  tres `mailto:` a `/cdn-cgi/l/email-protection#<hex>` y el texto del pie a
+  «[email protected]». Es decir, el correo que se puso a la vista para que lo
+  leyera un ATS solo existía tras ejecutar el script de Cloudflare. Resuelto
+  desde el código con `<!--email_off-->` en `Footer`, `BotonesFlotantes` y
+  `BloqueCTA`; el resto del sitio sigue protegido. **No se ve en local.**
+- **El robots.txt gestionado de Cloudflare antepone su propio bloque** al que
+  genera `src/pages/robots.txt.ts`, y ese bloque trae `Disallow: /` para
+  Amazonbot, Applebot-Extended, Bytespider, CCBot, **ClaudeBot**,
+  CloudflareBrowserRenderingCrawler, **Google-Extended**, **GPTBot** y
+  meta-externalagent, más un `Content-Signal: search=yes,ai-train=no`.
+  Googlebot y Bingbot **no** están bloqueados, así que la indexación en
+  buscadores no se toca. Pero los rastreadores de modelos sí, y eso deja sin
+  efecto para ellos el `llms.txt`, los `.md` y el `knowsAbout`. **Editar
+  `robots.txt.ts` no sirve: el bloque se inyecta por encima.** Se quita en el
+  panel del dominio, y es decisión de Juan Camilo.
+
 Decisiones de FASE 11 (capa técnica para ATS, crawlers y agentes) que no hay
 que revertir:
 - **El sitio describía bien sus páginas y mal a su autor.** Ese era el hueco:
