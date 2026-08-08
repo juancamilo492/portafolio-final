@@ -94,7 +94,10 @@
   --shadow-menu: 0 20px 44px -24px rgb(0 83 72 / 0.6);
   --shadow-flotante: 0 10px 26px -14px rgb(0 83 72 / 0.7);
   --shadow-flotante-noche: 0 10px 26px -14px rgb(0 0 0 / 0.8);
-  --shadow-whatsapp: 0 12px 30px -12px rgb(0 189 123 / 0.95);
+  /* Halo del botón flotante principal. Se llamaba `shadow-whatsapp` hasta
+     FASE 12, cuando el correo pasó a ser ese botón: el nombre describía al
+     inquilino y no a la caja. */
+  --shadow-contacto: 0 12px 30px -12px rgb(0 189 123 / 0.95);
 
   /* --- Contenedor --- */
   --container-sitio: 1200px;

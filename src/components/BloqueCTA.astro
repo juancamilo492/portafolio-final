@@ -77,22 +77,29 @@ const completo = variante === 'completo';
         completo ? 'mt-8 justify-center' : 'justify-start',
       ]}
     >
+      {/*
+        El correo va primero y en la variante sólida desde FASE 12: el sitio
+        se dirige a quien recluta, y ese canal es el correo. El WhatsApp sigue
+        ahí para un cliente que prefiera escribir por ahí, pero de segundo.
+        No se cambió ningún token: los dos botones se intercambiaron entre sí.
+        Ver la nota de `email_off` en Footer.astro.
+      */}
+      <!--email_off-->
+      <Boton href={ENLACE_CORREO} tamano={completo ? 'md' : 'sm'}>
+        <Icono nombre="correo" tamano={16} />
+        {t('cta.correo')}
+      </Boton>
+      <!--email_on-->
       <Boton
         href={ENLACE_WHATSAPP}
         target="_blank"
         rel="noopener"
+        variante="claro-contorno"
         tamano={completo ? 'md' : 'sm'}
       >
         <Icono nombre="whatsapp" tamano={16} />
         {t('cta.whatsapp')}
       </Boton>
-      {/* Ver la nota de `email_off` en Footer.astro. */}
-      <!--email_off-->
-      <Boton href={ENLACE_CORREO} variante="claro-contorno" tamano={completo ? 'md' : 'sm'}>
-        <Icono nombre="correo" tamano={16} />
-        {t('cta.correo')}
-      </Boton>
-      <!--email_on-->
     </div>
 
     {

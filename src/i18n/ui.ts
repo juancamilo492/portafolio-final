@@ -94,7 +94,7 @@ export const ui = {
     'meta.ogAlt': 'Tarjeta de «{titulo}» en el portafolio de Juan Camilo Bolaños',
 
     // --- Inicio ---
-    'inicio.badge': 'Disponible para proyectos',
+    'inicio.badge': 'Abierto a nuevas oportunidades',
     'inicio.h1.parte1': 'Diseñador de Interacción y',
     'inicio.h1.enfasis': 'Creador de Sistemas de IA',
     'inicio.subtitulo':
@@ -132,8 +132,8 @@ export const ui = {
 
     // --- CTA de contacto ---
     'cta.titulo': '¿Trabajamos juntos?',
-    'cta.apoyo': 'Cuéntame qué necesitas y te respondo el mismo día.',
-    'cta.apoyoCompacto': 'Escríbeme por WhatsApp o correo.',
+    'cta.apoyo': 'Escríbeme y te respondo el mismo día.',
+    'cta.apoyoCompacto': 'Escríbeme por correo o WhatsApp.',
     'cta.whatsapp': 'WhatsApp',
     'cta.correo': 'Correo',
     'cta.volverArriba': 'Volver arriba',
@@ -273,7 +273,7 @@ export const ui = {
     'meta.ogAlt': 'Card for “{titulo}” on Juan Camilo Bolaños’ portfolio',
 
     // --- Home ---
-    'inicio.badge': 'Available for projects',
+    'inicio.badge': 'Open to new opportunities',
     'inicio.h1.parte1': 'Interaction Designer and',
     'inicio.h1.enfasis': 'AI Systems Builder',
     'inicio.subtitulo': 'I design and automate experiences that connect people, tools and data.',
@@ -310,8 +310,8 @@ export const ui = {
 
     // --- Contact CTA ---
     'cta.titulo': 'Shall we work together?',
-    'cta.apoyo': 'Tell me what you need and I will reply the same day.',
-    'cta.apoyoCompacto': 'Write to me on WhatsApp or by email.',
+    'cta.apoyo': 'Write to me and I will reply the same day.',
+    'cta.apoyoCompacto': 'Write to me by email or on WhatsApp.',
     'cta.whatsapp': 'WhatsApp',
     'cta.correo': 'Email',
     'cta.volverArriba': 'Back to top',
@@ -441,7 +441,7 @@ export const ui = {
     'meta.ogAlt': 'Carte de « {titulo} » dans le portfolio de Juan Camilo Bolaños',
 
     // --- Accueil ---
-    'inicio.badge': 'Disponible pour vos projets',
+    'inicio.badge': 'Ouvert à de nouvelles opportunités',
     'inicio.h1.parte1': 'Designer d’interaction et',
     'inicio.h1.enfasis': 'créateur de systèmes d’IA',
     'inicio.subtitulo':
@@ -480,8 +480,8 @@ export const ui = {
 
     // --- Appel au contact ---
     'cta.titulo': 'On travaille ensemble ?',
-    'cta.apoyo': 'Dites-moi ce dont vous avez besoin et je vous réponds le jour même.',
-    'cta.apoyoCompacto': 'Écrivez-moi sur WhatsApp ou par e-mail.',
+    'cta.apoyo': 'Écrivez-moi et je vous réponds le jour même.',
+    'cta.apoyoCompacto': 'Écrivez-moi par e-mail ou sur WhatsApp.',
     'cta.whatsapp': 'WhatsApp',
     'cta.correo': 'E-mail',
     'cta.volverArriba': 'Retour en haut',

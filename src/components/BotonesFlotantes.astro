@@ -13,24 +13,31 @@ const t = useTranslations(locale);
 ---
 
 <div class="fixed right-4 bottom-4 z-60 flex flex-col gap-3 md:right-[26px] md:bottom-[26px]">
+  {/*
+    Los dos botones se intercambiaron en FASE 12: el correo pasó al de abajo,
+    que es el grande y el de color, y el WhatsApp al de arriba. En una pila
+    anclada a la esquina el de abajo es el prominente, y el canal principal de
+    quien busca empleo es el correo. No se tocó ningún token ni ninguna
+    medida: son las mismas dos cajas con el contenido cambiado de sitio.
+  */}
+  <a
+    href={ENLACE_WHATSAPP}
+    target="_blank"
+    rel="noopener"
+    aria-label={t('contacto.whatsapp')}
+    class="grid size-[46px] place-items-center rounded-full border border-borde-medio bg-superficie text-profundo shadow-flotante transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche-fuerte dark:bg-noche-flotante dark:text-noche-enfasis dark:shadow-flotante-noche dark:hover:text-menta"
+  >
+    <Icono nombre="whatsapp" tamano={20} />
+  </a>
   {/* Ver la nota de `email_off` en Footer.astro: sin esto Cloudflare cambia el
       `mailto:` por un enlace que solo funciona con su JavaScript. */}
   <!--email_off-->
   <a
     href={ENLACE_CORREO}
     aria-label={t('contacto.correo')}
-    class="grid size-[46px] place-items-center rounded-full border border-borde-medio bg-superficie text-profundo shadow-flotante transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche-fuerte dark:bg-noche-flotante dark:text-noche-enfasis dark:shadow-flotante-noche dark:hover:text-menta"
+    class="grid size-[52px] place-items-center rounded-full bg-acento text-sobre-acento shadow-contacto transition-colors hover:bg-menta"
   >
-    <Icono nombre="correo" tamano={18} />
+    <Icono nombre="correo" tamano={22} />
   </a>
   <!--email_on-->
-  <a
-    href={ENLACE_WHATSAPP}
-    target="_blank"
-    rel="noopener"
-    aria-label={t('contacto.whatsapp')}
-    class="grid size-[52px] place-items-center rounded-full bg-acento text-sobre-acento shadow-whatsapp transition-colors hover:bg-menta"
-  >
-    <Icono nombre="whatsapp" tamano={24} />
-  </a>
 </div>

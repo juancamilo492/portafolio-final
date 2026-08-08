@@ -649,6 +649,39 @@ Decisiones de FASE 10 (CV en tres idiomas) que no hay que revertir:
   para comprobar que el francés dice B2 y que el PDF francés está en francés.
   Se toma la palabra de Juan Camilo, que los actualizó en el mismo momento.
 
+Decisiones de FASE 12 (el sitio se dirige a quien recluta) que no hay que
+revertir:
+- **El portafolio leía como el de un freelance y el objetivo es empleo formal.**
+  La insignia decía «Disponible para proyectos» —en francés, «Disponible pour
+  vos projets»—, el CTA prometía «Cuéntame qué necesitas y te respondo el mismo
+  día», que es lenguaje de proveedor de servicios, y el WhatsApp era el botón
+  grande y verde de la esquina. Un reclutador que ve eso en alguien recién
+  graduado lee «va a usar el empleo de puente». Decisión de Juan Camilo el 8 de
+  agosto de 2026.
+- **El trabajo con clientes NO se tocó y no hay que tocarlo.** Tener clientes
+  reales recién graduado es una ventaja, no un problema. Lo que se cambió es el
+  marco de disponibilidad, que es otra cosa: la portada habla de empleo y los
+  casos siguen hablando de clientes. Un cliente que llega a un portafolio
+  escribe igual; un reclutador necesita saber que estás disponible para un
+  puesto. Por eso `inicio.pruebaSocial`, `meta.inicio.descripcion` y el campo
+  `Cliente` de la barra de contexto se quedaron como estaban.
+- Tres cadenas por idioma, nueve en total: `inicio.badge` («Abierto a nuevas
+  oportunidades», que es la fórmula de LinkedIn y un reclutador la reconoce sin
+  pensar), `cta.apoyo` (sin el «cuéntame qué necesitas») y `cta.apoyoCompacto`
+  (el correo antes que el WhatsApp).
+- **Los dos pares de botones se intercambiaron entre sí, no se rediseñaron.**
+  En el bloque de CTA el correo pasó a primero y a la variante `solido`; en los
+  flotantes pasó al de abajo, que en una pila anclada a la esquina es el
+  prominente. Mismas cajas, mismos tokens, mismas medidas: solo cambió qué
+  canal ocupa cada una. El canal principal de quien busca empleo es el correo,
+  no el WhatsApp.
+- `--shadow-whatsapp` pasó a `--shadow-contacto`: el nombre describía al
+  inquilino y no a la caja, y ahora esa caja la ocupa el correo.
+- El teléfono **se queda**. Se evaluó quitarlo entero por exposición (queda
+  legible por máquina en el pie, en `telephone` del JSON-LD y en `llms.txt`) y
+  Juan Camilo decidió conservarlo el 8 de agosto de 2026. Lo que cambió es su
+  prominencia, no su presencia.
+
 Comprobado en producción el 8 de agosto de 2026, con el sitio ya publicado en
 Cloudflare Pages (cierra los puntos 1 a 5 de FASE 8 salvo el compartido en
 WhatsApp/LinkedIn, que hay que hacer a mano):
