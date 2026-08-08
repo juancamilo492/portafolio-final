@@ -216,7 +216,7 @@ export const ui = {
     'sobreMi.idiomas': 'Idiomas',
     'sobreMi.idiomas.es': 'Español — nativo',
     'sobreMi.idiomas.en': 'Inglés — C1',
-    'sobreMi.idiomas.fr': 'Francés — B1',
+    'sobreMi.idiomas.fr': 'Francés — B2',
     'sobreMi.idiomas.de': 'Alemán — A2, en aprendizaje',
 
     // --- Contacto ---
@@ -378,7 +378,7 @@ export const ui = {
     'sobreMi.idiomas': 'Languages',
     'sobreMi.idiomas.es': 'Spanish — native',
     'sobreMi.idiomas.en': 'English — C1',
-    'sobreMi.idiomas.fr': 'French — B1',
+    'sobreMi.idiomas.fr': 'French — B2',
     'sobreMi.idiomas.de': 'German — A2, learning',
 
     // --- Contact ---
@@ -544,7 +544,7 @@ export const ui = {
     'sobreMi.idiomas': 'Langues',
     'sobreMi.idiomas.es': 'Espagnol — langue maternelle',
     'sobreMi.idiomas.en': 'Anglais — C1',
-    'sobreMi.idiomas.fr': 'Français — B1',
+    'sobreMi.idiomas.fr': 'Français — B2',
     'sobreMi.idiomas.de': 'Allemand — A2, en cours d’apprentissage',
 
     // --- Contact ---

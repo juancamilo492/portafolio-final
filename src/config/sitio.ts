@@ -39,13 +39,14 @@ export function linkedinDe(locale: Locale): string {
 
 /**
  * PDFs del CV. Solo se listan los que existen en `public/cv/`: un idioma sin
- * PDF no debe aparecer en el menú de descarga ofreciendo un enlace roto. Falta
- * el francés; mientras tanto `cvDe('fr')` cae al español, que es el primero de
- * la lista.
+ * PDF no debe aparecer en el menú de descarga ofreciendo un enlace roto. Los
+ * tres idiomas activos ya tienen el suyo; el alemán caería al español, que es
+ * el primero de la lista, hasta que exista su PDF.
  */
 export const CV: Partial<Record<Locale, string>> = {
   es: '/cv/juan-camilo-bolanos-es.pdf',
   en: '/cv/juan-camilo-bolanos-en.pdf',
+  fr: '/cv/juan-camilo-bolanos-fr.pdf',
 };
 
 /** Idiomas con PDF disponible, en el orden de `LOCALES_ACTIVOS`. */

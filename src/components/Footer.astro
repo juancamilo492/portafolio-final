@@ -2,7 +2,7 @@
 import Icono from './Icono.astro';
 import Logo from './Logo.astro';
 import { rutaDe, useTranslations, type Alternativa } from '../i18n/utils';
-import { cvDe, linkedinDe, SITIO } from '../config/sitio';
+import { cvDe, linkedinDe, nombreArchivoCv, SITIO } from '../config/sitio';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
@@ -65,7 +65,7 @@ const enlaces = [
       </span>
       <a
         href={cv.href}
-        download
+        download={nombreArchivoCv(cv.idioma)}
         hreflang={cv.idioma}
         class="inline-flex items-center gap-2 rounded-full border border-borde-claro-fuerte px-5 py-[11px] text-[13.5px] font-semibold text-fondo transition-colors hover:border-menta hover:text-menta"
       >
