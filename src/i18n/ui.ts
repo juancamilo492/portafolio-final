@@ -112,22 +112,22 @@ export const ui = {
     'inicio.queHago': 'Qué hago',
     'inicio.queHago.1.titulo': 'Diseño de interacción y UX/UI',
     'inicio.queHago.1.texto':
-      'Interfaces claras, probadas con usuarios reales y listas para construir.',
-    'inicio.queHago.2.titulo': 'Automatización e IA aplicada',
+      'Investigación con usuarios, arquitectura de información e interfaces probadas antes de construirse.',
+    'inicio.queHago.2.titulo': 'Sistemas de IA y automatización',
     'inicio.queHago.2.texto':
-      'n8n, agentes y APIs conectando las herramientas que ya usa el negocio.',
+      'Defino qué se automatiza, con qué datos y en qué punto entra una persona. n8n y las APIs son el medio.',
     'inicio.queHago.3.titulo': 'Experiencias inmersivas e interactivas',
-    'inicio.queHago.3.texto': 'VR y física computacional para espacios que responden al cuerpo.',
+    'inicio.queHago.3.texto': 'VR e interacción física para espacios que responden al cuerpo.',
     'inicio.proceso': 'Mi proceso',
     'inicio.proceso.1.titulo': 'Descubrir',
     'inicio.proceso.1.texto':
       'Escucho al negocio, observo la operación real y defino qué problema vale la pena resolver.',
     'inicio.proceso.2.titulo': 'Diseñar',
     'inicio.proceso.2.texto':
-      'Prototipo rápido, valido con quien lo va a usar y ajusto antes de escribir código.',
+      'Prototipo rápido, valido con quien lo va a usar y ajusto antes de construir.',
     'inicio.proceso.3.titulo': 'Entregar',
     'inicio.proceso.3.texto':
-      'Lanzo, mido con datos reales y dejo el sistema documentado para que siga vivo.',
+      'Acompaño la puesta en marcha, mido con datos reales y dejo el sistema documentado para que el equipo lo sostenga.',
 
     // --- CTA de contacto ---
     'cta.titulo': '¿Trabajamos juntos?',
@@ -166,31 +166,57 @@ export const ui = {
     'categoria.Investigación': 'Investigación',
     'categoria.Diseño de servicio': 'Diseño de servicio',
 
-    // --- Sobre mí ---
+    /*
+     * --- Sobre mí ---
+     * Tres párrafos, y llevan <strong> porque se pintan con `set:html` dentro de
+     * un contenedor `.prosa`: el mismo resaltado que los casos. Dos o tres por
+     * párrafo, no más, o dejan de resaltar nada.
+     */
     'sobreMi.intro':
-      'Soy Juan Camilo Bolaños, diseñador de interacción y creador de sistemas de IA en Medellín. Mi trabajo junta dos cosas que suelen ir por separado: interfaces que la gente entiende a la primera y automatizaciones que sostienen la operación detrás de ellas.',
+      'Soy Juan Camilo Bolaños, <strong>diseñador de interacción y creador de sistemas de IA</strong> en Medellín. Diseño interfaces que se entienden a la primera y las automatizaciones que sostienen la operación detrás de ellas.',
     'sobreMi.parrafo2':
-      'Los proyectos de este portafolio salieron de contextos reales: un bar de Medellín, el área de innovación de una empresa de empaques flexibles, una empresa de domótica que dependía del voz a voz y una propuesta de espacio interactivo para el Parque de la Conservación.',
+      'Llegué al diseño interactivo por lo multifacético del pénsum, y esa mezcla terminó siendo mi forma de trabajar: defino <strong>cómo funciona el sistema completo</strong>, qué se automatiza y qué no, y sostengo esas decisiones hasta producción. Un sistema no está listo porque se vea bien: tiene que funcionar.',
     'sobreMi.parrafo3':
-      'Llegué al diseño interactivo por el pénsum: me atrajo lo multifacético de la carrera, la cantidad de disciplinas distintas que alcanzaba a tocar. Esa mezcla terminó siendo mi forma de trabajar. Para mí un sistema no está listo solo porque se vea bien y sea claro de usar: tiene que funcionar de verdad para poder presentarse como un MVP. No vengo de la programación — uso esas herramientas para que las interfaces que diseño existan y operen, no para quedarme en el prototipo. Y cuando algo no funciona, lo digo: en estos casos hay evaluaciones de 2.4 sobre 5 y pruebas donde la mitad de los participantes no logró la tarea.',
+      'Los casos de este portafolio salieron de contextos reales: <strong>un bar de Medellín</strong>, el área de innovación de una empresa de empaques flexibles, una empresa de domótica y una propuesta de espacio interactivo para el Parque de la Conservación. Trabajo entre áreas que no hablan el mismo idioma, y reporto lo que no funciona: aquí hay evaluaciones de <strong>2.4 sobre 5</strong> y pruebas donde la mitad de los participantes no logró la tarea.',
     'sobreMi.retratoAlt': 'Retrato de Juan Camilo Bolaños de medio cuerpo',
     'sobreMi.habilidades': 'Habilidades',
-    'sobreMi.habilidades.diseno': 'Diseño',
-    'sobreMi.habilidades.ia': 'Automatización e IA',
-    'sobreMi.habilidades.desarrollo': 'Desarrollo',
-    'sobreMi.habilidades.metodologias': 'Metodologías',
-    'sobreMi.metodo.entrevistas': 'Entrevistas semiestructuradas',
-    'sobreMi.metodo.pruebas': 'Pruebas con usuarios',
-    'sobreMi.metodo.prototipado': 'Prototipado funcional',
+    /*
+     * Los cinco grupos y su contenido salen de la hoja de vida, no del stack de
+     * los casos: el rol es diseñar y definir estos sistemas. Las tecnologías con
+     * las que se construyeron siguen visibles en el campo `herramientas` de cada
+     * caso, que es donde tienen contexto.
+     */
+    'sobreMi.habilidades.investigacion': 'Investigación y evaluación',
+    'sobreMi.habilidades.diseno': 'Diseño e ideación',
+    'sobreMi.habilidades.ia': 'Sistemas de IA y automatización',
+    'sobreMi.habilidades.prototipado': 'Prototipado, IoT y 3D',
+    'sobreMi.habilidades.herramientas': 'Herramientas',
+    'sobreMi.hab.entrevistas': 'Entrevistas semiestructuradas',
+    'sobreMi.hab.gruposFocales': 'Grupos focales',
+    'sobreMi.hab.encuestas': 'Encuestas',
+    'sobreMi.hab.pruebas': 'Pruebas de usabilidad',
+    'sobreMi.hab.paseoCognitivo': 'Paseo cognitivo',
+    'sobreMi.hab.arquitecturaInfo': 'Arquitectura de información',
+    'sobreMi.hab.disenoInteraccion': 'Diseño de interacción',
+    'sobreMi.hab.agiles': 'Metodologías ágiles',
+    'sobreMi.hab.agentes': 'Diseño de agentes conversacionales',
+    'sobreMi.hab.automatizacion': 'Automatización de procesos',
+    'sobreMi.hab.apis': 'Integración de APIs y webhooks',
+    'sobreMi.hab.prototipadoFuncional': 'Prototipado funcional',
+    'sobreMi.hab.vision': 'Visión por computador',
+    'sobreMi.hab.modelado': 'Modelado, texturizado, animación y renderizado',
+    'sobreMi.hab.desarrolloIA': 'Desarrollo web asistido por IA',
     'sobreMi.educacion': 'Educación',
     'sobreMi.educacion.programa': 'Diseño Interactivo',
     'sobreMi.educacion.institucion': 'Universidad EAFIT, Medellín',
     'sobreMi.educacion.periodo': '2022 – 2026',
+    'sobreMi.educacion.grado': 'Graduado',
+    'sobreMi.educacion.promedio': 'Promedio 4.73/5',
     'sobreMi.educacion.distincion': 'Mejor resultado en las pruebas Saber Pro',
     'sobreMi.idiomas': 'Idiomas',
     'sobreMi.idiomas.es': 'Español — nativo',
     'sobreMi.idiomas.en': 'Inglés — C1',
-    'sobreMi.idiomas.fr': 'Francés — B2',
+    'sobreMi.idiomas.fr': 'Francés — B1',
     'sobreMi.idiomas.de': 'Alemán — A2, en aprendizaje',
 
     // --- Contacto ---
@@ -258,21 +284,23 @@ export const ui = {
       '[PENDING: featured projects appear once the English case studies are integrated — PHASE 6]',
     'inicio.queHago': 'What I do',
     'inicio.queHago.1.titulo': 'Interaction design and UX/UI',
-    'inicio.queHago.1.texto': 'Clear interfaces, tested with real users and ready to build.',
-    'inicio.queHago.2.titulo': 'Automation and applied AI',
-    'inicio.queHago.2.texto': 'n8n, agents and APIs connecting the tools the business already uses.',
+    'inicio.queHago.1.texto':
+      'User research, information architecture and interfaces tested before they are built.',
+    'inicio.queHago.2.titulo': 'AI systems and automation',
+    'inicio.queHago.2.texto':
+      'I define what gets automated, with which data and where a person steps in. n8n and APIs are the means.',
     'inicio.queHago.3.titulo': 'Immersive and interactive experiences',
-    'inicio.queHago.3.texto': 'VR and physical computing for spaces that respond to the body.',
+    'inicio.queHago.3.texto': 'VR and physical interaction for spaces that respond to the body.',
     'inicio.proceso': 'My process',
     'inicio.proceso.1.titulo': 'Discover',
     'inicio.proceso.1.texto':
       'I listen to the business, watch how it really operates and define which problem is worth solving.',
     'inicio.proceso.2.titulo': 'Design',
     'inicio.proceso.2.texto':
-      'I prototype fast, validate with the people who will use it and adjust before writing code.',
+      'I prototype fast, validate with the people who will use it and adjust before anything gets built.',
     'inicio.proceso.3.titulo': 'Deliver',
     'inicio.proceso.3.texto':
-      'I ship, measure with real data and leave the system documented so it stays alive.',
+      'I see it into use, measure with real data and leave the system documented so the team can keep it running.',
 
     // --- Contact CTA ---
     'cta.titulo': 'Shall we work together?',
@@ -313,29 +341,44 @@ export const ui = {
 
     // --- About ---
     'sobreMi.intro':
-      'I am Juan Camilo Bolaños, an interaction designer and AI systems builder based in Medellín. My work brings together two things that usually stay apart: interfaces people understand right away, and the automation that keeps the operation behind them running.',
+      'I am Juan Camilo Bolaños, an <strong>interaction designer and AI systems builder</strong> based in Medellín. I design interfaces people understand right away, and the automation that keeps the operation behind them running.',
     'sobreMi.parrafo2':
-      'The projects in this portfolio come from real settings: a bar in Medellín, the innovation team of a flexible packaging company, a home automation company that depended on word of mouth, and a proposal for an interactive space at the Parque de la Conservación.',
+      'I came to interactive design because of how multifaceted the degree was, and that mix ended up becoming how I work: I define <strong>how the whole system works</strong>, what gets automated and what doesn’t, and I stand behind those decisions all the way to production. A system isn’t ready because it looks good: it has to work.',
     'sobreMi.parrafo3':
-      'I came to interactive design through the curriculum: what drew me in was how multifaceted the degree was, the number of different disciplines it managed to cover. That mix ended up becoming how I work. To me a system isn’t ready just because it looks good and is clear to use: it has to actually work to be presentable as an MVP. I don’t come from programming — I use those tools so the interfaces I design exist and run, instead of staying a prototype. And when something doesn’t work, I say so: these case studies include evaluations of 2.4 out of 5 and tests where half the participants failed the task.',
+      'The case studies in this portfolio come from real settings: <strong>a bar in Medellín</strong>, the innovation team of a flexible packaging company, a home automation company and a proposal for an interactive space at the Parque de la Conservación. I work between departments that don’t speak the same language, and I report what doesn’t work: these cases include evaluations of <strong>2.4 out of 5</strong> and tests where half the participants failed the task.',
     'sobreMi.retratoAlt': 'Waist-up portrait of Juan Camilo Bolaños',
     'sobreMi.habilidades': 'Skills',
-    'sobreMi.habilidades.diseno': 'Design',
-    'sobreMi.habilidades.ia': 'Automation and AI',
-    'sobreMi.habilidades.desarrollo': 'Development',
-    'sobreMi.habilidades.metodologias': 'Methods',
-    'sobreMi.metodo.entrevistas': 'Semi-structured interviews',
-    'sobreMi.metodo.pruebas': 'Usability testing',
-    'sobreMi.metodo.prototipado': 'Functional prototyping',
+    'sobreMi.habilidades.investigacion': 'Research and evaluation',
+    'sobreMi.habilidades.diseno': 'Design and ideation',
+    'sobreMi.habilidades.ia': 'AI systems and automation',
+    'sobreMi.habilidades.prototipado': 'Prototyping, IoT and 3D',
+    'sobreMi.habilidades.herramientas': 'Tools',
+    'sobreMi.hab.entrevistas': 'Semi-structured interviews',
+    'sobreMi.hab.gruposFocales': 'Focus groups',
+    'sobreMi.hab.encuestas': 'Surveys',
+    'sobreMi.hab.pruebas': 'Usability testing',
+    'sobreMi.hab.paseoCognitivo': 'Cognitive walkthrough',
+    'sobreMi.hab.arquitecturaInfo': 'Information architecture',
+    'sobreMi.hab.disenoInteraccion': 'Interaction design',
+    'sobreMi.hab.agiles': 'Agile methodologies',
+    'sobreMi.hab.agentes': 'Conversational agent design',
+    'sobreMi.hab.automatizacion': 'Process automation',
+    'sobreMi.hab.apis': 'API and webhook integration',
+    'sobreMi.hab.prototipadoFuncional': 'Functional prototyping',
+    'sobreMi.hab.vision': 'Computer vision',
+    'sobreMi.hab.modelado': 'Modeling, texturing, animation and rendering',
+    'sobreMi.hab.desarrolloIA': 'AI-assisted web development',
     'sobreMi.educacion': 'Education',
     'sobreMi.educacion.programa': 'Interactive Design',
     'sobreMi.educacion.institucion': 'Universidad EAFIT, Medellín',
     'sobreMi.educacion.periodo': '2022 – 2026',
+    'sobreMi.educacion.grado': 'Graduated',
+    'sobreMi.educacion.promedio': 'GPA 4.73/5',
     'sobreMi.educacion.distincion': 'Top Saber Pro results',
     'sobreMi.idiomas': 'Languages',
     'sobreMi.idiomas.es': 'Spanish — native',
     'sobreMi.idiomas.en': 'English — C1',
-    'sobreMi.idiomas.fr': 'French — B2',
+    'sobreMi.idiomas.fr': 'French — B1',
     'sobreMi.idiomas.de': 'German — A2, learning',
 
     // --- Contact ---
@@ -406,23 +449,23 @@ export const ui = {
     'inicio.queHago': 'Ce que je fais',
     'inicio.queHago.1.titulo': 'Design d’interaction et UX/UI',
     'inicio.queHago.1.texto':
-      'Des interfaces claires, testées avec de vrais utilisateurs et prêtes à être développées.',
-    'inicio.queHago.2.titulo': 'Automatisation et IA appliquée',
+      'Recherche utilisateur, architecture de l’information et interfaces testées avant d’être construites.',
+    'inicio.queHago.2.titulo': 'Systèmes d’IA et automatisation',
     'inicio.queHago.2.texto':
-      'n8n, des agents et des API qui relient les outils déjà utilisés par l’entreprise.',
+      'Je définis ce qui s’automatise, avec quelles données et à quel moment une personne intervient. n8n et les API sont le moyen.',
     'inicio.queHago.3.titulo': 'Expériences immersives et interactives',
     'inicio.queHago.3.texto':
-      'VR et informatique physique pour des espaces qui répondent au corps.',
+      'VR et interaction physique pour des espaces qui répondent au corps.',
     'inicio.proceso': 'Ma démarche',
     'inicio.proceso.1.titulo': 'Découvrir',
     'inicio.proceso.1.texto':
       'J’écoute l’entreprise, j’observe son fonctionnement réel et je définis quel problème vaut la peine d’être résolu.',
     'inicio.proceso.2.titulo': 'Concevoir',
     'inicio.proceso.2.texto':
-      'Je prototype vite, je valide avec les personnes qui vont s’en servir et j’ajuste avant d’écrire du code.',
+      'Je prototype vite, je valide avec les personnes qui vont s’en servir et j’ajuste avant de construire quoi que ce soit.',
     'inicio.proceso.3.titulo': 'Livrer',
     'inicio.proceso.3.texto':
-      'Je mets en ligne, je mesure avec de vraies données et je laisse le système documenté pour qu’il reste vivant.',
+      'J’accompagne la mise en service, je mesure avec de vraies données et je laisse le système documenté pour que l’équipe le fasse vivre.',
 
     // --- Appel au contact ---
     'cta.titulo': 'On travaille ensemble ?',
@@ -464,29 +507,44 @@ export const ui = {
 
     // --- À propos ---
     'sobreMi.intro':
-      'Je suis Juan Camilo Bolaños, designer d’interaction et créateur de systèmes d’IA à Medellín. Mon travail réunit deux choses qui vont rarement ensemble : des interfaces que l’on comprend du premier coup et des automatisations qui font tourner l’activité derrière elles.',
+      'Je suis Juan Camilo Bolaños, <strong>designer d’interaction et créateur de systèmes d’IA</strong> à Medellín. Je conçois des interfaces que l’on comprend du premier coup et les automatisations qui font tourner l’activité derrière elles.',
     'sobreMi.parrafo2':
-      'Les projets de ce portfolio viennent de contextes réels : un bar de Medellín, l’équipe d’innovation d’une entreprise d’emballages souples, une entreprise de domotique qui ne vivait que du bouche-à-oreille et une proposition d’espace interactif pour le Parque de la Conservación.',
+      'Je suis venu au design interactif pour le côté multifacette de la formation, et ce mélange a fini par devenir ma façon de travailler : je définis <strong>le fonctionnement du système dans son ensemble</strong>, ce qui s’automatise et ce qui ne s’automatise pas, et je porte ces décisions jusqu’à la mise en production. Un système n’est pas prêt parce qu’il est beau : il doit fonctionner.',
     'sobreMi.parrafo3':
-      'Je suis venu au design interactif par le programme : ce qui m’a attiré, c’est le côté multifacette de la formation, le nombre de disciplines différentes qu’elle arrivait à couvrir. Ce mélange a fini par devenir ma façon de travailler. Pour moi, un système n’est pas prêt simplement parce qu’il est beau et clair à utiliser : il doit fonctionner pour de vrai afin de pouvoir être présenté comme un MVP. Je ne viens pas de la programmation — j’utilise ces outils pour que les interfaces que je conçois existent et tournent, au lieu de rester à l’état de prototype. Et quand quelque chose ne marche pas, je le dis : ces études de cas contiennent des évaluations à 2,4 sur 5 et des tests où la moitié des participants n’a pas réussi la tâche.',
+      'Les études de cas de ce portfolio viennent de contextes réels : <strong>un bar de Medellín</strong>, l’équipe d’innovation d’une entreprise d’emballages souples, une entreprise de domotique et une proposition d’espace interactif pour le Parque de la Conservación. Je travaille entre des services qui ne parlent pas la même langue, et je rapporte ce qui ne marche pas : on trouve ici des évaluations à <strong>2,4 sur 5</strong> et des tests où la moitié des participants n’a pas réussi la tâche.',
     'sobreMi.retratoAlt': 'Portrait de Juan Camilo Bolaños à mi-corps',
     'sobreMi.habilidades': 'Compétences',
-    'sobreMi.habilidades.diseno': 'Design',
-    'sobreMi.habilidades.ia': 'Automatisation et IA',
-    'sobreMi.habilidades.desarrollo': 'Développement',
-    'sobreMi.habilidades.metodologias': 'Méthodes',
-    'sobreMi.metodo.entrevistas': 'Entretiens semi-directifs',
-    'sobreMi.metodo.pruebas': 'Tests utilisateurs',
-    'sobreMi.metodo.prototipado': 'Prototypage fonctionnel',
+    'sobreMi.habilidades.investigacion': 'Recherche et évaluation',
+    'sobreMi.habilidades.diseno': 'Design et idéation',
+    'sobreMi.habilidades.ia': 'Systèmes d’IA et automatisation',
+    'sobreMi.habilidades.prototipado': 'Prototypage, IoT et 3D',
+    'sobreMi.habilidades.herramientas': 'Outils',
+    'sobreMi.hab.entrevistas': 'Entretiens semi-directifs',
+    'sobreMi.hab.gruposFocales': 'Groupes de discussion',
+    'sobreMi.hab.encuestas': 'Enquêtes',
+    'sobreMi.hab.pruebas': 'Tests d’utilisabilité',
+    'sobreMi.hab.paseoCognitivo': 'Parcours cognitif',
+    'sobreMi.hab.arquitecturaInfo': 'Architecture de l’information',
+    'sobreMi.hab.disenoInteraccion': 'Design d’interaction',
+    'sobreMi.hab.agiles': 'Méthodes agiles',
+    'sobreMi.hab.agentes': 'Conception d’agents conversationnels',
+    'sobreMi.hab.automatizacion': 'Automatisation de processus',
+    'sobreMi.hab.apis': 'Intégration d’API et de webhooks',
+    'sobreMi.hab.prototipadoFuncional': 'Prototypage fonctionnel',
+    'sobreMi.hab.vision': 'Vision par ordinateur',
+    'sobreMi.hab.modelado': 'Modélisation, texturage, animation et rendu',
+    'sobreMi.hab.desarrolloIA': 'Développement web assisté par IA',
     'sobreMi.educacion': 'Formation',
     'sobreMi.educacion.programa': 'Design interactif',
     'sobreMi.educacion.institucion': 'Universidad EAFIT, Medellín',
     'sobreMi.educacion.periodo': '2022 – 2026',
+    'sobreMi.educacion.grado': 'Diplômé',
+    'sobreMi.educacion.promedio': 'Moyenne 4,73/5',
     'sobreMi.educacion.distincion': 'Meilleur résultat aux épreuves Saber Pro',
     'sobreMi.idiomas': 'Langues',
     'sobreMi.idiomas.es': 'Espagnol — langue maternelle',
     'sobreMi.idiomas.en': 'Anglais — C1',
-    'sobreMi.idiomas.fr': 'Français — B2',
+    'sobreMi.idiomas.fr': 'Français — B1',
     'sobreMi.idiomas.de': 'Allemand — A2, en cours d’apprentissage',
 
     // --- Contact ---
