@@ -3,9 +3,9 @@ titulo: "Industrial : menu numérique et système de gestion pour un bar"
 slug: "industrial"
 cliente: "Bar Industrial"
 año: "2026"
-rol: "Design et développement de bout en bout"
+rol: "Design d’interaction et conception du système, de la recherche à l’exploitation quotidienne"
 categoria: ["Producto digital", "UX/UI"]
-herramientas: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"]
+herramientas: ["Next.js", "Supabase", "Développement assisté par IA"]
 destacado: true
 orden: 2
 resumen: "Système de menu par QR code et panneau de gestion pour un bar réel : les clients consultent, le personnel de salle prend les commandes, et les gérantes voient les indicateurs de l’activité en temps réel."
@@ -38,10 +38,10 @@ La solution a été de concevoir un seul système à deux visages :
 
 La commande reste associée à la bonne table, le client garde le contrôle de ce
 qu’il consomme, et le bar élimine les commandes accidentelles. Concevoir pour
-le contexte d’usage réel — un bar la nuit, pas une application idéale — a
+le contexte d’usage réel, un bar la nuit et non une application idéale, a
 défini tout le produit.
 
-## Ce que j’ai construit
+## Le système
 
 **Pour le client (via le QR code) :**
 - Menu numérique avec plus de 170 produits, catégories et moteur de recherche
@@ -68,21 +68,21 @@ client composait un panier et envoyait sa commande depuis la table. En
 confrontant ce parcours à la réalité du bar lors des réunions avec les
 gérantes, le modèle s’est inversé complètement : le client consulte, le
 personnel de salle commande. La meilleure décision du projet ne figurait pas
-dans le plan initial — elle est sortie des itérations avec les personnes qui
+dans le plan initial : elle est sortie des itérations avec les personnes qui
 vivent l’exploitation au quotidien.
 
-Le développement a avancé par cycles courts : des avancées partagées par
+Le projet a avancé par cycles courts : des avancées partagées par
 WhatsApp et des réunions sur place au bar, d’où sortaient des listes concrètes
-d’ajustements — voir le menu avec les prix depuis le QR code, modifier une
+d’ajustements : voir le menu avec les prix depuis le QR code, modifier une
 commande déjà envoyée, relier les événements à WhatsApp pour réserver.
 
 L’itération s’est poursuivie après le lancement : le système évolue avec
-l’usage réel. Les gérantes signalent leurs besoins par WhatsApp — des photos de
-produits qui se retrouvaient coupées, le total de l’addition sur le QR code, un
-historique pour vérifier par rapport à la facturation, l’export des données
-vers Excel — et les changements sont implémentés et déployés le jour même ou le
-lendemain. Ce cycle court de retours est possible parce que le système a été
-conçu pour être modifié sans friction.
+l’usage réel. Les gérantes signalent leurs besoins par WhatsApp, comme des
+photos de produits qui se retrouvaient coupées, le total de l’addition sur le
+QR code, un historique pour vérifier par rapport à la facturation ou l’export
+des données vers Excel. Chacun de ces ajustements arrive en production le jour
+même ou le lendemain. Ce cycle court de retours est possible parce que le
+système a été conçu pour être modifié sans friction.
 
 ## Le résultat
 
@@ -103,5 +103,5 @@ fonctionnement de l’entreprise.
 Ce projet m’a confirmé que le design centré sur l’utilisateur peut améliorer
 radicalement le fonctionnement d’une entreprise, quelle que soit sa taille. Et
 il m’a laissé une conviction simple : un système que l’on comprend est un
-système dont on profite — autant pour le client qui scanne le QR code que pour
+système dont on profite, autant pour le client qui scanne le QR code que pour
 le personnel de salle qui l’utilise toute la nuit.

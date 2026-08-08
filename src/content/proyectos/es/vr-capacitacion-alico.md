@@ -3,7 +3,7 @@ titulo: "Planeta SST en VR: capacitación sin salir del puesto de trabajo"
 slug: "vr-capacitacion-alico"
 cliente: "Alico S.A.S BIC"
 año: "2025"
-rol: "Investigación, diseño y desarrollo del prototipo"
+rol: "Investigación, diseño y prototipado de la experiencia en realidad virtual"
 categoria: ["Inmersivo", "Investigación"]
 herramientas: ["Unity", "Meta Quest 3s", "n8n", "Looker Studio"]
 destacado: true
@@ -26,8 +26,8 @@ proyecto de práctica: responder la pregunta con método, no con intuición.
 Invertir el desplazamiento: en lugar de llevar al operario a la capacitación,
 llevar la capacitación al puesto de trabajo con un visor Meta Quest 3s. Y en
 lugar de crear contenido desde cero, adaptar un curso que ya existía y
-funcionaba — "Planeta SST", de la plataforma de aprendizaje de la empresa —
-transformando su aprendizaje pasivo (ver videos en un PC) en aprendizaje
+funcionaba: "Planeta SST", de la plataforma de aprendizaje de la empresa. La
+transformación fue pasar de un aprendizaje pasivo (ver videos en un PC) a uno
 activo e inmersivo.
 
 ## El proceso
@@ -42,7 +42,7 @@ Salud en el Trabajo, Aprendizaje y Desarrollo, y TPM.
 formación al puesto para no frenar la producción, estandarizar los contenidos
 y mantener las sesiones breves y flexibles. La matriz de riesgos de la
 empresa mostró que 374 de los 569 riesgos identificados pertenecían a las
-categorías elegidas para el prototipo — el alcance no fue arbitrario.
+categorías elegidas para el prototipo: el alcance no fue arbitrario.
 
 **Idear.** Con la técnica SCAMPER se definieron las transformaciones del
 curso: del PC al visor, del aprendizaje pasivo al activo, quiz unificado con
@@ -61,7 +61,7 @@ aprendizaje corporativa.
 ## El resultado
 
 El minicurso se completa en 5 minutos en promedio. La calificación promedio
-de las evaluaciones fue 4.32, la satisfacción general fue 4.9/5, todos los
+de las evaluaciones fue **4.32** y la satisfacción general, **4.9/5**. Todos los
 participantes estuvieron totalmente de acuerdo en que el curso fue práctico
 y entendible, y 8 de cada 9 en que la navegación fue simple. El proyecto
 cerró con la entrega de la guía metodológica: un documento que orienta cómo
@@ -70,13 +70,13 @@ allá de este prototipo.
 
 Y una nota de honestidad metodológica que dejé en las conclusiones del
 proyecto: la validación se hizo con colaboradores administrativos, así que
-recomendé validar con los usuarios finales — los operarios — antes de
+recomendé validar con los usuarios finales, los operarios, antes de
 implementar. Un prototipo exitoso no reemplaza la voz del usuario real.
 
 ## Lo que aprendí
 
-Este proyecto me permitió poner en práctica todo lo aprendido en la carrera —
-investigación de usuario, prototipado, pensamiento disruptivo — en un entorno
-organizacional con retos reales. Y me dio claridad sobre el tipo de proyectos
+Este proyecto me permitió poner en práctica, en un entorno organizacional con
+retos reales, todo lo aprendido en la carrera: investigación de usuario,
+prototipado, pensamiento disruptivo. Y me dio claridad sobre el tipo de proyectos
 en los que quiero seguir creciendo: donde la investigación y la tecnología se
 encuentran para cambiar cómo trabaja la gente.

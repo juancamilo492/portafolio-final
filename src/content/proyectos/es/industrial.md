@@ -3,9 +3,9 @@ titulo: "Industrial: menú digital y sistema de gestión para un bar"
 slug: "industrial"
 cliente: "Bar Industrial"
 año: "2026"
-rol: "Diseño y desarrollo de punta a punta"
+rol: "Diseño de interacción y del sistema, de la investigación a la operación diaria"
 categoria: ["Producto digital", "UX/UI"]
-herramientas: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"]
+herramientas: ["Next.js", "Supabase", "Desarrollo asistido por IA"]
 destacado: true
 orden: 2
 resumen: "Sistema de menú por QR y panel de gestión para un bar real: los clientes consultan, los meseros ordenan, y las administradoras ven métricas del negocio en tiempo real."
@@ -35,10 +35,10 @@ La solución fue diseñar un solo sistema con dos caras:
 
 El pedido queda asociado a la mesa correcta, el cliente mantiene el control de
 lo que consume, y el bar elimina los pedidos accidentales. Diseñar para el
-contexto real de uso — un bar de noche, no una app ideal — definió todo el
+contexto real de uso, un bar de noche y no una app ideal, definió todo el
 producto.
 
-## Lo que construí
+## El sistema
 
 **Para el cliente (vía QR):**
 - Menú digital con más de 170 productos, categorías y buscador
@@ -62,21 +62,21 @@ La primera versión seguía el patrón estándar de los menús QR: el cliente
 armaba un carrito y enviaba su pedido desde la mesa. Al confrontar ese flujo
 con la realidad del bar en las reuniones con las administradoras, el modelo
 se invirtió por completo: el cliente consulta, el mesero ordena. La mejor
-decisión del proyecto no estaba en el plan inicial — salió de iterar con
+decisión del proyecto no estaba en el plan inicial: salió de iterar con
 quienes viven la operación.
 
-El desarrollo avanzó en ciclos cortos: avances compartidos por WhatsApp y
+El proyecto avanzó en ciclos cortos: avances compartidos por WhatsApp y
 reuniones presenciales en el bar, de las que salían listas concretas de
-ajustes — ver el menú con precios desde el QR, modificar un pedido ya
+ajustes: ver el menú con precios desde el QR, modificar un pedido ya
 enviado, enlazar los eventos con WhatsApp para reservar.
 
 La iteración continuó después del lanzamiento: el sistema evoluciona con el
-uso real. Las administradoras reportan necesidades
-por WhatsApp — fotos de productos que se cortaban, el total de la cuenta en el
-QR, un historial para verificar contra facturación, exportar datos a Excel — y
-los cambios se implementan y despliegan el mismo día o al siguiente. Ese ciclo
-corto de retroalimentación es posible porque el sistema fue diseñado para
-modificarse sin fricción.
+uso real. Las administradoras reportan necesidades por WhatsApp, como las
+fotos de productos que se cortaban, el total de la cuenta en el QR, un
+historial para verificar contra facturación o la exportación de datos a
+Excel. Cada uno de esos ajustes entra en producción el mismo día o al
+siguiente. Ese ciclo corto de retroalimentación es posible porque el sistema
+fue diseñado para modificarse sin fricción.
 
 ## El resultado
 
@@ -96,5 +96,5 @@ dejó de ser un entregable y pasó a ser parte de cómo trabaja el negocio.
 Este proyecto me confirmó que el diseño centrado en el usuario puede mejorar
 drásticamente la operación de un negocio, sin importar su tamaño. Y me dejó
 una convicción simple: un sistema que se entiende es un sistema que se
-disfruta — tanto para el cliente que escanea el QR como para el mesero que
+disfruta, tanto para el cliente que escanea el QR como para el mesero que
 lo usa toda la noche.

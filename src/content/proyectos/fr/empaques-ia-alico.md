@@ -5,7 +5,7 @@ cliente: "Alico S.A.S BIC"
 año: "2025"
 rol: "Design de l’expérience du formulaire et automatisation par IA"
 categoria: ["IA y automatización", "UX/UI"]
-herramientas: ["n8n", "Leonardo AI", "Desarrollo a la medida"]
+herramientas: ["n8n", "Leonardo AI"]
 destacado: true
 orden: 4
 resumen: "Expérience interactive pour Cafés de Colombia Expo 2025 : les producteurs de café décrivent la vision de leur marque dans un formulaire et reçoivent dans leur boîte mail des emballages générés par IA qui la reflètent."
@@ -16,7 +16,7 @@ imagen_portada: "../../../assets/proyectos/empaques-ia-alico-portada-fr.png"
 
 Alico est une entreprise d’emballages souples de Medellín. Pour sa présence à
 Cafés de Colombia Expo 2025 (Bogotá), l’équipe d’innovation a voulu offrir aux
-visiteurs — des propriétaires de marques de café — quelque chose de plus
+visiteurs, des propriétaires de marques de café, quelque chose de plus
 mémorable qu’une brochure : la possibilité de *voir* leur propre marque sur un
 emballage, générée par IA à partir de leur vision.
 
@@ -34,10 +34,10 @@ créatif : au lieu de demander « décrivez votre emballage », le parcours en 1
 étapes demande le nom de la marque, ses références culturelles (la culture
 paysanne ? les marques internationales haut de gamme ?), son facteur
 différenciant, et invite à évaluer des éléments graphiques selon les principes
-de la Gestalt — proximité, similarité, clôture et continuité. Chaque réponse
+de la Gestalt : proximité, similarité, clôture et continuité. Chaque réponse
 devient un paramètre concret pour la génération.
 
-## Ce que j’ai construit
+## Ce que j’ai conçu
 
 - L’expérience visuelle du formulaire : un parcours pas à pas avec l’identité
   d’Alico et la chaleur du monde du café, conçu pour être complété dans le
@@ -51,10 +51,10 @@ devient un paramètre concret pour la génération.
 ## Le processus
 
 Ce fut un travail conjoint avec le service informatique d’Alico : le formulaire
-a été développé sur mesure avec l’identité du salon, et n8n a orchestré la
+a été construit sur mesure avec l’identité du salon, et n8n a orchestré la
 connexion entre les réponses, les modèles de génération et l’envoi par e-mail.
 Ma contribution s’est concentrée sur le fait que le parcours ressemble à une
-conversation de marque — et non à un sondage — et sur le fait que
+conversation de marque et non à un sondage, et sur le fait que
 l’automatisation tourne toute seule : je n’étais pas à Bogotá, et le système a
 servi les visiteurs du salon sans moi.
 
@@ -66,7 +66,7 @@ logo et visualisent des rendus réalistes de leur marque sur différents types
 d’emballage. Ce saut a accéléré la prise de décision en avant-vente et réduit
 la dépendance aux rendus manuels.
 
-[image : exemples d’emballages générés par la plateforme — sachet de café,
+[image : exemples d’emballages générés par la plateforme : sachet de café,
 doypack et barquette avec la marque appliquée]
 
 ## Ce que j’ai appris

@@ -3,7 +3,7 @@ titulo: "Planeta SST in VR: training without leaving the workstation"
 slug: "vr-capacitacion-alico"
 cliente: "Alico S.A.S BIC"
 año: "2025"
-rol: "Research, design and prototype development"
+rol: "Research, design and prototyping of the virtual reality experience"
 categoria: ["Inmersivo", "Investigación"]
 herramientas: ["Unity", "Meta Quest 3s", "n8n", "Looker Studio"]
 destacado: true
@@ -26,8 +26,9 @@ my internship project: answer the question with method, not intuition.
 Invert the commute: instead of taking the operator to the training, take the
 training to the workstation with a Meta Quest 3s headset. And instead of
 creating content from scratch, adapt a course that already existed and
-worked — "Planeta SST", from the company's learning platform — turning its
-passive learning (watching videos on a PC) into active, immersive learning.
+worked: "Planeta SST", from the company's learning platform. The shift was
+from passive learning (watching videos on a PC) to active, immersive
+learning.
 
 ## The process
 
@@ -41,7 +42,7 @@ Safety, Learning and Development, and TPM teams.
 training to the workstation so production doesn't stop, standardize the
 content and keep the sessions short and flexible. The company's risk matrix
 showed that 374 of the 569 identified risks belonged to the categories
-chosen for the prototype — the scope wasn't arbitrary.
+chosen for the prototype: the scope wasn't arbitrary.
 
 **Ideate.** With the SCAMPER technique we defined the course's
 transformations: from the PC to the headset, from passive to active
@@ -61,21 +62,21 @@ platform.
 ## The outcome
 
 The mini-course is completed in 5 minutes on average. The average score on
-the assessments was 4.32, overall satisfaction was 4.9/5, all participants
-strongly agreed that the course was practical and understandable, and 8 out
-of 9 that the navigation was simple. The project closed with the delivery of
+the assessments was **4.32** and overall satisfaction, **4.9/5**. All
+participants strongly agreed that the course was practical and
+understandable, and 8 out of 9 that the navigation was simple. The project closed with the delivery of
 the methodological guide: a document that steers how to implement extended
 reality in the organization's training, beyond this prototype.
 
 And a note of methodological honesty that I left in the project's
 conclusions: the validation was done with office employees, so I recommended
-validating with the end users — the operators — before implementing. A
+validating with the end users, the operators, before implementing. A
 successful prototype does not replace the voice of the real user.
 
 ## What I learned
 
-This project let me put everything I learned in my degree into practice —
-user research, prototyping, disruptive thinking — in an organizational
-setting with real challenges. And it gave me clarity about the kind of
+This project let me put everything I learned in my degree into practice in an
+organizational setting with real challenges: user research, prototyping,
+disruptive thinking. And it gave me clarity about the kind of
 projects I want to keep growing in: where research and technology meet to
 change how people work.

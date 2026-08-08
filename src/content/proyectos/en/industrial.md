@@ -3,9 +3,9 @@ titulo: "Industrial: a digital menu and management system for a bar"
 slug: "industrial"
 cliente: "Bar Industrial"
 año: "2026"
-rol: "End-to-end design and development"
+rol: "Interaction and systems design, from research to daily operation"
 categoria: ["Producto digital", "UX/UI"]
-herramientas: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Vercel"]
+herramientas: ["Next.js", "Supabase", "AI-assisted development"]
 destacado: true
 orden: 2
 resumen: "A QR menu and management panel for a real bar: customers browse, servers take the orders, and the managers see the business metrics in real time."
@@ -35,10 +35,10 @@ The solution was to design a single system with two faces:
 
 The order stays tied to the right table, the customer keeps control of what
 they consume, and the bar eliminates accidental orders. Designing for the
-real context of use — a bar at night, not an ideal app — defined the whole
+real context of use, a bar at night and not an ideal app, defined the whole
 product.
 
-## What I built
+## The system
 
 **For the customer (via QR):**
 - Digital menu with over 170 products, categories and a search box
@@ -63,20 +63,20 @@ The first version followed the standard pattern of QR menus: the customer
 built a cart and sent the order from the table. Once that flow was
 confronted with the bar's reality in the meetings with the managers, the
 model was flipped entirely: the customer browses, the server orders. The
-project's best decision wasn't in the initial plan — it came out of
+project's best decision wasn't in the initial plan: it came out of
 iterating with the people who live the operation.
 
-Development moved in short cycles: progress shared over WhatsApp and
+The project moved in short cycles: progress shared over WhatsApp and
 in-person meetings at the bar, which produced concrete lists of
-adjustments — see the menu with prices from the QR, modify an order already
+adjustments: see the menu with prices from the QR, modify an order already
 sent, link events to WhatsApp for reservations.
 
 The iteration continued after launch: the system evolves with real use. The
-managers report needs over WhatsApp — product photos that were getting
-cropped, the bill total on the QR, a history to check against invoicing,
-exporting data to Excel — and the changes are implemented and deployed the
-same day or the next. That short feedback loop is possible because the
-system was designed to be modified without friction.
+managers report needs over WhatsApp, such as product photos that were
+getting cropped, the bill total on the QR, a history to check against
+invoicing or exporting data to Excel. Each of those adjustments reaches
+production the same day or the next. That short feedback loop is possible
+because the system was designed to be modified without friction.
 
 ## The outcome
 
@@ -94,6 +94,6 @@ deliverable and became part of how the business works.
 
 This project confirmed for me that user-centered design can drastically
 improve how a business operates, whatever its size. And it left me with a
-simple conviction: a system that is understood is a system that is enjoyed —
+simple conviction: a system that is understood is a system that is enjoyed,
 both for the customer scanning the QR code and for the server using it all
 night.
