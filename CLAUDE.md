@@ -836,6 +836,11 @@ Pendientes conocidos, además de las fases:
    Si la portada lleva texto, su traducción va al lado con sufijo de locale
    (`-portada-en.png`, `-portada-fr.png`) y la referencia el `.md` de ese
    idioma.
+3-alt. `imagen_alt` en el frontmatter, **escrito mirando la imagen**, no
+   deducido del caso. Es opcional y el build no avisa si falta: sin él la
+   portada sale con `alt=""` y se trata como decorativa, que no rompe nada pero
+   desperdicia información. Va **por idioma**, porque una portada con texto
+   traducido es otra imagen. Es el único paso que FASE 11 añadió a esta receta.
 3-bis. Traducir el caso a `src/content/proyectos/en/<slug>.md` y a `fr/`, con
    las reglas de FASE 6 (mismo `slug`, `orden`, `destacado`, `categoria`,
    `herramientas` y `año`). Mientras falte un idioma, el caso no sale en él:
@@ -844,11 +849,20 @@ Pendientes conocidos, además de las fases:
 4. Verificar: la portada muestra los 3 destacados de menor `orden`, la
    grilla genera un chip por categoría en uso, el anterior/siguiente sigue
    el `orden` y los relacionados comparten categoría.
-5. Lo de FASE 5 se resuelve solo: la tarjeta Open Graph
-   (`/og/<locale>/proyecto/<slug>.png`), el JSON-LD del caso, la línea de
-   `llms.txt`, la entrada del sitemap y el `hreflang` salen del frontmatter.
-   Nada que tocar, salvo revisar que el título no desborde la tarjeta si pasa
-   de ~130 letras.
+5. Lo de FASE 5 y FASE 11 se resuelve solo: la tarjeta Open Graph
+   (`/og/<locale>/proyecto/<slug>.png`), el JSON-LD del caso con sus
+   `keywords` y su `BreadcrumbList`, la línea de `llms.txt`, la entrada del
+   sitemap, el `hreflang`, **el `.md` del caso con su botón «Ver como
+   Markdown»**, las migas visibles y el `<time>` del año salen todos del
+   frontmatter. Nada que tocar, salvo revisar que el título no desborde la
+   tarjeta si pasa de ~130 letras.
+
+   Lo que **no** toca un caso nuevo: `src/lib/perfil.ts`. El `knowsAbout` del
+   nodo Person sale de las habilidades de «Sobre mí» y de las categorías
+   canónicas, no de los proyectos. La contrapartida es que editar un chip de
+   «Sobre mí» sí cambia los datos estructurados: es a propósito —para que no
+   puedan decir cosas distintas—, pero significa no poner ahí nada que no se
+   pueda sostener.
 
 ## Fases y prompt de arranque de cada una
 
