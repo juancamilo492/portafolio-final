@@ -632,6 +632,17 @@ Decisiones de FASE 10 (CV en tres idiomas) que no hay que revertir:
   por `nombreArchivoCv()`.
 - El nivel de francés volvió a **B2** en las tres versiones del diccionario
   (`sobreMi.idiomas.fr`). Ver la nota tachada en las decisiones de FASE 9.
+- **El hero de la portada y la presentación de «Sobre mí» recortan con
+  `overflow-x-clip`, no con `overflow-hidden`.** Con `hidden`, el desplegable
+  del CV se cortaba contra el borde inferior de su propia sección: en «Sobre
+  mí» a 1024x800 el menú sobresale 153 px y no quedaba visible ninguna de las
+  tres opciones, y en la portada pasaba a 52 px de que ocurriera lo mismo.
+  `clip` es el único valor que permite recortar un eje y dejar el otro visible
+  (`hidden` en un eje convierte el otro en `auto`), así que las dos secciones
+  siguen protegidas contra el desbordamiento horizontal, que es de lo que se
+  defendían. No devolverlas a `overflow-hidden`: con tres entradas el menú mide
+  159 px de alto y cualquier idioma o zoom que estire la columna lo vuelve a
+  cruzar.
 - **No se verificó el contenido de los PDF.** Los tres usan fuentes
   subconjuntadas sin `ToUnicode` legible, así que no se pudo extraer su texto
   para comprobar que el francés dice B2 y que el PDF francés está en francés.
