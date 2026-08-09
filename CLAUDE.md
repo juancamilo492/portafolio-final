@@ -80,16 +80,16 @@ destacado (boolean), resumen, imagen_portada (opcional, `image()`), orden
 en español vivían también en `contenido/`, con el cuerpo duplicado byte a byte
 y un frontmatter ya obsoleto; esa carpeta se eliminó porque obligaba a
 mantener dos copias sincronizadas a mano. Los originales siguen en el
-historial de git si alguna vez hacen falta. Los 5 casos están en
-`src/content/proyectos/es/`, en `en/` (FASE 6) y en `fr/` (FASE 6-bis); falta
-`abuelos-nietos`, que Juan Camilo agregará después.
+historial de git si alguna vez hacen falta. **La colección está completa**: los
+6 casos están en `src/content/proyectos/es/`, en `en/` (FASE 6) y en `fr/`
+(FASE 6-bis), y `abuelos-nietos` cerró la lista el 8 de agosto de 2026.
 
 Orden acordado (gobierna la grilla, el anterior/siguiente y qué destacados
 salen en la portada):
 1. i-homotic · 2. industrial · 3. vr-capacitacion-alico ·
 4. empaques-ia-alico · 5. siguiendo-la-huella-azul · 6. abuelos-nietos
 
-Los 5 archivos traen `destacado: true`; la portada muestra los 3 de menor
+Los 6 archivos traen `destacado: true`; la portada muestra los 3 de menor
 orden, es decir i-homotic, industrial y vr-capacitacion-alico.
 
 Categorías canónicas para filtros (6, ampliadas sobre las 4 originales para
@@ -174,9 +174,9 @@ de verdad en cada idioma. No activar esa opción.
 
 FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**, más las
 fases 9 a 13. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
-build genera 28 páginas, 24 tarjetas Open Graph **con el oso y el fondo del
-banner** (FASE 13), **los 15 casos en Markdown**,
-el sitemap (24 URL, sin los `.md`), `robots.txt` y `llms.txt`.
+build genera 31 páginas, 27 tarjetas Open Graph **con el oso y el fondo del
+banner** (FASE 13), **los 18 casos en Markdown**,
+el sitemap (27 URL, sin los `.md`), `robots.txt` y `llms.txt`.
 Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
@@ -245,12 +245,13 @@ Ya existe:
   con `etiquetaCategoria` y `slugCategoria`. `getCollection` se memoiza.
 - i18n con rutas traducidas y las 127 cadenas del diccionario en es/en/fr.
   `de` sigue en `{}`.
-- Los 5 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
+- Los 6 casos en español dentro de `src/content/proyectos/es/`, con `orden`,
   categorías canónicas y portada. Son la única copia: no hay carpeta paralela.
-- Los mismos 5 casos traducidos en `src/content/proyectos/en/` (FASE 6) y en
-  `fr/` (FASE 6-bis), con los campos estructurales idénticos al español.
-- Las 5 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
-  en inglés y francés de las 3 que llevan texto: `<slug>-portada.png`,
+- Los mismos 6 casos traducidos en `src/content/proyectos/en/` (FASE 6, más
+  `abuelos-nietos`) y en `fr/` (FASE 6-bis, ídem), con los campos
+  estructurales idénticos al español.
+- Las 6 portadas reales (1600×1000, hechas por Juan Camilo) y las versiones
+  en inglés y francés de las 4 que llevan texto: `<slug>-portada.png`,
   `-portada-en.png`, `-portada-fr.png`. i-homotic e industrial son logos, así
   que sirven para los cuatro idiomas. Las `-en` y las `-fr` ya están
   conectadas.
@@ -861,13 +862,12 @@ que revertir:
   se ha podido comprobar publicado. Es lo primero que hay que mirar tras el
   despliegue. Descartada la alternativa del BOM: markdown-it y compañía no lo
   quitan y convertirían el `# Título` en un párrafo.
-- **`imagen_alt` es por idioma, no compartido.** Tres de las cinco portadas
+- **`imagen_alt` es por idioma, no compartido.** Cuatro de las seis portadas
   llevan texto —por eso existen las `-portada-en.png` y `-portada-fr.png`—, así
   que describir en español una imagen cuyo texto está en francés sería describir
-  otra imagen. Los 15 textos se escribieron mirando cada PNG, no deduciéndolos
+  otra imagen. Los 18 textos se escribieron mirando cada PNG, no deduciéndolos
   del caso. El campo es opcional: sin él la portada vuelve a `alt=""`, que es lo
-  correcto mientras nadie la haya mirado, y `abuelos-nietos` no romperá nada al
-  llegar.
+  correcto mientras nadie la haya mirado.
 - **Migas de pan visibles en los casos**, en sustitución del «← Todos los
   proyectos» (su clave `proyectos.todosLosProyectos` se retiró de los tres
   diccionarios). Hacen el mismo trabajo y ponen a la vista la jerarquía que el
@@ -883,7 +883,7 @@ que revertir:
   un año suelto: `esAnioSuelto()` en `src/lib/proyectos.ts` es la regla
   compartida con el `dateCreated` del JSON-LD, que antes tenía su propia regex.
 - **Los chips de la grilla siguen siendo `<button>`, no enlaces.** Aquí no hay
-  página que descubrir: los 5 casos ya están en el HTML estático de la grilla
+  página que descubrir: los 6 casos ya están en el HTML estático de la grilla
   sin filtrar y en el sitemap, y el filtro solo aplica `hidden` en runtime.
   Convertirlos en `<a href="?categoria=">` crearía 6 URL por idioma con el mismo
   contenido a cambio de cero descubribilidad.
@@ -966,6 +966,54 @@ número de fase) que no hay que revertir:
   el idioma vía `linkedinDe()`. Antes «Sobre mí» era la única página de
   presentación sin invitación a LinkedIn.
 
+Decisiones del caso `abuelos-nietos` (8 de agosto de 2026) que no hay que
+revertir:
+- **Es el sexto caso y cierra la colección.** No hizo falta tocar una sola línea
+  de código: es la receta «Cómo se agrega un caso nuevo» aplicada tal cual, y
+  todo lo que FASE 5 y FASE 11 construyeron (tarjeta OG, JSON-LD con `keywords`
+  y `BreadcrumbList`, línea de `llms.txt`, entrada del sitemap, `hreflang`, el
+  `.md` descargable, las migas y el `<time>`) salió del frontmatter. `orden: 6`
+  ya estaba reservado, así que no hubo que renumerar nada.
+- **El caso no termina en un producto, termina en una pregunta, y eso se dice
+  sin disimulo.** El alcance era la fase de descubrimiento y su entregable es
+  una infografía con nueve hallazgos más un reto de diseño formulado. Se
+  escribió así a propósito: intentar que pareciera un proyecto de producto
+  habría obligado a inventar, y el valor del caso es justamente que muestra la
+  parte que casi ningún portafolio junior enseña.
+- **Dos categorías, no tres.** `Investigación` y `Diseño de servicio`. Aquí no
+  se diseñó ninguna interfaz, así que `UX/UI` habría sido falso. Las dos ya
+  existían: la grilla no ganó ningún chip nuevo.
+- **`herramientas` lleva métodos y no software, y es el único caso donde pasa.**
+  Los otros cinco listan tecnología (Figma, n8n, Unity) porque es lo que tenían;
+  este es investigación pura y sus herramientas son entrevistas, cultural
+  probes, customer journey map, system map, user personas y mapa de empatía, que
+  es literalmente lo que dice la diapositiva «¿Qué herramientas utilizamos?».
+  Alimentan `keywords` del JSON-LD, que es lo que lee un ATS. Los nombres de
+  método consolidados en inglés no se traducen, igual que Figma; «Entrevistas» y
+  «Mapa de empatía» sí, por la regla de FASE 9. Quedaron fuera «mapa de actores»
+  e «infografía», que se mencionan en el cuerpo: una es un entregable, no un
+  método.
+- **El nombre del proyecto sí se traduce**, contra la regla de FASE 6 sobre
+  nombres propios. Esa regla es para razones sociales (i-Homotic (GELECT
+  S.A.S), Alico S.A.S BIC); «Generaciones» es un nombre de proyecto académico
+  del que Juan Camilo hizo tres versiones del logotipo, así que la portada
+  inglesa dice «Generations» y la francesa «Générations». El `titulo` de cada
+  `.md` sigue a su portada: dejarlo en español habría contradicho la imagen que
+  el propio caso muestra arriba.
+- El remate de «Lo que aprendí» es que **la investigación desmintió la hipótesis
+  de partida del equipo**: habían escrito que los abuelos interfieren
+  pasivamente porque el rol de los padres predomina, y los hallazgos 4 y 5 dicen
+  lo contrario. Es el mismo registro de los otros casos, que reportan lo que
+  salió mal con la misma prominencia que lo que salió bien. No suavizarlo.
+- La limitación declarada es que las dos user personas se construyeron sobre un
+  perfil de una sola comuna y un solo estrato, así que los hallazgos describen
+  ese contexto y no todo Medellín. Sale de las propias personas, no es un añadido
+  retórico.
+- **Ningún dato se inventó.** Las cifras (2035, 3.6 → 2.9 miembros por hogar,
+  3 de cada 4 nietos), las fuentes (Cardona 2019, Medellín Cómo Vamos, Pinazo y
+  Montoro 2004), los testimonios y los nueve hallazgos salen de la presentación
+  del proyecto. Si alguna vez hay que revisarlos, la fuente es esa.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -976,7 +1024,8 @@ Pendientes conocidos, además de las fases:
   desde el 8 de agosto de 2026, todos con francés B2. Solo faltaría el alemán,
   y solo si algún día se activa `de`.
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
-- El caso `abuelos-nietos` y su portada.
+- ~~El caso `abuelos-nietos` y su portada~~: escrito en los tres idiomas y con
+  sus tres portadas el 8 de agosto de 2026. **La colección queda cerrada.**
 - Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido, y
   los archivos e imágenes que va a sumar dentro de cada caso.
 - `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
@@ -997,12 +1046,13 @@ Pendientes conocidos, además de las fases:
    alimentan el índice lateral del caso.
 2. Frontmatter obligatorio: `orden` según la lista de la sección Contenido y
    `categoria` dentro de la lista canónica (cualquier otro valor rompe el
-   build a propósito). Mapeo ya aplicado a los 5 casos:
+   build a propósito). Mapeo ya aplicado a los 6 casos:
    - i-homotic → `Investigación`, `Diseño de servicio`, `UX/UI`
    - industrial → `Producto digital`, `UX/UI`
    - vr-capacitacion-alico → `Inmersivo`, `Investigación`
    - empaques-ia-alico → `IA y automatización`, `UX/UI`
    - siguiendo-la-huella-azul → `Inmersivo`, `Investigación`, `UX/UI`
+   - abuelos-nietos → `Investigación`, `Diseño de servicio`
 3. Imagen en `src/assets/proyectos/<slug>-portada.png`, referenciada como
    `../../../assets/proyectos/<archivo>`. Formato acordado: **1600×1000**
    (mínimo 1200 de ancho, que es el mayor `widths` de la plantilla). El
@@ -1102,8 +1152,8 @@ Pendientes conocidos, además de las fases:
 
   **No bloquean el lanzamiento**, pero conviene resolverlos antes de difundir
   el enlace: ~~los CV en inglés y francés~~ (publicados), las portadas de Alico
-  con el logo cortado, el caso `abuelos-nietos` y los archivos e imágenes que
-  Juan Camilo quiere sumar a cada caso.
+  con el logo cortado, ~~el caso `abuelos-nietos`~~ (publicado) y los archivos e
+  imágenes que Juan Camilo quiere sumar a cada caso.
 
 - FASE 8 — Publicación. Empieza con el sitio ya desplegado: conectar el repo a
   Pages y apuntar el DNS lo hace Juan Camilo desde los paneles, no el código.
@@ -1178,3 +1228,11 @@ Pendientes conocidos, además de las fases:
   corrigió el `<strong>` que se leía literal en la bajada de «Sobre mí», y
   «Ver como Markdown» pasó a abrir en otra pestaña, con su flecha de enlace
   externo. Ver «Decisiones de FASE 13».
+
+- FASE 14 — El caso `abuelos-nietos`: **completa.** El sexto y último caso de la
+  colección, «Generaciones», una investigación de primer año sobre el vínculo
+  entre abuelos y nietos en Medellín. Tres archivos nuevos, tres portadas y cero
+  líneas de código: es la receta de «Cómo se agrega un caso nuevo» aplicada por
+  primera vez de principio a fin, y funcionó sin sorpresas. Ver «Decisiones del
+  caso `abuelos-nietos`». Con esto **la colección queda cerrada**: seis casos en
+  español, inglés y francés.
