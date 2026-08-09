@@ -325,13 +325,21 @@
     color: var(--color-menta);
   }
 
-  .prosa :where(a) {
+  /*
+   * Los enlaces de la evidencia quedan fuera: son botones y superficies, no
+   * enlaces de prosa, y tienen su propio color más abajo. Sin esta exclusión,
+   * `.dark .prosa :where(a)` —dos clases— le gana a `.prosa :where(.ev-…)`
+   * —una— y en modo oscuro el botón del enlace en vivo salía en menta sobre
+   * el acento, que es ilegible. El `:not()` va dentro del `:where()`, así que
+   * la especificidad sigue en cero.
+   */
+  .prosa :where(a:not(.ev-vivo-boton, .ev-play)) {
     color: var(--color-acento-texto);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  .dark .prosa :where(a) {
+  .dark .prosa :where(a:not(.ev-vivo-boton, .ev-play)) {
     color: var(--color-menta);
   }
 
@@ -364,6 +372,206 @@
 
   .dark .prosa :where(hr) {
     border-top-color: var(--color-borde-noche);
+  }
+
+  /*
+   * ── Evidencia dentro de un caso (FASE 15) ────────────────────────────────
+   *
+   * El cuerpo de un caso lleva `.prosa-caso` además de `.prosa`. La medida de
+   * lectura la fija cada bloque y no el contenedor, que es lo que permite a
+   * una figura ancha ensancharse quitándose el tope, sin el margen negativo
+   * que ya sacó de cuadro al pie a 360px y al globo de información en un Moto
+   * G56. Aquí un desbordamiento horizontal es imposible por construcción.
+   *
+   * `ancho` llega a 844px y no a los 1120 del contenedor a propósito: pasar de
+   * ahí exigiría meterse debajo del índice lateral, que es `sticky` y no se
+   * va. Para leer una pieza densa está el enlace «Ampliar».
+   */
+  .prosa-caso > * {
+    max-width: 680px;
+  }
+
+  .prosa-caso > :where(.ev-galeria, [data-ancho]) {
+    max-width: none;
+  }
+
+  .prosa :where(.ev-figura, .ev-video, .ev-galeria) {
+    margin: 40px 0;
+  }
+
+  .prosa :where(.ev-figura, .ev-video, .ev-galeria) :where(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-tarjeta);
+    /* Mientras carga, el hueco es del color del sitio y no un rectángulo blanco. */
+    background-color: var(--color-pozo);
+  }
+
+  .dark .prosa :where(.ev-figura, .ev-video, .ev-galeria) :where(img) {
+    background-color: var(--color-noche-superficie);
+  }
+
+  .prosa :where(figcaption) {
+    margin-top: 10px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--color-texto-tenue);
+  }
+
+  .dark .prosa :where(figcaption) {
+    color: var(--color-noche-cuerpo);
+  }
+
+  /* Ampliar: un enlace de texto dentro del pie. Ni lightbox ni JavaScript. */
+  .prosa :where(.ev-ampliar) {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    color: var(--color-acento-texto);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .dark .prosa :where(.ev-ampliar) {
+    color: var(--color-menta);
+  }
+
+  /*
+   * Galería: las imágenes son hijas directas del `<figure>` y las coloca esta
+   * rejilla; el pie ocupa la fila entera. Sin un `<div>` envoltorio de por
+   * medio. `minmax(0, 1fr)` evita que una imagen ancha estire su columna.
+   */
+  .prosa :where(.ev-galeria) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .prosa :where(.ev-galeria) :where(figcaption) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    .prosa :where(.ev-galeria) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /*
+   * Fachada de video: la miniatura y el disparador comparten la primera celda
+   * del grid y el pie ocupa la segunda. Sin posicionamiento absoluto y sin
+   * envoltorios. El disparador va después de la imagen en el DOM, así que se
+   * apila encima sin necesitar `z-index`.
+   */
+  .prosa :where(.ev-video) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .prosa :where(.ev-video) :where(img, .ev-play, .ev-video-cuadro) {
+    grid-area: 1 / 1;
+  }
+
+  .prosa :where(.ev-video) :where(figcaption) {
+    grid-area: 2 / 1;
+  }
+
+  .prosa :where(.ev-play) {
+    display: grid;
+    place-items: center;
+    place-self: stretch;
+    border-radius: var(--radius-tarjeta);
+    /* Vela sobre la miniatura: da contraste al disco y avisa de que es pulsable. */
+    background-color: rgb(0 83 72 / 0.25);
+    text-decoration: none;
+    transition: background-color 150ms ease-out;
+  }
+
+  /* El disco: acento de relleno y el triángulo en el único color que da AA
+     encima (6.7:1). El SVG va en `fill: currentColor`. */
+  .prosa :where(.ev-play) > svg {
+    display: block;
+    padding: 17px 15px 17px 21px;
+    border-radius: 999px;
+    background-color: var(--color-acento);
+    color: var(--color-sobre-acento);
+    box-shadow: var(--shadow-flotante);
+    transition: transform 150ms ease-out;
+  }
+
+  .prosa :where(.ev-play):hover {
+    background-color: rgb(0 83 72 / 0.4);
+  }
+
+  .prosa :where(.ev-play):hover > svg {
+    transform: scale(1.06);
+  }
+
+  .prosa :where(.ev-video-cuadro) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: var(--radius-tarjeta);
+  }
+
+  /* Tarjeta hacia un producto en línea. */
+  .prosa :where(.ev-vivo) {
+    margin: 40px 0;
+    border: 1px solid var(--color-borde-medio);
+    border-radius: var(--radius-tarjeta-sm);
+    background-color: var(--color-pozo);
+    padding: 22px 24px;
+  }
+
+  .dark .prosa :where(.ev-vivo) {
+    border-color: var(--color-borde-noche);
+    background-color: var(--color-noche-superficie);
+  }
+
+  /*
+   * `texto-suave` y no `texto-tenue`, que es el que usan las etiquetas de la
+   * barra de contexto: aquí el fondo no es blanco sino el pozo, y sobre él
+   * tenue se queda en 4.39:1, por debajo del 4.5 que pide un texto de 11.5px.
+   */
+  .prosa :where(.ev-vivo-estado) {
+    margin-bottom: 9px;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-texto-suave);
+  }
+
+  .dark .prosa :where(.ev-vivo-estado) {
+    color: var(--color-noche-cuerpo);
+  }
+
+  .prosa :where(.ev-vivo) :where(p:not(.ev-vivo-estado)) {
+    margin-bottom: 15px;
+    font-size: 15.5px;
+  }
+
+  .prosa :where(.ev-vivo-boton) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    background-color: var(--color-acento);
+    padding: 10px 18px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--color-sobre-acento);
+    text-decoration: none;
+    /* Un dominio largo envuelve en vez de desbordar la tarjeta a 360px. */
+    overflow-wrap: anywhere;
+    transition: background-color 150ms ease-out;
+  }
+
+  .prosa :where(.ev-vivo-boton):hover {
+    background-color: var(--color-acento-hover);
   }
 
   /* Enlace de salto: solo visible al recibir foco por teclado. */
