@@ -1527,6 +1527,9 @@ Pendientes conocidos, además de las fases:
   gramática y los tamaños, y «Decisiones de FASE 15» para el porqué de cada
   pieza, incluidas las tres trampas del motor de Markdown de Astro 7.
 
-  Prompt de arranque de cada caso: "Lee CLAUDE.md, en especial «Evidencia
-  dentro de los casos». Monta la evidencia de `<slug>` en los tres idiomas con
-  las imágenes de `src/assets/proyectos/<slug>/`."
+  Prompt de arranque de cada caso: **`PROMPT-EVIDENCIA.md`** en la raíz, que
+  es el encargo completo escrito para que lo ejecute cualquier asistente,
+  incluida una IA que no haya visto el resto del proyecto. Basta con «Lee
+  PROMPT-EVIDENCIA.md y ejecútalo para el caso `<slug>`». Recoge la gramática,
+  las reglas que no se pueden romper, los tamaños, lo que no hay que tocar y
+  la verificación. Si cambia algo de la maquinaria, hay que actualizarlo.
