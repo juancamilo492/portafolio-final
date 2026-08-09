@@ -229,8 +229,12 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
   </Contenedor>
 
   {/* --- El caso en Markdown: copiarlo o abrirlo --- */}
+  {/*
+    La fila es `relative` para servir de ancla al globo de información bajo
+    768px. Ver el comentario del globo, más abajo: ahí está el porqué.
+  */}
   <Contenedor class="pt-6">
-    <div class="flex flex-wrap items-center gap-3">
+    <div class="relative flex flex-wrap items-center gap-3">
       <BotonCopiarMarkdown
         markdown={markdownCaso}
         etiqueta={t('proyectos.copiarMarkdown')}
@@ -268,8 +272,21 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
         para "copiarlo". El texto completo va en el `aria-label` del botón,
         así que quien usa lector de pantalla lo recibe al enfocarlo sin
         depender del tooltip visual, que por eso queda `aria-hidden`.
+
+        El ancla del globo cambia con el ancho, y no es un capricho. Anclado al
+        icono, el globo solo cabe si el icono está lo bastante a un lado: con
+        240px de ancho, `right-0` necesita el icono a partir de x≥212 y
+        `left-0` lo necesita antes de x≤88. En una columna de 328px (viewport
+        de 360) queda una franja intermedia donde no cabe en ninguna de las dos
+        direcciones, y dónde cae el icono depende de cómo envuelvan las dos
+        píldoras, que cambia con el ancho y con el idioma. Por eso bajo 768px
+        el ancla es la fila: `left-0` contra su borde izquierdo y `max-w-full`,
+        de modo que el globo nunca puede pasarse de la columna, en ningún
+        idioma. Desde `md` el icono recupera el `relative` y todo vuelve a ser
+        lo de antes, que ahí sí funciona: la fila cabe en una línea y el icono
+        queda pasados los 400px.
       */}
-      <span class="group relative inline-flex">
+      <span class="group inline-flex md:relative">
         <button
           type="button"
           aria-label={t('proyectos.infoMarkdown')}
@@ -279,7 +296,7 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
         </button>
         <span
           aria-hidden="true"
-          class="pointer-events-none absolute top-full right-0 z-20 mt-2 w-max max-w-[min(240px,calc(100vw-2rem))] rounded-[10px] border border-borde-medio bg-superficie px-3 py-2 text-xs leading-relaxed text-texto-cuerpo opacity-0 shadow-flotante transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 dark:border-borde-noche dark:bg-noche-flotante dark:text-noche-cuerpo dark:shadow-flotante-noche"
+          class="pointer-events-none absolute top-full left-0 z-20 mt-2 w-max max-w-full rounded-[10px] md:left-auto md:right-0 md:max-w-[240px] border border-borde-medio bg-superficie px-3 py-2 text-xs leading-relaxed text-texto-cuerpo opacity-0 shadow-flotante transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 dark:border-borde-noche dark:bg-noche-flotante dark:text-noche-cuerpo dark:shadow-flotante-noche"
         >
           {t('proyectos.infoMarkdown')}
         </span>

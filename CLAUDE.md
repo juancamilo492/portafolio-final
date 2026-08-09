@@ -942,11 +942,10 @@ número de fase) que no hay que revertir:
   (`proyectos.infoMarkdown`), así que quien usa lector de pantalla la recibe
   al enfocarlo sin depender de nada visual. El mismo texto se repite, ahora
   `aria-hidden`, en un globo que aparece con `group-hover`/`group-focus-within`
-  para quien ve la pantalla — doble canal, una sola fuente de texto. El globo
+  para quien ve la pantalla — doble canal, una sola fuente de texto. ~~El globo
   ancla su borde derecho al del ícono (`right-0`, no `left-0`) y limita su
-  ancho con `max-w-[min(240px,calc(100vw-2rem))]`: anclado a la izquierda se
-  salía de la pantalla a 360px porque el ícono cae cerca del borde derecho de
-  la fila de botones.
+  ancho con `max-w-[min(240px,calc(100vw-2rem))]`.~~ **Corregido el 8 de agosto
+  de 2026, ver «El globo de información se ancla a la fila bajo 768px».**
 - **«Conocer más» al pie de cada tarjeta de proyecto**
   (`TarjetaProyecto.astro`). La tarjeta entera ya era el enlace
   (`after:absolute` en el título), pero nada lo decía a la vista. Es un
@@ -1013,6 +1012,32 @@ revertir:
   3 de cada 4 nietos), las fuentes (Cardona 2019, Medellín Cómo Vamos, Pinazo y
   Montoro 2004), los testimonios y los nueve hallazgos salen de la presentación
   del proyecto. Si alguna vez hay que revisarlos, la fuente es esa.
+
+**El globo de información se ancla a la fila bajo 768px** (8 de agosto de 2026,
+`src/pages/[lang]/[seccion]/[slug].astro`). Corrige la nota tachada de arriba,
+que resolvía el caso equivocado:
+- El síntoma lo reportó Juan Camilo desde un Moto G56: el globo se salía por la
+  **izquierda** de la pantalla. En el inspector con iPhone XR o Pixel 7 se veía
+  bien, así que no se había detectado. Lo que cambia entre un teléfono y otro es
+  cómo envuelven las dos píldoras («Copiar para LLM» y «Ver como Markdown»), y
+  eso depende del ancho **y del idioma**. En el Moto las dos caben en una línea,
+  de modo que el ícono baja solo a una segunda línea pegado al borde izquierdo,
+  y un globo que se abre hacia la izquierda desde x≈0 se sale.
+- **Voltearlo no bastaba.** Con 240px de ancho, `right-0` necesita el ícono a
+  partir de x≥212 y `left-0` lo necesita antes de x≤88. En una columna de 328px
+  (viewport de 360) queda una franja intermedia donde el globo no cabe en
+  ninguna de las dos direcciones. Anclado al ícono el problema no tiene
+  solución en pantallas estrechas: hay que anclarlo a la fila.
+- La fila (`div.flex.flex-wrap`) lleva ahora `relative`, el ícono pasó de
+  `relative` a `md:relative` y el globo a `left-0 max-w-full md:left-auto
+  md:right-0 md:max-w-[240px]`. Bajo 768px el ancla es la fila, así que el globo
+  ocupa la columna entera y **no puede desbordarse por ningún lado, en ningún
+  idioma**; desde `md` el ícono recupera el ancla y el comportamiento es
+  idéntico al anterior (a partir de 768px, `min(240px, calc(100vw-2rem))` ya
+  valía 240px, así que ni el ancho cambia).
+- Verificado midiendo el rectángulo del globo en **45 combinaciones**, 3 idiomas
+  × 15 anchos de 320 a 1280 px: ningún borde fuera del viewport. El caso que
+  reprodujo el fallo es el inglés a 412px, donde el ícono cae en x=20.
 
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
