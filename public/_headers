@@ -20,6 +20,14 @@
 /og/*
   Cache-Control: public, max-age=86400
 
+# Las imágenes a resolución completa del enlace «Ampliar» de un caso. Igual
+# que las tarjetas OG: no llevan hash en el nombre —su URL es literalmente la
+# que escribe el .md— y se reemplazan a mano, así que un día de caché.
+# No pasan por astro:assets a propósito: la salida de astro:assets está topada
+# al ancho de presentación, y aquí lo que se quiere es el original legible.
+/evidencia/*
+  Cache-Control: public, max-age=86400
+
 # Los casos en Markdown (/es/proyectos/industrial.md).
 #
 # El `charset=utf-8` NO es decorativo y es la línea más frágil de este archivo:

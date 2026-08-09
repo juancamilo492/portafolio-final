@@ -97,6 +97,114 @@ cubrir los casos reales): UX/UI, Producto digital, IA y automatización,
 Inmersivo, Investigación, Diseño de servicio. El mapeo desde las etiquetas
 originales de cada `.md` está documentado en `src/content.config.ts`.
 
+## Evidencia dentro de los casos (FASE 15)
+
+Un caso no solo describe lo que se hizo: lo enseña. La evidencia va
+**intercalada en el relato**, cada pieza junto a la frase que la nombra, y
+nunca como carrusel ni como galería al final. Un service blueprint sin la
+frase al lado es un diagrama ilegible; lo que lo convierte en prueba es el
+argumento que sostiene.
+
+### Las cuatro directivas
+
+Se escriben en el cuerpo del `.md`, en Markdown normal. Las traduce a marcado
+el plugin de `src/lib/evidencia.ts`.
+
+```markdown
+:::figura
+![Alt escrito mirando la imagen](../../../assets/proyectos/<slug>/pieza.png)
+
+El pie que explica qué se ve y por qué importa.
+:::
+
+:::figura{ancho ampliar}     ← 844px y enlace a la versión legible
+:::galeria                   ← varias imágenes, dos columnas, un pie común
+:::video{youtube="ID" titulo="…"}          ← fachada; dentro va la miniatura
+:::enlace-vivo{href="…" etiqueta="…" estado="prototipo"}
+```
+
+Reglas que no hay que romper:
+
+- **El pie va en el cuerpo de la directiva, nunca en el `title` de la imagen.**
+  El `title` no pasa por la puntuación tipográfica y el resto del cuerpo sí:
+  un pie con apóstrofe saldría recto al lado de prosa con apóstrofes curvos.
+  Es el mismo problema que documenta FASE 6 para el frontmatter. Y en el
+  cuerpo el pie admite negrita y enlaces.
+- **El `alt` es obligatorio** y se escribe **mirando la imagen**, no
+  deduciéndolo del caso. Misma regla que el `imagen_alt` de la portada.
+- **La misma imagen sirve para los tres idiomas**; se traducen el alt y el
+  pie. A diferencia de las portadas con texto, una evidencia es una captura o
+  un diagrama del trabajo real, no un cartel: rehacerla por idioma sería
+  rehacer el artefacto.
+- **El último párrafo de la directiva es el pie.** Los anteriores se quedan
+  como `<p>`: un `<figure>` solo admite un `<figcaption>`.
+- `ampliar` deduce `/evidencia/<slug>/<mismo-nombre-de-archivo>`; si el
+  archivo no está en `public/`, sale un `[PENDIENTE]` visible y un aviso en el
+  build.
+
+### Enlaces a productos: qué sube arriba y qué no
+
+- **`sitio_url` en el frontmatter: solo el producto principal en producción.**
+  La barra de contexto lo muestra como quinto campo, en el primer pantallazo,
+  sin empujar la portada (que es el LCP). **Nunca dos**: el segundo pierde por
+  ser el segundo y de paso diluye al primero.
+- **Todo lo demás va en el cuerpo, con `:::enlace-vivo{estado="…"}`.** Los
+  tres estados son `produccion`, `prototipo` y `demo`, y la píldora los pone a
+  la vista antes de que nadie pulse. Un prototipo anunciado como prototipo
+  suma; descubierto por sorpresa, resta.
+- Un sitio tras un login que no enseñe nada a un desconocido **no se enlaza**:
+  se muestran capturas.
+
+### Anchos y tamaños de entrega
+
+La celda de contenido es `contenedor − 220 (índice) − 56 (gap)`. «Ancho» topa
+en **844px y no en los 1120** del contenedor a propósito: pasar de ahí exige
+un margen negativo que mete la figura debajo del índice lateral, que es
+`sticky` y no se va. Para leer una pieza densa está «Ampliar».
+
+| Pieza | Ancho de origen | Formato | Peso máx. |
+|---|---|---|---|
+| Figura normal | 1360 px | PNG si lleva texto o líneas; JPG si es foto | 400 KB |
+| Figura ancha | 1700 px | ídem | 600 KB |
+| Foto de galería | 840 px | JPG | 250 KB |
+| Miniatura de video | 1280×720 exactos | JPG | 250 KB |
+| Versión `ampliar` | hasta 2800 px | PNG para diagramas, JPG para fotos | 1,5 MB |
+
+**Un solo archivo por pieza**: `astro:assets` genera las cinco o seis
+versiones responsivas en webp. La única excepción es `ampliar`, que es un
+segundo archivo en `public/evidencia/<slug>/`, sin procesar, y solo para las
+piezas densas que de verdad hay que leer de cerca.
+
+PNG cuando hay texto, líneas finas o áreas planas (blueprints, mapas,
+capturas de interfaz: el JPG les mete artefactos en los bordes del texto).
+JPG cuando es fotografía.
+
+**Tapado de caras y datos sensibles: rectángulos y óvalos sólidos, nunca
+desenfoque.** El desenfoque se ve descuidado y sobre texto no siempre es
+irreversible.
+
+### Dónde viven los archivos
+
+```
+src/assets/proyectos/<slug>/<qué-es>.png    ← minúsculas, guiones, sin sufijo
+public/evidencia/<slug>/<qué-es>.png           de idioma y sin el slug delante
+```
+
+Las 15 portadas **no se mueven** de `src/assets/proyectos/`: moverlas
+obligaría a tocar los 18 frontmatter.
+
+### Cuánta evidencia
+
+**Máximo 6 piezas por caso, 1 por sección**, salvo la sección que enumera
+entregables, que admite hasta 3. Una galería cuenta como una pieza. Nunca en
+la primera sección (enseñaría la solución antes del problema) ni en la última
+(es reflexión). Un cuerpo de ~1.100 palabras con una pieza cada 180 ya es
+denso; más allá el caso deja de ser un relato y pasa a ser el álbum del que se
+aleja este diseño.
+
+Cada pieza necesita una mención en el texto: **un pie no puede ser la primera
+vez que se nombra algo.**
+
 ## Páginas
 
 1. Inicio: nav (logo JC, Inicio/Proyectos/Sobre mí, selector idioma, toggle
@@ -173,11 +281,17 @@ de verdad en cada idioma. No activar esa opción.
 ## Estado actual
 
 FASES 1 a 7 están completas y commiteadas, **iconos y logo incluidos**, más las
-fases 9 a 13. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
+fases 9 a 15. `astro check` pasa con 0 errores, 0 warnings y 0 hints; el
 build genera 31 páginas, 27 tarjetas Open Graph **con el oso y el fondo del
 banner** (FASE 13), **los 18 casos en Markdown**,
 el sitemap (27 URL, sin los `.md`), `robots.txt` y `llms.txt`.
 Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
+
+La **maquinaria de la evidencia está construida y verificada** (FASE 15): las
+cuatro directivas `:::`, sus estilos, la fachada de video y el aplanado del
+`.md`. Ningún caso la usa todavía porque faltan las imágenes; en cuanto haya
+una carpeta en `src/assets/proyectos/<slug>/`, escribir la pieza es escribir
+Markdown. La configuración vive ahora en `astro.config.ts`, no en `.mjs`.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
 Performance 97-99, Accessibility 100, **Best Practices 100** y SEO 100 en las
@@ -1039,6 +1153,91 @@ que resolvía el caso equivocado:
   × 15 anchos de 320 a 1280 px: ningún borde fuera del viewport. El caso que
   reprodujo el fallo es el inglés a 412px, donde el ícono cae en x=20.
 
+Decisiones de FASE 15 (evidencia dentro de los casos) que no hay que revertir:
+- **Astro 7 ya no usa remark.** Su motor de Markdown es `@astrojs/markdown-satteri`
+  sobre `satteri`, escrito en Rust, y `markdown.remarkPlugins`/`rehypePlugins`
+  están marcados `@deprecated` en los tipos: usarlos obligaría a instalar
+  `@astrojs/markdown-remark` y toda la cadena unified para hacer lo mismo. La API
+  viva es `markdown.processor: satteri({ features, mdastPlugins })`. Los bloques
+  `:::` son **una bandera del motor que ya está instalado** (`features.directive`),
+  no un paquete más: FASE 15 no añadió ni una dependencia.
+- **`features: { directive: true }` se encendió después de comprobar que no
+  cambia nada**: los 18 casos renderizan idénticos byte a byte con y sin la
+  bandera. Ningún `:` de la prosa existente se convierte en directiva. Ese diff
+  hay que repetirlo tras cualquier subida de versión de Astro.
+- **`gfm` y `smartPunctuation` no se declaran en el bloque `markdown`.**
+  `createSatteriMarkdownProcessor` los resuelve desde la config de Astro y
+  **luego** hace `...userFeatures`, así que lo que se pasa se suma. Escribirlos
+  ahí a mano apagaría los apóstrofes tipográficos de los 18 casos.
+- **El plugin es mdast y no hast.** En mdast la imagen sigue siendo un nodo
+  `image` con su ruta relativa, y `collect-images` —que el procesador añade
+  DESPUÉS de los plugins del usuario— la recoge, así que `astro:assets` la
+  optimiza igual que a la portada. Escribir el `<img>` a mano, en hast o como
+  HTML crudo dentro del `.md`, perdería el webp y el srcset.
+- **Nunca pasar `widths`.** El puente hacia el motor vacía los arrays de
+  números: `widths: [480, 720, 960]` llega al `<img>` como `widths=""`
+  (los de cadenas sí sobreviven, unidos por espacios). Se pasa `width` +
+  `layout: 'constrained'` y `getWidths()` los deriva de `image.breakpoints`.
+- **`image.breakpoints` solo afecta a las figuras del cuerpo**, porque todo el
+  bloque responsive de `internal.js` va dentro de `if (layout !== 'none')` y ni
+  la portada ni las tarjetas declaran layout. `responsiveStyles` se queda en
+  `false`: su CSS global de imágenes pelearía con `.prosa`.
+- **Cómo se avisa de un error, con dos caminos descartados por comprobación:**
+  - `ctx.report()` **no imprime nada**. Existe en la interfaz del visitante,
+    pero nadie llama a `getDiagnostics()`, ni en el motor ni en Astro.
+  - Un `throw` **no rompe el build**: hace que ese documento se renderice como
+    cadena vacía y el build termina en verde. El caso se publica con
+    `<div class="prosa"></div>`, sin una línea y sin un mensaje.
+  - Lo que queda, y se usa a la vez: un `[PENDIENTE: …]` **en la página** y un
+    `console.warn` en el build. Importa porque una directiva mal escrita
+    desaparecería del HTML con todo su contenido y sin decir nada, que es el
+    comportamiento por defecto del motor.
+  - En el caso por defecto va `replaceNode` y **no `insertBefore`**: insertar
+    antes de un contenedor que el motor va a descartar deja el documento entero
+    en blanco. Comprobado con `:::figrua`.
+- **El tope de la medida de lectura pasó del contenedor a los hijos**
+  (`.prosa-caso > *` en `global.css`, y `w-full` en `[slug].astro`). Es lo que
+  permite a una figura ancha ensancharse quitándoselo, **sin margen negativo**:
+  con esto el desbordamiento horizontal a 360px es imposible por construcción, y
+  el proyecto ya tiene dos antecedentes de desbordes (el pie y el globo de
+  información en un Moto G56). La cita estrena el `max-w-[680px]` que antes
+  heredaba del contenedor.
+- **Los enlaces de evidencia salen del selector genérico de enlaces de
+  `.prosa`.** `.dark .prosa :where(a)` son dos clases y `.prosa
+  :where(.ev-vivo-boton)` una, así que en modo oscuro el botón salía en menta
+  sobre el acento. Son botones, no prosa. El `:not()` va dentro del `:where()`,
+  así que la especificidad sigue en cero.
+- La píldora de estado usa `texto-suave` y no `texto-tenue`: sobre el pozo,
+  tenue da 4.39:1 y ese texto mide 11.5px.
+- **La fachada de video: el disparador nace como `<a>` a youtube.com y el
+  script lo asciende** a botón de reproducción, quitándole `target`, `rel` y la
+  coletilla de pestaña nueva y poniéndole `aria-label`. Enlace y no `<button>`
+  por la misma razón que «Ver como Markdown» (FASE 11): es lo único que
+  mantiene el video alcanzable si el script no corre. **Sin `role="button"`**,
+  que mentiría justo en ese estado. El iframe se crea contra
+  `youtube-nocookie.com` y solo al clic: verificado que no hay ni una petición
+  a Google antes.
+- El disparador queda **después** del pie en el DOM porque `appendChild` lo
+  pone al final, y así debe ser: al ir después de la imagen se apila encima sin
+  `z-index`. El coste es que el lector de pantalla llega al pie antes que al
+  botón, que además es el orden útil: saber qué video es antes de decidir
+  reproducirlo.
+- **`markdownDeCaso()` aplana la evidencia a texto.** Quien lee el `.md` es un
+  modelo o un ATS, no un navegador: la ruta relativa a `src/assets/` no resuelve
+  desde el dominio y la URL optimizada lleva un hash que cambia en cada build.
+  Lo que transporta información es el alt y el pie. Se conservan las tres
+  direcciones que un lector puede abrir: el video, el sitio en vivo y la imagen
+  ampliable, esta en absoluto.
+- **`astro.config.mjs` pasó a `astro.config.ts`** para que el plugin importe las
+  cadenas de `ui.ts` en vez de duplicarlas. Cloudflare Pages ejecuta
+  `npm run build` y no nombra el archivo: no hubo que tocar el panel.
+- `src/lib/iconos-evidencia.ts` guarda los tres SVG que emite el plugin, que no
+  puede invocar `Icono.astro` desde el procesador de Markdown. El de enlace
+  externo es un **espejo** del de `Icono.astro`, con el aviso escrito en los dos
+  archivos, igual que la constante `COLOR` de `og.ts` con `global.css`.
+- `sitio_url` usa `z.url()` y no `z.string().url()`, que quedó deprecado en Zod 4
+  y sacaba un hint de `astro check`.
+
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898
   del lienzo de 1000 px, y el recorte de la portada del caso solo conserva
@@ -1051,8 +1250,27 @@ Pendientes conocidos, además de las fases:
 - Pedir al bar Industrial permiso para la cita y las métricas del caso.
 - ~~El caso `abuelos-nietos` y su portada~~: escrito en los tres idiomas y con
   sus tres portadas el 8 de agosto de 2026. **La colección queda cerrada.**
-- Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido, y
-  los archivos e imágenes que va a sumar dentro de cada caso.
+- Los cambios visuales que Juan Camilo quiera pedir sobre lo ya construido.
+- **La evidencia de los 6 casos, una sesión por caso.** La maquinaria está
+  construida y verificada (FASE 15); lo que falta son las imágenes, que las
+  prepara Juan Camilo con los tamaños de «Evidencia dentro de los casos». Orden
+  previsto y lo que tiene cada uno:
+  - `i-homotic` (piloto): sitio en producción → `sitio_url`; modelo 3D del
+    stand → `:::enlace-vivo{estado="demo"}`; infográfico del montaje;
+    gráficas de herramientas (service blueprint, mapa de actores).
+  - `industrial`: capturas de pantallas con los datos tapados. **Comprobar
+    antes si el sitio enseña algo sin credenciales**; si no, sin `sitio_url`.
+    El esquema de Supabase queda fuera por decisión de Juan Camilo.
+  - `empaques-ia-alico`: renders del cliente y el front de la feria en el
+    cuerpo con `estado="prototipo"`. Sin `sitio_url`: no es un producto.
+  - `siguiendo-la-huella-azul`: estrena `:::video` (el render en YouTube), más
+    one-page design, journey map y fotos de pruebas con las caras tapadas.
+  - `vr-capacitacion-alico`: video del prototipo, gráficos de Looker Studio y
+    la guía metodológica.
+  - `abuelos-nietos`: investigación pura. Fotos de los cultural probes,
+    evidencias de clase e infografías. Ni enlaces ni video.
+- Comprobar en producción el `Cache-Control: max-age=86400` de `/evidencia/*`,
+  igual que se hizo con `/og/*` y con el charset de los `.md`.
 - `llms.txt` ya cubre los tres idiomas: se arma recorriendo `LOCALES_ACTIVOS`,
   así que al activar el francés apareció sola su sección. Un idioma nuevo entra
   igual, sin tocar nada.
@@ -1093,6 +1311,15 @@ Pendientes conocidos, además de las fases:
    portada sale con `alt=""` y se trata como decorativa, que no rompe nada pero
    desperdicia información. Va **por idioma**, porque una portada con texto
    traducido es otra imagen. Es el único paso que FASE 11 añadió a esta receta.
+3-ter. Las piezas de evidencia del cuerpo, con las cuatro directivas de
+   «Evidencia dentro de los casos». Van en
+   `src/assets/proyectos/<slug>/`, **una sola vez para los tres idiomas**: lo
+   que se traduce es el alt y el pie. Máximo 6 piezas, ninguna en la primera ni
+   en la última sección, y cada una junto a la frase que la nombra. El paso que
+   FASE 15 añadió a esta receta.
+3-quater. `sitio_url` en el frontmatter **solo si el caso tiene un producto en
+   producción** que un desconocido pueda usar. Un prototipo, una demo o un
+   sitio tras un login van en el cuerpo con `:::enlace-vivo{estado="…"}`.
 3-bis. Traducir el caso a `src/content/proyectos/en/<slug>.md` y a `fr/`, con
    las reglas de FASE 6 (mismo `slug`, `orden`, `destacado`, `categoria`,
    `herramientas` y `año`). Mientras falte un idioma, el caso no sale en él:
@@ -1261,3 +1488,16 @@ Pendientes conocidos, además de las fases:
   primera vez de principio a fin, y funcionó sin sorpresas. Ver «Decisiones del
   caso `abuelos-nietos`». Con esto **la colección queda cerrada**: seis casos en
   español, inglés y francés.
+
+- FASE 15 — Evidencia dentro de los casos: **la maquinaria, completa; el
+  contenido, una sesión por caso.** Los casos describían lo que se hizo pero no
+  lo enseñaban: la única imagen de un caso era su portada. Ahora el cuerpo
+  admite cuatro directivas `:::` —figura, galeria, video y enlace-vivo— que se
+  escriben en Markdown y salen optimizadas, traducidas y degradadas solas, sin
+  una sola dependencia nueva. Ver «Evidencia dentro de los casos» para la
+  gramática y los tamaños, y «Decisiones de FASE 15» para el porqué de cada
+  pieza, incluidas las tres trampas del motor de Markdown de Astro 7.
+
+  Prompt de arranque de cada caso: "Lee CLAUDE.md, en especial «Evidencia
+  dentro de los casos». Monta la evidencia de `<slug>` en los tres idiomas con
+  las imágenes de `src/assets/proyectos/<slug>/`."
