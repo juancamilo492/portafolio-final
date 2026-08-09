@@ -176,6 +176,30 @@ export const ui = {
       'Copian o abren el texto de este caso en Markdown, para pegarlo en una IA y pedirle un resumen.',
     'proyectos.conocerMas': 'Conocer más',
 
+    /*
+     * --- Evidencia dentro del caso (FASE 15) ---
+     * Las emite el plugin de `src/lib/evidencia.ts`, que corre dentro del
+     * procesador de Markdown y saca el idioma de la ruta del propio `.md`.
+     */
+    'proyectos.ampliarImagen': 'Ampliar',
+    'proyectos.verSitio': 'Ver el sitio',
+    'proyectos.verVideo': 'Ver el video en YouTube',
+    'proyectos.reproducirVideo': 'Reproducir el video',
+    /*
+     * Estado de un enlace en vivo. Dice qué hay detrás antes de que nadie
+     * pulse: un prototipo anunciado suma, descubierto por sorpresa resta.
+     */
+    'proyectos.estadoProduccion': 'En producción',
+    'proyectos.estadoPrototipo': 'Prototipo',
+    'proyectos.estadoDemo': 'Demo',
+    // Campo de la barra de contexto, solo si el caso declara `sitio_url`.
+    'proyectos.sitioWeb': 'Sitio web',
+    // Etiquetas de la evidencia aplanada en la versión `.md` del caso.
+    'proyectos.mdImagen': 'Imagen',
+    'proyectos.mdVideo': 'Video',
+    'proyectos.mdSitio': 'Sitio en vivo',
+    'proyectos.mdImagenCompleta': 'Imagen completa',
+
     // --- Categorías canónicas (ver src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
     'categoria.Producto digital': 'Producto digital',
@@ -362,6 +386,20 @@ export const ui = {
       "They copy or open this case's text as Markdown, ready to paste into an AI and ask for a summary.",
     'proyectos.conocerMas': 'Learn more',
 
+    // --- Evidence inside the case study (FASE 15) ---
+    'proyectos.ampliarImagen': 'Enlarge',
+    'proyectos.verSitio': 'Visit the site',
+    'proyectos.verVideo': 'Watch the video on YouTube',
+    'proyectos.reproducirVideo': 'Play the video',
+    'proyectos.estadoProduccion': 'Live',
+    'proyectos.estadoPrototipo': 'Prototype',
+    'proyectos.estadoDemo': 'Demo',
+    'proyectos.sitioWeb': 'Website',
+    'proyectos.mdImagen': 'Image',
+    'proyectos.mdVideo': 'Video',
+    'proyectos.mdSitio': 'Live site',
+    'proyectos.mdImagenCompleta': 'Full-size image',
+
     // --- Canonical categories (see src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
     'categoria.Producto digital': 'Digital product',
@@ -540,6 +578,20 @@ export const ui = {
     'proyectos.infoMarkdown':
       'Ils copient ou ouvrent le texte de ce cas en Markdown, à coller dans une IA pour lui demander un résumé.',
     'proyectos.conocerMas': 'En savoir plus',
+
+    // --- Preuves à l’intérieur du cas (FASE 15) ---
+    'proyectos.ampliarImagen': 'Agrandir',
+    'proyectos.verSitio': 'Voir le site',
+    'proyectos.verVideo': 'Voir la vidéo sur YouTube',
+    'proyectos.reproducirVideo': 'Lire la vidéo',
+    'proyectos.estadoProduccion': 'En production',
+    'proyectos.estadoPrototipo': 'Prototype',
+    'proyectos.estadoDemo': 'Démo',
+    'proyectos.sitioWeb': 'Site web',
+    'proyectos.mdImagen': 'Image',
+    'proyectos.mdVideo': 'Vidéo',
+    'proyectos.mdSitio': 'Site en ligne',
+    'proyectos.mdImagenCompleta': 'Image en taille réelle',
 
     // --- Catégories canoniques (voir src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',

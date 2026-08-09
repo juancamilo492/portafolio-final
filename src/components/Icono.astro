@@ -145,6 +145,11 @@ const trazo = { ...comun, fill: 'none', stroke: 'currentColor', 'stroke-width': 
    * para «esto se abre aparte». La caja queda abierta por la esquina superior
    * derecha a propósito, para que la flecha no la cruce a 15px.
    */
+  /*
+    Este dibujo tiene un espejo en `src/lib/iconos-evidencia.ts`: el plugin de
+    evidencia corre dentro del procesador de Markdown y no puede invocar este
+    componente. Si se toca aquí, hay que tocarlo allí.
+  */
   nombre === 'enlace-externo' && (
     <svg {...trazo} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M14 4h6v6M20 4l-8.5 8.5" />

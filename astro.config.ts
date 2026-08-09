@@ -3,7 +3,9 @@ import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
 import type { AstroIntegration } from 'astro';
 import sitemap from '@astrojs/sitemap';
+import { satteri } from '@astrojs/markdown-satteri';
 import tailwindcss from '@tailwindcss/vite';
+import { evidencia } from './src/lib/evidencia';
 
 // Dominio de producción. Base de canonical, hreflang, sitemap y Open Graph.
 const SITE = 'https://juancamilo492.online';
@@ -97,6 +99,45 @@ export default defineConfig({
        */
     }),
   ],
+
+  markdown: {
+    /*
+     * El motor sigue siendo el de fábrica de Astro 7 (Sätteri, escrito en
+     * Rust). Lo único que se le pide de más es `directive`, que enciende los
+     * bloques `:::`, y el plugin que los traduce a marcado.
+     *
+     * No se usan `remarkPlugins` ni `rehypePlugins`: están marcados
+     * `@deprecated` en Astro 7 y obligarían a instalar @astrojs/markdown-remark
+     * y toda la cadena unified para hacer exactamente esto mismo.
+     *
+     * `gfm` y `smartPunctuation` NO se tocan: `createSatteriMarkdownProcessor`
+     * los resuelve desde la config de Astro y luego hace `...userFeatures`, así
+     * que este objeto se suma en vez de reemplazarlos. Ponerlos aquí a mano
+     * apagaría los apóstrofes tipográficos de los 18 casos.
+     *
+     * Verificado antes de encenderlo: los 18 casos renderizan idénticos byte a
+     * byte con y sin `directive: true`. Ningún `:` de la prosa existente se
+     * convierte en directiva.
+     */
+    processor: satteri({
+      features: { directive: true },
+      mdastPlugins: [evidencia()],
+    }),
+  },
+
+  image: {
+    /*
+     * Solo afecta a las imágenes que declaran `layout`, es decir a las figuras
+     * de evidencia que emite el plugin: en `astro/dist/assets/internal.js`
+     * todo el bloque responsive va dentro de `if (layout !== 'none')`, y ni la
+     * portada del caso ni las tarjetas declaran layout. Sin esta lista, cada
+     * figura saldría en siete u ocho versiones.
+     *
+     * `responsiveStyles` se queda en su `false` por defecto: pondría CSS
+     * global de imágenes que pelearía con las reglas de `.prosa`.
+     */
+    breakpoints: [640, 960, 1280, 1600],
+  },
 
   vite: {
     plugins: [tailwindcss()],
