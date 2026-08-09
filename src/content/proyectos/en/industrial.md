@@ -2,6 +2,7 @@
 titulo: "Industrial: a digital menu and management system for a bar"
 slug: "industrial"
 cliente: "Bar Industrial"
+sitio_url: "https://industrial-lovat.vercel.app/"
 año: "2026"
 rol: "Interaction and systems design, from research to daily operation"
 categoria: ["Producto digital", "UX/UI"]
@@ -34,6 +35,12 @@ The solution was to design a single system with two faces:
 - **The server** uses that same flow to enter the admin panel, select the
   table and register the order themselves, confirming it in person.
 
+:::figura{ancho ampliar}
+![Mobile QR menu welcome screen with a button to view the menu and direct links to active promotions](../../../assets/proyectos/industrial/inicio-qr.png)
+
+Welcome view for customers upon scanning the table's QR code, focused exclusively on information browsing and promotions without any option for accidental order submissions.
+:::
+
 The order stays tied to the right table, the customer keeps control of what
 they consume, and the bar eliminates accidental orders. Designing for the
 real context of use, a bar at night and not an ideal app, defined the whole
@@ -41,12 +48,26 @@ product.
 
 ## The system
 
+:::galeria{ampliar}
+![Mobile digital menu listing displaying cards with real photos and prices for spirits and beers](../../../assets/proyectos/industrial/menu-digital.png)
+
+![Promotions management module showing cards with active deals and state filter options](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+The customer's digital menu allows exploring over 170 products with real photos, while the staff panel enables creating and managing the day's active promotions and discounts.
+:::
+
 **For the customer (via QR):**
 - Digital menu with over 170 products, categories and a search box
 - Active promotions for the day (2-for-1, discounts, weekly raffles)
 - Upcoming bar events (matches, special dates) on the home page
 - Table bill lookup with the running total
 - A direct link to leave a Google review
+
+:::figura{ancho ampliar}
+![Bar management dashboard showing a grid of 26 tables color-coded by real-time status](../../../assets/proyectos/industrial/panel-mesas.png)
+
+Control panel for the bar's staff featuring visual management of 26 tables color-coded by status (free or occupied) alongside session timers and active order counts.
+:::
 
 **For the bar's team:**
 - Visual management of 26 tables with real-time status
@@ -80,6 +101,12 @@ production the same day or the next. That short feedback loop is possible
 because the system was designed to be modified without friction.
 
 ## The outcome
+
+:::figura{ancho ampliar}
+![Analytics and reporting dashboard with business metric cards and visual indicators of sales performance](../../../assets/proyectos/industrial/informes-estadisticas.png)
+
+Analytics panel for management consolidating delivered orders, average ticket and sales behavior by day and hour (with confidential figures protected).
+:::
 
 The system is in production and in daily use. The managers verified that the
 reports match the bar's invoicing and inventory, which let them go from

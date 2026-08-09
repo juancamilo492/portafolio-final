@@ -2,6 +2,7 @@
 titulo: "Industrial : menu numérique et système de gestion pour un bar"
 slug: "industrial"
 cliente: "Bar Industrial"
+sitio_url: "https://industrial-lovat.vercel.app/"
 año: "2026"
 rol: "Design d’interaction et conception du système, de la recherche à l’exploitation quotidienne"
 categoria: ["Producto digital", "UX/UI"]
@@ -37,6 +38,12 @@ La solution a été de concevoir un seul système à deux visages :
   panneau d’administration, sélectionner la table et enregistrer la commande,
   en la confirmant en personne.
 
+:::figura{ancho ampliar}
+![Écran d’accueil du menu QR sur mobile avec bouton pour consulter le menu et accès direct aux promotions](../../../assets/proyectos/industrial/inicio-qr.png)
+
+Vue d’accueil destinée au client lors du scan du QR code sur la table, axée exclusivement sur la consultation d’informations et de promotions, sans risque d’envoi accidentel de commande.
+:::
+
 La commande reste associée à la bonne table, le client garde le contrôle de ce
 qu’il consomme, et le bar élimine les commandes accidentelles. Concevoir pour
 le contexte d’usage réel, un bar la nuit et non une application idéale, a
@@ -44,12 +51,26 @@ défini tout le produit.
 
 ## Le système
 
+:::galeria{ampliar}
+![Liste du menu numérique sur mobile présentant des cartes avec photos réelles et prix des boissons](../../../assets/proyectos/industrial/menu-digital.png)
+
+![Module de gestion des promotions affichant les cartes d’offres actives et les filtres de statut](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+Le menu numérique du client permet d’explorer plus de 170 produits avec des photos réelles, tandis que le panneau de l’équipe permet de créer et d’administrer les promotions et remises actives du jour.
+:::
+
 **Pour le client (via le QR code) :**
 - Menu numérique avec plus de 170 produits, catégories et moteur de recherche
 - Promotions actives du jour (2 pour 1, remises, tombolas hebdomadaires)
 - Prochains événements du bar (matchs, dates spéciales) sur la page d’accueil
 - Consultation de l’addition de la table avec le total cumulé
 - Accès direct pour laisser un avis sur Google
+
+:::figura{ancho ampliar}
+![Panneau d’administration du bar montrant la grille de 26 tables organisées par état en temps réel](../../../assets/proyectos/industrial/panel-mesas.png)
+
+Panneau de contrôle pour le personnel du bar offrant la gestion visuelle de 26 tables codées par statut (libre ou occupée) avec compteurs de temps et de commandes actives.
+:::
 
 **Pour l’équipe du bar :**
 - Gestion visuelle de 26 tables avec leur état en temps réel
@@ -87,6 +108,12 @@ système a été conçu pour être modifié sans friction.
 
 ## Le résultat
 
+:::figura{ancho ampliar}
+![Panneau de rapports et statistiques avec cartes d’indicateurs d’activité et suivis des ventes](../../../assets/proyectos/industrial/informes-estadisticas.png)
+
+Panneau d’analyse destiné à la gérance regroupant les commandes livrées, le ticket moyen et le comportement des ventes par jour et par heure (données confidentielles protégées).
+:::
+
 Le système est en production et utilisé tous les jours. Les gérantes ont
 vérifié que les rapports coïncident avec la facturation et l’inventaire du bar,
 ce qui leur a permis de passer d’une revue des commandes une par une à une vue
@@ -97,7 +124,7 @@ plus de 170 produits se gèrent depuis un seul panneau, les commandes
 accidentelles ont disparu parce que le flux ne les permet plus, et chaque
 ajustement demandé par le bar arrive en production le jour même ou le
 lendemain. Le système a cessé d’être un livrable pour devenir une partie du
-fonctionnement de l’entreprise.
+ fonctionnement de l’entreprise.
 
 ## Ce que j’ai appris
 

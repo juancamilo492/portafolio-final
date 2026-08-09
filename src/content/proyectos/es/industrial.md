@@ -2,6 +2,7 @@
 titulo: "Industrial: menú digital y sistema de gestión para un bar"
 slug: "industrial"
 cliente: "Bar Industrial"
+sitio_url: "https://industrial-lovat.vercel.app/"
 año: "2026"
 rol: "Diseño de interacción y del sistema, de la investigación a la operación diaria"
 categoria: ["Producto digital", "UX/UI"]
@@ -34,6 +35,12 @@ La solución fue diseñar un solo sistema con dos caras:
 - **El mesero** usa ese mismo flujo para entrar al panel de administración,
   seleccionar la mesa y registrar la orden él mismo, confirmando en persona.
 
+:::figura{ancho ampliar}
+![Pantalla de bienvenida del menú por código QR en móvil con botón para ver menú y accesos directos a promociones](../../../assets/proyectos/industrial/inicio-qr.png)
+
+Vista de bienvenida para el cliente al escanear el código QR de la mesa, enfocada exclusivamente en la consulta de información y promociones sin opción de envío accidental de pedidos.
+:::
+
 El pedido queda asociado a la mesa correcta, el cliente mantiene el control de
 lo que consume, y el bar elimina los pedidos accidentales. Diseñar para el
 contexto real de uso, un bar de noche y no una app ideal, definió todo el
@@ -41,12 +48,26 @@ producto.
 
 ## El sistema
 
+:::galeria{ampliar}
+![Listado del menú digital en móvil con tarjetas de fotos reales y precios de licores y cervezas](../../../assets/proyectos/industrial/menu-digital.png)
+
+![Módulo de administración de promociones con tarjetas de ofertas activas y filtros por estado](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+El menú digital del cliente permite explorar más de 170 productos con fotos reales, mientras que el panel del equipo permite crear y administrar las promociones y descuentos activos del día.
+:::
+
 **Para el cliente (vía QR):**
 - Menú digital con más de 170 productos, categorías y buscador
 - Promociones activas del día (2x1, descuentos, rifas semanales)
 - Próximos eventos del bar (partidos, fechas especiales) en la página principal
 - Consulta de la cuenta de la mesa con total acumulado
 - Acceso directo para dejar reseña en Google
+
+:::figura{ancho ampliar}
+![Panel de administración del bar con la grilla de 26 mesas organizadas por estado en tiempo real](../../../assets/proyectos/industrial/panel-mesas.png)
+
+Panel de control para el personal del bar con la gestión visual de 26 mesas codificadas por estado (libre u ocupada) y contadores de tiempo y pedidos activos.
+:::
 
 **Para el equipo del bar:**
 - Gestión visual de 26 mesas con estado en tiempo real
@@ -80,6 +101,12 @@ siguiente. Ese ciclo corto de retroalimentación es posible porque el sistema
 fue diseñado para modificarse sin fricción.
 
 ## El resultado
+
+:::figura{ancho ampliar}
+![Panel de informes y estadísticas con tarjetas de métricas del negocio e indicadores visuales de ventas](../../../assets/proyectos/industrial/informes-estadisticas.png)
+
+Panel de analítica para la administración que consolida pedidos entregados, ticket promedio y comportamiento de ventas por día y hora (con cifras confidenciales resguardadas).
+:::
 
 El sistema está en producción y en uso diario. Las administradoras validaron
 que los informes coinciden con la facturación y el inventario del bar, lo que
