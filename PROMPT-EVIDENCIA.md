@@ -25,6 +25,11 @@
    carpeta no existe o está vacía, **para y pídelas**: sin verlas no puedes
    escribir el texto alternativo, y ese texto no se puede deducir del caso.
 
+   Si **no puedes abrir imágenes**, dilo abiertamente y escribe los alt como
+   `[PENDIENTE: describir la imagen <archivo>]`. Un texto alternativo
+   inventado a partir del nombre del archivo es peor que no tenerlo: describe
+   una imagen que nadie ha visto, y va a acabar publicado.
+
 ## Qué hay que hacer
 
 El portafolio ya describe bien cada proyecto, pero hasta ahora la única imagen
@@ -117,6 +122,27 @@ Pie del video.
 10. **Un solo enlace arriba.** `sitio_url` en el frontmatter es solo para el
     producto principal **en producción**. Un prototipo, una demo o un sitio
     tras un login van en el cuerpo con `:::enlace-vivo{estado="…"}`.
+
+## Cómo se traduce en este proyecto
+
+Los pies y los textos alternativos van en los tres idiomas. Reglas que ya
+sigue el resto del contenido y que tienes que respetar:
+
+- **Los decimales en francés van con coma**: `4,32` · `2,4/5` · `65 %`. En
+  español y en inglés, con punto. Es la única diferencia numérica entre las
+  tres versiones de un caso.
+- **Los nombres propios de empresa no se traducen**: i-Homotic (GELECT
+  S.A.S), Bar Industrial, Alico S.A.S BIC.
+- **Los nombres de producto tampoco**: Figma, n8n, Unity, Blender, Three.js,
+  Looker Studio.
+- **Los métodos consolidados en inglés se quedan en inglés** en los tres
+  idiomas: cultural probes, customer journey map, service blueprint, tree
+  testing, prompt engineering. Los que sí tienen forma corriente en cada
+  lengua se traducen: «entrevistas», «mapa de empatía».
+- **Apóstrofes y comillas tipográficos** (’ “ ” « »). En el cuerpo se
+  convierten solos; en el frontmatter no, así que ahí se escriben a mano.
+- El francés es el idioma donde más se degrada una traducción automática.
+  Si dudas de una construcción, **déjala señalada** en vez de inventarla.
 
 ## Lo que NO debes tocar
 
