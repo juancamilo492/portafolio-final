@@ -1,7 +1,7 @@
-// @ts-check
 import { readdir, rename, rm, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
+import type { AstroIntegration } from 'astro';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -21,11 +21,10 @@ const SITE = 'https://juancamilo492.online';
  * forma de todas las URLs del sitio. Recorre el disco en vez de leer la lista
  * de idiomas: un idioma nuevo queda cubierto sin tocar nada.
  */
-function cuatroCeroCuatroPorIdioma() {
+function cuatroCeroCuatroPorIdioma(): AstroIntegration {
   return {
     name: 'cuatro-cero-cuatro-por-idioma',
     hooks: {
-      /** @type {(opciones: { dir: URL, logger: { info: (mensaje: string) => void } }) => Promise<void>} */
       'astro:build:done': async ({ dir, logger }) => {
         const raiz = dir.pathname.replace(/^\/([A-Za-z]:)/, '$1');
 
