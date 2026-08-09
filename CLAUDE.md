@@ -296,6 +296,9 @@ Markdown. La configuración vive ahora en `astro.config.ts`, no en `.mjs`.
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
 Performance 97-99, Accessibility 100, **Best Practices 100** y SEO 100 en las
 cuatro plantillas, ya con los iconos definitivos y sin un solo 404 en consola.
+Remedido en la plantilla de caso tras FASE 15: **98 / 100 / 100 / 100**, con
+CLS 0 y TBT 0 ms. Hay que volver a medirlo cuando un caso lleve evidencia de
+verdad, que es cuando entran imágenes nuevas.
 
 Para publicar solo faltan cosas que no dependen del código:
 
