@@ -63,6 +63,18 @@ const proyectos = defineCollection({
        * que es lo correcto mientras nadie la haya mirado para describirla.
        */
       imagen_alt: z.string().optional(),
+      /*
+       * El producto de este caso, en línea y en producción, para la barra de
+       * contexto. Solo eso: un prototipo, una demo o un sitio tras un login
+       * van en el cuerpo con `:::enlace-vivo{estado="…"}`, que dice qué son
+       * antes de que nadie pulse. Aquí arriba solo cabe uno, porque un segundo
+       * enlace en el primer pantallazo diluye al primero.
+       * `z.url()` obliga a una dirección absoluta: la barra la muestra como
+       * enlace y construye un `new URL()` para sacar el dominio, así que una
+       * ruta relativa rompería el build. (Es `z.url()` y no el
+       * `z.string().url()` de siempre: ese quedó deprecado en Zod 4.)
+       */
+      sitio_url: z.url().optional(),
       // Ordena destacados en el inicio y la navegación anterior/siguiente.
       orden: z.number().int().positive(),
       // Opcional: cita destacada de la plantilla de caso.

@@ -63,7 +63,13 @@ const relacionados = await proyectosRelacionados(proyecto, 3);
  * año lleva `<time datetime>` cuando de verdad es una fecha. Los dos son datos
  * que un rastreador tenía que adivinar partiendo texto.
  */
-const contexto: { etiqueta: string; valor: string; lista?: string[]; fecha?: boolean }[] = [
+const contexto: {
+  etiqueta: string;
+  valor: string;
+  lista?: string[];
+  fecha?: boolean;
+  href?: string;
+}[] = [
   { etiqueta: t('proyectos.cliente'), valor: datos.cliente },
   { etiqueta: t('proyectos.anio'), valor: datos.año, fecha: esAnioSuelto(datos.año) },
   { etiqueta: t('proyectos.rol'), valor: datos.rol },
@@ -73,6 +79,23 @@ const contexto: { etiqueta: string; valor: string; lista?: string[]; fecha?: boo
     lista: datos.herramientas,
   },
 ];
+
+/*
+ * El sitio en producción entra en la barra como quinto campo, no como bloque
+ * aparte: así llega al primer pantallazo sin empujar la portada, que es el
+ * elemento LCP del caso. Solo aparece si el `.md` declara `sitio_url`.
+ *
+ * Se muestra el dominio y no la URL entera porque es lo que identifica al
+ * producto de un vistazo; el `href` sí lleva la dirección completa. El `www.`
+ * sobra: no aporta y gasta ancho en una celda estrecha.
+ */
+if (datos.sitio_url) {
+  contexto.push({
+    etiqueta: t('proyectos.sitioWeb'),
+    valor: new URL(datos.sitio_url).host.replace(/^www\./, ''),
+    href: datos.sitio_url,
+  });
+}
 
 // Inicio › Proyectos › este caso. La última no lleva enlace: ya estás en ella.
 const migas = [
@@ -218,6 +241,24 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
                 </ul>
               ) : campo.fecha ? (
                 <time datetime={campo.valor}>{campo.valor}</time>
+              ) : campo.href ? (
+                /*
+                  Sale del sitio, así que lleva las tres piezas de siempre: la
+                  flecha para quien ve, la coletilla `sr-only` detrás del texto
+                  para quien no —el nombre accesible tiene que empezar por lo
+                  que se lee, WCAG 2.5.3— y `rel="noopener"`. Es el mismo
+                  tratamiento que «Ver como Markdown».
+                */
+                <a
+                  href={campo.href}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 break-all text-acento-texto underline underline-offset-[3px] transition-colors hover:text-profundo dark:text-menta dark:hover:text-noche-titulo"
+                >
+                  {campo.valor}
+                  <span class="sr-only">{t('proyectos.nuevaPestana')}</span>
+                  <Icono nombre="enlace-externo" tamano={12} class="shrink-0 opacity-70" />
+                </a>
               ) : (
                 campo.valor
               )}
