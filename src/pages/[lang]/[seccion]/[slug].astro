@@ -455,3 +455,53 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
     <BloqueCTA locale={locale} variante="compacto" id="contacto" />
   </Contenedor>
 </BaseLayout>
+
+<script>
+  /*
+   * Fachada de video: mientras nadie pulse, la página no habla con Google.
+   *
+   * El disparador llega del plugin como un <a> a youtube.com, no como
+   * <button>: es lo único que mantiene el video alcanzable si este script no
+   * corre, y es la misma razón por la que «Ver como Markdown» es un enlace
+   * (FASE 11). Cuando el script sí corre, el enlace deja de salir del sitio,
+   * así que aquí se le quitan `target`, `rel` y la coletilla «se abre en una
+   * pestaña nueva», y su nombre accesible pasa a «Reproducir el video». Se
+   * fija desde JS por lo mismo que el `aria-pressed` del toggle de tema: la
+   * página es estática y no sabe si este script llegó a ejecutarse.
+   *
+   * No se le pone `role="button"`: mentiría en el estado sin JS, donde de
+   * verdad es un enlace a YouTube.
+   */
+  document.querySelectorAll<HTMLElement>('[data-video]').forEach((fachada) => {
+    const disparador = fachada.querySelector<HTMLAnchorElement>('[data-video-play]');
+    const id = fachada.dataset.video;
+    if (!disparador || !id) return;
+
+    disparador.removeAttribute('target');
+    disparador.removeAttribute('rel');
+    disparador.querySelector('[data-video-nueva-pestana]')?.remove();
+    if (fachada.dataset.videoReproducir) {
+      disparador.setAttribute('aria-label', fachada.dataset.videoReproducir);
+    }
+
+    disparador.addEventListener('click', (evento) => {
+      evento.preventDefault();
+
+      const cuadro = document.createElement('iframe');
+      cuadro.className = 'ev-video-cuadro';
+      // El dominio sin cookies de seguimiento, y solo a partir de este clic.
+      cuadro.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
+      cuadro.title = fachada.dataset.videoTitulo ?? '';
+      cuadro.loading = 'lazy';
+      cuadro.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      cuadro.allowFullscreen = true;
+      cuadro.referrerPolicy = 'strict-origin-when-cross-origin';
+
+      // La miniatura se va con el disparador: el iframe ocupa su misma celda.
+      fachada.querySelector('img')?.remove();
+      disparador.replaceWith(cuadro);
+      cuadro.focus();
+    });
+  });
+</script>
