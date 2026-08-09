@@ -182,6 +182,10 @@ export const ui = {
      * procesador de Markdown y saca el idioma de la ruta del propio `.md`.
      */
     'proyectos.ampliarImagen': 'Ampliar',
+    // Del visor que abre «Ampliar» sin sacar a nadie de la página.
+    'proyectos.imagenAmpliada': 'Imagen ampliada',
+    'proyectos.cerrarImagen': 'Cerrar la imagen',
+    'proyectos.abrirArchivo': 'Abrir el archivo',
     'proyectos.verSitio': 'Ver el sitio',
     'proyectos.verVideo': 'Ver el video en YouTube',
     'proyectos.reproducirVideo': 'Reproducir el video',
@@ -388,6 +392,9 @@ export const ui = {
 
     // --- Evidence inside the case study (FASE 15) ---
     'proyectos.ampliarImagen': 'Enlarge',
+    'proyectos.imagenAmpliada': 'Enlarged image',
+    'proyectos.cerrarImagen': 'Close the image',
+    'proyectos.abrirArchivo': 'Open the file',
     'proyectos.verSitio': 'Visit the site',
     'proyectos.verVideo': 'Watch the video on YouTube',
     'proyectos.reproducirVideo': 'Play the video',
@@ -581,6 +588,9 @@ export const ui = {
 
     // --- Preuves à l’intérieur du cas (FASE 15) ---
     'proyectos.ampliarImagen': 'Agrandir',
+    'proyectos.imagenAmpliada': 'Image agrandie',
+    'proyectos.cerrarImagen': 'Fermer l’image',
+    'proyectos.abrirArchivo': 'Ouvrir le fichier',
     'proyectos.verSitio': 'Voir le site',
     'proyectos.verVideo': 'Voir la vidéo sur YouTube',
     'proyectos.reproducirVideo': 'Lire la vidéo',

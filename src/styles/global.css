@@ -517,6 +517,119 @@
     border-radius: var(--radius-tarjeta);
   }
 
+  /*
+   * Visor de imagen ampliada (`VisorImagen.astro`). Vive fuera de `.prosa`:
+   * `showModal()` lo saca a la capa superior del navegador, así que no hereda
+   * nada de la columna del cuerpo.
+   */
+  .ev-visor {
+    max-width: min(1100px, 94vw);
+    max-height: 92vh;
+    margin: auto;
+    border: 0;
+    border-radius: var(--radius-bloque);
+    background-color: var(--color-superficie);
+    padding: 0;
+    overflow: visible;
+    color: var(--color-texto-cuerpo);
+  }
+
+  .dark .ev-visor {
+    background-color: var(--color-noche-superficie);
+    color: var(--color-noche-cuerpo);
+  }
+
+  /* El fondo se deriva del verde más profundo, nunca negro puro. */
+  .ev-visor::backdrop {
+    background-color: rgb(6 35 28 / 0.86);
+  }
+
+  .ev-visor-caja {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-height: 92vh;
+  }
+
+  .ev-visor img {
+    display: block;
+    /* La imagen manda el tamaño hasta donde quepa; el pie ocupa el resto. */
+    max-height: calc(92vh - 92px);
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-bloque) var(--radius-bloque) 0 0;
+    background-color: var(--color-pozo);
+  }
+
+  .dark .ev-visor img {
+    background-color: var(--color-noche);
+  }
+
+  .ev-visor-pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 20px;
+    padding: 15px 22px 17px;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .ev-visor-original {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    color: var(--color-acento-texto);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .dark .ev-visor-original {
+    color: var(--color-menta);
+  }
+
+  /*
+   * El botón de cerrar cuelga por fuera de la esquina superior derecha: sobre
+   * la imagen taparía contenido, y una imagen ampliable suele tener algo justo
+   * ahí. Bajo 640px vuelve adentro, donde sí hay sitio.
+   */
+  .ev-visor-cerrar {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background-color: var(--color-superficie);
+    color: var(--color-texto);
+    box-shadow: var(--shadow-flotante);
+    transition:
+      background-color 150ms ease-out,
+      transform 150ms ease-out;
+  }
+
+  .dark .ev-visor-cerrar {
+    background-color: var(--color-noche-flotante);
+    color: var(--color-noche-titulo);
+    box-shadow: var(--shadow-flotante-noche);
+  }
+
+  .ev-visor-cerrar:hover {
+    transform: scale(1.08);
+  }
+
+  @media (min-width: 640px) {
+    .ev-visor-cerrar {
+      top: -14px;
+      right: -14px;
+    }
+  }
+
   /* Tarjeta hacia un producto en línea. */
   .prosa :where(.ev-vivo) {
     margin: 40px 0;

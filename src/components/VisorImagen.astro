@@ -1,0 +1,175 @@
+---
+/**
+ * El visor que abre «Ampliar» en una figura de evidencia.
+ *
+ * Existe para no sacar a nadie de la página: antes el enlace llevaba el
+ * archivo a una pestaña nueva, y volver al caso dependía del botón atrás.
+ * Aquí la imagen se ve grande, con su pie, y se cierra donde estaba.
+ *
+ * ── Progressive enhancement, igual que la fachada de video ─────────────────
+ * El enlace lo emite el plugin de Markdown como un `<a href>` de verdad hacia
+ * `/evidencia/<slug>/<archivo>`, y este script lo asciende a abridor del
+ * visor. Si el script no corre, el enlace sigue funcionando: abre el archivo
+ * en una pestaña nueva, que es exactamente lo que hacía antes. Por eso el
+ * `<a>` conserva su `href`, su `target` y su `rel`, y solo se le quita la
+ * coletilla de pestaña nueva cuando el visor ya está disponible.
+ *
+ * ── Por qué `<dialog>` y no un div ─────────────────────────────────────────
+ * `showModal()` trae de fábrica lo caro y lo fácil de hacer mal: atrapa el
+ * foco dentro, cierra con Escape, marca el resto de la página como inerte
+ * para el lector de pantalla y devuelve el foco al elemento que lo abrió.
+ * Escribir eso a mano son cien líneas y varios errores clásicos.
+ *
+ * ── Un solo visor por página ───────────────────────────────────────────────
+ * No uno por figura: se rellena al vuelo con los datos de la que se pulsó.
+ * La imagen que carga es la de `public/evidencia/`, sin procesar por
+ * astro:assets, que es la versión legible; la del cuerpo está topada al ancho
+ * de presentación y ampliarla no serviría de nada.
+ */
+import Icono from './Icono.astro';
+import type { Locale } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const t = useTranslations(Astro.props.locale);
+---
+
+<dialog data-visor aria-label={t('proyectos.imagenAmpliada')} class="ev-visor">
+  {/*
+    El botón de cerrar va primero en el DOM y lleva `autofocus`, aunque se
+    pinte en la esquina: `showModal()` enfoca el primer elemento focusable, y
+    sin esto el foco caía en «Abrir el archivo», que es un enlace que saca de
+    la página. Quien abre el visor con teclado y pulsa Enter sin mirar debe
+    cerrarlo, no salir. El orden de tabulación queda cerrar → abrir archivo.
+  */}
+  <button
+    type="button"
+    autofocus
+    data-visor-cerrar
+    aria-label={t('proyectos.cerrarImagen')}
+    class="ev-visor-cerrar"
+  >
+    <Icono nombre="cerrar" tamano={18} />
+  </button>
+
+  <figure class="ev-visor-caja">
+    <img data-visor-img alt="" />
+    <figcaption class="ev-visor-pie">
+      <span data-visor-pie></span>
+      {/* La salida para una pieza tan densa que ni a pantalla completa se lee:
+          el archivo original, con el zoom nativo del navegador. */}
+      <a
+        data-visor-original
+        href="#"
+        target="_blank"
+        rel="noopener"
+        class="ev-visor-original"
+      >
+        {t('proyectos.abrirArchivo')}
+        <span class="sr-only">{t('proyectos.nuevaPestana')}</span>
+        <Icono nombre="enlace-externo" tamano={12} />
+      </a>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+  const visor = document.querySelector<HTMLDialogElement>('[data-visor]');
+  const enlaces = document.querySelectorAll<HTMLAnchorElement>('.ev-ampliar');
+
+  // Sin visor en la página, o sin ninguna figura ampliable, los enlaces se
+  // quedan como están y siguen abriendo el archivo.
+  if (visor && enlaces.length > 0) {
+    const imagen = visor.querySelector<HTMLImageElement>('[data-visor-img]');
+    const pie = visor.querySelector<HTMLElement>('[data-visor-pie]');
+    const original = visor.querySelector<HTMLAnchorElement>('[data-visor-original]');
+    const cerrar = visor.querySelector<HTMLButtonElement>('[data-visor-cerrar]');
+
+    enlaces.forEach((enlace) => {
+      /*
+       * Ya no sale del sitio, así que deja de prometerlo: fuera `target`,
+       * `rel` y la coletilla «se abre en una pestaña nueva». Es el mismo
+       * ascenso que el disparador del video, y por el mismo motivo se hace
+       * desde JS: la página es estática y no sabe si este script llegó.
+       */
+      enlace.removeAttribute('target');
+      enlace.removeAttribute('rel');
+      enlace.querySelector('.sr-only')?.remove();
+
+      enlace.addEventListener('click', (evento) => {
+        evento.preventDefault();
+
+        // El alt y el pie salen de la propia figura: una sola fuente, ya
+        // escrita y traducida en el `.md`.
+        const figura = enlace.closest('figure');
+        const original_ = figura?.querySelector('img');
+        const textoPie = figura?.querySelector('figcaption')?.textContent ?? '';
+
+        if (imagen) {
+          imagen.src = enlace.href;
+          imagen.alt = original_?.alt ?? '';
+        }
+        // El pie sin el texto del propio enlace, que aquí no pinta nada.
+        if (pie) pie.textContent = textoPie.replace(enlace.textContent ?? '', '').trim();
+        if (original) original.href = enlace.href;
+
+        visor.showModal();
+      });
+    });
+
+    /*
+     * Cerrar y soltar la imagen. Sin esto la última ampliada se queda
+     * decodificada en memoria hasta cambiar de página, y son archivos de hasta
+     * 1,5 MB pensados para verse de cerca.
+     *
+     * No se hace escuchando el evento `close` del diálogo, que sería lo
+     * natural: **no llega**. Comprobado con un listener de prueba y un
+     * MutationObserver, el diálogo pasa a `open=false` sin emitirlo. Así que
+     * se limpia en cada camino de salida: aquí, y en `cancel`, que es el que
+     * sí avisa de la tecla Escape.
+     */
+    const cerrarVisor = () => {
+      visor.close();
+      imagen?.removeAttribute('src');
+    };
+
+    cerrar?.addEventListener('click', cerrarVisor);
+    visor.addEventListener('cancel', () => imagen?.removeAttribute('src'));
+
+    /*
+     * Escape, por si el navegador no lo cierra solo.
+     *
+     * `showModal()` debería encargarse —y en el navegador de un visitante lo
+     * más probable es que lo haga—, pero el diálogo tampoco emite su evento
+     * `close`, así que su implementación no se puede dar por completa en todas
+     * partes. Poder cerrar con teclado no es un adorno, así que se garantiza
+     * aquí. Si el navegador ya lo cerró, este handler no llega a ejecutarse
+     * porque el listener solo corre con el diálogo abierto, y `close()` sobre
+     * uno cerrado no hace nada.
+     */
+    visor.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape') {
+        evento.preventDefault();
+        cerrarVisor();
+      }
+    });
+
+    /*
+     * Clic fuera de la imagen. `<dialog>` no distingue el fondo del contenido,
+     * así que se compara contra el rectángulo del propio diálogo: el área que
+     * queda por fuera es el backdrop.
+     */
+    visor.addEventListener('click', (evento) => {
+      const caja = visor.getBoundingClientRect();
+      const fuera =
+        evento.clientY < caja.top ||
+        evento.clientY > caja.bottom ||
+        evento.clientX < caja.left ||
+        evento.clientX > caja.right;
+      if (fuera) cerrarVisor();
+    });
+  }
+</script>

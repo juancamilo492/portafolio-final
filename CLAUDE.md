@@ -140,7 +140,9 @@ Reglas que no hay que romper:
   como `<p>`: un `<figure>` solo admite un `<figcaption>`.
 - `ampliar` deduce `/evidencia/<slug>/<mismo-nombre-de-archivo>`; si el
   archivo no está en `public/`, sale un `[PENDIENTE]` visible y un aviso en el
-  build.
+  build. **Abre el visor** (`VisorImagen.astro`), que muestra la imagen grande
+  con su pie sin sacar a nadie de la página; sin JavaScript el mismo enlace
+  abre el archivo en una pestaña nueva.
 
 ### Enlaces a productos: qué sube arriba y qué no
 
@@ -1220,6 +1222,30 @@ Decisiones de FASE 15 (evidencia dentro de los casos) que no hay que revertir:
   que mentiría justo en ese estado. El iframe se crea contra
   `youtube-nocookie.com` y solo al clic: verificado que no hay ni una petición
   a Google antes.
+- **«Ampliar» abre un visor, no una pestaña nueva** (`VisorImagen.astro`).
+  Decisión de Juan Camilo el 9 de agosto de 2026, corrigiendo lo que se había
+  planificado: mandar el archivo a otra pestaña obligaba a volver con el botón
+  atrás, y lo que se quiere ver es la imagen grande **con su leyenda**. Cuatro
+  cosas que no hay que revertir de esa pieza:
+  - Es un **`<dialog>` con `showModal()`**, que trae de fábrica lo caro y lo
+    fácil de hacer mal: atrapa el foco, marca el resto de la página como
+    inerte y devuelve el foco al salir. Escribirlo a mano son cien líneas.
+  - **Mismo ascenso que la fachada de video**: el enlace nace como `<a href>`
+    al archivo y el script le quita `target`, `rel` y la coletilla de pestaña
+    nueva. Sin JavaScript sigue funcionando como antes, y por eso no se perdió
+    nada al cambiar de enfoque.
+  - **No se escucha el evento `close` del diálogo: no llega.** Comprobado con
+    un listener de prueba y un MutationObserver: el diálogo pasa a
+    `open=false` sin emitirlo. La imagen se libera en cada camino de salida
+    (el botón, el clic fuera y `cancel`), y hay un `keydown` propio para
+    Escape porque tampoco cerraba solo. Son cinco líneas que garantizan poder
+    cerrar con teclado sin depender de una implementación incompleta.
+  - El botón de cerrar va **primero en el DOM y con `autofocus`**, aunque se
+    pinte en la esquina: sin eso `showModal()` enfocaba «Abrir el archivo», y
+    quien abre el visor con teclado y pulsa Enter saldría de la página en vez
+    de cerrar.
+  - Dentro del visor queda un enlace al archivo original, para la pieza tan
+    densa que ni a pantalla completa se lea: ahí sirve el zoom del navegador.
 - El disparador queda **después** del pie en el DOM porque `appendChild` lo
   pone al final, y así debe ser: al ir después de la imagen se apila encima sin
   `z-index`. El coste es que el lector de pantalla llega al pie antes que al
