@@ -9,6 +9,7 @@
  * (`after:absolute`): un solo destino por tarjeta y un nombre accesible claro.
  */
 import { Image } from 'astro:assets';
+import Icono from './Icono.astro';
 import PozoImagen from './PozoImagen.astro';
 import { rutaDe, useTranslations } from '../i18n/utils';
 import { etiquetaCategoria, slugCategoria } from '../lib/categorias';
@@ -78,7 +79,7 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
 <article
   data-categorias={categoria.map(slugCategoria).join(' ')}
   class:list={[
-    'group relative flex h-full flex-col overflow-hidden border border-borde bg-superficie transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-tarjeta focus-within:-translate-y-1 focus-within:shadow-tarjeta dark:border-borde-noche dark:bg-noche-superficie',
+    'group relative flex h-full flex-col overflow-hidden border border-borde bg-superficie transition-[transform,box-shadow,background-color,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-tarjeta focus-within:-translate-y-1 focus-within:shadow-tarjeta dark:border-borde-noche dark:bg-noche-superficie',
     radio,
     clase,
   ]}
@@ -132,5 +133,19 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
         </ul>
       )
     }
+
+    {/*
+      La tarjeta entera ya es el enlace (`after:absolute` en el título): esto
+      es solo la señal visual de que hace clic a otra página, no un segundo
+      destino. Por eso no es un `<a>` propio ni lleva su propio foco.
+    */}
+    <span class="flex items-center gap-1.5 text-[12.5px] font-semibold text-acento-texto transition-colors group-hover:text-profundo dark:text-menta dark:group-hover:text-noche-titulo">
+      {t('proyectos.conocerMas')}
+      <Icono
+        nombre="flecha-derecha"
+        tamano={12}
+        class="transition-transform group-hover:translate-x-0.5"
+      />
+    </span>
   </div>
 </article>

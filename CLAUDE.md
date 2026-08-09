@@ -780,23 +780,27 @@ WhatsApp/LinkedIn, que hay que hacer a mano):
   visitante que vuelve puede ver el HTML anterior. Lo pone Pages, no
   `_headers`.
 
-**Dos cosas las decide el panel de Cloudflare, no el repositorio:**
+**Una cosa la decide el panel de Cloudflare, no el repositorio:**
 - **La ofuscación de correo de Scrape Shield está activada** y reescribía los
   tres `mailto:` a `/cdn-cgi/l/email-protection#<hex>` y el texto del pie a
   «[email protected]». Es decir, el correo que se puso a la vista para que lo
   leyera un ATS solo existía tras ejecutar el script de Cloudflare. Resuelto
   desde el código con `<!--email_off-->` en `Footer`, `BotonesFlotantes` y
   `BloqueCTA`; el resto del sitio sigue protegido. **No se ve en local.**
-- **El robots.txt gestionado de Cloudflare antepone su propio bloque** al que
-  genera `src/pages/robots.txt.ts`, y ese bloque trae `Disallow: /` para
-  Amazonbot, Applebot-Extended, Bytespider, CCBot, **ClaudeBot**,
-  CloudflareBrowserRenderingCrawler, **Google-Extended**, **GPTBot** y
-  meta-externalagent, más un `Content-Signal: search=yes,ai-train=no`.
-  Googlebot y Bingbot **no** están bloqueados, así que la indexación en
-  buscadores no se toca. Pero los rastreadores de modelos sí, y eso deja sin
-  efecto para ellos el `llms.txt`, los `.md` y el `knowsAbout`. **Editar
-  `robots.txt.ts` no sirve: el bloque se inyecta por encima.** Se quita en el
-  panel del dominio, y es decisión de Juan Camilo.
+
+**Resuelto — el bloqueo de Cloudflare a los rastreadores de IA ya no está.**
+Hasta agosto de 2026 el robots.txt gestionado de Cloudflare anteponía su
+propio bloque al que genera `src/pages/robots.txt.ts`, con `Disallow: /` para
+Amazonbot, Applebot-Extended, Bytespider, CCBot, ClaudeBot,
+CloudflareBrowserRenderingCrawler, Google-Extended, GPTBot y
+meta-externalagent, que dejaba sin efecto el `llms.txt`, los `.md` y el
+`knowsAbout` para esos rastreadores (editar `robots.txt.ts` no servía: el
+bloque se inyectaba por encima, y quitarlo era decisión de Juan Camilo desde
+el panel del dominio). **Verificado en producción el 8 de agosto de 2026**
+con `curl https://juancamilo492.online/robots.txt`: el archivo sale limpio,
+tal cual lo genera el código, sin ningún bloque adicional de Cloudflare. Si
+alguna vez reaparece, el arreglo sigue siendo el mismo: apagarlo en el panel,
+no en el repositorio.
 
 Decisiones de FASE 11 (capa técnica para ATS, crawlers y agentes) que no hay
 que revertir:
@@ -896,6 +900,71 @@ que revertir:
 - Arreglo latente: el `x-default` se buscaba sobre todas las alternativas y no
   sobre las que existen. Con los 5 casos en español no se manifestaba; un caso
   que algún día solo esté en inglés habría apuntado al índice de la sección.
+
+Decisiones de la sesión del 8 de agosto de 2026 (después de FASE 13, sin
+número de fase) que no hay que revertir:
+- **Transición de tema en `src/styles/global.css`.** El cambio entre modo
+  claro y oscuro era instantáneo en el `body`, los encabezados y cualquier
+  contenedor con `dark:` que no pasara por un componente con
+  `transition-colors` (la mayoría de botones y enlaces ya la tenían). Se
+  agregó una regla `*, ::before, ::after { transition-property: background-color,
+  border-color, color, fill, stroke; transition-duration: 250ms; }` dentro de
+  `@layer base`, después del bloque de `outline-color`. Se excluye
+  `outline-color` a propósito, por la misma razón que ya documentaba ese
+  bloque: mezclarla ahí reproduce el parpadeo del anillo de foco. El bloque
+  `prefers-reduced-motion` ya existente la cubre sin tocarlo.
+- **`TarjetaProyecto.astro` suma `background-color` y `border-color` a su
+  lista de `transition-[...]`.** Su propia declaración es más específica que
+  la regla universal de arriba y la reemplazaba entera, así que sin este
+  cambio la tarjeta seguía sin suavizar su cambio de fondo/borde en modo
+  oscuro pese a la regla global.
+- **Botón "Conoce más sobre mí" en la portada**, entre "Proyectos destacados"
+  y "Qué hago" (`src/pages/[lang]/index.astro`), con la variante `contorno`
+  de `Boton.astro` (la misma que "Hablemos" en el hero) y la clave nueva
+  `inicio.conocerMas` en `src/i18n/ui.ts` (es/en/fr; `de` se deja fuera,
+  sigue en `{}`).
+- **Las tarjetas OG de los proyectos por WhatsApp no tenían ningún bug**: se
+  investigó a fondo (`src/lib/og.ts`, `src/pages/og/[...ruta].png.ts`, git
+  log) y una sola plantilla genera todas las tarjetas sin ramas por tipo de
+  página; el commit de FASE 13 las reescribió todas de una vez. Lo que se ve
+  desactualizado en un proyecto compartido antes de hoy es la **caché de
+  vista previa de WhatsApp/Meta**, independiente del `max-age=86400` de
+  Cloudflare. Se resuelve igual que el caso ya documentado de LinkedIn (ver
+  FASE 13): pegando la URL en el Facebook Sharing Debugger
+  (`developers.facebook.com/tools/debug`) y usando «Scrape Again», porque
+  WhatsApp comparte esa infraestructura de rastreo con Meta. No requiere
+  ningún cambio de código; queda como pendiente manual de Juan Camilo.
+- **Ícono de información junto a «Copiar para LLM» y «Ver como Markdown»**
+  (`src/pages/[lang]/[seccion]/[slug].astro`). Un reclutador no tiene por qué
+  saber qué es un LLM ni por qué un caso tendría un botón para «copiarlo»: el
+  ícono nuevo (`Icono.astro`, `nombre="info"`) es un `<button>` sin texto
+  visible cuyo `aria-label` lleva la explicación completa
+  (`proyectos.infoMarkdown`), así que quien usa lector de pantalla la recibe
+  al enfocarlo sin depender de nada visual. El mismo texto se repite, ahora
+  `aria-hidden`, en un globo que aparece con `group-hover`/`group-focus-within`
+  para quien ve la pantalla — doble canal, una sola fuente de texto. El globo
+  ancla su borde derecho al del ícono (`right-0`, no `left-0`) y limita su
+  ancho con `max-w-[min(240px,calc(100vw-2rem))]`: anclado a la izquierda se
+  salía de la pantalla a 360px porque el ícono cae cerca del borde derecho de
+  la fila de botones.
+- **«Conocer más» al pie de cada tarjeta de proyecto**
+  (`TarjetaProyecto.astro`). La tarjeta entera ya era el enlace
+  (`after:absolute` en el título), pero nada lo decía a la vista. Es un
+  `<span>`, no un `<a>` propio — un enlace anidado dentro del enlace real
+  sería inválido y confundiría el foco — y usa `group-hover`/`group-focus-within`
+  para moverse con el resto de la animación de la tarjeta al pasar el mouse.
+- **La mini-sección «¿Quieres conocerme mejor?» reemplazó al botón suelto**
+  entre «Proyectos destacados» y «Qué hago»: ahí se perdía, entre dos
+  secciones con título propio y sin nada que lo distinguiera. Se movió entre
+  «Mi proceso» y el CTA final, dentro de su propia tarjeta bordeada (mismo
+  patrón visual que «Qué hago», con `ondas` de fondo) para que no se lea como
+  un botón huérfano. Nuevas claves `inicio.conocerMas.titulo` e
+  `inicio.conocerMas.texto` en los tres idiomas; `inicio.conocerMas` se quedó
+  como el texto del botón.
+- **LinkedIn en «Sobre mí»**, con el mismo patrón que ya usaba el hero de
+  inicio: ícono + la URL del perfil como texto visible, con `?locale=` según
+  el idioma vía `linkedinDe()`. Antes «Sobre mí» era la única página de
+  presentación sin invitación a LinkedIn.
 
 Pendientes conocidos, además de las fases:
 - Las portadas de los dos casos de Alico llevan el logo entre y=781 y y=898

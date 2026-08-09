@@ -195,6 +195,24 @@
     outline-color: var(--color-acento);
   }
 
+  /*
+   * Suaviza el cambio de colores al alternar el tema claro/oscuro. Sin esto,
+   * el fondo del body, los encabezados y cualquier contenedor con `dark:` que
+   * no pase por un componente con `transition-colors` cambian de golpe. Se
+   * excluye `outline-color` a propósito: mezclarla aquí reproduciría el
+   * parpadeo del anillo de foco que ya se evitó arriba. Los elementos que ya
+   * declaran su propio `transition-property` (p. ej. `transition-colors`)
+   * conservan esa declaración más específica; esta regla solo llena el hueco
+   * donde no hay ninguna.
+   */
+  *,
+  ::before,
+  ::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+  }
+
   :focus-visible {
     outline-width: 2px;
     outline-style: solid;

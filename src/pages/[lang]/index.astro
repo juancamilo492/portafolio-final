@@ -233,6 +233,28 @@ const proceso = [
     </ol>
   </Contenedor>
 
+  {/* --- Conóceme --- */}
+  {/*
+    Mini-sección propia, no solo un botón suelto: entre "Mi proceso" y el CTA
+    final es donde quien lee ya conoce el trabajo y falta el empujón hacia la
+    persona. Un botón sin nada alrededor se perdía entre dos secciones con
+    título propio.
+  */}
+  <Contenedor as="section" class="pt-[72px] md:pt-[92px]">
+    <div
+      class="ondas [--ondas-radio:44px] [--ondas-x:6%] [--ondas-y:50%] [--ondas-color:rgb(0_189_123_/_0.06)] flex flex-col items-center gap-4 rounded-tarjeta border border-borde bg-superficie px-6 py-12 text-center sm:px-14 dark:border-borde-noche dark:bg-noche-superficie"
+    >
+      <MarcaGeometrica tamano={20} class="text-acento dark:text-menta" />
+      <h2 class="text-[26px] tracking-[-.02em] sm:text-[32px]">{t('inicio.conocerMas.titulo')}</h2>
+      <p class="max-w-[440px] text-[15px] leading-relaxed font-light text-texto-suave dark:text-noche-cuerpo">
+        {t('inicio.conocerMas.texto')}
+      </p>
+      <Boton href={rutaDe(locale, 'sobreMi')} variante="contorno" class="mt-2">
+        {t('inicio.conocerMas')}
+      </Boton>
+    </div>
+  </Contenedor>
+
   {/* --- CTA final --- */}
   <Contenedor class="pt-[72px] md:pt-[92px]">
     <BloqueCTA locale={locale} id="contacto" />

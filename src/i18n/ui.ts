@@ -110,6 +110,10 @@ export const ui = {
     'inicio.verTodos': 'Ver todos',
     'inicio.destacadosPendiente':
       '[PENDIENTE: los proyectos destacados aparecen al integrar los casos de este idioma — FASE 6]',
+    'inicio.conocerMas': 'Conoce más sobre mí',
+    'inicio.conocerMas.titulo': '¿Quieres conocerme mejor?',
+    'inicio.conocerMas.texto':
+      'Mi formación, cómo pienso el diseño y qué hay detrás de cada proyecto.',
     'inicio.queHago': 'Qué hago',
     'inicio.queHago.1.titulo': 'Diseño de interacción y UX/UI',
     'inicio.queHago.1.texto':
@@ -168,6 +172,9 @@ export const ui = {
     'proyectos.copiarMarkdownListo': '¡Copiado!',
     'proyectos.copiarMarkdownError': 'No se pudo copiar',
     'proyectos.fuenteMarkdown': 'Fuente',
+    'proyectos.infoMarkdown':
+      'Copian o abren el texto de este caso en Markdown, para pegarlo en una IA y pedirle un resumen.',
+    'proyectos.conocerMas': 'Conocer más',
 
     // --- Categorías canónicas (ver src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
@@ -294,6 +301,10 @@ export const ui = {
     'inicio.verTodos': 'View all',
     'inicio.destacadosPendiente':
       '[PENDING: featured projects appear once the English case studies are integrated — PHASE 6]',
+    'inicio.conocerMas': 'Learn more about me',
+    'inicio.conocerMas.titulo': 'Want to get to know me better?',
+    'inicio.conocerMas.texto':
+      "My background, how I think about design and what's behind each project.",
     'inicio.queHago': 'What I do',
     'inicio.queHago.1.titulo': 'Interaction design and UX/UI',
     'inicio.queHago.1.texto':
@@ -347,6 +358,9 @@ export const ui = {
     'proyectos.copiarMarkdownListo': 'Copied!',
     'proyectos.copiarMarkdownError': 'Could not copy',
     'proyectos.fuenteMarkdown': 'Source',
+    'proyectos.infoMarkdown':
+      "They copy or open this case's text as Markdown, ready to paste into an AI and ask for a summary.",
+    'proyectos.conocerMas': 'Learn more',
 
     // --- Canonical categories (see src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',
@@ -464,6 +478,10 @@ export const ui = {
     'inicio.verTodos': 'Voir tout',
     'inicio.destacadosPendiente':
       '[EN ATTENTE : les projets à la une apparaissent une fois les études de cas de cette langue intégrées]',
+    'inicio.conocerMas': 'En savoir plus sur moi',
+    'inicio.conocerMas.titulo': 'Vous voulez mieux me connaître ?',
+    'inicio.conocerMas.texto':
+      'Ma formation, ma façon de penser le design et ce qu’il y a derrière chaque projet.',
     'inicio.queHago': 'Ce que je fais',
     'inicio.queHago.1.titulo': 'Design d’interaction et UX/UI',
     'inicio.queHago.1.texto':
@@ -519,6 +537,9 @@ export const ui = {
     'proyectos.copiarMarkdownListo': 'Copié !',
     'proyectos.copiarMarkdownError': 'Échec de la copie',
     'proyectos.fuenteMarkdown': 'Source',
+    'proyectos.infoMarkdown':
+      'Ils copient ou ouvrent le texte de ce cas en Markdown, à coller dans une IA pour lui demander un résumé.',
+    'proyectos.conocerMas': 'En savoir plus',
 
     // --- Catégories canoniques (voir src/content.config.ts) ---
     'categoria.UX/UI': 'UX/UI',

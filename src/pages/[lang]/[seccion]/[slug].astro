@@ -261,6 +261,29 @@ const rutaMarkdown = rutaMarkdownDeCaso(locale, datos.slug);
         <span class="sr-only">{t('proyectos.nuevaPestana')}</span>
         <Icono nombre="enlace-externo" tamano={13} class="opacity-70" />
       </a>
+
+      {/*
+        Explica qué hacen los dos botones de arriba: quien recluta no tiene
+        por qué saber qué es un LLM ni por qué un proyecto tendría un botón
+        para "copiarlo". El texto completo va en el `aria-label` del botón,
+        así que quien usa lector de pantalla lo recibe al enfocarlo sin
+        depender del tooltip visual, que por eso queda `aria-hidden`.
+      */}
+      <span class="group relative inline-flex">
+        <button
+          type="button"
+          aria-label={t('proyectos.infoMarkdown')}
+          class="grid size-7 shrink-0 place-items-center rounded-full border border-borde-medio text-texto-suave transition-colors hover:border-acento hover:text-acento-texto dark:border-borde-noche dark:text-noche-cuerpo dark:hover:border-menta dark:hover:text-menta"
+        >
+          <Icono nombre="info" tamano={14} />
+        </button>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute top-full right-0 z-20 mt-2 w-max max-w-[min(240px,calc(100vw-2rem))] rounded-[10px] border border-borde-medio bg-superficie px-3 py-2 text-xs leading-relaxed text-texto-cuerpo opacity-0 shadow-flotante transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 dark:border-borde-noche dark:bg-noche-flotante dark:text-noche-cuerpo dark:shadow-flotante-noche"
+        >
+          {t('proyectos.infoMarkdown')}
+        </span>
+      </span>
     </div>
   </Contenedor>
 

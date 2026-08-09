@@ -1,12 +1,14 @@
 ---
 import BloqueCTA from '../../components/BloqueCTA.astro';
 import Contenedor from '../../components/Contenedor.astro';
+import Icono from '../../components/Icono.astro';
 import IconoHerramienta from '../../components/IconoHerramienta.astro';
 import MarcaGeometrica from '../../components/MarcaGeometrica.astro';
 import MenuCV from '../../components/MenuCV.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import retrato from '../../assets/retratos/sobre-mi-juan-camilo.webp';
+import { linkedinDe, SITIO } from '../../config/sitio';
 import { pathsDePagina, useTranslations } from '../../i18n/utils';
 import { jsonLdSobreMi } from '../../lib/jsonld';
 import { rutaOg } from '../../lib/og';
@@ -28,6 +30,9 @@ const t = useTranslations(locale);
  */
 const habilidades = gruposDeHabilidades(locale);
 const idiomas = idiomasVisibles(locale);
+
+// El texto del enlace es la dirección limpia; el `?locale=` solo va en el href.
+const perfilLinkedin = SITIO.linkedin.replace(/^https?:\/\/(www\.)?/, '');
 ---
 
 <BaseLayout
@@ -63,6 +68,16 @@ const idiomas = idiomasVisibles(locale);
         <div class="mt-8">
           <MenuCV locale={locale} />
         </div>
+
+        <a
+          href={linkedinDe(locale)}
+          rel="me noopener"
+          target="_blank"
+          class="mt-6 inline-flex items-center gap-2 text-[13px] text-texto-suave transition-colors hover:text-acento-texto dark:text-noche-cuerpo dark:hover:text-menta"
+        >
+          <Icono nombre="linkedin" tamano={14} />
+          {perfilLinkedin}
+        </a>
       </div>
 
       <div class="relative mx-auto w-full max-w-[420px] lg:mx-0 lg:max-w-none">
