@@ -79,7 +79,7 @@ const radio = variante === 'destacada' ? 'rounded-tarjeta' : 'rounded-tarjeta-sm
 <article
   data-categorias={categoria.map(slugCategoria).join(' ')}
   class:list={[
-    'group relative flex h-full flex-col overflow-hidden border border-borde bg-superficie transition-[transform,box-shadow,background-color,border-color] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-tarjeta focus-within:-translate-y-1 focus-within:shadow-tarjeta dark:border-borde-noche dark:bg-noche-superficie',
+    'group relative flex h-full flex-col overflow-hidden border border-borde bg-superficie transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-1 hover:shadow-tarjeta focus-within:-translate-y-1 focus-within:shadow-tarjeta dark:border-borde-noche dark:bg-noche-superficie',
     radio,
     clase,
   ]}
