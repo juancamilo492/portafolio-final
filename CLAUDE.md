@@ -291,9 +291,9 @@ Queda FASE 8, que es publicar y comprobar lo que solo se ve publicado.
 
 La **maquinaria de la evidencia está construida y verificada** (FASE 15): las
 cuatro directivas `:::`, sus estilos, la fachada de video y el aplanado del
-`.md`. Ningún caso la usa todavía porque faltan las imágenes; en cuanto haya
-una carpeta en `src/assets/proyectos/<slug>/`, escribir la pieza es escribir
-Markdown. La configuración vive ahora en `astro.config.ts`, no en `.mjs`.
+`.md`. Casos con evidencia completada y commiteada: `abuelos-nietos`,
+`vr-capacitacion-alico` y `empaques-ia-alico`. La configuración vive ahora en
+`astro.config.ts`, no en `.mjs`.
 
 Lighthouse sobre `npm run preview` (nunca sobre `npm run dev`, ver más abajo):
 Performance 97-99, Accessibility 100, **Best Practices 100** y SEO 100 en las
