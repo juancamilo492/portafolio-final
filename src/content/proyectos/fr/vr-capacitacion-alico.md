@@ -33,9 +33,9 @@ l’entreprise. La transformation a consisté à passer d’un apprentissage pas
 (regarder des vidéos sur un PC) à un apprentissage actif et immersif.
 
 :::figura{ancho ampliar}
-![Capture d’écran du Guide Méthodologique de Réalité Étendue : section « ¿CÓMO UTILIZARLAS? » expliquant la production du tutoriel vidéo pour allumer, configurer et utiliser les casques Meta Quest 3s en milieu de travail, avec une image de l’utilisateur portant le casque.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+![Page du Guide Méthodologique de Réalité Étendue intitulée « ¿CÓMO UTILIZARLAS? » : contient les instructions d’utilisation sécurisée du casque Meta Quest 3s en usine, un texte expliquant la production de la vidéo tutorielle d’allumage et de configuration, et un cadre vidéo avec l’image d’un collaborateur portant le casque blanc.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
 
-Page du guide méthodologique remis à l’organisation, détaillant les instructions d’utilisation sécurisée et de configuration des casques Meta Quest 3s en usine.
+Page du guide méthodologique remis à l’organisation, détaillant les instructions d’utilisation sécurisée, de configuration et d’initiation au casque Meta Quest 3s pour les opérateurs.
 :::
 
 ## Le processus
@@ -58,9 +58,9 @@ un quiz unifié avec une dynamique de jeu télévisé, des sous-titres à cause 
 la difficulté d’écoute en usine.
 
 :::figura{ancho ampliar}
-![Diapositive d’idéation : à gauche, des photographies de notes adhésives jaunes collées sur des cloisons en verre pendant le travail de terrain ; à droite, le modèle officiel « HERRAMIENTA SCAMPER » de la boîte à outils d’innovation d’Alico S.A.S BIC.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
+![Diapositive du processus d’idéation : à gauche, dix photographies organisées en grille montrant des notes adhésives jaunes collées sur des cloisons en verre pendant le travail de terrain ; à droite, le tableau officiel « HERRAMIENTA SCAMPER » (formulaire FO-DE-027) d’Alico S.A.S BIC, détaillant les sept transformations pour passer du PC à la réalité virtuelle.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
 
-Modèle SCAMPER de la boîte à outils d’innovation d’Alico aux côtés des notes d’idéation de terrain, utilisés pour transformer le cours traditionnel sur PC en réalité virtuelle.
+Modèle officiel SCAMPER de la boîte à outils d’innovation d’Alico aux côtés des photographies d’idéation sur le terrain, détaillant l’adaptation des contenus, les sous-titres en raison du bruit en usine et la ludification.
 :::
 
 **Prototyper.** Prototype de fidélité moyenne sous Unity : les personnages de
@@ -70,9 +70,9 @@ images de l’usine, un quiz interactif, un tableau de bord de suivi dans Looker
 Studio et l’automatisation des données avec n8n.
 
 :::figura{ancho ampliar}
-![Diapositive de prototypage : à gauche, l’illustration des trois personnages de risques (Fantasma Locatín, Postularín et Golfius) ; à droite, une capture d’écran de l’éditeur Unity montrant l’environnement virtuel désertique du projet.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+![Diapositive de la phase de prototypage : à gauche, les illustrations des trois personnages de risques du cours (Fantasma Locatín pour le risque lié aux locaux, Postularín pour la charge physique et Golfius pour le risque mécanique) ; à droite, une capture d’écran de l’éditeur Unity montrant l’environnement virtuel désertique en 3D et la structure des fichiers du projet.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
 
-Personnages de risques du cours d’origine adaptés à l’environnement immersif (à gauche) et l’interface de développement sous Unity du scénario virtuel (à droite).
+Adaptation des trois personnages de risques du cours d’origine « Planeta SST » (à gauche) et l’interface de l’éditeur Unity avec la scène virtuelle désertique développée pour le casque (à droite).
 :::
 
 **Valider.** Parcours du prototype avec 9 collaborateurs de l’entreprise,
@@ -90,9 +90,9 @@ document qui oriente la mise en œuvre de la réalité étendue dans les formati
 de l’organisation, au-delà de ce prototype.
 
 :::figura{ancho ampliar}
-![Capture d’écran du tableau de bord Looker Studio intitulé « Capacitación MR », montrant le tableau des notes des 9 collaborateurs évalués et les blocs de synthèse indiquant la note moyenne de 4,32 et le temps moyen de 17,45 secondes.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
+![Capture d’écran du tableau de bord Looker Studio intitulé « Capacitación MR » : montre le tableau de 9 évaluations individuelles de collaborateurs portant sur les risques liés aux locaux, mécaniques et biomécaniques, aux côtés de cartes de synthèse indiquant 1,18 essai en moyenne, 17,45 secondes de temps moyen, 9 évaluations terminées et une note moyenne de 4,32.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
 
-Tableau de bord dans Looker Studio généré à partir des automatisations n8n, affichant les notes des participants et la moyenne de 4,32 obtenue lors des tests.
+Tableau de bord interactif dans Looker Studio alimenté par des automatisations n8n, enregistrant les performances individuelles des 9 collaborateurs évalués et la note moyenne finale de 4,32/5.
 :::
 
 :::video{youtube="EM_7Clp5BJc" titulo="Prototype de formation en Réalité Virtuelle — Planeta SST"}

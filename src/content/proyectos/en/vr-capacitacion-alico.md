@@ -32,9 +32,9 @@ from passive learning (watching videos on a PC) to active, immersive
 learning.
 
 :::figura{ancho ampliar}
-![Screenshot of the Extended Reality Methodological Guide: “HOW TO USE THEM?” section explaining the production of the tutorial video to power on, configure and use Meta Quest 3s headsets in a workplace environment, with a frame of the user wearing the headset.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+![Extended Reality Methodological Guide page titled “¿CÓMO UTILIZARLAS?”: contains safety and usage instructions for the Meta Quest 3s headset on the plant floor, text explaining the tutorial video production for setup, and a video box featuring a frame of an employee wearing the white headset.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
 
-Page from the methodological guide delivered to the organization, detailing instructions for safe use and setup of Meta Quest 3s headsets on the plant floor.
+Page from the methodological guide delivered to the organization, detailing safety instructions, setup, and onboarding to the Meta Quest 3s headset for operators.
 :::
 
 ## The process
@@ -57,9 +57,9 @@ learning, a unified quiz with a game show dynamic, subtitles because of how
 hard it is to hear on the plant floor.
 
 :::figura{ancho ampliar}
-![Ideation slide: on the left, photographs of yellow sticky notes attached to glass walls during field research; on the right, the official “SCAMPER TOOL” template from Alico S.A.S BIC’s innovation toolbox.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
+![Ideation process slide: on the left, ten grid-arranged photographs of yellow sticky notes on glass walls during field research; on the right, the official “SCAMPER TOOL” table (form FO-DE-027) from Alico S.A.S BIC, detailing the seven transformations to bring the course from PC to virtual reality.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
 
-SCAMPER format from Alico’s innovation toolbox alongside field ideation notes, used to transform the traditional PC course into virtual reality.
+Official SCAMPER template from Alico’s innovation toolbox alongside field ideation photos, detailing content adaptation, captions for plant noise, and gamification.
 :::
 
 **Prototype.** A medium-fidelity prototype in Unity: the risk characters
@@ -69,9 +69,9 @@ an interactive quiz, a tracking dashboard in Looker Studio and data
 automation with n8n.
 
 :::figura{ancho ampliar}
-![Prototyping slide: on the left, illustrations of the three risk characters (Fantasma Locatín, Postularín, and Golfius); on the right, a screenshot of the Unity editor displaying the project’s virtual desert environment.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+![Prototyping phase slide: on the left, illustrations of the three course risk characters (Fantasma Locatín for housekeeping risk, Postularín for physical load, and Golfius for mechanical risk); on the right, a screenshot of the Unity editor displaying the 3D virtual desert environment and project file structure.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
 
-Risk characters from the original course adapted to the immersive environment (left) and the Unity development interface for the virtual scenario (right).
+Adaptation of the three risk characters from the original “Planeta SST” course (left) and the Unity editor interface showing the virtual desert scenario developed for the headset (right).
 :::
 
 **Validate.** A walkthrough of the prototype with 9 company employees,
@@ -88,15 +88,15 @@ the methodological guide: a document that steers how to implement extended
 reality in the organization's training, beyond this prototype.
 
 :::figura{ancho ampliar}
-![Screenshot of the Looker Studio dashboard titled “Capacitación MR”, showing the scores table for the 9 evaluated employees and summary cards with the 4.32 average score and 17.45 second average time.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
+![Screenshot of the Looker Studio dashboard titled “Capacitación MR”: shows the table with 9 individual employee evaluations across housekeeping, mechanical, and biomechanical risks, alongside summary cards highlighting 1.18 average attempts, 17.45 seconds average time, 9 completed evaluations, and a 4.32 average score.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
 
-Looker Studio dashboard generated from n8n automations, displaying participant assessment scores and the 4.32 average score achieved during testing.
+Interactive Looker Studio dashboard fed via n8n automations, recording individual performance for the 9 evaluated employees and the final average score of 4.32/5.
 :::
 
 :::video{youtube="EM_7Clp5BJc" titulo="Virtual Reality Training Prototype — Planeta SST"}
 ![User wearing the Meta Quest 3s headset during training](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
 
-Demonstration of the immersive Planeta SST virtual reality training prototype developed for Meta Quest 3s headsets.
+Demonstration of the immersive Planeta SST virtual reality training prototype developed in Unity for Meta Quest 3s headsets.
 :::
 
 ## What I learned
