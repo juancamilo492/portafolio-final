@@ -38,6 +38,12 @@ elementos gráficos según principios de Gestalt: proximidad, similitud,
 completitud y continuidad. Cada respuesta se convierte en un parámetro
 concreto para la generación.
 
+:::figura{ancho ampliar}
+![Captura de pantalla de la interfaz del formulario inicial para la feria Cafés de Colombia Expo 2025: sobre una fotografía de fondo con granos de café y taza, una tarjeta central con el encabezado «Tómate un cafecito y transformemos juntos tu empaque», la frase «Queremos conocer tu visión para reflejar la esencia de tu café» y el botón dorado «¡CREEMOS EL EMPAQUE PERFECTO!».](../../../assets/proyectos/empaques-ia-alico/formulario-expo-cafe.png)
+
+Interfaz del formulario interactivo de brief creativo diseñado para Cafés de Colombia Expo 2025, donde los caficultores definían la visión de su marca en 19 pasos.
+:::
+
 ## Lo que diseñé
 
 - La experiencia visual del formulario: un recorrido paso a paso con la
@@ -67,8 +73,21 @@ cargan su logotipo y visualizan renders realistas de su marca sobre
 distintos tipos de empaque. Ese salto aceleró la toma de decisiones en
 preventa y redujo la dependencia de renders manuales.
 
-[imagen: ejemplos de empaques generados por la plataforma: bolsa de café,
-doypack y bandeja con la marca aplicada]
+:::figura{ancho ampliar}
+![Captura de pantalla de la plataforma web evolucionada titulada «Formulario IA»: sobre un fondo con degradado azul a dorado, presenta el titular «Transforma tu empaque con Inteligencia Artificial», la descripción para generar imágenes realistas de Doy Pack, Flow Pack y Termoformado, y los botones «Comenzar gratis» y «Ya tengo cuenta».](../../../assets/proyectos/empaques-ia-alico/plataforma-ia-empaques.png)
+
+Interfaz de la plataforma web evolucionada para preventa en Alico S.A.S BIC, donde los clientes cargan su marca y seleccionan formatos de empaque para generar renders con IA.
+:::
+
+:::galeria
+![Fotografía de render generado con IA de un empaque Doypack con boquilla superior y patrón floral rojo en un estante de supermercado, acompañado abajo por el logotipo del personaje, el patrón y el envase base vacíos.](../../../assets/proyectos/empaques-ia-alico/render-doypack-estante.jpg)
+
+![Fotografía de render generado con IA de un empaque termoformado transparente con uvas frescas y la marca aplicada en la tapa, acompañado abajo por el envase plástico base y el logotipo del cliente.](../../../assets/proyectos/empaques-ia-alico/render-termoformado-uvas.jpg)
+
+![Fotografía de render generado con IA de un empaque termoformado de repostería con cuatro cupcakes en un ambiente de panadería, acompañado abajo por el recipiente plástico y el logotipo del ave multicolor.](../../../assets/proyectos/empaques-ia-alico/render-termoformado-cupcakes.jpg)
+
+Ejemplos de renders realistas generados automáticamente por la plataforma aplicando la marca, el patrón y el tipo de empaque seleccionado (Doypack con boquilla y recipientes termoformados para alimentos).
+:::
 
 ## Lo que aprendí
 
