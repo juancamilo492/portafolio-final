@@ -44,6 +44,12 @@ son grand-parent comme quelqu’un qui peut le soutenir émotionnellement. C’e
 pour cela que deux user personas en sont sorties et non une : Mariana, 14 ans,
 et María Elena, 61 ans.
 
+:::figura{ancho ampliar}
+![Diapositive de User Personas avec deux fiches : à gauche Mariana Rodríguez (14 ans), lycéenne, avec sa phrase sur le fait de ne pas se sentir très à l’aise en partageant du temps avec sa grand-mère ; à droite María Elena Hernández (61 ans), mère au foyer, avec sa phrase souhaitant que la technologie ne les divise pas. Chaque fiche détaille la personnalité, l’usage des médias, les sentiments actuels, les besoins, objectifs et obstacles.](../../../assets/proyectos/abuelos-nietos/user-personas.png)
+
+Fiches comparatives des deux user personas élaborées pour le projet : Mariana (petite-fille) et María Elena (grand-mère). Le contraste entre leurs profils montre comment chacune vit le même écart de communication sous un angle différent.
+:::
+
 Ce croisement a donné le matériau le plus utile de tout le projet. Les deux
 décrivent la même friction et chacune l’attribue à l’habitude de l’autre : la
 grand-mère dit que sa petite-fille préfère son téléphone à la conversation
@@ -76,13 +82,25 @@ qu’il fallait tenir une semaine entière. Un entretien d’une heure recueille
 dont la personne se souvient ; sept jours chez elle recueillent ce qu’elle
 fait.
 
+:::figura{ancho ampliar}
+![Diapositive de l’outil Cultural Probes : à gauche, la page du Jour 1 posant des questions sur les loisirs et les activités partagées ; à droite, la page du Jour 7 posant des questions sur la perception et le dessin du grand-parent ; au centre et en bas, des photographies de deux grands-parents remplissant les carnets à la main chez eux.](../../../assets/proyectos/abuelos-nietos/cultural-probes.png)
+
+Échantillon des activités des cultural probes de sept jours et photographies du travail de terrain direct chez les personnes âgées participantes.
+:::
+
 Le **customer journey map** a cartographié une visite complète, du coup de fil
 qui l’annonce jusqu’aux adieux, avec sa courbe émotionnelle. C’est là qu’est
 apparue la donnée qu’aucun entretien ne nous avait donnée : le point le plus
 bas de la visite n’est ni un malentendu ni un silence gênant, c’est la fin. Le
 grand-parent est triste parce que son petit-enfant s’en va et cela le fait se
 sentir seul, si bien que le moment qui referme le souvenir de la journée est
-le pire de tous.
+le pire de tous. Nous avons complété cet outil par une carte de système (*system map*) afin de relier l’attitude de la personne âgée aux réseaux actifs de soutien et au temps de qualité.
+
+:::figura{ancho ampliar}
+![Diapositive présentant deux outils d’analyse : à gauche, la matrice numérique du Customer Journey Map du projet Générations ; à droite, la photographie d’une carte de système (System Map) tracée au feutre rouge et avec des notes adhésives sur un tableau blanc physique.](../../../assets/proyectos/abuelos-nietos/customer-journey-system-map.png)
+
+Visualisation conjointe de la carte du parcours émotionnel pendant la visite (à gauche) et de la carte de système sur tableau physique (à droite) utilisée pour structurer les relations entre acteurs et facteurs de valeur.
+:::
 
 ## Ce que nous avons trouvé
 
@@ -107,7 +125,13 @@ La synthèse s’est close sur neuf constats. Les plus lourds :
 
 L’usure est apparue elle aussi : selon les grands-parents, plus le
 petit-enfant grandit, plus il devient indépendant et moins il passe de temps
-avec eux. Le lien ne se rompt pas, il s’amincit.
+avec eux. Le lien ne se rompt pas, il s’amincit. Nous avons synthétisé l’ensemble de ces vécus et de ces frictions dans une carte d’empathie axée sur l’expérience de la personne âgée.
+
+:::figura{ancho ampliar}
+![Schéma d’une carte d’empathie sous la forme d’une tête de profil divisée en sept sections numérotées : empathie de l’utilisateur, besoins, ce qu’ils voient, ce qu’ils disent, ce qu’ils font, ce qu’ils entendent, et ce qu’ils pensent et ressentent (avec douleurs et gains).](../../../assets/proyectos/abuelos-nietos/mapa-empatia.png)
+
+Carte d’empathie en sept secteurs regroupant la perspective émotionnelle, les besoins et les obstacles vécus par la personne âgée dans l’interaction avec son petit-enfant.
+:::
 
 > « Nous passons beaucoup de temps ensemble. On aime beaucoup regarder la télévision et parler »
 > — Témoignage d’une petite-fille
@@ -118,6 +142,12 @@ Le livrable final a été une infographie réunissant les neuf constats, les
 témoignages des deux parties et la donnée sur les enseignements, et par-dessus
 une question : comment pourrions-nous renforcer la communication verbale entre
 petits-enfants et grands-parents, en tenant compte des médias numériques ?
+
+:::figura{ancho ampliar}
+![Infographie intitulée « RELACIÓN NIETO - ABUELO » sur fond vert foncé, présentant la silhouette en blanc d’un grand-père tenant la main de sa petite-fille et d’une grand-mère avec son petit-fils, entourés des 9 constats clés numérotés dans des cercles bleu clair, de deux témoignages et de la question centrale du défi de conception.](../../../assets/proyectos/abuelos-nietos/infografia-hallazgos.png)
+
+Infographie finale réunissant les neuf constats de la recherche, intégrant les témoignages des grands-parents et des petits-enfants, et posant le défi de conception central.
+:::
 
 **Le projet se clôt là, sur la question, et c’était bien cela le livrable.**
 Nous n’avons construit ni application ni service, parce que le périmètre était

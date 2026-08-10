@@ -43,6 +43,12 @@ their grandchild; we asked the grandchild whether they see their grandparent
 as someone who can support them emotionally. That is why two user personas
 came out of it and not one: Mariana, 14 years old, and María Elena, 61.
 
+:::figura{ancho ampliar}
+![User Personas slide with two cards: on the left Mariana Rodríguez (14 years old), high school student, with her quote about feeling uncomfortable when sharing time with her grandmother; on the right María Elena Hernández (61 years old), homemaker, with her quote wishing technology wouldn’t divide them. Each card details personality, media usage, current feelings, needs, objectives and obstacles.](../../../assets/proyectos/abuelos-nietos/user-personas.png)
+
+Comparative persona cards built for the project: Mariana (granddaughter) and María Elena (grandmother). The contrast between their profiles showed how both experience the same communication gap from different angles.
+:::
+
 The crossover produced the most useful material of the whole project. Both
 describe the same friction and each blames the other's habit: the
 grandmother says her granddaughter would rather be on her phone than talk
@@ -74,12 +80,24 @@ writing, because participation had to hold up for a full week. A one-hour
 interview collects what a person remembers; seven days in their home collect
 what they do.
 
+:::figura{ancho ampliar}
+![Cultural Probes instrument slide: on the left, the Day 1 page asking about hobbies and shared activities; on the right, the Day 7 page asking about perception and drawing of the grandparent; in the center and bottom, photos of two grandparents filling in the booklets by hand at home.](../../../assets/proyectos/abuelos-nietos/cultural-probes.png)
+
+Sample of the seven-day cultural probes activities and photographs of direct field work in the participating older adults’ homes.
+:::
+
 The **customer journey map** charted a complete visit, from the heads-up
 phone call to the goodbye, with its emotional curve. That is where the
 finding no interview had given us appeared: the lowest point of the visit is
 not a misunderstanding or an awkward silence, it is the end. The grandparent
 feels sad because the grandchild is leaving and that makes them feel alone,
-so the moment that closes the memory of the day is the worst one of all.
+so the moment that closes the memory of the day is the worst one of all. We supplemented this tool with a system map to connect the older adult’s attitude with active support networks and quality time.
+
+:::figura{ancho ampliar}
+![Slide displaying two analytical tools: on the left, the digital matrix of the Customer Journey Map for the Generations project; on the right, a photograph of a system map plotted with red marker and sticky notes on a physical whiteboard.](../../../assets/proyectos/abuelos-nietos/customer-journey-system-map.png)
+
+Joint display of the emotional journey map during the visit (left) and the physical whiteboard system map (right) used to structure relationships between stakeholders and value drivers.
+:::
 
 ## What we found
 
@@ -104,7 +122,13 @@ The synthesis closed on nine findings. The ones that weighed most:
 
 The wearing down showed up too: according to the grandparents, the older the
 grandchild the more independent they become and the less time they spend
-with them. The bond does not break, it thins out.
+with them. The bond does not break, it thins out. We synthesised all these experiences and friction points in an empathy map focused on the older adult’s perspective.
+
+:::figura{ancho ampliar}
+![Empathy map diagram shaped as a head in profile divided into seven numbered sections: user empathy, needs, sight, words, actions, hearing, and thoughts and feelings (with pains and gains).](../../../assets/proyectos/abuelos-nietos/mapa-empatia.png)
+
+Seven-sector empathy map consolidating the emotional perspective, needs, and barriers experienced by older adults when interacting with their grandchildren.
+:::
 
 > "We spend a lot of time together. We really like watching television and talking"
 > — A granddaughter's testimony
@@ -115,6 +139,12 @@ The final deliverable was an infographic gathering the nine findings, the
 testimonies from both sides and the figure about the teachings, and on top
 of it a question: how might we strengthen verbal communication between
 grandchildren and grandparents, taking digital media into account?
+
+:::figura{ancho ampliar}
+![Infographic titled “RELACIÓN NIETO - ABUELO” on a dark green background, featuring white silhouettes of a grandfather holding hands with his granddaughter and a grandmother with her grandson, surrounded by the 9 key findings numbered in light blue circles, two highlighted quotes and the central design challenge question.](../../../assets/proyectos/abuelos-nietos/infografia-hallazgos.png)
+
+Final infographic gathering the nine research findings, integrating testimonies from both grandparents and grandchildren, and framing the central design challenge.
+:::
 
 **The project closes there, on the question, and that was the deliverable.**
 We did not build an app or a service, because the scope was the discovery
