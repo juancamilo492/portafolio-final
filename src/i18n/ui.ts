@@ -161,7 +161,7 @@ export const ui = {
     'proyectos.imagenPendiente': '[PENDIENTE: imagen del proyecto]',
     'proyectos.conteoUno': 'proyecto visible',
     'proyectos.conteoVarios': 'proyectos visibles',
-    'proyectos.copiarMarkdown': 'Copiar para LLM',
+    'proyectos.copiarMarkdown': 'Copiar para IA',
     'proyectos.verMarkdown': 'Ver como Markdown',
     /*
      * Se lee después del texto del enlace, nunca en lugar de él: el nombre
@@ -173,7 +173,7 @@ export const ui = {
     'proyectos.copiarMarkdownError': 'No se pudo copiar',
     'proyectos.fuenteMarkdown': 'Fuente',
     'proyectos.infoMarkdown':
-      'Copian o abren el texto de este caso en Markdown, para pegarlo en una IA y pedirle un resumen.',
+      'Estos botones permiten copiar o ver el caso en Markdown (texto limpio y estructurado sin ruido de diseño), ideal para pegarlo en una IA y pedirle resúmenes o análisis.',
     'proyectos.conocerMas': 'Conocer más',
 
     /*
@@ -384,14 +384,14 @@ export const ui = {
     'proyectos.imagenPendiente': '[PENDING: project image]',
     'proyectos.conteoUno': 'project shown',
     'proyectos.conteoVarios': 'projects shown',
-    'proyectos.copiarMarkdown': 'Copy for LLM',
+    'proyectos.copiarMarkdown': 'Copy for AI',
     'proyectos.verMarkdown': 'View as Markdown',
     'proyectos.nuevaPestana': '(opens in a new tab)',
     'proyectos.copiarMarkdownListo': 'Copied!',
     'proyectos.copiarMarkdownError': 'Could not copy',
     'proyectos.fuenteMarkdown': 'Source',
     'proyectos.infoMarkdown':
-      "They copy or open this case's text as Markdown, ready to paste into an AI and ask for a summary.",
+      'These buttons let you copy or view the case study as Markdown (clean, structured text without layout noise), ideal for pasting into an AI for summaries or analysis.',
     'proyectos.conocerMas': 'Learn more',
 
     // --- Evidence inside the case study (FASE 15) ---
@@ -584,14 +584,14 @@ export const ui = {
     'proyectos.imagenPendiente': '[EN ATTENTE : image du projet]',
     'proyectos.conteoUno': 'projet affiché',
     'proyectos.conteoVarios': 'projets affichés',
-    'proyectos.copiarMarkdown': 'Copier pour un LLM',
+    'proyectos.copiarMarkdown': 'Copier pour l’IA',
     'proyectos.verMarkdown': 'Voir en Markdown',
     'proyectos.nuevaPestana': '(s’ouvre dans un nouvel onglet)',
     'proyectos.copiarMarkdownListo': 'Copié !',
     'proyectos.copiarMarkdownError': 'Échec de la copie',
     'proyectos.fuenteMarkdown': 'Source',
     'proyectos.infoMarkdown':
-      'Ils copient ou ouvrent le texte de ce cas en Markdown, à coller dans une IA pour lui demander un résumé.',
+      'Ces boutons permettent de copier ou de voir l’étude de cas en Markdown (texte propre et structuré sans bruit visuel), idéal à coller dans une IA pour lui demander un résumé ou une analyse.',
     'proyectos.conocerMas': 'En savoir plus',
 
     // --- Preuves à l’intérieur du cas (FASE 15) ---
