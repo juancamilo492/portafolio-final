@@ -494,6 +494,7 @@
      encima (6.7:1). El SVG va en `fill: currentColor`. */
   .prosa :where(.ev-play) > svg {
     display: block;
+    box-sizing: content-box;
     width: 36px;
     height: 36px;
     padding: 22px 20px 22px 26px;

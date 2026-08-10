@@ -61,10 +61,14 @@ Le projet a livré un écosystème de communication complet :
 - **Site web** de six vues, bilingue ES/EN, avec les expériences
   interactives intégrées et mis en production
 
-:::figura{ampliar}
+:::figura{ancho ampliar}
 ![Capture d’écran du Calculateur de prix sur le site web d’i-Homotic, montrant la sélection du type de logement et le panneau de résumé de l’estimation du projet](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
 
 Calculateur de prix et de budget en quatre étapes intégré au site web pour réduire la perception du risque financier avant le premier contact.
+:::
+
+:::enlace-vivo{href="https://i-homotic.vercel.app/" etiqueta="Visiter le site web d’i-Homotic" estado="produccion"}
+Le site web officiel est en ligne en production avec le catalogue de solutions domotiques, le calculateur de budget interactif et la carte 3D.
 :::
 
 - **Proposition de stand** pour le Salon du design de Plaza Mayor : 7×7

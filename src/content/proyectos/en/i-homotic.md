@@ -59,10 +59,14 @@ The project delivered a complete communication ecosystem:
 - **Website** with six views, bilingual ES/EN, with the interactive
   experiences integrated and live in production
 
-:::figura{ampliar}
+:::figura{ancho ampliar}
 ![Screenshot of the Price Calculator tool on the i-Homotic website, showing home type selection and the project estimation summary panel](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
 
 Four-step price and budget calculator integrated into the website to lower perceived financial risk before making first contact.
+:::
+
+:::enlace-vivo{href="https://i-homotic.vercel.app/" etiqueta="Visit i-Homotic website" estado="produccion"}
+The official website is live in production featuring the home automation catalog, interactive price calculator and 3D map.
 :::
 
 - **Stand proposal** for the Plaza Mayor Design Fair: 7×7 meters, a route

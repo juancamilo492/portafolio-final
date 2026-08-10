@@ -60,10 +60,14 @@ El proyecto entregó un ecosistema completo de comunicación:
 - **Sitio web** de seis vistas, bilingüe ES/EN, con las experiencias
   interactives integradas y publicado en producción
 
-:::figura{ampliar}
+:::figura{ancho ampliar}
 ![Captura de pantalla de la Calculadora de Precios en el sitio web de i-Homotic, mostrando la selección del tipo de vivienda y el panel de resumen de estimación del proyecto](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
 
 Calculadora de precios y presupuesto en cuatro pasos integrada en el sitio web para reducir la percepción de riesgo económico antes del primer contacto.
+:::
+
+:::enlace-vivo{href="https://i-homotic.vercel.app/" etiqueta="Visitar sitio web de i-Homotic" estado="produccion"}
+El sitio web oficial está publicado en producción con el catálogo de soluciones de domótica, la calculadora interactiva de presupuesto y el mapa 3D.
 :::
 
 - **Propuesta de stand** para la Feria del Diseño de Plaza Mayor: 7×7
