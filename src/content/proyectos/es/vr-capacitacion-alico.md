@@ -68,9 +68,9 @@ interactivo, un dashboard de seguimiento en Looker Studio y automatización
 de datos con n8n.
 
 :::figura{ancho ampliar}
-![Diapositiva de la fase de prototipado: a la izquierda, las ilustraciones de los tres personajes de riesgo del curso (Fantasma Locatín para riesgo locativo, Postularín para carga física y Golfius para riesgo mecánico); a la derecha, una captura de pantalla del editor de Unity mostrando el entorno desértico virtual 3D y la estructura de archivos del proyecto.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+![Captura de pantalla de la interfaz del editor de Unity: muestra la escena 3D del planeta desértico en el centro, la ventana del explorador de archivos del proyecto abajo y el panel inspector con el script Quiz Manager a la derecha.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
 
-Adaptación de los tres personajes de riesgo del curso original «Planeta SST» (izquierda) y la interfaz del editor de Unity con el entorno virtual desértico desarrollado para el visor (derecha).
+Interfaz de desarrollo en el editor de Unity mostrando la escena 3D del planeta desértico, el inspector del componente Quiz Manager y la estructura de componentes para la experiencia inmersiva.
 :::
 
 **Validar.** Recorrido del prototipo con 9 colaboradores de la empresa,
@@ -94,7 +94,7 @@ Dashboard interactivo en Looker Studio alimentado mediante automatizaciones con 
 :::
 
 :::video{youtube="EM_7Clp5BJc" titulo="Prototipo de capacitación en Realidad Virtual — Planeta SST"}
-![Fotograma del usuario utilizando el visor Meta Quest 3s en la capacitación](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+![Fotograma del video del prototipo inmersivo en realidad virtual desarrollado para Meta Quest 3s](../../../assets/proyectos/vr-capacitacion-alico/video-miniatura.jpg)
 
 Demostración del prototipo inmersivo de Planeta SST en realidad virtual desarrollado en Unity para los visores Meta Quest 3s.
 :::

@@ -69,9 +69,9 @@ an interactive quiz, a tracking dashboard in Looker Studio and data
 automation with n8n.
 
 :::figura{ancho ampliar}
-![Prototyping phase slide: on the left, illustrations of the three course risk characters (Fantasma Locatín for housekeeping risk, Postularín for physical load, and Golfius for mechanical risk); on the right, a screenshot of the Unity editor displaying the 3D virtual desert environment and project file structure.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+![Screenshot of the Unity editor interface: displays the 3D desert planet scene in the viewport, the project file explorer window at the bottom, and the inspector panel with the Quiz Manager script on the right.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
 
-Adaptation of the three risk characters from the original “Planeta SST” course (left) and the Unity editor interface showing the virtual desert scenario developed for the headset (right).
+Development interface in the Unity editor displaying the 3D desert planet scene, the Quiz Manager component inspector, and the asset structure for the immersive experience.
 :::
 
 **Validate.** A walkthrough of the prototype with 9 company employees,
@@ -94,7 +94,7 @@ Interactive Looker Studio dashboard fed via n8n automations, recording individua
 :::
 
 :::video{youtube="EM_7Clp5BJc" titulo="Virtual Reality Training Prototype — Planeta SST"}
-![User wearing the Meta Quest 3s headset during training](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+![Video frame of the immersive virtual reality prototype developed for Meta Quest 3s](../../../assets/proyectos/vr-capacitacion-alico/video-miniatura.jpg)
 
 Demonstration of the immersive Planeta SST virtual reality training prototype developed in Unity for Meta Quest 3s headsets.
 :::

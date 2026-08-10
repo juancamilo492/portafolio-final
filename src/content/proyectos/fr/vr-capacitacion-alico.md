@@ -70,9 +70,9 @@ images de l’usine, un quiz interactif, un tableau de bord de suivi dans Looker
 Studio et l’automatisation des données avec n8n.
 
 :::figura{ancho ampliar}
-![Diapositive de la phase de prototypage : à gauche, les illustrations des trois personnages de risques du cours (Fantasma Locatín pour le risque lié aux locaux, Postularín pour la charge physique et Golfius pour le risque mécanique) ; à droite, une capture d’écran de l’éditeur Unity montrant l’environnement virtuel désertique en 3D et la structure des fichiers du projet.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+![Capture d’écran de l’interface de l’éditeur Unity : montre la scène 3D de la planète désertique au centre, la fenêtre de l’explorateur de fichiers du projet en bas et le panneau inspecteur avec le script Quiz Manager à droite.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
 
-Adaptation des trois personnages de risques du cours d’origine « Planeta SST » (à gauche) et l’interface de l’éditeur Unity avec la scène virtuelle désertique développée pour le casque (à droite).
+Interface de développement dans l’éditeur Unity montrant la scène 3D de la planète désertique, l’inspecteur du composant Quiz Manager et la structure des éléments pour l’expérience immersive.
 :::
 
 **Valider.** Parcours du prototype avec 9 collaborateurs de l’entreprise,
@@ -96,7 +96,7 @@ Tableau de bord interactif dans Looker Studio alimenté par des automatisations 
 :::
 
 :::video{youtube="EM_7Clp5BJc" titulo="Prototype de formation en Réalité Virtuelle — Planeta SST"}
-![Utilisateur portant le casque Meta Quest 3s pendant la formation](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+![Image de la vidéo du prototype immersif en réalité virtuelle développé pour Meta Quest 3s](../../../assets/proyectos/vr-capacitacion-alico/video-miniatura.jpg)
 
 Démonstration du prototype immersif de Planeta SST en réalité virtuelle développé sous Unity pour les casques Meta Quest 3s.
 :::
