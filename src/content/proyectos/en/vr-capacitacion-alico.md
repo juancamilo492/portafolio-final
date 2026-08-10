@@ -31,6 +31,12 @@ worked: "Planeta SST", from the company's learning platform. The shift was
 from passive learning (watching videos on a PC) to active, immersive
 learning.
 
+:::figura{ancho ampliar}
+![Screenshot of the Extended Reality Methodological Guide: “HOW TO USE THEM?” section explaining the production of the tutorial video to power on, configure and use Meta Quest 3s headsets in a workplace environment, with a frame of the user wearing the headset.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+
+Page from the methodological guide delivered to the organization, detailing instructions for safe use and setup of Meta Quest 3s headsets on the plant floor.
+:::
+
 ## The process
 
 I followed the full Design Thinking cycle, using the innovation team's
@@ -50,11 +56,23 @@ transformations: from the PC to the headset, from passive to active
 learning, a unified quiz with a game show dynamic, subtitles because of how
 hard it is to hear on the plant floor.
 
+:::figura{ancho ampliar}
+![Ideation slide: on the left, photographs of yellow sticky notes attached to glass walls during field research; on the right, the official “SCAMPER TOOL” template from Alico S.A.S BIC’s innovation toolbox.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
+
+SCAMPER format from Alico’s innovation toolbox alongside field ideation notes, used to transform the traditional PC course into virtual reality.
+:::
+
 **Prototype.** A medium-fidelity prototype in Unity: the risk characters
 from the original course (housekeeping risk, physical load, mechanical
 risk) now live in an immersive environment with real footage of the plant,
 an interactive quiz, a tracking dashboard in Looker Studio and data
 automation with n8n.
+
+:::figura{ancho ampliar}
+![Prototyping slide: on the left, illustrations of the three risk characters (Fantasma Locatín, Postularín, and Golfius); on the right, a screenshot of the Unity editor displaying the project’s virtual desert environment.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+
+Risk characters from the original course adapted to the immersive environment (left) and the Unity development interface for the virtual scenario (right).
+:::
 
 **Validate.** A walkthrough of the prototype with 9 company employees,
 evaluated with the same satisfaction survey used by the corporate learning
@@ -69,10 +87,17 @@ understandable, and 8 out of 9 that the navigation was simple. The project close
 the methodological guide: a document that steers how to implement extended
 reality in the organization's training, beyond this prototype.
 
-And a note of methodological honesty that I left in the project's
-conclusions: the validation was done with office employees, so I recommended
-validating with the end users, the operators, before implementing. A
-successful prototype does not replace the voice of the real user.
+:::figura{ancho ampliar}
+![Screenshot of the Looker Studio dashboard titled “Capacitación MR”, showing the scores table for the 9 evaluated employees and summary cards with the 4.32 average score and 17.45 second average time.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
+
+Looker Studio dashboard generated from n8n automations, displaying participant assessment scores and the 4.32 average score achieved during testing.
+:::
+
+:::video{youtube="EM_7Clp5BJc" titulo="Virtual Reality Training Prototype — Planeta SST"}
+![User wearing the Meta Quest 3s headset during training](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+
+Demonstration of the immersive Planeta SST virtual reality training prototype developed for Meta Quest 3s headsets.
+:::
 
 ## What I learned
 

@@ -32,6 +32,12 @@ fonctionnait : « Planeta SST », de la plateforme d’apprentissage de
 l’entreprise. La transformation a consisté à passer d’un apprentissage passif
 (regarder des vidéos sur un PC) à un apprentissage actif et immersif.
 
+:::figura{ancho ampliar}
+![Capture d’écran du Guide Méthodologique de Réalité Étendue : section « ¿CÓMO UTILIZARLAS? » expliquant la production du tutoriel vidéo pour allumer, configurer et utiliser les casques Meta Quest 3s en milieu de travail, avec une image de l’utilisateur portant le casque.](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+
+Page du guide méthodologique remis à l’organisation, détaillant les instructions d’utilisation sécurisée et de configuration des casques Meta Quest 3s en usine.
+:::
+
 ## Le processus
 
 J’ai suivi le cycle complet du Design Thinking, en utilisant la boîte à outils
@@ -51,11 +57,23 @@ définies : du PC au casque, de l’apprentissage passif à l’apprentissage ac
 un quiz unifié avec une dynamique de jeu télévisé, des sous-titres à cause de
 la difficulté d’écoute en usine.
 
+:::figura{ancho ampliar}
+![Diapositive d’idéation : à gauche, des photographies de notes adhésives jaunes collées sur des cloisons en verre pendant le travail de terrain ; à droite, le modèle officiel « HERRAMIENTA SCAMPER » de la boîte à outils d’innovation d’Alico S.A.S BIC.](../../../assets/proyectos/vr-capacitacion-alico/idear-scamper.png)
+
+Modèle SCAMPER de la boîte à outils d’innovation d’Alico aux côtés des notes d’idéation de terrain, utilisés pour transformer le cours traditionnel sur PC en réalité virtuelle.
+:::
+
 **Prototyper.** Prototype de fidélité moyenne sous Unity : les personnages de
 risques du cours d’origine (risque lié aux locaux, charge physique, risque
 mécanique) vivent désormais dans un environnement immersif avec de vraies
 images de l’usine, un quiz interactif, un tableau de bord de suivi dans Looker
 Studio et l’automatisation des données avec n8n.
+
+:::figura{ancho ampliar}
+![Diapositive de prototypage : à gauche, l’illustration des trois personnages de risques (Fantasma Locatín, Postularín et Golfius) ; à droite, une capture d’écran de l’éditeur Unity montrant l’environnement virtuel désertique du projet.](../../../assets/proyectos/vr-capacitacion-alico/prototipado-unity.png)
+
+Personnages de risques du cours d’origine adaptés à l’environnement immersif (à gauche) et l’interface de développement sous Unity du scénario virtuel (à droite).
+:::
 
 **Valider.** Parcours du prototype avec 9 collaborateurs de l’entreprise,
 évalué avec la même enquête de satisfaction que la plateforme d’apprentissage
@@ -71,11 +89,17 @@ simple. Le projet s’est clos par la remise du guide méthodologique : un
 document qui oriente la mise en œuvre de la réalité étendue dans les formations
 de l’organisation, au-delà de ce prototype.
 
-Et une note d’honnêteté méthodologique que j’ai laissée dans les conclusions du
-projet : la validation a été faite avec des collaborateurs administratifs, j’ai
-donc recommandé de valider avec les utilisateurs finaux, les opérateurs,
-avant de mettre en œuvre. Un prototype réussi ne remplace pas la voix de
-l’utilisateur réel.
+:::figura{ancho ampliar}
+![Capture d’écran du tableau de bord Looker Studio intitulé « Capacitación MR », montrant le tableau des notes des 9 collaborateurs évalués et les blocs de synthèse indiquant la note moyenne de 4,32 et le temps moyen de 17,45 secondes.](../../../assets/proyectos/vr-capacitacion-alico/dashboard-looker-studio.png)
+
+Tableau de bord dans Looker Studio généré à partir des automatisations n8n, affichant les notes des participants et la moyenne de 4,32 obtenue lors des tests.
+:::
+
+:::video{youtube="EM_7Clp5BJc" titulo="Prototype de formation en Réalité Virtuelle — Planeta SST"}
+![Utilisateur portant le casque Meta Quest 3s pendant la formation](../../../assets/proyectos/vr-capacitacion-alico/guia-metodologica-quest.png)
+
+Démonstration du prototype immersif de Planeta SST en réalité virtuelle développé sous Unity pour les casques Meta Quest 3s.
+:::
 
 ## Ce que j’ai appris
 
