@@ -1,5 +1,6 @@
 ---
 import BloqueCTA from '../../components/BloqueCTA.astro';
+import Boton from '../../components/Boton.astro';
 import Contenedor from '../../components/Contenedor.astro';
 import Icono from '../../components/Icono.astro';
 import IconoHerramienta from '../../components/IconoHerramienta.astro';
@@ -9,7 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import retrato from '../../assets/retratos/sobre-mi-juan-camilo.webp';
 import { linkedinDe, SITIO } from '../../config/sitio';
-import { pathsDePagina, useTranslations } from '../../i18n/utils';
+import { pathsDePagina, rutaDe, useTranslations } from '../../i18n/utils';
 import { jsonLdSobreMi } from '../../lib/jsonld';
 import { rutaOg } from '../../lib/og';
 import { gruposDeHabilidades, idiomasVisibles } from '../../lib/perfil';
@@ -161,6 +162,22 @@ const perfilLinkedin = SITIO.linkedin.replace(/^https?:\/\/(www\.)?/, '');
           ))
         }
       </ul>
+    </div>
+  </Contenedor>
+
+  {/* --- Ver proyectos --- */}
+  <Contenedor as="section" class="pt-[72px] md:pt-[92px]">
+    <div
+      class="ondas [--ondas-radio:44px] [--ondas-x:6%] [--ondas-y:50%] [--ondas-color:rgb(0_189_123_/_0.06)] flex flex-col items-center gap-4 rounded-tarjeta border border-borde bg-superficie px-6 py-12 text-center sm:px-14 dark:border-borde-noche dark:bg-noche-superficie"
+    >
+      <MarcaGeometrica tamano={20} class="text-acento dark:text-menta" />
+      <h2 class="text-[26px] tracking-[-.02em] sm:text-[32px]">{t('sobreMi.verProyectos.titulo')}</h2>
+      <p class="max-w-[440px] text-[15px] leading-relaxed font-light text-texto-suave dark:text-noche-cuerpo">
+        {t('sobreMi.verProyectos.texto')}
+      </p>
+      <Boton href={rutaDe(locale, 'proyectos')} variante="contorno" class="mt-2">
+        {t('sobreMi.verProyectos')}
+      </Boton>
     </div>
   </Contenedor>
 

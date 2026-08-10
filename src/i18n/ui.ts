@@ -264,6 +264,10 @@ export const ui = {
     'sobreMi.idiomas.en': 'Inglés — C1',
     'sobreMi.idiomas.fr': 'Francés — B2',
     'sobreMi.idiomas.de': 'Alemán — A2, en aprendizaje',
+    'sobreMi.verProyectos': 'Explorar proyectos',
+    'sobreMi.verProyectos.titulo': '¿Quieres ver mi trabajo en acción?',
+    'sobreMi.verProyectos.texto':
+      'Casos de estudio reales de diseño de interacción, automatización con IA y experiencias inmersivas.',
 
     // --- Contacto ---
     'contacto.whatsapp': 'Escribir por WhatsApp',
@@ -456,6 +460,10 @@ export const ui = {
     'sobreMi.idiomas.en': 'English — C1',
     'sobreMi.idiomas.fr': 'French — B2',
     'sobreMi.idiomas.de': 'German — A2, learning',
+    'sobreMi.verProyectos': 'Explore projects',
+    'sobreMi.verProyectos.titulo': 'Want to see my work in action?',
+    'sobreMi.verProyectos.texto':
+      'Real case studies in interaction design, AI automation and immersive experiences.',
 
     // --- Contact ---
     'contacto.whatsapp': 'Message on WhatsApp',
@@ -652,6 +660,10 @@ export const ui = {
     'sobreMi.idiomas.en': 'Anglais — C1',
     'sobreMi.idiomas.fr': 'Français — B2',
     'sobreMi.idiomas.de': 'Allemand — A2, en cours d’apprentissage',
+    'sobreMi.verProyectos': 'Explorer les projets',
+    'sobreMi.verProyectos.titulo': 'Vous voulez voir mon travail en action ?',
+    'sobreMi.verProyectos.texto':
+      'Des études de cas réelles en design d’interaction, automatisation par IA et expériences immersives.',
 
     // --- Contact ---
     'contacto.whatsapp': 'Écrire sur WhatsApp',
