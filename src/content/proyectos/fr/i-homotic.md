@@ -3,6 +3,7 @@ titulo: "i-Homotic : du bouche-à-oreille à une présence numérique qui inspir
 slug: "i-homotic"
 cliente: "i-Homotic (GELECT S.A.S)"
 año: "2026"
+sitio_url: "https://i-homotic.vercel.app/"
 rol: "Recherche utilisateur, expériences interactives du site et coordination d’une équipe de 6"
 categoria: ["Investigación", "Diseño de servicio", "UX/UI"]
 herramientas: ["Figma", "Blender", "Three.js", "React"]
@@ -47,16 +48,40 @@ construite avec Three.js, où l’utilisateur parcourt les pièces, voit quels
 appareils chacune pourrait accueillir et passe de là directement au contact
 avec un « je veux ça chez moi ».
 
+:::figura{ancho ampliar}
+![Schéma du Service Blueprint du site web d’i-Homotic en tons violacés, structuré selon les phases de Découverte, Exploration, Évaluation, Contact et Suivi, montrant les actions du client, le frontstage, le backstage et les processus de support](../../../assets/proyectos/i-homotic/service-blueprint.png)
+
+Service Blueprint du site web : cartographie des interactions, des preuves physiques et des processus de support pour convertir la curiosité initiale de l’Explorateur informé en contact direct.
+:::
+
 ## Ce que nous avons livré
 
 Le projet a livré un écosystème de communication complet :
 
 - **Site web** de six vues, bilingue ES/EN, avec les expériences
   interactives intégrées et mis en production
+
+:::figura{ampliar}
+![Capture d’écran du Calculateur de prix sur le site web d’i-Homotic, montrant la sélection du type de logement et le panneau de résumé de l’estimation du projet](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
+
+Calculateur de prix et de budget en quatre étapes intégré au site web pour réduire la perception du risque financier avant le premier contact.
+:::
+
 - **Proposition de stand** pour le Salon du design de Plaza Mayor : 7×7
   mètres, un parcours par stations avec de vrais appareils manipulables, plus
   le document technique de mise en œuvre et une maquette 3D à l’échelle
   navigable sur le web
+
+:::figura{ancho ampliar}
+![Rendu réaliste du stand d’i-Homotic au Salon du design, montrant la structure architecturale en forme de maison avec éclairage LED violet, les visiteurs interagissant dans l’espace résidentiel et le point d’accueil](../../../assets/proyectos/i-homotic/stand-render.png)
+
+Proposition spatiale pour le Salon du design de Plaza Mayor : stand de 7×7 mètres structuré comme un logement habitable pour expérimenter les équipements en direct.
+:::
+
+:::enlace-vivo{href="https://eafit-enfasis-ux.github.io/I-Homotic-Stand/" etiqueta="Explorer la maquette 3D du stand" estado="demo"}
+Il est possible de parcourir l’échelle tridimensionnelle du stand directement dans le navigateur grâce au prototype interactif.
+:::
+
 - **Charte graphique** de 18 pages comme source unique d’identité pour tous
   les canaux
 
@@ -75,6 +100,12 @@ constats inconfortables que nous avons rapportés tels quels : la tâche
 goulot d’étranglement du parcours, et la documentation des usages incorrects
 de la charte graphique a obtenu 2,4/5. Les deux sont devenues des
 améliorations prioritaires.
+
+:::figura{ancho ampliar}
+![Fiche d’archétype utilisateur d’Eliana Restrepo L’Explorateur informé montrant ses données démographiques, ses traits de personnalité Méthodique, Prudente, Aspirationnelle et son scénario d’usage](../../../assets/proyectos/i-homotic/investigacion-arquetipo.png)
+
+Fiche de l’archétype de l’« Explorateur informé » définie lors de la recherche utilisateur : profil de 42 ans, méthodique et prudent exigeant une validation numérique avant de s’engager.
+:::
 
 ## Le résultat
 

@@ -48,12 +48,10 @@ producto.
 
 ## El sistema
 
-:::galeria{ampliar}
+:::figura{ancho ampliar}
 ![Listado del menú digital en móvil con tarjetas de fotos reales y precios de licores y cervezas](../../../assets/proyectos/industrial/menu-digital.png)
 
-![Módulo de administración de promociones con tarjetas de ofertas activas y filtros por estado](../../../assets/proyectos/industrial/gestion-descuentos.png)
-
-El menú digital del cliente permite explorar más de 170 productos con fotos reales, mientras que el panel del equipo permite crear y administrar las promociones y descuentos activos del día.
+Vista del menú digital para el cliente con más de 170 productos categorizados, buscador de ítems y fotografías reales tomadas en las mesas del bar.
 :::
 
 **Para el cliente (vía QR):**
@@ -62,6 +60,12 @@ El menú digital del cliente permite explorar más de 170 productos con fotos re
 - Próximos eventos del bar (partidos, fechas especiales) en la página principal
 - Consulta de la cuenta de la mesa con total acumulado
 - Acceso directo para dejar reseña en Google
+
+:::figura{ancho ampliar}
+![Módulo de administración de promociones con tarjetas de ofertas activas y filtros por estado](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+Módulo de administración para el equipo del bar con la gestión de promociones activas, descuentos e incentivos del día.
+:::
 
 :::figura{ancho ampliar}
 ![Panel de administración del bar con la grilla de 26 mesas organizadas por estado en tiempo real](../../../assets/proyectos/industrial/panel-mesas.png)

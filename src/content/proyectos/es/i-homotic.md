@@ -3,6 +3,7 @@ titulo: "i-Homotic: del voz a voz a una presencia digital que genera confianza"
 slug: "i-homotic"
 cliente: "i-Homotic (GELECT S.A.S)"
 año: "2026"
+sitio_url: "https://i-homotic.vercel.app/"
 rol: "Investigación con usuarios, experiencias interactivas del sitio y coordinación de un equipo de 6"
 categoria: ["Investigación", "Diseño de servicio", "UX/UI"]
 herramientas: ["Figma", "Blender", "Three.js", "React"]
@@ -46,16 +47,40 @@ con Three.js, donde el usuario recorre los espacios, ve qué dispositivos
 tendría cada uno, y desde ahí mismo pasa al contacto con un "quiero esto en
 mi casa".
 
+:::figura{ancho ampliar}
+![Diagrama del Service Blueprint del sitio web de i-Homotic en tonos morados, estructurado en fases de Descubrimiento, Exploración, Evaluación, Contacto y Seguimiento, mostrando acciones del cliente, frontstage, backstage y procesos de soporte](../../../assets/proyectos/i-homotic/service-blueprint.png)
+
+Service Blueprint del sitio web: mapeo de interacciones, evidencias físicas y procesos de soporte para convertir la curiosidad inicial del Explorador Informado en contacto directo.
+:::
+
 ## Lo que entregamos
 
 El proyecto entregó un ecosistema completo de comunicación:
 
 - **Sitio web** de seis vistas, bilingüe ES/EN, con las experiencias
-  interactivas integradas y publicado en producción
+  interactives integradas y publicado en producción
+
+:::figura{ampliar}
+![Captura de pantalla de la Calculadora de Precios en el sitio web de i-Homotic, mostrando la selección del tipo de vivienda y el panel de resumen de estimación del proyecto](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
+
+Calculadora de precios y presupuesto en cuatro pasos integrada en el sitio web para reducir la percepción de riesgo económico antes del primer contacto.
+:::
+
 - **Propuesta de stand** para la Feria del Diseño de Plaza Mayor: 7×7
   metros, recorrido por estaciones con dispositivos reales manipulables, más
   el documento técnico de implementación y un modelo 3D a escala navegable
   en la web
+
+:::figura{ancho ampliar}
+![Render realista del stand de i-Homotic en la Feria del Diseño, mostrando la estructura arquitectónica tipo casa con iluminación LED violeta, visitantes interactuando en el espacio residencial y punto de atención](../../../assets/proyectos/i-homotic/stand-render.png)
+
+Propuesta espacial para la Feria del Diseño de Plaza Mayor: stand de 7×7 metros estructurado como una vivienda habitable para experimentar los dispositivos en vivo.
+:::
+
+:::enlace-vivo{href="https://eafit-enfasis-ux.github.io/I-Homotic-Stand/" etiqueta="Explorar modelo 3D del stand" estado="demo"}
+Se puede recorrer la escala tridimensional del stand directamente en el navegador a través del prototipo interactivo.
+:::
+
 - **Manual de marca** de 18 páginas como fuente única de identidad para
   todos los canales
 
@@ -73,6 +98,12 @@ reportamos tal cual: la tarea de "entender con qué solución empezar con poco
 presupuesto" fue el cuello de botella del recorrido, y la documentación de
 usos incorrectos del manual de marca obtuvo 2.4/5. Ambos se convirtieron en
 mejoras priorizadas.
+
+:::figura{ancho ampliar}
+![Ficha del arquetipo de investigación Eliana Restrepo El Explorador Informado mostrando su perfil demográfico, adjetivos de personalidad Metódica, Cautelosa, Aspiracional y escenario de uso](../../../assets/proyectos/i-homotic/investigacion-arquetipo.png)
+
+Ficha de arquetipo del «Explorador Informado» definida durante la investigación con usuarios: perfil de 42 años, metódico y cauteloso que exige validación digital antes de contratar.
+:::
 
 ## El resultado
 
@@ -106,3 +137,4 @@ Aprendí que los criterios del cliente no limitan la creatividad: la enfocan.
 Y que reportar el cumplimiento contra esos criterios con transparencia,
 incluyendo lo que quedó fuera del alcance y lo que salió mal evaluado,
 construye más confianza que aparentar una entrega perfecta.
+

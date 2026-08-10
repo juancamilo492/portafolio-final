@@ -51,12 +51,10 @@ défini tout le produit.
 
 ## Le système
 
-:::galeria{ampliar}
+:::figura{ancho ampliar}
 ![Liste du menu numérique sur mobile présentant des cartes avec photos réelles et prix des boissons](../../../assets/proyectos/industrial/menu-digital.png)
 
-![Module de gestion des promotions affichant les cartes d’offres actives et les filtres de statut](../../../assets/proyectos/industrial/gestion-descuentos.png)
-
-Le menu numérique du client permet d’explorer plus de 170 produits avec des photos réelles, tandis que le panneau de l’équipe permet de créer et d’administrer les promotions et remises actives du jour.
+Vue du menu numérique destiné au client avec plus de 170 produits catégorisés, recherche d’articles et photos réelles prises sur les tables du bar.
 :::
 
 **Pour le client (via le QR code) :**
@@ -65,6 +63,12 @@ Le menu numérique du client permet d’explorer plus de 170 produits avec des p
 - Prochains événements du bar (matchs, dates spéciales) sur la page d’accueil
 - Consultation de l’addition de la table avec le total cumulé
 - Accès direct pour laisser un avis sur Google
+
+:::figura{ancho ampliar}
+![Module de gestion des promotions affichant les cartes d’offres actives et les filtres de statut](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+Module de gestion pour l’équipe du bar permettant la création et l’administration des promotions actives et des remises du jour.
+:::
 
 :::figura{ancho ampliar}
 ![Panneau d’administration du bar montrant la grille de 26 tables organisées par état en temps réel](../../../assets/proyectos/industrial/panel-mesas.png)
@@ -124,7 +128,7 @@ plus de 170 produits se gèrent depuis un seul panneau, les commandes
 accidentelles ont disparu parce que le flux ne les permet plus, et chaque
 ajustement demandé par le bar arrive en production le jour même ou le
 lendemain. Le système a cessé d’être un livrable pour devenir une partie du
- fonctionnement de l’entreprise.
+fonctionnement de l’entreprise.
 
 ## Ce que j’ai appris
 

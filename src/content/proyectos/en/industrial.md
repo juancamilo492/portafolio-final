@@ -48,12 +48,10 @@ product.
 
 ## The system
 
-:::galeria{ampliar}
+:::figura{ancho ampliar}
 ![Mobile digital menu listing displaying cards with real photos and prices for spirits and beers](../../../assets/proyectos/industrial/menu-digital.png)
 
-![Promotions management module showing cards with active deals and state filter options](../../../assets/proyectos/industrial/gestion-descuentos.png)
-
-The customer's digital menu allows exploring over 170 products with real photos, while the staff panel enables creating and managing the day's active promotions and discounts.
+Customer digital menu view with over 170 categorized products, item search, and real photos taken at the bar's tables.
 :::
 
 **For the customer (via QR):**
@@ -62,6 +60,12 @@ The customer's digital menu allows exploring over 170 products with real photos,
 - Upcoming bar events (matches, special dates) on the home page
 - Table bill lookup with the running total
 - A direct link to leave a Google review
+
+:::figura{ancho ampliar}
+![Promotions management module showing cards with active deals and state filter options](../../../assets/proyectos/industrial/gestion-descuentos.png)
+
+Bar staff management module for setting up and administering active promotions, discounts, and daily deals.
+:::
 
 :::figura{ancho ampliar}
 ![Bar management dashboard showing a grid of 26 tables color-coded by real-time status](../../../assets/proyectos/industrial/panel-mesas.png)

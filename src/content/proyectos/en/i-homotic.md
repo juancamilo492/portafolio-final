@@ -3,6 +3,7 @@ titulo: "i-Homotic: from word of mouth to a digital presence that earns trust"
 slug: "i-homotic"
 cliente: "i-Homotic (GELECT S.A.S)"
 año: "2026"
+sitio_url: "https://i-homotic.vercel.app/"
 rol: "User research, interactive site experiences and coordination of a team of 6"
 categoria: ["Investigación", "Diseño de servicio", "UX/UI"]
 herramientas: ["Figma", "Blender", "Three.js", "React"]
@@ -45,15 +46,39 @@ Three.js, where the user walks through the spaces, sees which devices each
 one would have, and moves straight from there to contact with an "I want
 this in my home".
 
+:::figura{ancho ampliar}
+![Service Blueprint diagram for the i-Homotic website in purple tones, structured into Discovery, Exploration, Evaluation, Contact, and Follow-up phases, showing client actions, frontstage, backstage, and support processes](../../../assets/proyectos/i-homotic/service-blueprint.png)
+
+Website Service Blueprint: mapping interactions, physical evidence, and backend support processes to convert the Informed Explorer’s initial curiosity into direct contact.
+:::
+
 ## What we delivered
 
 The project delivered a complete communication ecosystem:
 
 - **Website** with six views, bilingual ES/EN, with the interactive
   experiences integrated and live in production
+
+:::figura{ampliar}
+![Screenshot of the Price Calculator tool on the i-Homotic website, showing home type selection and the project estimation summary panel](../../../assets/proyectos/i-homotic/sitio-interactivo.png)
+
+Four-step price and budget calculator integrated into the website to lower perceived financial risk before making first contact.
+:::
+
 - **Stand proposal** for the Plaza Mayor Design Fair: 7×7 meters, a route
   through stations with real devices to handle, plus the technical
   implementation document and a scale 3D model navigable on the web
+
+:::figura{ancho ampliar}
+![Realistic render of the i-Homotic booth at the Feria del Diseño, showing the house-like architectural structure with violet LED lighting, visitors interacting in the residential space, and an info desk](../../../assets/proyectos/i-homotic/stand-render.png)
+
+Spatial proposal for the Plaza Mayor Design Fair: 7×7 meter booth structured as a liveable home to experience smart devices first-hand.
+:::
+
+:::enlace-vivo{href="https://eafit-enfasis-ux.github.io/I-Homotic-Stand/" etiqueta="Explore 3D stand model" estado="demo"}
+You can walk through the three-dimensional scale of the booth directly in the browser via the interactive prototype.
+:::
+
 - **Brand manual** of 18 pages as the single source of identity for every
   channel
 
@@ -71,6 +96,12 @@ that we reported as they were: the task of "figuring out which solution to
 start with on a small budget" was the bottleneck of the journey, and the
 brand manual's documentation of incorrect uses scored 2.4/5. Both became
 prioritized improvements.
+
+:::figura{ancho ampliar}
+![User archetype profile card for Eliana Restrepo The Informed Explorer showing demographic data, personality traits Methodical, Cautious, Aspirational and usage scenario](../../../assets/proyectos/i-homotic/investigacion-arquetipo.png)
+
+Archetype card for the "Informed Explorer" defined during user research: a 42-year-old, methodical and cautious homeowner requiring digital validation before hiring.
+:::
 
 ## The outcome
 
@@ -105,3 +136,4 @@ I learned that a client's criteria don't limit creativity: they focus it.
 And that reporting compliance against those criteria transparently,
 including what fell outside the scope and what scored badly, builds more
 trust than pretending the delivery was perfect.
+
