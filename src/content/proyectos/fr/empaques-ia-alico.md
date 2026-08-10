@@ -39,9 +39,9 @@ de la Gestalt : proximité, similarité, clôture et continuité. Chaque répons
 devient un paramètre concret pour la génération.
 
 :::figura{ancho ampliar}
-![Capture d’écran de l’interface du formulaire initial pour le salon Cafés de Colombia Expo 2025 : sur une photo de fond avec des grains de café et une tasse, une carte centrale avec l’en-tête « Tómate un cafecito y transformemos juntos tu empaque », la phrase « Queremos conocer tu visión para reflejar la esencia de tu café » et le bouton doré « ¡CREEMOS EL EMPAQUE PERFECTO! ».](../../../assets/proyectos/empaques-ia-alico/formulario-expo-cafe.png)
+![Capture d’écran de l’interface du formulaire initial pour Cafés de Colombia Expo 2025 : sur une photo de fond avec des grains de café et une tasse, la carte centrale avec la phrase « Tómate un cafecito y transformemos juntos tu empaque » et le bouton doré « ¡CREEMOS EL EMPAQUE PERFECTO! ».](../../../assets/proyectos/empaques-ia-alico/formulario-expo-cafe.png)
 
-Interface du formulaire interactif de brief créatif conçu pour Cafés de Colombia Expo 2025, où les producteurs de café définissaient la vision de leur marque en 19 étapes.
+Interface du formulaire interactif de brief créatif conçu pour le salon Cafés de Colombia Expo 2025, où les producteurs de café définissaient la vision de leur marque en 19 étapes.
 :::
 
 ## Ce que j’ai conçu
@@ -65,28 +65,30 @@ conversation de marque et non à un sondage, et sur le fait que
 l’automatisation tourne toute seule : je n’étais pas à Bogotá, et le système a
 servi les visiteurs du salon sans moi.
 
+:::figura{ancho ampliar}
+![Planche technique regroupant les résultats générés pour le salon du café : deux emballages de café de spécialité créés par IA (« QUYÉ COFFEE » avec des motifs botaniques rouges et « ITOCO COFFEE » avec un motif ornemental doré sur fond sombre) à partir des réponses au formulaire.](../../../assets/proyectos/empaques-ia-alico/resultados-empaques-cafe.png)
+
+Emballages de café de spécialité générés automatiquement par IA (« QUYÉ COFFEE » et « ITOCO COFFEE ») à partir du brief interactif rempli par les visiteurs du salon.
+:::
+
 ## Le résultat
 
-L’expérience du salon a été le point de départ de quelque chose de plus grand :
+L’expérience du salon a été le point de départ de quelque شيء de plus grand :
 le concept a évolué vers une plateforme où les clients d’Alico chargent leur
 logo et visualisent des rendus réalistes de leur marque sur différents types
 d’emballage. Ce saut a accéléré la prise de décision en avant-vente et réduit
 la dépendance aux rendus manuels.
 
 :::figura{ancho ampliar}
-![Capture d’écran de la plateforme web évoluée intitulée « Formulario IA » : sur un fond en dégradé bleu et doré, elle présente le titre « Transforma tu empaque con Inteligencia Artificial », la description pour générer des images réalistes de Doy Pack, Flow Pack et Thermoformage, et les boutons « Comenzar gratis » et « Ya tengo cuenta ».](../../../assets/proyectos/empaques-ia-alico/plataforma-ia-empaques.png)
+![Capture d’écran de la plateforme web évoluée intitulée « Formulario IA » : sur un fond en dégradé bleu et doré, elle présente le titre « Transforma tu empaque con Inteligencia Artificial », la description pour générer des images réalistes de Doy Pack, Flow Pack et Thermoformage, et les boutons de connexion et d’inscription.](../../../assets/proyectos/empaques-ia-alico/plataforma-ia-empaques.png)
 
-Interface de la plateforme web évoluée pour l’avant-vente chez Alico S.A.S BIC, où les clients chargent leur marque et sélectionnent des formats d’emballage pour générer des rendus par IA.
+Interface de la plateforme web évoluée pour l’avant-vente chez Alico S.A.S BIC, permettant aux clients de charger leur logo et de sélectionner différents formats d’emballage.
 :::
 
-:::galeria
-![Rendu généré par IA d’un sachet Doypack avec bouchon supérieur et motif floral rouge sur une étagère de supermarché, accompagné en bas du logo du personnage, du motif et du sachet de base vides.](../../../assets/proyectos/empaques-ia-alico/render-doypack-estante.jpg)
+:::figura{ancho ampliar}
+![Planche technique regroupant les rendus produits par la nouvelle plateforme web : à gauche, un sachet Doypack à bouchon et motif floral sur une étagère à côté du logo du personnage ; à droite, une boîte thermoformée transparente de pâtisserie contenant quatre cupcakes avec la marque d’oiseau multicolore.](../../../assets/proyectos/empaques-ia-alico/resultados-plataforma-nuevos.png)
 
-![Rendu généré par IA d’un emballage thermoformé transparent avec des raisins frais et la marque appliquée sur le couvercle, accompagné en bas du récipient en plastique de base et du logo du client.](../../../assets/proyectos/empaques-ia-alico/render-termoformado-uvas.jpg)
-
-![Rendu généré par IA d’une boîte thermoformée de pâtisserie contenant quatre cupcakes dans un décor de boulangerie, accompagnée en bas du récipient en plastique et du logo d’oiseau multicolore.](../../../assets/proyectos/empaques-ia-alico/render-termoformado-cupcakes.jpg)
-
-Exemples de rendus réalistes générés automatiquement par la plateforme en appliquant la marque du client, le motif et le type d’emballage sélectionné (Doypack à bouchon et récipients thermoformés pour produits alimentaires).
+Rendus réalistes générés par la plateforme évoluée en appliquant des logos et des motifs sur des sachets Doypack à bouchon et des récipients thermoformés pour produits alimentaires.
 :::
 
 ## Ce que j’ai appris
