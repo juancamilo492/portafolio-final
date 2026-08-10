@@ -25,7 +25,7 @@ const TRAZO = `${CAJA} fill="none" stroke="currentColor" stroke-linecap="round" 
  * pierde contra la imagen. Ligeramente descentrado a la derecha (5.5 en vez de
  * 5) para que el peso óptico quede en el centro del disco.
  */
-export const PLAY = `<svg ${CAJA} width="26" height="26" fill="currentColor"><path d="M8.5 5.4v13.2L19 12z"/></svg>`;
+export const PLAY = `<svg ${CAJA} width="36" height="36" fill="currentColor"><path d="M8.5 5.4v13.2L19 12z"/></svg>`;
 
 /** Cuatro esquinas que se separan: «esta imagen se puede ver más grande». */
 export const AMPLIAR = `<svg ${TRAZO} width="13" height="13" stroke-width="1.6"><path d="M14.5 4H20v5.5M20 4l-6.5 6.5M9.5 20H4v-5.5M4 20l6.5-6.5"/></svg>`;

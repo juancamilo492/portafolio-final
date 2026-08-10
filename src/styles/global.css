@@ -494,11 +494,13 @@
      encima (6.7:1). El SVG va en `fill: currentColor`. */
   .prosa :where(.ev-play) > svg {
     display: block;
-    padding: 17px 15px 17px 21px;
+    width: 36px;
+    height: 36px;
+    padding: 22px 20px 22px 26px;
     border-radius: 999px;
-    background-color: var(--color-acento);
-    color: var(--color-sobre-acento);
-    box-shadow: var(--shadow-flotante);
+    background-color: var(--color-acento, #00bd7b);
+    color: #04241c;
+    box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.4);
     transition: transform 150ms ease-out;
   }
 
