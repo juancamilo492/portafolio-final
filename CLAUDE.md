@@ -1292,8 +1292,7 @@ Pendientes conocidos, además de las fases:
     El esquema de Supabase queda fuera por decisión de Juan Camilo.
   - `empaques-ia-alico`: renders del cliente y el front de la feria en el
     cuerpo con `estado="prototipo"`. Sin `sitio_url`: no es un producto.
-  - `siguiendo-la-huella-azul`: estrena `:::video` (el render en YouTube), más
-    one-page design, journey map y fotos de pruebas con las caras tapadas.
+  - ~~`siguiendo-la-huella-azul`~~: **completo.** 5 figuras con ampliación (one-page design, variaciones de iluminación por animal, journey map, pruebas en Medialab y planos acotados con lista de equipos) y el video del render 3D en YouTube (`GjFoIYIuFTI`), integrados en los tres idiomas el 9 de agosto de 2026.
   - `vr-capacitacion-alico`: video del prototipo, gráficos de Looker Studio y
     la guía metodológica.
   - `abuelos-nietos`: investigación pura. Fotos de los cultural probes,

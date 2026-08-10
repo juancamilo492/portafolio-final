@@ -36,13 +36,38 @@ entrada a la inspiración de la salida.
 
 Una instalación así cuesta decenas de millones de pesos. Antes de proponer
 esa inversión, había que responder la pregunta incómoda: ¿las interacciones
-funcionan? La decisión fue **validar barato lo que sería caro construir**:
-un prototipo funcional con un ESP32 simulando la botonera física y un
-minijuego controlado por gestos de las manos, usando visión por computador
-con OpenCV sobre Streamlit. Con eso se podía poner a personas reales frente
-a las dos interacciones centrales del espacio sin construir el espacio.
+funcionan? Estructuramos la propuesta espacial en un afiche de diseño integral
+que define las dimensiones, la ambientación y la arquitectura del módulo.
+
+:::figura{ancho ampliar}
+![Afiche de diseño sobre textura crema de papel arrugado: esquemas de vista superior y cortes laterales del pabellón de 8.5 por 9.75 metros, ilustraciones de murciélago, zarigüeya, barranquero y rana de cristal, e íconos de la experiencia.](../../../assets/proyectos/siguiendo-la-huella-azul/one-page-design.png)
+
+Síntesis del diseño espacial y arquitectónico de la instalación «Siguiendo la huella azul», con los cortes del espacio, la distribución de pantallas y los pilares del proyecto.
+:::
+
+:::figura{ancho ampliar}
+![Diagrama en cuatro cuadrantes sobre papel crema que muestra el mapa del pabellón con diferentes tonos de iluminación: verde para el barranquero, azul para el murciélago, verde oscuro para la zarigüeya y verde claro para la rana de cristal.](../../../assets/proyectos/siguiendo-la-huella-azul/variaciones-espacio.png)
+
+Variaciones de ambientación lumínica del espacio según el animal seleccionado: cada elección cambia el color de los reflectores y la atmósfera de la sala.
+:::
+
+La decisión fue **validar barato lo que sería caro construir**: un prototipo
+funcional con un ESP32 simulando la botonera física y un minijuego controlado
+por gestos de las manos, usando visión por computador con OpenCV sobre
+Streamlit. Con eso se podía poner a personas reales frente a las dos
+interacciones centrales del espacio sin construir el espacio.
 
 ## La validación
+
+Para mapear la experiencia del usuario paso a paso, diseñamos un journey map
+en cinco etapas que abarca desde el primer contacto en el espacio público hasta
+la salida del pabellón.
+
+:::figura{ancho ampliar}
+![Matriz horizontal de Customer Journey Map dividida en cinco columnas de colores según las etapas: Descubrimiento en verde, Curiosidad en azul, Diversión en naranja, Creación en morado y Salida en rojo.](../../../assets/proyectos/siguiendo-la-huella-azul/journey-map.png)
+
+Mapa de viaje del usuario (*Customer Journey Map*) que detalla los momentos, objetivos, puntos de contacto y la curva emocional del niño durante el recorrido.
+:::
 
 Hicimos tree testing en dos sesiones con 10 participantes en el Medialab de
 EAFIT, con guion estructurado, consentimiento informado y registro en video.
@@ -50,6 +75,12 @@ Una limitación que reportamos con transparencia: por logística de horarios,
 los participantes fueron universitarios y no niños. Eso alcanzaba para
 evaluar la arquitectura de información, pero no para dar por validada la
 experiencia infantil.
+
+:::figura{ancho ampliar}
+![Matriz de nueve fotografías que documenta las pruebas del prototipo en el Medialab de EAFIT: participantes probando los gestos frente a la computadora y reunidos en mesa de trabajo con las caras protegidas por privacidad.](../../../assets/proyectos/siguiendo-la-huella-azul/pruebas.png)
+
+Registro fotográfico de las sesiones de validación en el Medialab de EAFIT: evaluación del minijuego por gestos y espacios de retroalimentación con participantes.
+:::
 
 Los resultados dieron un contraste revelador:
 
@@ -65,10 +96,28 @@ Los resultados dieron un contraste revelador:
 
 El proyecto cerró con una propuesta lista para implementarse: resumen
 ejecutivo, ficha de montaje con planos, lista de equipos, cronograma de dos
-semanas y presupuesto estimado. Y con un prototipo que ya había enseñado
-qué funcionaba y qué no. La interacción más "innovadora" (los gestos)
-resultó ser la más frágil, y la más simple (botones físicos) la más sólida:
-exactamente el tipo de hallazgo que justifica prototipar antes de construir.
+semanas y presupuesto estimado.
+
+:::figura{ancho ampliar}
+![Planos técnicos con medidas y despiece de equipos del pabellón interactivo: incluye leyenda de elementos con kioskos multitouch, focos LED, parlantes, gafas VR y Arduino, vista cenital acotada de 8.5 por 9.75 metros y las cuatro elevaciones laterales.](../../../assets/proyectos/siguiendo-la-huella-azul/planos-medidas.png)
+
+Ficha técnica de montaje con los planos acotados del pabellón y el despiece de equipamiento necesario (pantallas multitouch, tiras LED, parlantes y visores VR).
+:::
+
+Además, modelamos la experiencia espacial en un render 3D animado que permite
+visualizar cómo la iluminación y el contenido de pantalla responden a las
+interacciones del niño.
+
+:::video{youtube="GjFoIYIuFTI" titulo="Render 3D del espacio interactivo «Siguiendo la huella azul»"}
+![Fotograma del render 3D en Blender que muestra el interior del espacio interactivo en tonos verdes, con modelos 3D de un adulto y un niño interactuando frente al monitor vertical que exhibe al barranquero.](../../../assets/proyectos/siguiendo-la-huella-azul/render-miniatura.jpg)
+
+Recorrido en 3D del pabellón interactivo que ilustra la ambientación inmersiva, los juegos de sombras y la respuesta lumínica del espacio según el animal seleccionado.
+:::
+
+Y con un prototipo que ya había enseñado qué funcionaba y qué no. La interacción
+más "innovadora" (los gestos) resultó ser la más frágil, y la más simple
+(botones físicos) la más sólida: exactamente el tipo de hallazgo que justifica
+prototipar antes de construir.
 
 ## Lo que aprendí
 
