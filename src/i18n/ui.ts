@@ -95,6 +95,7 @@ export const ui = {
 
     // --- Inicio ---
     'inicio.badge': 'Abierto a nuevas oportunidades',
+    'inicio.kicker': 'Juan Camilo Bolaños · Medellín, Colombia',
     'inicio.h1.parte1': 'Diseñador de Interacción y',
     'inicio.h1.enfasis': 'Creador de Sistemas de IA',
     'inicio.subtitulo':
@@ -319,6 +320,7 @@ export const ui = {
 
     // --- Home ---
     'inicio.badge': 'Open to new opportunities',
+    'inicio.kicker': 'Juan Camilo Bolaños · Medellín, Colombia',
     'inicio.h1.parte1': 'Interaction Designer and',
     'inicio.h1.enfasis': 'AI Systems Builder',
     'inicio.subtitulo': 'I design and automate experiences that connect people, tools and data.',
@@ -516,6 +518,7 @@ export const ui = {
 
     // --- Accueil ---
     'inicio.badge': 'Ouvert à de nouvelles opportunités',
+    'inicio.kicker': 'Juan Camilo Bolaños · Medellín, Colombie',
     'inicio.h1.parte1': 'Designer d’interaction et',
     'inicio.h1.enfasis': 'créateur de systèmes d’IA',
     'inicio.subtitulo':
